@@ -1,0 +1,30 @@
+{% extends 'post/index.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block content %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% if post is defined %}
+        <h2>{{ post.title }} </h2>
+        <p>Author: {{ post.author }}</p>
+        <p>{{ post.content }}</p>
+        <button> <a href="{{ path('postEdit', { 'id': post.id } ) }}"> EDIT </a> </button>
+        <form action="{{ url('postDelete', { id: post.id }) }}" method="post">
+            {# the argument of csrf_token() is an arbitrary string used to generate the token #}
+            <input type="hidden" name="token" value="{{ csrf_token('delete-post') }}"/>
+
+            <button type="submit">Delete item</button>
+        </form>
+                
+    {% else %}
+        <p> There is no post caralhoooo !!! </p>
+    {% endif %}
+</div>
+
+{{ parent() }}
+{% endblock %}

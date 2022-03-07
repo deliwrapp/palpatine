@@ -1,0 +1,39 @@
+{% extends 'post/index.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block content %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <div class="row">
+        {{ form_start(form) }}
+        <table>
+            <tbody>
+            <tr>
+                <th>Title:</th>
+                <td>{{ form_widget(form.title) }}</td>
+            </tr>
+            <tr>
+                <th>Author:</th>
+                <td>{{ form_widget(form.author) }}</td>
+            </tr>
+            <tr>
+                <th>Content:</th>
+                <td>{{ form_widget(form.content) }}</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>{{ form_widget(form.submit) }}</td>
+            </tr>
+            </tbody>
+        </table>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{{ parent() }}
+{% endblock %}

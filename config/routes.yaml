@@ -1,0 +1,3 @@
+#index:
+#    path: /post
+#    controller: App\Controller\PostController::index
