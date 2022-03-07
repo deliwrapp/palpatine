@@ -10,3 +10,4 @@
 /vendor/
 ###< symfony/framework-bundle ###
 bin/console
+symfony.lock
