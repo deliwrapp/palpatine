@@ -17,9 +17,26 @@
         <form action="{{ url('postDelete', { id: post.id }) }}" method="post">
             {# the argument of csrf_token() is an arbitrary string used to generate the token #}
             <input type="hidden" name="token" value="{{ csrf_token('delete-post') }}"/>
-
             <button type="submit">Delete item</button>
         </form>
+        <hr>
+        {# HERE the add comment form #}
+        <hr>
+        {# HERE the comments list #}
+        <h2>COMMENTS</h2>
+        <ul>
+            {% if comments is defined and comments is not empty %}
+                {% for comment in comments %}
+                    <li>
+                        <p>{{ comment.content }}</p>
+                        <p>{{ comment.author }}</p>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p> There is no comments caralhoooo !!! </p>
+            {% endif %}
+        </ul>
+
                 
     {% else %}
         <p> There is no post caralhoooo !!! </p>

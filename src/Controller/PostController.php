@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Post;
+use App\Entity\Comment;
 use App\Repository\PostRepository;
 use App\Form\PostFormType;
 
@@ -29,13 +30,25 @@ class PostController extends AbstractController
     /**
      * @Route("/post/show/{id}", name="postShow")
      */
-    public function show(int $id, PostRepository $postRepository): Response
+    public function show(int $id, ManagerRegistry $doctrine): Response
     {
-        $post = $postRepository
-            ->find($id);
+        $post = $doctrine->getRepository(Post::class);
+        $post = $post->find($id);
 
+        if (!$post) {
+            $this->addFlash(
+                'warning',
+                'There is no post  with id ' . $id
+            );
+            return $this->redirect($this->generateUrl('postList'));
+        }
+
+        $commentRepo = $doctrine->getRepository(Comment::class);
+        $comments = $commentRepo->findBy(['post' => $id]);
+        
         return $this->render('post/post-show.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'comments' => $comments
         ]);
     }
 
