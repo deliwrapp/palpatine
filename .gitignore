@@ -9,3 +9,4 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+bin/console
