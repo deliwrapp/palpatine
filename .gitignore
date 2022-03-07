@@ -11,3 +11,4 @@
 /bin/console
 ###< symfony/framework-bundle ###
 bin/console
+symfony.lock
