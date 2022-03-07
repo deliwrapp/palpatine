@@ -10,3 +10,4 @@
 /vendor/
 /bin/console
 ###< symfony/framework-bundle ###
+bin/console
