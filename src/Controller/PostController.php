@@ -146,7 +146,7 @@ class PostController extends AbstractController
             } 
         } else {
             $this->addFlash(
-                'warnin',
+                'warning',
                 'Your CSRF token is not valid ! '
             );
         }

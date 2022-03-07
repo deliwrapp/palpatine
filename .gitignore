@@ -8,6 +8,7 @@
 /public/bundles/
 /var/
 /vendor/
+/bin/console
 ###< symfony/framework-bundle ###
 bin/console
 symfony.lock
