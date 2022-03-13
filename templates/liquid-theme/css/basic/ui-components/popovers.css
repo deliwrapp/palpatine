@@ -1,0 +1,75 @@
+.popover {
+    display: inline-block;
+    position: relative;
+}
+.popover .popover-container {
+    display: var(--popover-container-display);
+    opacity: 0;
+    position: var(--popover-container-position);
+    flex-direction: var(--popover-container-direction);
+    justify-content: var(--popover-container-align-content);
+    align-items: var(--popover-container-align-items);
+    min-width: var(--popover-container-min-width);
+    min-height: var(--popover-container-min-height);
+    max-width: var(--popover-container-max-width);
+    max-height: var(--popover-container-max-height);
+    width: var(--popover-container-width);
+    height: var(--popover-container-height);
+    border-color: var(--popover-container-border-color);
+    border-top: var(--popover-container-border-t);
+    border-bottom: var(--popover-container-border-b);
+    border-left: var(--popover-container-border-l);
+    border-right: var(--popover-container-border-r);
+    border-top-left-radius: var(--popover-container-border-radius-tl);
+    border-top-right-radius: var(--popover-container-border-radius-tr);
+    border-bottom-left-radius: var(--popover-container-border-radius-bl);
+    border-bottom-right-radius: var(--popover-container-border-radius-br);
+    padding-top: var(--popover-container-padding-t);
+    padding-bottom: var(--popover-container-padding-b);
+    padding-left: var(--popover-container-padding-l);
+    padding-right: var(--popover-container-padding-r);
+    margin-top: var(--popover-container-margin-t);
+    margin-bottom: var(--popover-container-margin-b);
+    margin-left: var(--popover-container-margin-l);
+    margin-right: var(--popover-container-margin-r);
+    background: var(--popover-container-bg);
+    color: var(--popover-container-color);
+    top: var(--popover-container-top);
+    left: var(--popover-container-left);
+    transform: var(--popover-container-transform);
+    transition: var(--popover-container-transition);
+    z-index: var(--popover-container-index);
+}
+.popover *:focus+.popover-container,
+.popover:hover .popover-container {
+    display: block;
+    opacity: 1;
+    transform: var(--popover-container-transform-hov)
+}
+
+.popover.popover-bottom .popover-container {
+    left: 50%;
+    top: 100%;
+}
+.popover.popover-bottom *:focus+.popover-container,
+.popover.popover-bottom:hover .popover-container {
+    transform: var(--popover-container-bottom-transform-hov);
+}
+
+.popover.popover-right .popover-container {
+    left: 100%;
+    top: 50%;
+}
+.popover.popover-right *:focus+.popover-container,
+.popover.popover-right:hover .popover-container {
+    transform: var(--popover-container-right-transform-hov);
+}
+
+.popover.popover-left .popover-container {
+    left: 0;
+    top: 50%;
+}
+.popover.popover-left *:focus+.popover-container,
+.popover.popover-left:hover .popover-container {
+    transform: var(--popover-container-left-transform-hov);
+}

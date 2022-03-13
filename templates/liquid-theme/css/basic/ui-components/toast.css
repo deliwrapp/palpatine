@@ -1,0 +1,125 @@
+.toast {
+    cursor: var(--toast-cursor) ;
+    display: var(--toast-display);
+    flex-direction: var(--toast-direction);
+    align-items: var(--toast-align-items);
+    justify-content: var(--toast-align-content);
+    opacity: var(--toast-opacity);
+    background: var(--toast-bg);
+    color: var(--toast-color);
+    min-width: var(--toast-min-width);
+    min-height: var(--toast-min-height);
+    max-width: var(--toast-max-width);
+    max-height: var(--toast-max-height);
+    width: var(--toast-width);
+    height: var(--toast-height);
+    border-bottom: var(--toast-border-b);
+    border-bottom: var(--toast-border-b);
+    border-bottom: var(--toast-border-b);
+    border-bottom: var(--toast-border-b);
+    border-color: var(--toast-border-color);
+    border-top-left-radius: var(--toast-border-radius-tl);
+    border-top-right-radius: var(--toast-border-radius-tr);
+    border-bottom-left-radius: var(--toast-border-radius-bl);
+    border-bottom-left-radius: var(--toast-border-radius-bl);
+    padding-top: var(--toast-padding-t);
+    padding-bottom: var(--toast-padding-b);
+    padding-left: var(--toast-padding-l);
+    padding-right: var(--toast-padding-r);
+    margin-top: var(--toast-margin-t);
+    margin-bottom: var(--toast-margin-b);
+    margin-left: var(--toast-margin-l);
+    margin-right: var(--toast-margin-r);
+}
+.toast.\-primary {
+    background: var(--liquid-color-primary);
+    border-color: var(--liquid-color-primary-shade);
+}
+.toast.\-secondary {
+    background: var(--liquid-color-secondary);
+    border-color: var(--liquid-color-secondary-shade);
+}
+.toast.\-tertiary {
+    background: var(--liquid-color-tertiary);
+    border-color: var(--liquid-color-tertiary-shade);
+}
+.toast.\-success {
+    background: var(--liquid-color-success);
+    border-color: var(--liquid-color-success-shade);
+}
+.toast.\-warning {
+    background: var(--liquid-color-warning);
+    border-color: var(--liquid-color-warning-shade);
+}
+.toast.\-error {
+    background: var(--liquid-color-danger);
+    border-color: var(--liquid-color-danger-shade);
+}
+.toast.\-info {
+    background: var(--liquid-color-primary);
+    border-color: var(--liquid-color-primary-shade);
+}
+.toast .\-link,
+.toast a {
+    color: var(--liquid-color-primary-contrast);
+    text-decoration: var(--toast-link-text-decoration);
+}
+.toast .\-link:focus,
+.toast .\-link:hover,
+.toast .\-link:active,
+.toast .\-link.active,
+.toast a:focus,
+.toast a:hover,
+.toast a:active,
+.toast a.active {
+    opacity: var(--toast-link-actions-opacity);
+}
+.toast .btn-clear {
+    background: var(--toast-btn-bg)!important;
+    color: var(--toast-btn-color)!important;
+    width: var(--toast-btn-width)!important;
+    height: var(--toast-btn-height)!important;
+    line-height: var(--toast-btn-line-height)!important;
+    margin: var(--toast-btn-margin-v) var(--toast-btn-margin-h)!important;
+    padding: var(--toast-btn-padding-v) var(--toast-btn-padding-h)!important;
+    opacity: var(--toast-btn-opacity)!important;
+    text-decoration: var(--toast-btn-text-decoration)!important;
+    border: var(--toast-btn-border)!important;
+    border-radius: var(--toast-btn-border-radius)!important;
+}
+.toast .\-content,
+.toast p {
+    max-width: var(--toast-content-max-w);
+    line-height: var(--toast-content-line-height);
+    text-align: var(--toast-content-text-align);
+}
+.toast .\-content:last-child,
+.toast p:last-child {
+    margin-bottom: var(--toast-content-last-child-margin-b);
+}
+
+.toast:hover {
+    opacity: var(--toast-opacity-hov);
+    border-bottom: var(--toast-border-b-hov);
+    border-bottom: var(--toast-border-b-hov);
+    border-bottom: var(--toast-border-b-hov);
+    border-bottom: var(--toast-border-b-hov);
+    border-color: var(--toast-border-color-hov);
+    border-top-left-radius: var(--toast-border-radius-tl-hov);
+    border-top-right-radius: var(--toast-border-radius-tr-hov);
+    border-bottom-left-radius: var(--toast-border-radius-bl-hov);
+    border-bottom-left-radius: var(--toast-border-radius-bl-hov);
+    padding-top: var(--toast-padding-t-hov);
+    padding-bottom: var(--toast-padding-b-hov);
+    padding-left: var(--toast-padding-l-hov);
+    padding-right: var(--toast-padding-r-hov);
+    margin-top: var(--toast-margin-t-hov);
+    margin-bottom: var(--toast-margin-b-hov);
+    margin-left: var(--toast-margin-l-hov);
+    margin-right: var(--toast-margin-r-hov);
+}
+.toast .btn-clear:hover {
+    background: var(--toast-btn-bg-hov)!important;
+    opacity: var(--toast-btn-opacity-hov)!important;
+    border-radius: var(--toast-btn-border-radius-hov)!important;
+}

@@ -1,0 +1,61 @@
+/* SHADOW BOX */
+.\-shad-1, .\-shad-1-h:hover, .\-shad-1-f:focus, .\-shad-1-a:active {
+    box-shadow: var(--shad-1);
+}
+.\-shad-2, .\-shad-2-h:hover, .\-shad-2-f:focus, .\-shad-2-a:active {
+    box-shadow: var(--shad-2); 
+}
+.\-shad-3, .\-shad-3-h:hover, .\-shad-3-f:focus, .\-shad-3-a:active {
+    box-shadow: var(--shad-3);
+}
+.\-shad-4, .\-shad-4-h:hover, .\-shad-4-f:focus, .\-shad-4-a:active {
+    box-shadow: var(--shad-4);
+}
+.\-shad-5, .\-shad-5-h:hover, .\-shad-5-f:focus, .\-shad-5-a:active {
+    box-shadow: var(--shad-5);
+}
+.\-shad-6, .\-shad-6-h:hover, .\-shad-6-f:focus, .\-shad-6-a:active {
+    box-shadow: var(--shad-6);
+}
+.\-shad-7, .\-shad-7-h:hover, .\-shad-7-f:focus, .\-shad-7-a:active {
+    box-shadow: var(--shad-7);
+}
+.\-shad-8, .\-shad-8-h:hover, .\-shad-8-f:focus, .\-shad-8-a:active {
+    box-shadow: var(--shad-8);
+}
+.\-shad-9, .\-shad-8-h:hover, .\-shad-9-f:focus, .\-shad-9-a:active {
+    box-shadow: var(--shad-9);
+}
+.\-shad-10, .\-shad-10-h:hover, .\-shad-10-f:focus, .\-shad-10-a:active {
+    box-shadow: var(--shad-10);
+}
+.\-shad-11, .\-shad-11-h:hover, .\-shad-11-f:focus, .\-shad-11-a:active {
+    box-shadow: var(--shad-11);
+}
+.\-shad-12, .\-shad-12-h:hover, .\-shad-12-f:focus, .\-shad-12-a:active {
+    box-shadow: var(--shad-12); 
+}
+.\-shad-13, .\-shad-13-h:hover, .\-shad-13-f:focus, .\-shad-13-a:active {
+    box-shadow: var(--shad-13); 
+}
+.\-shad-14, .\-shad-14-h:hover, .\-shad-14-f:focus, .\-shad-14-a:active {
+    box-shadow: var(--shad-14);
+}
+.\-shad-15, .\-shad-15-h:hover, .\-shad-15-f:focus, .\-shad-15-a:active {
+    box-shadow: var(--shad-15); 
+}
+.\-shad-16, .\-shad-16-h:hover, .\-shad-16-f:focus, .\-shad-16-a:active {
+    box-shadow: var(--shad-16);
+}
+.\-shad-17, .\-shad-17-h:hover, .\-shad-17-f:focus, .\-shad-17-a:active {
+    box-shadow: var(--shad-17); 
+}
+.\-shad-18, .\-shad-18-h:hover, .\-shad-18-f:focus, .\-shad-18-a:active {
+    box-shadow: var(--shad-18);
+}
+.\-shad-19, .\-shad-19-h:hover, .\-shad-19-f:focus, .\-shad-19-a:active {
+    box-shadow: var(--shad-19);
+}
+.\-shad-20, .\-shad-20-h:hover, .\-shad-20-f:focus, .\-shad-20-a:active {
+    box-shadow: var(--shad-20);
+}

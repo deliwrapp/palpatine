@@ -1,0 +1,90 @@
+/* SKELETON CSS*/
+@import './skeleton/base.css';
+@import './skeleton/liquid-grid.css';
+@import './skeleton/grid.css';
+@import './skeleton/fluid.css';
+@import './skeleton/container.css';
+@import './skeleton/heading.css';
+@import './skeleton/typo.css';
+@import './skeleton/z-index.css';
+@import './skeleton/media.css';
+
+/* UI COMPONENTS CSS*/
+@import './ui-components/avatar.css';
+@import './ui-components/cursor.css';
+@import './ui-components/link.css';
+@import './ui-components/toast.css';
+@import './ui-components/breadcrumb.css';
+@import './ui-components/button.css';
+@import './ui-components/buttons.css';
+@import './ui-components/dropdown.css';
+@import './ui-components/badge.css';
+@import './ui-components/chip.css';
+@import './ui-components/menu.css';
+@import './ui-components/tab.css';
+@import './ui-components/form.css';
+@import './ui-components/form-input.css';
+@import './ui-components/form-checkbox.css';
+@import './ui-components/form-radio.css';
+@import './ui-components/form-switch.css';
+@import './ui-components/form-date.css';
+@import './ui-components/form-range.css';
+@import './ui-components/form-select.css';
+@import './ui-components/placeholders.css';
+@import './ui-components/popovers.css';
+@import './ui-components/progress.css';
+@import './ui-components/tooltip.css';
+@import './ui-components/icons.css';
+@import './ui-components/file-icons.css';
+@import './ui-components/pagination.css';
+
+/* LAYOUT COMPONENTS CSS*/
+@import './layout-components/layout.css';
+@import './layout-components/collapse.css';
+@import './layout-components/page.css';
+@import './layout-components/accordion.css';
+@import './layout-components/card.css';
+@import './layout-components/panel.css';
+@import './layout-components/bar.css';
+@import './layout-components/bar-top.css';
+@import './layout-components/bar-bottom.css';
+@import './layout-components/bar-side.css';
+@import './layout-components/nav.css';
+@import './layout-components/tiles.css';
+@import './layout-components/step.css';
+@import './layout-components/main-content.css';
+@import './layout-components/table.css';
+@import './layout-components/modal.css';
+@import './layout-components/list.css';
+@import './layout-components/media.css';
+@import './layout-components/img.css';
+@import './layout-components/figure.css';
+
+/* EFFECTS CSS*/
+@import './effects/display.css';
+@import './effects/opacity.css';
+@import './effects/perspective.css';
+@import './effects/background.css';
+@import './effects/border.css';
+@import './effects/colors.css';
+@import './effects/shadows.css';
+@import './effects/path.css';
+
+/* ANIMATIONS CSS*/
+@import './animations/container-animation.css';
+@import './animations/animate.css';
+@import './animations/translate.css';
+@import './animations/transition.css';
+
+/* HELPERS CSS*/
+@import './helpers/position.css';
+@import './helpers/flex.css';
+@import './helpers/align.css';
+@import './helpers/sizing.css';
+@import './helpers/margin.css';
+@import './helpers/padding.css';
+
+
+/* UI COMPONENTS CSS TO POSTLOAD*/
+@import './ui-components/loading.css';
+
