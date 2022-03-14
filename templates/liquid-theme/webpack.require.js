@@ -1,7 +1,6 @@
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
-let Encore = require('@symfony/webpack-encore');
+const Encore = require('@symfony/webpack-encore');
 
 Encore
   .addEntry('liquid-app', './templates/liquid-theme/js/app.js')

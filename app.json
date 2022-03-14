@@ -1,0 +1,5 @@
+{
+    "modules": ["core", "blog", "people"],
+    "themes": ["liquid-theme"]
+}
+  

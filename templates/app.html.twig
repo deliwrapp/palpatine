@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% endblock %}
   {% block stylesheets %}
-  {#  {{ encore_entry_link_tags('liquid-css') }} #}
+  {{ encore_entry_link_tags('liquid-css') }}
   {% endblock %}
     <link rel="stylesheet" href="../../main.css">
     <title>
@@ -181,7 +181,8 @@
       </section>
   </section>
   {% block javascripts %}
-  {#   {{ encore_entry_script_tags('liquid-app') }} #}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('liquid-app') }}
   {% endblock %}
 </body>
 
