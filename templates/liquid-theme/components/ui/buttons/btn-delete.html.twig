@@ -1,0 +1,41 @@
+{#
+// Variables
+- class : custom classes {string}
+- color: backround color
+- token : csrf_token {string}
+- path : link to delete controller {string}
+- titleForm : Form title {string}
+- text : Optional Button text {string}
+- icon: Optional icon {boolean}
+- message : Optional Button alert message {string}
+#}
+
+{% if message is not defined %}  
+        {% set message = 'Do you really want delete this item ?' %}
+{% endif %}
+{% if icon is not defined %}  
+        {% set icon = true %}
+{% endif %}
+{% if color is not defined %}  
+        {% set color = '-danger' %}
+{% endif %}
+{% if class is not defined %}  
+        {% set class = 'btn btn-link btn-action -btn-lg s-circle -shad-12 -shad-15-h' %}
+{% endif %}
+
+{% if path is defined and token is defined and token is not null %}
+    <form  class = 'btn btn-link -btn-lg'{% if titleForm is defined and titleForm is not null %}title="{{ titleForm }}" {% endif %} method="post" action="{{ path }}" onclick="return confirm('{{ message }}');" onsubmit="return confirm({{ message }});" style="padding:0;">
+        <input type="hidden" name="token" value="{{ csrf_token(token) }}"/>
+        <button 
+            class="tooltip tooltip-left {{color}} {{class}}" 
+            data-tooltip="Delete" type="submit"
+        >
+            {% if text is defined and text is not null %}
+                {{ text|trans }} 
+            {% endif %}
+            {% if icon  %}   
+                <i class="icon icon-delete"></i> 
+            {% endif %}
+        </button>
+    </form>
+{% endif %}

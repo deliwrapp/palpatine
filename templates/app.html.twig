@@ -6,9 +6,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" integrity="sha512-8Vtie9oRR62i7vkmVUISvuwOeipGv8Jd+Sur/ORKDD5JiLgTGeBSkI3ISOhc730VGvA5VVQPwKIKlmi+zMZ71w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/regular.min.css" integrity="sha512-sWLOh8QiEOmwfP3jd0n7AneUOa6XKif5g8GU8FqdFMIbr6rYBt1PKWBp/Wv4E6PQ6N9lFtVAndujl9HbniDTog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   {% endblock %}
   {% block stylesheets %}
   {{ encore_entry_link_tags('liquid-css') }}
+  {{ encore_entry_link_tags('app') }}
   {% endblock %}
     <link rel="stylesheet" href="../../main.css">
     <title>
@@ -28,158 +31,36 @@
       <section id="top-page" class="liquid-page-container">
         <header {% block headerAttr %}  {% endblock %} >
           {% block header %}
-            <nav class="bar -bg-light -fixed -top -left -shad-12">
-                  <section class="-bar-section-start">
-                      <a href="#" class="btn btn-link">Liquid.css</a>
-                  </section>
-                  <section class="-bar-center">
-                      <a href="#" class="btn btn-link">Link</a>
-                      <div class="btn btn-link">
-                          <div class="slide-dropdown -nav -inline-nav">
-                              <label for="slide-dropdown--touch"><span class="slide-dropdown--title">Link 2</span></label>
-                              <input class="slide-dropdown--touch" type="checkbox" id="slide-dropdown--touch">
-                              <ul class="slide-dropdown--slide -shad-12">
-                                  <li><a href="#">Lorem Ipsum</a></li>
-                                  <li><a href="#">Lorem Ipsum</a></li>
-                                  <li><a href="#">Lorem Ipsum</a></li>
-                                  <li><a href="#">Lorem Ipsum</a></li>
-                              </ul>
-                          </div>
-                      </div>
-
-                  </section>
-                  <section class="-bar-section-end">
-                      <div class="dropdown  -mr5">
-                          <label for="dropdown--touch">
-                              <span>
-                                  <figure class="avatar avatar-lg -secondary -cursor-pointer" data-initial="JB"></figure>
-                              </span>
-                          </label>
-                          <input class="dropdown--touch" type="checkbox" id="dropdown--touch">
-                          <div class="dropdown-content -pos-left">
-                              <ul>
-                                  <li class="-light -hover"><a href="#">One</a></li>
-                                  <li class="-light -hover"><a href="#">Two</a></li>
-                                  <li class="-light -hover"><a href="#">Three</a></li>
-                              </ul>
-                          </div>
-                      </div>
-                  </section>
-            </nav>
+            
           {% endblock %}
+          {% include 'liquid-theme/components/ui/toasts.html.twig' %}
         </header>
-        <main  {% block mainAttr %} class="-wrapper -top-4rm" {% endblock %}>
+        
+        <main  {% block mainAttr %} class="{% if wrapperContent is defined %}-wrapper {% endif %} -top-4rm" {% endblock %}>
           {% block main %}
             {% block leftSide %} 
-              <section id="menu-left-panel" class="-fixed -left -top-4rm swipe-menu sidebar sidebar-mini -bg-light -z2 -shad-12 -m0">
-                      <nav class="-w-f">
-                          <section class="slide-dropdown -open -transparent">
-                              <label for="side-menu-1">
-                                  <span class="slide-dropdown--title -transparent -shad-12">
-                                      <span class="swipe-m-trigger -z5" data-panel="menu-left-panel"
-                                          data-open-panel="-open" data-close-panel="sidebar-mini">
-                                          <div class="bar1"></div>
-                                          <div class="bar2"></div>
-                                          <div class="bar3"></div>
-                                      </span>
-                                      <span class="-sidebar-mini-hidden">
-                                          dashboard
-                                      </span>
-                                  </span>
-                              </label>
-                              <input class="slide-dropdown--touch" type="checkbox" id="side-menu-1">
-                              <ul class="slide-dropdown--slide">
-                                  <li><a href="#">Home</a></li>
-                                  <li><a href="#">Global Stat</a></li>
-                                  <li><a href="#">Settings</a></li>
-                              </ul>
-                          </section>
-                          <section class="slide-dropdown -w-f">
-                              <label for="side-menu-2">
-                                  <span data-css-ico="+" class="slide-dropdown--title -shad-14">
-                                      <i class="icon icon-mail"></i>
-                                      <span class="-sidebar-mini-hidden">
-                                          messages
-                                      </span>
-                                  </span>
-                              </label>
-                              <input class="slide-dropdown--touch" type="checkbox" id="side-menu-2">
-                              <ul class="slide-dropdown--slide">
-                                  <li class="-shad-10-h"><a href="#">New Message</a></li>
-                                  <li><a href="#">Messages</a></li>
-                                  <li><a href="#">Contacts</a></li>
-                                  <li><a href="#">Messages Settings</a></li>
-                              </ul>
-                          </section>
-                          <section class="slide-dropdown -w-f">
-                              <label for="side-menu-3">
-                                  <span data-css-ico="+" class="slide-dropdown--title">
-                                      <i class="icon icon-people"></i>
-                                      <span class="-sidebar-mini-hidden">
-                                          users
-                                      </span>
-                                  </span>
-                              </label>
-                              <input class="slide-dropdown--touch" type="checkbox" id="side-menu-3">
-                              <ul class="slide-dropdown--slide">
-                                  <li><a href="#">Add User</a></li>
-                                  <li><a href="#">User List</a></li>
-                              </ul>
-                          </section>
-                          <section class="slide-dropdown -w-f">
-                              <label for="side-menu-4">
-                                  <span data-css-ico="+" class="slide-dropdown--title">
-                                      <i class="icon icon-bookmark"></i>
-                                      <span class="-sidebar-mini-hidden">
-                                          posts
-                                      </span>
-                                  </span>
-                              </label>
-                              <input class="slide-dropdown--touch" type="checkbox" id="side-menu-4">
-                              <ul class="slide-dropdown--slide">
-                                  <li><a href="#">Add Post</a></li>
-                                  <li><a href="#">Posts List</a></li>
-                                  <li><a href="#">Posts Statistics</a></li>
-                                  <li><a href="#">Posts Settings</a></li>
-                              </ul>
-                          </section>
-                          <section class="slide-dropdown -w-f -mb10 -pb10">
-                              <label for="side-menu-5">
-                                  <span data-css-ico="+" class="slide-dropdown--title">
-                                      <i class="icon icon-message"></i>
-                                      <span class="-sidebar-mini-hidden">
-                                          comments
-                                      </span>
-                                  </span>
-                              </label>
-                              <input class="slide-dropdown--touch" type="checkbox" id="side-menu-5">
-                              <ul class="slide-dropdown--slide">
-                                  <li><a href="#">Comments Moderation</a></li>
-                                  <li><a href="#">Comments List</a></li>
-                                  <li><a href="#">Comments Statistics</a></li>
-                                  <li class="-mb10"><a href="#">Comments Settings</a></li>
-                              </ul>
-                          </section>
-                      </nav>
-                  </section>
+            
             {% endblock %}
             {% block rightSide %} {% endblock %}
             {% block modal %} {% endblock %}
-            <section {% block mainContentAttr %} class="-relative -pl10 -ml10 -h-a liquid-container liquid-grid -center -middle -z1 -overflow-x-hidden main-content" {% endblock %}>
+            <section 
+              {% block mainContentAttr %} class="{% if wrapperContent is defined %}main-content{% endif %}liquid-container liquid-grid -center -middle -z1 -overflow-x-hidden" {% endblock %}
+            >
               {% block mainContent %}
               
               {% endblock %}  
             </section>
           {% endblock %}
         </main>
+        
         <footer {% block footerAttr %}  {% endblock %}>
           {% block footer %}
             
           {% endblock %}
         </footer>
-    {% endblock %}
       </section>
-  </section>
+    </section>
+  {% endblock %}
   {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
     {{ encore_entry_script_tags('liquid-app') }}

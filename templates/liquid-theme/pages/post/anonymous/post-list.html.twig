@@ -1,0 +1,68 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}POSTS LIST {% endblock %}
+
+{% block header %}
+    {% include 'liquid-theme/components/layout/nav/nav.html.twig' with {
+        'class': '-shad-12',
+        'color': '-bg-light',
+        'navItemsCenter' : [
+            {
+                'class': 'btn btn-link ',
+                'color': '',
+                'path' : 'PostsList',
+                'text' : 'index'
+            }
+        ]
+    } %}
+{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-11" id="post-list">
+    <div class="-text-center">
+        <div class="h5 mt-10">POSTS LIST</div>
+    </div>
+    
+    {% if posts is defined and posts is not empty %}
+        {% include 'liquid-theme/components/layout/table/table.html.twig' with {
+                'tableHeadItems' : [
+                    {
+                        'text': 'id',
+                        'attr': 'id'
+                    },
+                    {
+                        'text': 'title',
+                        'attr': 'title'
+                    },
+                    {
+                        'text': 'author',
+                        'attr': 'author'
+                    },
+                ],
+                'tableItems': posts,
+                'actions' :  {
+                    'show': {'path': 'memberPostShow', 'tooltip': 'show', 'icon': 'icon-eye-solid'},
+                }
+            }
+        %}   
+    {% else %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    There is no post caralhoooo !!!
+                </div>
+                <div class="-tile-subtitle">
+                    You can create a new post
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
+                    <a class="-tertiary" href="{{ path('postCreate') }}">
+                        <i class="icon icon-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

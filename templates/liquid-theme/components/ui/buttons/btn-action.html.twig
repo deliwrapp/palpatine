@@ -1,0 +1,40 @@
+{#
+// Variables
+- class : custom classes {string}
+- color: backround color
+- path : controller link to act {string}
+- text : Optional Button text {string}
+- icon: Optional icon {boolean}
+#}
+
+{% if message is not defined %}  
+        {% set message = 'Do you really want delete this item ?' %}
+{% endif %}
+{% if icon is not defined %}  
+        {% set icon = null %}
+{% endif %}
+{% if color is not defined %}  
+        {% set color = '-tertiary' %}
+{% endif %}
+{% if class is not defined %}  
+        {% set class = 'btn -tertiary s-circle btn-link btn-action -btn-lg -shad-12 -shad-14-h' %}
+{% endif %}
+
+{% if path is defined %}
+    <button 
+        class="tooltip tooltip-left {{color}} {{class}}"
+        {% if tooltip is defined and tooltip is not null %}
+            data-tooltip="{{ tooltip|trans }}"
+        {% endif %}
+        type="submit"
+    >   
+        <a class="{{color}}" href="{{ path }}">
+            {% if text is defined and text is not null %}
+                {{ text|trans }} 
+            {% endif %}
+            {% if icon and icon is not null %}   
+                <i class="icon {{icon}}"></i> 
+            {% endif %}
+        </a>
+    </button>
+{% endif %}

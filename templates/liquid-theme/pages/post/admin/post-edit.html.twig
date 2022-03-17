@@ -1,0 +1,55 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}ADMIN POSTS EDIT{% endblock %}
+
+{% block header %}
+    {% include 'liquid-theme/components/layout/nav/nav.html.twig' with {
+        'class': '-shad-12',
+        'color': '-bg-light',
+        'navItemsCenter' : [
+            {
+                'class': 'btn btn-link ',
+                'color': '',
+                'path' : 'AdminPostsList',
+                'text' : 'index'
+            },
+            {
+                'class': 'btn btn-link ',
+                'color': '',
+                'path' : 'AdminPostCreate',
+                'text' : 'create'
+            },
+        ]
+    } %}
+{% endblock %}
+
+{% block mainContent %}
+    <section class="col -col-12">
+        <div class="row">
+            {{ form_start(form) }}
+            <table>
+                <tbody>
+                <tr>
+                    <th>Title:</th>
+                    <td>{{ form_widget(form.title) }}</td>
+                </tr>
+                <tr>
+                    <th>Author:</th>
+                    <td>{{ form_widget(form.author) }}</td>
+                </tr>
+                <tr>
+                    <th>Content:</th>
+                    <td>{{ form_widget(form.content) }}</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>{{ form_widget(form.submit) }}</td>
+                </tr>
+                </tbody>
+            </table>
+            {{ form_end(form) }}
+        </div>
+    </section>
+
+{{ parent() }}
+{% endblock %}

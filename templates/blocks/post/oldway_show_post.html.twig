@@ -1,0 +1,61 @@
+{#
+// Variables
+- postContent : Post Content
+- postTitle : Post title
+- postTime : Date of the post
+- category : Post category
+- postLink : Post link CTA,
+- postLinkText: Post link CTA text
+#}
+{% if imgUrl is not defined %}  
+        {% set imgUrl = 'https://source.unsplash.com/f9C8ytxaItI/2000x1200' %}
+{% endif %}
+{% if category is not defined %}  
+        {% set category = null %}
+{% endif %}
+{% if color is not defined %}  
+        {% set color = '-tertiary' %}
+{% endif %}
+{% if class is not defined %}  
+        {% set class = 'btn -tertiary s-circle btn-link btn-action -btn-lg -shad-12 -shad-14-h' %}
+{% endif %}
+
+
+<section class="oldway-post">
+    <article class="post">
+    <div>
+        <div class="absolute-bg" style="background-image: url({{imgUrl}});"></div>
+    </div>
+    <div class="post__container">
+        
+        {% if category is defined and category is not null %}  
+                <span class="post__category">{{category}}</span>
+        {% endif %}
+        
+        <div class="post__content">
+            <header>
+                {% if postTime is defined and postTime is not null %}  
+                    <time class="post__time">{{postTime}}</time>
+                {% endif %}
+                {% if postTitle is defined and postTitle is not null %}
+                    <h1 class="post__header"><span>{{postTitle}}</h1>
+                {% endif %}
+            </header>
+            {% if postContent is defined and postContent is not null %}
+                <p class="post__text">{{postContent}}</p>
+            {% endif %}
+        </div>
+        {% if postLink is defined and postLink is not null %}
+            <div class="post__link">
+                <a href="{{postLink}}">
+                    {% if postLinkText is defined and postLinkText is not null %}
+                        {{postLinkText}}
+                    {% else %}
+                        more...
+                    {% endif %}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+    </article>
+</section>

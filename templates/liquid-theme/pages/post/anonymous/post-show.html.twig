@@ -1,0 +1,51 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}POSTS SHOW{% endblock %}
+
+{% block header %}
+    {% include 'liquid-theme/components/layout/nav/nav.html.twig' with {
+        'class': '-shad-12',
+        'color': '-bg-light',
+        'navItemsCenter' : [
+            {
+                'class': 'btn btn-link ',
+                'color': '',
+                'path' : 'PostsList',
+                'text' : 'index'
+            }
+        ]
+    } %}
+{% endblock %}
+
+{% block mainContent %}
+
+    {% if post is defined %}x
+        <h2>{{ post.title }} </h2>
+        <p>Author: {{ post.author }}</p>
+        <p>{{ post.content }}</p>
+        <hr>
+        {# HERE the add comment form #}
+        <hr>
+        {# HERE the comments list #}
+        <h2>COMMENTS</h2>
+        <ul>
+            {% if comments is defined and comments is not empty %}
+                {% for comment in comments %}
+                    <li>
+                        <p>{{ comment.content }}</p>
+                        <p>{{ comment.author }}</p>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p> There is no comments caralhoooo !!! </p>
+            {% endif %}
+        </ul>
+
+                
+    {% else %}
+        <p> There is no post caralhoooo !!! </p>
+    {% endif %}
+
+
+{{ parent() }}
+{% endblock %}

@@ -1,0 +1,3 @@
+comment_routes:
+    resource: './Controller/'
+    type:     annotation

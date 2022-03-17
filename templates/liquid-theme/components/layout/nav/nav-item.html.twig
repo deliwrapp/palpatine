@@ -1,0 +1,60 @@
+{#
+// Variables
+- class : custom classes
+- color : classes de modification de la classe principale
+- path : lien
+- text : Texte de l'élément
+#}
+
+{% if path is not defined or path == null or path == '#' %}
+  {% set path = "#" %}
+{% elseif '/' in path %}
+
+{% elseif path is iterable %}
+  {% set values = {} %}
+  {% for key, argt in path[1] %}
+      {% set value = argt|split('.') %}
+
+      {% if value|length == 1 %}
+          {% if _context[argt] is defined %}
+            {% set var = _context[argt] %}
+          {% else %}
+            {% set var = argt %}
+          {% endif %}
+      {% elseif value|length == 2 %}
+          {% if _context[value[0]][value[1]] is defined %}
+            {% set var = _context[value[0]][value[1]] %}
+          {% else %}
+            {% set var = argt %}
+          {% endif %}
+      {% elseif value|length == 3 %}
+          {% if _context[value[0]][value[1]][value[2]] is defined %}
+            {% set var = _context[value[0]][value[1]][value[2]] %}
+          {% else %}
+            {% set var = argt %}
+          {% endif %}
+      {% elseif value|length == 4 %}
+          {% if _context[value[0]][value[1]][value[2]][value[3]] is defined %}
+            {% set var = _context[value[0]][value[1]][value[2]][value[3]] %}
+          {% else %}
+            {% set var = argt %}
+          {% endif %}
+      {% endif %}
+
+      {% if var is defined and path[2] is defined and path[2] == 'dynamic' %}
+        {% set values = values|merge({ (key) : var }) %}
+      {% else %}
+        {% set values = path[1] %}
+      {% endif %}
+  {% endfor %}
+  {% set path = path(path[0], values)  %}
+{% else %}
+  {% set path = path(path)  %}
+{% endif %}
+
+<a
+    class="{% if color is defined %}-{{ color }}{% endif %} {% if class is defined %}{{ class }}{% else %} btn btn-link {% endif %}"
+    href="{{ path }}"
+>
+    {{ text |trans }}
+</a>

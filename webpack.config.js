@@ -21,7 +21,7 @@ Encore
 function initModulesAssets (folder){
     if(ModulesConfig[folder] != null){
         let moduleFolder = ModulesConfig[folder]
-        if (folder == "Themes") {
+        if (folder == "themes") {
             for(let i=0; i<Object.keys(moduleFolder).length; i++){
                 let webpackPath = './templates/' + moduleFolder[i].toLowerCase() + '/webpack.require.js';
 
@@ -42,7 +42,7 @@ function initModulesAssets (folder){
     }
 }
 
-initModulesAssets('Themes');
+initModulesAssets('themes');
 
 Encore
     /*

@@ -1,0 +1,16 @@
+/* SKELETON CSS*/
+@import './basic/main.basic.css';
+/* VARIABLES CSS*/
+@import './variables.css';
+/* MEDIUM SCREEN SUPPORT */
+@import './medium/main.medium.css';
+/* VARIABLES CSS*/
+@import './variables.medium.css';
+/* LARGE SCREEN SUPPORT */
+@import './large/main.large.css';
+/* VARIABLES CSS*/
+@import './variables.large.css';
+
+* {
+    transition: all 0.25s ease-in-out;
+}
