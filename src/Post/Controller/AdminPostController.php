@@ -125,6 +125,12 @@ class AdminPostController extends AbstractController
                     'There is no post  with id ' . $id
                 );
             } else {
+                $comments = $doctrine->getRepository(Comment::class);
+                $comments = $comments->findBy(['post' => $id]);
+
+                foreach ($comments as $com) {
+                    $em->remove($com);
+                }
                 $em->remove($post);
                 $em->flush();
                 $this->addFlash(
