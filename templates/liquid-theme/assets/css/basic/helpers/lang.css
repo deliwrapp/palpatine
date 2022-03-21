@@ -1,0 +1,58 @@
+html:lang(zh),
+html:lang(zh-Hans),
+.lang-zh,
+.lang-zh-hans {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+}
+
+html:lang(zh-Hant),
+.lang-zh-hant {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Hiragino Sans CNS", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+}
+
+html:lang(ja),
+.lang-ja {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans", "Hiragino Kaku Gothic Pro", "Yu Gothic", YuGothic, Meiryo, "Helvetica Neue", sans-serif;
+}
+
+html:lang(ko),
+.lang-ko {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Malgun Gothic", "Helvetica Neue", sans-serif;
+}
+
+:lang(zh) ins,
+:lang(zh) u,
+:lang(ja) ins,
+:lang(ja) u,
+.lang-cjk ins,
+.lang-cjk u {
+  border-bottom: .05rem solid;
+  text-decoration: none;
+}
+
+:lang(zh) del + del,
+:lang(zh) del + s,
+:lang(zh) ins + ins,
+:lang(zh) ins + u,
+:lang(zh) s + del,
+:lang(zh) s + s,
+:lang(zh) u + ins,
+:lang(zh) u + u,
+:lang(ja) del + del,
+:lang(ja) del + s,
+:lang(ja) ins + ins,
+:lang(ja) ins + u,
+:lang(ja) s + del,
+:lang(ja) s + s,
+:lang(ja) u + ins,
+:lang(ja) u + u,
+.lang-cjk del + del,
+.lang-cjk del + s,
+.lang-cjk ins + ins,
+.lang-cjk ins + u,
+.lang-cjk s + del,
+.lang-cjk s + s,
+.lang-cjk u + ins,
+.lang-cjk u + u {
+  margin-left: .125em;
+}

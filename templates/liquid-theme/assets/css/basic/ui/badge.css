@@ -1,0 +1,45 @@
+.badge {
+    position: relative;
+    white-space: nowrap;
+    margin: .25rem;
+}
+.badge[data-badge]::after,
+.badge:not([data-badge])::after {
+    background: var(--badge-bg-color);
+    background-clip: padding-box;
+    border-radius: var(--badge-radius);
+    box-shadow: 0 0 0 .1rem #fff;
+    color: #fff;
+    content: attr(data-badge);
+    display: inline-block;
+    transform: translate(-.05rem, -.5rem);
+}
+.badge[data-badge]::after {
+    font-size: var(--badge-font-size);
+    height: var(--badge-height);
+    line-height: var(--badge-line-height);
+    min-width: var(--badge-height);
+    padding: var(--badge-pad-v) var(--badge-pad-h);
+    text-align: center;
+    white-space: nowrap;
+}
+.badge:not([data-badge])::after,
+.badge[data-badge=""]::after {
+    height: .375rem;
+    min-width: .375rem;
+    padding: 0;
+    width: .375rem;
+}
+.badge.btn::after {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(50%, -50%);
+}
+.badge.avatar::after {
+    position: absolute;
+    right: 14.64%;
+    top: 14.64%;
+    transform: translate(50%, -50%);
+    z-index: 1;
+}

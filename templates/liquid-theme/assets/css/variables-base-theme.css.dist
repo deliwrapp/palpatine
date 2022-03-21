@@ -1,0 +1,175 @@
+/* liquid Variables and Theming. For more info, please see:
+/** liquid CSS Variables **/
+:root {
+    /** ---- FONT var ---- **/
+    --font-familly: montserrat, sans-serif;
+    --font-size: 1rem;
+    --line-height: 1.25;
+    --font-color: rgb(26, 24, 24);
+    /* ------------------- SKELETON -------------------- */
+    /* ---- BASE ---- */
+    --padding-nano: .05rem;
+    --padding-xxs: .1rem;
+    --padding-xs: .25rem;
+    --padding-sm: .5rem;
+    --padding-md: 1rem;
+    --padding-lg: 1.5rem;
+    --padding-xl: 2rem;
+    --padding-xxl: 5rem;
+    /* ---- MARGIN ---- */
+    --margin-nano: .05rem;
+    --margin-xxs: .1rem;
+    --margin-xs: .25rem;
+    --margin-sm: .5rem;
+    --margin-md: 1rem;
+    --margin-lg: 1.5rem;
+    --margin-xl: 2rem;
+    --margin-xxl: 5rem;
+    /* ---- PADDING ---- */
+    --global-scroll-behavior: smooth;
+    /*  HTML elements */
+    --mark-bg: var(--liquid-color-warning);
+    --mark-color: var(--liquid-color-warning-contrast);
+    --mark-padding: var(--padding-nano) var(--padding-xxs);
+    --mark-radius: .1rem;
+    --hr-border-color: #001841;
+    --hr-margin-top: var(--margin-xxs);
+    --hr-margin-bottom: var(--margin-xxs);
+    --hr-w: 90%;
+    /* GLOBAL SCROLL */
+    --scroll-trans-over-x: clip;
+    --scroll-trans-over-y: auto;
+    --scrollbar-display: flex;
+    --scrollbar-width: 0.7rem;
+    --scrollbar-thumb: var(--liquid-color-light-shade);
+    --scrollbar-thumb-hov: var(--liquid-color-medium-shade);
+    /* ---- GRID var ---- */
+    --breakpoint-xs-max: 480px;
+    --breakpoint-sm-min: 481px;
+    --breakpoint-md-min: 768px;
+    --breakpoint-l-min: 996px;
+    --breakpoint-xl-min: 1250px;
+    --grid-container-margin: 1rem;
+    /* ---- CONTAINER ---- */
+    --liquid-page-padding-t: 0;
+    --liquid-page-padding-b: 0;
+    --liquid-page-padding-r: 0;
+    --liquid-page-padding-l: 0;
+    --liquid-container-width: 100%;
+    /* - Container Options */
+    --container-sm-max-width: 476px;
+    --container-sm-max-width: 592px;
+    --container-md-max-width: 768px;
+    --container-lg-max-width: 976px;
+    --container-xl-max-width: 1296px;
+    /** ---- FLEX var ---- **/
+    --flex-container-margin: var(--margin-md);
+    /* ---- FLUID ---- */
+    /* ---- TYPO ---- */
+    --liquid-text-color: #161414;
+    --liquid-text-color-rgb: rgb(22, 20, 20);
+    --small-font-size: 0.75rem;
+    --big-font-l-height: 1;
+    --big-font-size: 1.5rem;
+    --big-font-l-height: 1.5;
+    --text-tiny-font-size: .8em;
+    --text-muted-opacity: .8;
+    /* ---- HEADING ---- */
+    /* H1 */
+    --headings-h1-font-family: var(--font-familly);
+    --headings-h1-line-height: var(--line-height);
+    --headings-h1-color: var(--liquid-color-dark);
+    --headings-h1-size: 3rem;
+    --headings-h1-weight: 700;
+    --headings-h1-margin-b: var(--margin-xl);
+    --headings-h1-margin-t: var(--margin-md);
+    --headings-h1-color: var(--liquid-color-dark);
+    /* H2 */
+    --headings-h2-font-family: var(--font-familly);
+    --headings-h2-line-height: var(--line-height);
+    --headings-h2-size: 2.5rem;
+    --headings-h2-color: var(--liquid-color-dark);
+    --headings-h2-weight: 800;
+    --headings-h2-margin-b: var(--margin-md);
+    --headings-h2-margin-t: var(--margin-md);
+    --headings-h2-color: var(--liquid-color-dark);
+    /* H3 */
+    --headings--h3-font-family: var(--font-familly);
+    --headings--h3-line-height: var(--line-height);
+    --headings-h3-size: 2rem;
+    --headings-h3-color: var(--liquid-color-dark);
+    --headings-h3-weight: 800;
+    --headings-h3-margin-b: calc(var(--margin-md) * .75);
+    --headings-h3-margin-t: var(--margin-md);
+    --headings-h3-color: var(--liquid-color-dark);
+    /* H4 */
+    --headings-h4-font-family: var(--font-familly);
+    --headings-h4-line-height: var(--line-height);
+    --headings-h4-size: 1.5rem;
+    --headings-h4-color: var(--liquid-color-dark);
+    --headings-h4-weight: 700;
+    --headings-h4-margin-b: calc(var(--margin-md) * .75);
+    --headings-h4-margin-t: var(--margin-md);
+    --headings-h4-color: var(--liquid-color-dark);
+    /* H5 */
+    --headings-h5-font-family: var(--font-familly);
+    --headings-h5-line-height: var(--line-height);
+    --headings-h5-color: var(--liquid-color-dark);
+    --headings-h5-size: 1.25rem;
+    --headings-h5-weight: 600;
+    --headings-h5-margin-b: var(--margin-sm);
+    --headings-h5-margin-t: var(--margin-md);
+    --headings-h5-color: var(--liquid-color-dark);
+    /* H6 */
+    --headings-h6-font-family: var(--font-familly);
+    --headings-h6-line-height: var(--line-height);
+    --headings-h6-color: var(--liquid-color-dark);
+    --headings-h6-size: 1.125rem;
+    --headings-h6-weight: 600;
+    --headings-h6-margin-b: var(--margin-md);
+    --headings-h6-margin-t: var(--margin-md);
+    --headings-h6-color: var(--liquid-color-dark);
+    /*-- Divider --*/
+    --divider-after-font-size: .7rem;
+    --divider-after-padding-v: 0;
+    --divider-after-padding-h: var(--padding-sm);
+    --divider-after-translate-y: -.65rem;
+    --divider-border-top: .05rem solid var(--liquid-color-light-shade);
+    --divider-height: .05rem;
+    --divider-margin: var(--margin-xs) 0;
+    --divider-content-margin-v: calc(var(--margin-md) * 0.75);
+    --divider-content-margin-h: 0;
+    --divider-vert-padding: calc(var(--padding-md) * 0.75);
+    --divider-vert-before-border-left: .05rem solid var(--liquid-color-light-shade);
+    --divider-vert-before-bottom: .4rem;
+    --divider-vert-before-left: 50%;
+    --divider-vert-before-top: .4rem;
+    --divider-vert-before-translate-x: -50%;
+    --divider-vert-content-after-left: 50%;
+    --divider-vert-content-after-padding-v: var(--padding-xs);
+    --divider-vert-content-after-padding-h: 0;
+    --divider-vert-content-after-top: 50%;
+    --divider-vert-content-after-translate-x: -50%;
+    --divider-vert-content-after-translate-y: -50%;
+    /* ---- SHADOWS ---- */
+    --shad-1: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    --shad-2: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    --shad-3: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    --shad-4: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    --shad-5: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    --shad-6: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    --shad-7: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    --shad-8: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    --shad-9: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    --shad-10: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    --shad-11: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    --shad-12: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    --shad-13: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+    --shad-14: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    --shad-15: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    --shad-16: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    --shad-17: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    --shad-18: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    --shad-19: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    --shad-20: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px, rgb(255, 255, 255) 20px -20px 0px -3px, rgb(255, 217, 19) 20px -20px, rgb(255, 255, 255) 30px -30px 0px -3px, rgb(255, 156, 85) 30px -30px, rgb(255, 255, 255) 40px -40px 0px -3px, rgb(255, 85, 85) 40px -40px;
+}

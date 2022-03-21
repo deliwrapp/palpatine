@@ -1,0 +1,28 @@
+
+
+@media (min-width: 768px) and (max-width: 995px) {
+    .g-col.\-col-md2-rows { grid-row-end: span 2 }
+    .grid.\-col-md3-rows { grid-row-end: span 3 }
+    .g-col.\-col-md4-rows { grid-row-end: span 4 }
+    .g-col.\-col-md5-rows { grid-row-end: span 5 }
+    .g-col.\-col-md6-rows { grid-row-end: span 6 }
+    .g-col.\-col-md7-rows { grid-row-end: span 7 }
+    .g-col.\-col-md8-rows { grid-row-end: span 8 }
+    .g-col.\-col-md9-rows { grid-row-end: span 9 }
+    .g-col.\-col-md10-rows { grid-row-end: span 10 }
+    .g-col.\-col-md11-rows { grid-row-end: span 11 }
+    .g-col.\-col-md12-rows { grid-row-end: span 12 }
+
+    .g-col.\-col-md1 { grid-column-end: span 1; }
+    .g-col.\-col-md2 { grid-column-end: span 2 }
+    .g-col.\-col-md3 { grid-column-end: span 3 }
+    .g-col.\-col-md4 { grid-column-end: span 4 }
+    .g-col.\-col-md5 { grid-column-end: span 5 }
+    .g-col.\-col-md6 { grid-column-end: span 6 }
+    .g-col.\-col-md7 { grid-column-end: span 7 }
+    .g-col.\-col-md8 { grid-column-end: span 8 }
+    .g-col.\-col-md9 { grid-column-end: span 9 }
+    .g-col.\-col-md10 { grid-column-end: span 10 }
+    .g-col.\-col-md11 { grid-column-end: span 11 }
+    .g-col.\-col-md12 { grid-column-end: span 12 }
+}

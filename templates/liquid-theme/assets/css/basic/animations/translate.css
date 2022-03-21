@@ -1,0 +1,20 @@
+.\-preserve-3d	    {transform-style: preserve-3d;}
+.\-translate-y100	{transform: translateY(100%);}
+.\-translate-y-100	{transform: translateY(-100%);}
+.\-translate-x100	{transform: translateX(100%);}
+.\-translate-x-100	{transform: translateX(-100%);}
+.\-translate-y50	{transform: translateY(50%);}
+.\-translate-y-50	{transform: translateY(-50%);}
+.\-translate-x50	{transform: translateX(50%);}
+.\-translate-x-50	{transform: translateX(-50%);}
+.\-translate-xy-50	{transform: translate(-50%,-50%);}
+
+.\-translate-y100-h:hover	{transform: translateY(100%);}
+.\-translate-y-100-h:hover	{transform: translateY(-100%);}
+.\-translate-x100-h:hover	{transform: translateX(100%);}
+.\-translate-x-100-h:hover	{transform: translateX(-100%);}
+.\-translate-y50-h:hover	{transform: translateY(50%);}
+.\-translate-y-50-h:hover	{transform: translateY(-50%);}
+.\-translate-x50-h:hover	{transform: translateX(50%);}
+.\-translate-x-50-h:hover	{transform: translateX(-50%);}
+.\-translate-xy-50-h:hover	{transform: translate(-50%,-50%);}

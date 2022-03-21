@@ -1,0 +1,63 @@
+{% extends 'liquid-theme/layout.html.twig' %}
+
+{% block title %}POSTS LIST {% endblock %}
+
+{% block mainContent %}
+    <div class="col -col-12 -text-center" id="post-list">
+        <div class="h5 mt-10">POSTS LIST</div>
+    </div>
+    
+    {% if posts is defined and posts is not empty %}
+        {% for post in posts %}
+            <div class="col -col-4 -md6 -sm12 -xs12">
+                {% include 'liquid-theme/components/layout/card/dynamic-card.html.twig' with {
+                        'cardMode' : 2,
+                        'day' : '01',
+                        'month' : '01',
+                        'year' : '2100',
+                        'menuContentItems' : [
+                            {
+                                'path': '#',
+                                'icon': 'fa-regular fa-bookmark'
+                            },
+                            {
+                                'path': '#',
+                                'icon': 'fa-regular fa-heart',
+                                'info': '8'
+                            },
+                            {
+                                'path': '#',
+                                'icon': 'fa-regular fa-comment',
+                                'info': '3'
+                            }
+                        ],
+                        'cardHeader' : post.author,
+                        'cardTitle' : post.title,
+                        'cardText' : post.content,
+                        'cardLinkPath' : path('MemberPostShow', { 'id': post.id }),
+                        'cardLinkText' : 'Read More'
+                    }
+                %}    
+            </div>
+        {% endfor %}
+        
+    {% else %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    There is no post caralhoooo !!!
+                </div>
+                <div class="-tile-subtitle">
+                    You can create a new post
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
+                    <a class="-tertiary" href="{{ path('postCreate') }}">
+                        <i class="fa-regular fa-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

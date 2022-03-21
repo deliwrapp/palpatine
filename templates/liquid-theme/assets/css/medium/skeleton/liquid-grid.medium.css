@@ -1,0 +1,14 @@
+@media (min-width: 768px) and (max-width: 995px) {
+    .col.\-md1  { width: calc(100% * 1 / 12); }
+    .col.\-md2  { width: calc(100% * 2 / 12); }
+    .col.\-md3  { width: calc(100% * 3 / 12); }
+    .col.\-md4  { width: calc(100% * 4 / 12); }
+    .col.\-md5  { width: calc(100% * 5 / 12); }
+    .col.\-md6  { width: calc(100% * 6 / 12); }
+    .col.\-md7  { width: calc(100% * 7 / 12); }
+    .col.\-md8  { width: calc(100% * 8 / 12); }
+    .col.\-md9  { width: calc(100% * 9 / 12); }
+    .col.\-md10 { width: calc(100% * 10 / 12); }
+    .col.\-md11 { width: calc(100% * 11 / 12); }
+    .col.\-md12 { width: 100%; }
+}

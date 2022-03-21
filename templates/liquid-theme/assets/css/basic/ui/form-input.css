@@ -1,0 +1,55 @@
+.input-group {
+    display: flex;
+}
+.input-group .form-field {
+    flex: 1 1 auto;
+    border-radius: 0;
+}
+.input-group .\-prefix {
+    border-radius: var(--input-radius) var(--input-radius) 0 0;
+}
+.input-group .input-group-addon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--input-background);
+    border: var(--form-input-group-addon-border);
+    line-height: var(--form-input-group-addon-line-height);
+    padding: var(--form-input-group-addon-padding);
+    white-space: nowrap;
+}
+.input-group .form-field:first-child,
+.input-group .input-group-addon:first-child,
+.input-group .input-group-btn:first-child {
+    border-radius: var(--input-radius) 0 0 var(--input-radius);
+}
+.input-group .form-field:last-child,
+.input-group .input-group-addon:last-child,
+.input-group .input-group-btn:last-child {
+    border-radius: 0 var(--input-radius) var(--input-radius) 0;
+}
+.input-group .input-group-addon.addon-sm {
+    font-size: .7rem;
+    padding: .05rem .5rem;
+}
+.input-group .input-group-addon.addon-lg {
+    font-size: .9rem;
+    padding: .35rem 1.25rem;
+}
+.input-group .form-input,
+.input-group .form-select {
+    flex: 1 1 auto;
+    width: 1%;
+}
+.input-group .input-group-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    height: 100%;
+}
+.input-group .input-group-btn:not(:first-child):not(:last-child),
+.input-group .input-group-btn:last-child:not(:first-child) {
+    margin-left: -.05rem;
+    margin-right: 0;
+}

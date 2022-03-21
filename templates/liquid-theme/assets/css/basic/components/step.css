@@ -1,0 +1,78 @@
+.step {
+  display: var(--step-display);
+  position: var(--step-position);
+  flex-direction: var(--step-direction);
+  justify-content: var(--step-align-content);
+  align-items: var(--step-align-items);
+  min-width: var(--step-min-width);
+  min-height: var(--step-min-height);
+  max-width: var(--step-max-width);
+  max-height: var(--step-max-height);
+  width: var(--step-width);
+  height: var(--step-height);
+  border-color: var(--step-border-color);
+  border-top: var(--step-border-t);
+  border-bottom: var(--step-border-b);
+  border-left: var(--step-border-l);
+  border-right: var(--step-border-r);
+  border-top-left-radius: var(--step-border-radius-tl);
+  border-top-right-radius: var(--step-border-radius-tr);
+  border-bottom-left-radius: var(--step-border-radius-bl);
+  border-bottom-right-radius: var(--step-border-radius-br);
+  padding: var(--step-padding-v) var(--step-padding-h);
+  margin: var(--step-margin-v) var(--step-margin-h);
+  background: var(--step-bg);
+  color: var(--step-color);
+  z-index: var(--step-index);
+  flex-wrap: nowrap;
+  list-style: none;
+}
+.step .\-step-item {
+  flex: 1 1 0;
+  position: relative;
+  margin-top: 0;
+  min-height: 1rem; 
+  text-align: var(--step-item-text-align);
+}
+.step .\-step-item:not(:first-child)::before {
+  background: var(--step-item-bg);
+  content: "";
+  height: 0.125rem;
+  position: absolute;
+  width: 100%;
+  top: .5rem;
+  left: -50%;
+}
+.step .\-step-item a {
+  display: inline-block;
+  color: var(--step-item-bg);
+  padding: 1.25rem 0.625rem 0;
+  text-decoration: none;
+}
+.step .\-step-item a::before {
+  display: block;
+  position: absolute;
+  background: var(--step-item-bg);
+  border: var(--step-item-border);
+  border-radius: var(--step-item-border-radius);
+  content: "";
+  height: .6rem;
+  width: .6rem;
+  left: 50%;
+  top: .2rem;
+  transform: translateX(-50%);
+  z-index: 4;
+}
+.step .\-step-item.\-active a::before {
+  background: var(--step-item-inactive-color);
+  border: var(--step-item-active-border);
+}
+.step .\-step-item.\-active ~ .\-step-item::before {
+  background: var(--step-item-inactive-bg);
+}
+.step .\-step-item.\-active ~ .\-step-item a {
+  color: var(--step-item-inactive-color);
+}
+.step .\-step-item.\-active ~ .\-step-item a::before {
+  background: var(--step-item-inactive-bg);
+}

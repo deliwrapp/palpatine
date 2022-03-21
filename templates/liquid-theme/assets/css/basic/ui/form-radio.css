@@ -1,0 +1,82 @@
+.radio {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    line-height: var(--radio-size) + 2;
+    margin: var(--radio-margin);
+    min-height: var(--radio-min-height);
+    padding: var(--radio-padding);
+}
+.radio input {
+    position: absolute;
+    clip-path: circle(50%);
+    height: inherit;
+    width: inherit;
+    margin: inherit;
+    overflow: hidden;
+}
+.radio input:focus+.form-icon {
+    border-color: var(--radio-active-border-color);
+    box-shadow: var(--radio-focus-shadow);
+}
+.radio input:checked+.form-icon{
+    background: var(--radio-active);
+    border-color: var(--radio-active-border-color);
+}
+.radio .form-icon {
+    display: inline-block;
+    position: relative;
+    line-height: var(--radio-size) + 2;
+    margin: var(--radio-margin);
+    padding: var(--radio-padding);
+    min-height: var(--radio-min-height);
+    height: var(--radio-size);
+    width: var(--radio-size);
+    background: var(--radio-background);
+    border: var(--radio-border-size) solid var(--radio-border-color);
+    border-radius: var(--radio-radius);
+    transition: var(--radio-transition);
+    cursor: pointer;
+    left: var(--radio-left);
+}
+.radio.input-sm {
+    font-size: var(--radio-sm-font-size);
+    margin: var(--radio-sm-margin);
+}
+.radio.input-lg {
+    font-size: var(--radio-lg-font-size);
+    margin: var(--radio-lg-margin);
+}
+.radio input:active+.form-icon,
+.radio input:checked+.form-icon {
+    background: var(--radio-active);
+    border-color: var(--radio-active-border-color);
+}
+.radio input:checked+.form-icon::before {
+    position: absolute;
+    background: var(--radio-dot-color);
+    border-radius: var(--radio-dot-radius);
+    content: "";
+    height: var(--radio-dot-height);
+    width: var(--radio-dot-width);
+    top: var(--radio-dot-top);
+    left: var(--radio-dot-left);
+    transform: var(--radio-dot-transform);
+}
+.radio input:disabled+.form-icon {
+    cursor: not-allowed;
+    background: var(--radio-disabled);
+    border-color: var(--radio-disabled-border-color);
+}
+.radio:hover input:disabled+.form-icon {
+    border-color: var(--radio-border-color);
+}
+.radio:hover input:checked+.form-icon {
+    background: var(--radio-active-border-color);
+}
+.radio:hover input:disabled:checked+.form-icon {
+    background: var(--radio-disabled);
+    border-color: var(--radio-disabled-border-color);
+}

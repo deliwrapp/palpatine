@@ -1,0 +1,20 @@
+img {
+    -ms-interpolation-mode: bicubic;
+}
+a img {
+    border: none;
+}
+.img-responsive {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+.img-fit-cover {
+    object-fit: cover;
+}
+
+.img-fit-contain {
+    object-fit: contain;
+}
+

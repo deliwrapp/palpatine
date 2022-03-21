@@ -1,0 +1,32 @@
+.bar {
+    position: var(--bar-position);
+    display: var(--bar-display);
+    flex-direction: var(--bar-direction);
+    justify-content: var(--bar-align-content);
+    align-items: var(--bar-align-items);
+    flex-wrap: var(--bar-wrap);;
+    z-index: var(--bar-index);
+    width: var(--bar-width);
+    min-height: var(--bar-min-height);
+    padding: var(--bar-padding-v) var(--bar-padding-h);
+}
+.bar .\-bar-section,
+.bar .\-bar-section-start,
+.bar .\-bar-section-end {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1 0 0;
+}
+.bar .\-bar-section-start {
+    justify-content: flex-start;
+}
+.bar .\-bar-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+.bar .\-bar-section-end {
+    justify-content: flex-end;
+}

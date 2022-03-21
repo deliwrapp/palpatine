@@ -1,0 +1,119 @@
+/* GRID SYSTEM 12 COLUMNS */
+.grid {
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: repeat(12, 1fr);
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100x;
+}
+.grid.\-text-center {text-align: center;}
+.grid.\-text-left {text-align: left;}
+.grid.\-text-right {text-align: right;}
+.grid.\-text-end {text-align: end;}
+.grid.\-text-start {text-align: start;}
+.grid.\-baseline {justify-items: baseline;}
+.grid.\-stretch {justify-items: stretch;}
+.grid.\-center {justify-items: center;}
+.grid.\-left {justify-items: left;}
+.grid.\-right {justify-items: right;}
+.grid.\-end {justify-items: flex-end;}
+.grid.\-start {justify-items: flex-start;}
+.grid.\-baseline {align-items: baseline;}
+.grid.\-align-center {align-items: center;}
+.grid.\-align-stretch {align-items: stretch;}
+.grid.\-align-end {align-items: flex-end;}
+.grid.\-align-start {align-items: flex-start;}
+
+.grid .\-col-1, .grid .\-col-2, .grid .\-col-3, 
+.grid .\-col-4, .grid .\-col-5, .grid .\-col-6,
+.grid .\-col-7, .grid .\-col-8, .grid .\-col-9,
+.grid .\-col-10, .grid .\-col-11, .grid .\-col-12 {
+    grid-column-end: span 12; 
+}
+
+.grid-nested {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.g-col.\-col-2-rows { grid-row-end: span 2 }
+.g-col.\-col-3-rows { grid-row-end: span 3 }
+.g-col.\-col-4-rows { grid-row-end: span 4 }
+.g-col.\-col-5-rows { grid-row-end: span 5 }
+.g-col.\-col-6-rows { grid-row-end: span 6 }
+.g-col.\-col-7-rows { grid-row-end: span 7 }
+.g-col.\-col-8-rows { grid-row-end: span 8 }
+.g-col.\-col-9-rows { grid-row-end: span 9 }
+.g-col.\-col-10-rows { grid-row-end: span 10 }
+.g-col.\-col-11-rows { grid-row-end: span 11 }
+.g-col.\-col-12-rows { grid-row-end: span 12 }
+
+.g-col.\-col-1 { grid-column-end: span 1; }
+.g-col.\-col-2 { grid-column-end: span 2 }
+.g-col.\-col-3 { grid-column-end: span 3 }
+.g-col.\-col-4 { grid-column-end: span 4 }
+.g-col.\-col-5 { grid-column-end: span 5 }
+.g-col.\-col-6 { grid-column-end: span 6 }
+.g-col.\-col-7 { grid-column-end: span 7 }
+.g-col.\-col-8 { grid-column-end: span 8 }
+.g-col.\-col-9 { grid-column-end: span 9 }
+.g-col.\-col-10 { grid-column-end: span 10 }
+.g-col.\-col-11 { grid-column-end: span 11 }
+.g-col.\-col-12 { grid-column-end: span 12 }
+
+@media (max-width: 480px) {
+    .g-col.\-col-xs2-rows { grid-row-end: span 2 }
+    .g-col.\-col-xs3-rows { grid-row-end: span 3 }
+    .g-col.\-col-xs4-rows { grid-row-end: span 4 }
+    .g-col.\-col-xs5-rows { grid-row-end: span 5 }
+    .g-col.\-col-xs6-rows { grid-row-end: span 6 }
+    .g-col.\-col-xs7-rows { grid-row-end: span 7 }
+    .g-col.\-col-xs8-rows { grid-row-end: span 8 }
+    .g-col.\-col-xs9-rows { grid-row-end: span 9 }
+    .g-col.\-col-xs10-rows { grid-row-end: span 10 }
+    .g-col.\-col-xs11-rows { grid-row-end: span 11 }
+    .g-col.\-col-xs12-rows { grid-row-end: span 12 }
+
+    .g-col.\-col-xs1 { grid-column-end: span 1; }
+    .g-col.\-col-xs2 { grid-column-end: span 2 }
+    .g-col.\-col-xs3 { grid-column-end: span 3 }
+    .g-col.\-col-xs4 { grid-column-end: span 4 }
+    .g-col.\-col-xs5 { grid-column-end: span 5 }
+    .g-col.\-col-xs6 { grid-column-end: span 6 }
+    .g-col.\-col-xs7 { grid-column-end: span 7 }
+    .g-col.\-col-xs8 { grid-column-end: span 8 }
+    .g-col.\-col-xs9 { grid-column-end: span 9 }
+    .g-col.\-col-xs10 { grid-column-end: span 10 }
+    .g-col.\-col-xs11 { grid-column-end: span 11 }
+    .g-col.\-col-xs12 { grid-column-end: span 12 }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {  
+    .g-col.\-col-sm2-rows { grid-row-end: span 2 }
+    .grid.\-col-sm3-rows { grid-row-end: span 3 }
+    .g-col.\-col-sm4-rows { grid-row-end: span 4 }
+    .g-col.\-col-sm5-rows { grid-row-end: span 5 }
+    .g-col.\-col-sm6-rows { grid-row-end: span 6 }
+    .g-col.\-col-sm7-rows { grid-row-end: span 7 }
+    .g-col.\-col-sm8-rows { grid-row-end: span 8 }
+    .g-col.\-col-sm9-rows { grid-row-end: span 9 }
+    .g-col.\-col-sm10-rows { grid-row-end: span 10 }
+    .g-col.\-col-sm11-rows { grid-row-end: span 11 }
+    .g-col.\-col-sm12-rows { grid-row-end: span 12 }
+
+    .g-col.\-col-sm1 { grid-column-end: span 1; }
+    .g-col.\-col-sm2 { grid-column-end: span 2 }
+    .g-col.\-col-sm3 { grid-column-end: span 3 }
+    .g-col.\-col-sm4 { grid-column-end: span 4 }
+    .g-col.\-col-sm5 { grid-column-end: span 5 }
+    .g-col.\-col-sm6 { grid-column-end: span 6 }
+    .g-col.\-col-sm7 { grid-column-end: span 7 }
+    .g-col.\-col-sm8 { grid-column-end: span 8 }
+    .g-col.\-col-sm9 { grid-column-end: span 9 }
+    .g-col.\-col-sm10 { grid-column-end: span 10 }
+    .g-col.\-col-sm11 { grid-column-end: span 11 }
+    .g-col.\-col-sm12 { grid-column-end: span 12 }
+}
+

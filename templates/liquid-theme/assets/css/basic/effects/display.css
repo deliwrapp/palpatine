@@ -1,0 +1,271 @@
+/*------DISPLAY------*/
+/* Valeurs de type <display-outside> */
+.\-d-block {
+    display: block;
+}
+
+.\-d-inline {
+    display: inline;
+}
+
+.\-d-run-in {
+    display: run-in;
+}
+
+/* Valeurs de type <display-inside> */
+.\-d-flow {
+    display: flow;
+}
+
+.\-d-flow-root {
+    display: flow-root;
+}
+
+.\-d-table {
+    display: table;
+}
+
+.\-d-flex {
+    display: flex;
+}
+
+.\-d-geid {
+    display: grid;
+}
+
+.\-d-ruby {
+    display: ruby;
+}
+
+/* Combinaison de valeurs */
+/* <display-outside> et <display-inside> */
+.\-d-block-flow {
+    display: block flow;
+}
+
+.\-d-inline-table {
+    display: inline table;
+}
+
+.\-d-flex-run-in {
+    display: flex run-in;
+}
+
+/* Valeurs de type <display-listitem> */
+.\-d-list-item {
+    display: list-item;
+}
+
+.\-d-list-item-block {
+    display: list-item block;
+}
+
+.\-d-list-item-inline {
+    display: list-item inline;
+}
+
+.\-d-list-item-flow {
+    display: list-item flow;
+}
+
+.\-d-list-item-flow-root {
+    display: list-item flow-root;
+}
+
+.\-d-list-item-block-flow {
+    display: list-item block flow;
+}
+
+.\-d-list-item-block-flow-root {
+    display: list-item block flow-root;
+}
+
+.\-d-flow-list-item-block {
+    display: flow list-item block;
+}
+
+/* Valeurs de type <display-internal> */
+.\-d-table-row-group {
+    display: table-row-group;
+}
+
+.\-d-table-header-group {
+    display: table-header-group;
+}
+
+.\-d-table-footer-group {
+    display: table-footer-group;
+}
+
+.\-d-table-row {
+    display: table-row;
+}
+
+.\-d-table-cell {
+    display: table-cell;
+}
+
+.\-d-table-column-group {
+    display: flex;
+}
+
+.\-d-table-column {
+    display: flex;
+}
+
+.\-d-table-caption {
+    display: table-caption;
+}
+
+.\-d-ruby-base {
+    display: ruby-base;
+}
+
+.\-d-ruby-text {
+    display: ruby-text;
+}
+
+.\-d-ruby-base-container {
+    display: ruby-base-container;
+}
+
+.\-d-ruby-text-container {
+    display: ruby-text-container;
+}
+
+/* Valeurs de type <display-box> */
+.\-d-contents {
+    display: contents;
+}
+
+.\-d-none {
+    display: none;
+}
+
+/* Valeurs de type <display-legacy> */
+.\-d-inline-block {
+    display: inline-block;
+}
+
+.\-d-inline-table {
+    display: inline-table;
+}
+
+.\-d-inline-grid {
+    display: inline-grid;
+}
+
+/* Valeurs globales */
+.\-d-inherit {
+    display: inherit;
+}
+
+.\-d-initial {
+    display: initial;
+}
+
+.\-d-unset {
+    display: unset;
+}
+
+.\-visible {
+    visibility: visible;
+}
+
+.\-invisible {
+    visibility: hidden;
+}
+
+.\-backface-visible {
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+}
+
+.\-backface-hidden {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.text-hide {
+    background: transparent;
+    border: 0;
+    color: transparent;
+    font-size: 0;
+    line-height: 0;
+    text-shadow: none;
+}
+
+.show-xs,
+.show-sm,
+.show-md,
+.show-lg,
+.show-xl {
+    display: none !important;
+}
+.empty {
+    background: var(--liquid-color-light);
+    border-radius: .1rem;
+    color: var(--liquid-color-light-shade);
+    padding: 3.2rem 1.6rem;
+    text-align: center;
+}
+.empty .empty-icon {
+    margin-bottom: .8rem;
+}
+.empty .empty-title,
+.empty .empty-subtitle {
+    margin: .4rem auto;
+}
+.empty .empty-action {
+    margin-top: .8rem;
+}
+
+@media (max-width: 480px) {
+    .hide-xs {
+        display: none !important;
+    }
+
+    .show-xs {
+        display: block !important;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .hide-sm {
+        display: none !important;
+    }
+
+    .show-sm {
+        display: block !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 995px) {
+    .hide-md {
+        display: none !important;
+    }
+
+    .show-md {
+        display: block !important;
+    }
+}
+
+@media (min-width: 996px) and (max-width: 1249px) {
+    .hide-lg {
+        display: none !important;
+    }
+
+    .show-lg {
+        display: block !important;
+    }
+}
+
+@media (min-width: 1250px) {
+    .hide-xl {
+        display: none !important;
+    }
+
+    .show-xl {
+        display: block !important;
+    }
+}

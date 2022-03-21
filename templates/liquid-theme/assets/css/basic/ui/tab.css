@@ -1,0 +1,74 @@
+.tab-container-full {
+    width: 100%;
+    height: 100%;
+}
+.tab {
+    display: var(--tab-display);
+    align-items: var(--tab-align-items);
+    justify-content: var(--tab-align-content);
+    border-top: var(--tab-border-t);
+    border-bottom: var(--tab-border-b);
+    border-right: var(--tab-border-r);
+    border-left: var(--tab-border-l);
+    flex-wrap: var(--tab-wrap);;
+    list-style: var(--tab-list-style);
+    margin: var(--tab-margin-t) var(--tab-margin-r) var(--tab-margin-b) var(--tab-margin-l);
+    padding: var(--tab-padding-v) var(--tab-padding-h);
+}
+.tab .\-tab-item {
+    margin-top: 0;
+    margin: var(--tab-item-margin-v) var(--tab-item-margin-h);
+    padding: var(--tab-item-padding-v) var(--tab-item-padding-h);
+}
+.tab .\-tab-item .\-tab-link,
+.tab .\-tab-item a {
+    border-bottom: var(--tab-link-border-b);
+    color: inherit;
+    display: block;
+    padding: var(--tab-link-margin-t) var(--tab-link-margin-r) var(--tab-link-margin-b) var(--tab-link-margin-l);
+    padding: var(--tab-link-padding-t) var(--tab-link-padding-r) var(--tab-link-padding-b) var(--tab-link-padding-l);
+    text-decoration: none;
+}
+.tab .\-tab-item .\-tab-link:hover,
+.tab .\-tab-item a:hover {
+    color: var(--tab-link-color-hov);
+}
+.tab .\-tab-item .\-tab-link:focus,
+.tab .\-tab-item a:focus {
+    color: var(--tab-link-color-foc);
+}
+.tab .\-tab-item.\-active .\-tab-link,
+.tab .\-tab-item .\-tab-link.\-active,
+.tab .\-tab-item.\-active a,
+.tab .\-tab-item a.\-active {
+    border-bottom-color: var(--tab-link-border-b-color-active);
+    color: var(--tab-link-color-active);
+}
+.tab .\-tab-item.\-tab-action {
+    flex: 1 0 auto;
+    text-align: right;
+}
+.tab .\-tab-item .\-btn-clear {
+    margin-top: var(--tab-btn-clear-margin-top);
+}
+.tab.\-tab-block .\-tab-item {
+    flex: 1 0 0;
+    text-align: var(--tab-item-text-align);
+}
+.tab.\-tab-block .\-tab-item .\-tab-link,
+.tab.\-tab-block .\-tab-item a {
+    margin: var(--tab-block-link-margin);
+}
+.tab.\-tab-block .\-tab-item .\-tab-link.badge,
+.tab.\-tab-block .\-tab-item a.badge {
+    padding-right: var(--tab-block-link-badge-padding-r);
+}
+.tab.\-tab-block .\-tab-item .badge[data-badge]::after {
+    position: absolute;
+    right: var(--tab-item-badge-right);
+    top: var(--tab-item-badge-top);
+    transform: translate(0, 0);
+}
+.tab:not(.\-tab-block) .badge {
+    padding-right: .25rem;
+}

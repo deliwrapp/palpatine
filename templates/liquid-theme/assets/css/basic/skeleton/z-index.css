@@ -1,0 +1,46 @@
+
+.\-z-auto {z-index: auto;}
+
+.\-z-500 {z-index: -500;}
+.\-z-400 {z-index: -400;}
+.\-z-300 {z-index: -300;}
+.\-z-200 {z-index: -200;}
+.\-z-100 {z-index: -100;}
+.\-z-5 {z-index: -5;}
+.\-z-4 {z-index: -4;}
+.\-z-3 {z-index: -3;}
+.\-z-2 {z-index: -2;}
+.\-z-1 {z-index: -1;}
+.\-z0 {z-index: 0;}
+.\-z1 {z-index: 1;}
+.\-z2 {z-index: 2;}
+.\-z3 {z-index: 3;}
+.\-z4 {z-index: 4;}
+.\-z5 {z-index: 5;}
+
+.\-z100 {z-index: 100;}
+.\-z200 {z-index: 200;}
+.\-z300 {z-index: 300;}
+.\-z400 {z-index: 400;}
+.\-z500 {z-index: 500;}
+.\-z600 {z-index: 600;}
+.\-z700 {z-index: 700;}
+.\-z800 {z-index: 800;}
+.\-z900 {z-index: 900;}
+.\-z1000 {z-index: 1000;}
+
+.\-z2000 {z-index: 2000;}
+.\-z3000 {z-index: 3000;}
+.\-z4000 {z-index: 4000;}
+.\-z5000 {z-index: 5000;}
+.\-z6000 {z-index: 6000;}
+.\-z7000 {z-index: 7000;}
+.\-z8000 {z-index: 8000;}
+.\-z9000 {z-index: 9000;}
+.\-z10000 {z-index: 10000;}
+
+/* Valeurs globales */
+.\-z-inherit{z-index: inherit;}
+.\-z-init {z-index: initial;}
+.\-z-rev{z-index: revert;}
+.\-z-unset {z-index: unset;}

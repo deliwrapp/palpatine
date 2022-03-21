@@ -1,0 +1,32 @@
+services:
+    App\Post\:
+        resource: '../Post/*'
+        exclude: '../Post/{DependencyInjection,Entity,Migrations,Templates,Tests,DataFixtures}'
+
+    App\Post\Controller\:
+        resource: '../Post/Controller'
+        tags: ['controller.service_arguments']
+
+    App\Post\Repository\:
+        resource: '../Post/Repository'
+        autowire: true
+        tags: ['doctrine.repository_service']
+
+twig:
+    paths:
+        '%kernel.project_dir%/templates/%base_theme_folder%/pages/post/': post
+
+framework:
+    translator:
+        paths: ["%kernel.project_dir%/src/Post/Translations"]
+
+doctrine:
+    orm:
+        auto_mapping: true
+        mappings:
+            Post:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Post/Entity'
+                prefix: 'App\Post\Entity'
+                alias: Post
