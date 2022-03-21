@@ -4,5 +4,3 @@ twig:
 when@test:
     twig:
         strict_variables: true
-        debug: '%kernel.debug%'
-

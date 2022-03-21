@@ -21,7 +21,6 @@
         "symfony/security-csrf": "5.4.*",
         "symfony/twig-bridge": "5.4.*",
         "symfony/twig-bundle": "5.4.*",
-        "symfony/webpack-encore-bundle": "^1.14",
         "symfony/yaml": "5.4.*",
         "twig/twig": "^3.0"
     },

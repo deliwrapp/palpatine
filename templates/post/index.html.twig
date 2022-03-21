@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block header %}
+    <h2> Les Posts </h2>
+    <nav>
+        <ul>
+            <li><a href="{{ path('postsList') }}"> Index </a> </li>
+            <li><a href="{{ path('postCreate') }}"> Create </a> </li>
+        </ul>
+    </nav>
+    {% for type, messages in app.flashes() %}
+        {% for message in messages %}
+               <p> {{ message }} </p>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block footer %}
+    <h2> Le Footer </h2>
+{% endblock %}
