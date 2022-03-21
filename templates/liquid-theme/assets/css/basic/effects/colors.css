@@ -1,0 +1,349 @@
+.\-primary, .\-info {
+    color: var(--liquid-color-primary-contrast)!important;
+    background-color: var(--liquid-color-primary)!important;
+}
+.\-secondary {
+    color: var(--liquid-color-secondary-contrast)!important;
+    background-color: var(--liquid-color-secondary)!important;
+}
+.\-tertiary {
+    color: var(--liquid-color-tertiary-contrast)!important;
+    background-color: var(--liquid-color-tertiary)!important;
+}
+.\-dark {
+    color: var(--liquid-color-dark-contrast)!important;
+    background-color: var(--liquid-color-dark)!important;
+}
+.\-light {
+    color: var(--liquid-color-light-contrast)!important;
+    background-color: var(--liquid-color-light)!important;
+}
+.\-success {
+    color: var(--liquid-color-success-contrast)!important;
+    background-color: var(--liquid-color-success)!important;
+}
+.\-warning {
+    color: var(--liquid-color-warning-contrast)!important;
+    background-color: var(--liquid-color-warning)!important;
+}
+.\-danger {
+    color: var(--liquid-color-danger-contrast)!important;
+    background-color: var(--liquid-color-danger)!important;
+}
+.\-color-primary {
+    color: var(--liquid-color-primary)!important;
+}
+.\-bg-primary {
+    background-color: var(--liquid-color-primary)!important;
+}
+.\-color-primary-content {
+    color: var(--liquid-color-primary-contrast)!important;
+}
+
+.\-color-secondary {
+    color: var(--liquid-color-secondary)!important;
+}
+.\-bg-secondary {
+    background-color: var(--liquid-color-secondary)!important;
+}
+.\-color-secondary-content {
+    color: var(--liquid-color-secondary-contrast)!important;
+}
+
+.\-color-tertiary {
+    color: var(--liquid-color-tertiary)!important;
+}
+.\-bg-tertiary {
+    background-color: var(--liquid-color-tertiary)!important;
+}
+.\-color-tertiary-content {
+    color: var(--liquid-color-tertiary-contrast)!important;
+}
+
+.\-color-success {
+    color: var(--liquid-color-success)!important;
+}
+.\-bg-success {
+    background-color: var(--liquid-color-success)!important;
+}
+.\-color-success-content {
+    color: var(--liquid-color-success-contrast)!important;
+}
+
+.\-color-warning {
+    color: var(--liquid-color-warning)!important;
+}
+.\-bg-warning {
+    background-color: var(--liquid-color-warning)!important;
+}
+.\-color-warning-content {
+    color: var(--liquid-color-warning-contrast)!important;
+}
+
+.\-color-danger {
+    color: var(--liquid-color-danger)!important;
+}
+.\-bg-danger {
+    background-color: var(--liquid-color-danger)!important;
+}
+.\-color-danger-content {
+    color: var(--liquid-color-danger-contrast)!important;
+}
+
+.\-color-dark {
+    color: var(--liquid-color-dark)!important;
+}
+.\-bg-dark {
+    background-color: var(--liquid-color-dark)!important;
+}
+.\-color-dark-content {
+    color: var(--liquid-color-dark-contrast)!important;
+}
+
+.\-white {
+    color: var(--liquid-color-white-contrast)!important;
+    background-color: var(--liquid-color-white)!important;
+}
+.\-color-white {
+    color: var(--liquid-color-white)!important;
+}
+.\-bg-white {
+    background-color: var(--liquid-color-white)!important;
+}
+
+.\-transparent {
+    color: var(--liquid-color-white-contrast)!important;
+    background-color: transparent!important;
+}
+.\-color-transparent {
+    color: transparent!important;
+}
+.\-bg-transparent {
+    background-color: transparent!important;
+}
+
+.\-color-light {
+    color: var(--liquid-color-light)!important;
+}
+.\-bg-light {
+    background-color: var(--liquid-color-light)!important;
+}
+.\-color-light-content {
+    color: var(--liquid-color-light-contrast)!important;
+}
+.\-color-transparent {
+    color:  transparent!important;
+}
+.\-bg-transparent {
+    background-color: transparent!important;
+}
+.\-bg-none {
+    background: none!important;
+    color: var(--liquid-text-color);
+}
+/*------HOVER------*/
+.\-primary.\-hover:hover, .\-info.\-hover:hover {
+    color: var(--liquid-color-primary-contrast)!important;
+    background-color: var(--liquid-color-primary-shade)!important;
+}
+.\-secondary.\-hover:hover {
+    color: var(--liquid-color-secondary-contrast)!important;
+    background-color: var(--liquid-color-secondary-shade)!important;
+}
+.\-tertiary.\-hover:hover {
+    color: var(--liquid-color-tertiary-contrast)!important;
+    background-color: var(--liquid-color-tertiary-shade)!important;
+}
+.\-dark.\-hover:hover {
+    color: var(--liquid-color-dark-contrast)!important;
+    background-color: var(--liquid-color-dark-shade)!important;
+}
+.\-light.\-hover:hover {
+    color: var(--liquid-color-light-contrast)!important;
+    background-color: var(--liquid-color-light-shade)!important;
+}
+.\-success.\-hover:hover {
+    color: var(--liquid-color-success-contrast)!important;
+    background-color: var(--liquid-color-success-shade)!important;
+}
+.\-warning.\-hover:hover {
+    color: var(--liquid-color-warning-contrast)!important;
+    background-color: var(--liquid-color-warning-shade)!important;
+}
+.\-danger.\-hover:hover {
+    color: var(--liquid-color-danger-contrast)!important;
+    background-color: var(--liquid-color-danger-shade)!important;
+}
+.\-color-primary.\-hover:hover  {
+    color: var(--liquid-color-primary-shade)!important;
+}
+.\-bg-primary.\-hover:hover {
+    background-color: var(--liquid-color-primary-contrast)!important;
+}
+.\-color-primary-content.\-hover:hover {
+    color: var(--liquid-color-primary-shade)!important;
+}
+
+.\-color-secondary.\-hover:hover {
+    color: var(--liquid-color-secondary-shade)!important;
+}
+.\-bg-secondary.\-hover:hover {
+    background-color: var(--liquid-color-secondary-contrast)!important;
+}
+.\-color-secondary-content.\-hover:hover {
+    color: var(--liquid-color-secondary-shade)!important;
+}
+
+.\-color-tertiary.\-hover:hover {
+    color: var(--liquid-color-tertiary-shade)!important;
+}
+.\-bg-primary.\-hover:hover {
+    background-color: var(--liquid-color-tertiary-contrast)!important;
+}
+.\-color-primary-content.\-hover:hover {
+    color: var(--liquid-color-tertiary-shade)!important;
+}
+
+.\-color-success.\-hover:hover {
+    color: var(--liquid-color-success-shade)!important;
+}
+.\-bg-success.\-hover:hover {
+    background-color: var(--liquid-color-success-contrast)!important;
+}
+.\-color-success-content.\-hover:hover {
+    color: var(--liquid-color-success-shade)!important;
+}
+
+.\-color-warning.\-hover:hover {
+    color: var(--liquid-color-warning-shade)!important;
+}
+.\-bg-warning.\-hover:hover {
+    background-color: var(--liquid-color-warning-contrast)!important;
+}
+.\-color-warning-content.\-hover:hover {
+    color: var(--liquid-color-warning-shade)!important;
+}
+
+.\-color-dark.\-hover:hover {
+    color: var(--liquid-color-dark-shade)!important;
+}
+.\-bg-dark.\-hover:hover {
+    background-color: var(--liquid-color-dark-contrast)!important;
+}
+.\-color-dark-content.\-hover:hover {
+    color: var(--liquid-color-dark-shade)!important;
+}
+
+.\-color-light.\-hover:hover {
+    color: var(--liquid-color-light-shade)!important;
+}
+.\-bg-light.\-hover:hover {
+    background-color: var(--liquid-color-light-contrast)!important;
+}
+.\-color-light-content.\-hover:hover {
+    color: var(--liquid-color-light-shade)!important;
+}
+.\-bg-none:hover {
+    background: none;
+}
+
+.\-bg-gradient-1,
+.\-bg-gradient-1-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-1))!important;
+    background-image: linear-gradient(var(--liquid-gradient-1))!important;
+}
+.\-bg-gradient-2,
+.\-bg-gradient-2-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-2))!important;
+    background-image: linear-gradient(var(--liquid-gradient-2))!important;
+}
+.\-bg-gradient-3,
+.\-bg-gradient-3-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-3))!important;
+    background-image: linear-gradient(var(--liquid-gradient-3))!important;
+}
+.\-bg-gradient-4,
+.\-bg-gradient-4-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-4))!important;
+    background-image: linear-gradient(var(--liquid-gradient-4))!important;
+}
+.\-bg-gradient-5,
+.\-bg-gradient-5-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-5))!important;
+    background-image: linear-gradient(var(--liquid-gradient-5))!important;
+}
+.\-bg-gradient-6,
+.\-bg-gradient-6-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-6))!important;
+    background-image: linear-gradient(var(--liquid-gradient-6))!important;
+}
+.\-bg-gradient-7,
+.\-bg-gradient-7-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-7))!important;
+    background-image: linear-gradient(var(--liquid-gradient-7))!important;
+}
+.\-bg-gradient-8,
+.\-bg-gradient-8-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-8))!important;
+    background-image: linear-gradient(var(--liquid-gradient-8))!important;
+}
+.\-bg-gradient-9,
+.\-bg-gradient-9-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-9))!important;
+    background-image: linear-gradient(var(--liquid-gradient-9))!important;
+}
+.\-bg-gradient-10,
+.\-bg-gradient-10-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-10))!important;
+    background-image: linear-gradient(var(--liquid-gradient-10))!important;
+}
+.\-bg-gradient-11,
+.\-bg-gradient-11-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-11))!important;
+    background-image: linear-gradient(var(--liquid-gradient-11))!important;
+}
+.\-bg-gradient-12,
+.\-bg-gradient-12-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-12))!important;
+    background-image: linear-gradient(var(--liquid-gradient-12))!important;
+}
+.\-bg-gradient-13,
+.\-bg-gradient-13-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-13))!important;
+    background-image: linear-gradient(var(--liquid-gradient-13))!important;
+}
+.\-bg-gradient-14,
+.\-bg-gradient-14-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-14))!important;
+    background-image: linear-gradient(var(--liquid-gradient-14))!important;
+}
+.\-bg-gradient-15,
+.\-bg-gradient-15-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-15))!important;
+    background-image: linear-gradient(var(--liquid-gradient-15))!important;
+}
+.\-bg-gradient-16,
+.\-bg-gradient-16-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-16))!important;
+    background-image: linear-gradient(var(--liquid-gradient-16))!important;
+}
+.\-bg-gradient-17,
+.\-bg-gradient-17-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-17))!important;
+    background-image: linear-gradient(var(--liquid-gradient-17))!important;
+}
+.\-bg-gradient-18,
+.\-bg-gradient-18-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-18))!important;
+    background-image: linear-gradient(var(--liquid-gradient-18))!important;
+}
+.\-bg-gradient-19,
+.\-bg-gradient-19-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-19))!important;
+    background-image: linear-gradient(var(--liquid-gradient-19))!important;
+}
+.\-bg-gradient-20,
+.\-bg-gradient-20-hov:hover {
+    background-image: -webkit-linear-gradient(var(--liquid-gradient-20))!important;
+    background-image: linear-gradient(var(--liquid-gradient-20))!important;
+}

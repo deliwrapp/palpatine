@@ -1,0 +1,488 @@
+/* ---- ANIMATIONS ---- */
+/* Direction */
+.\-anim-dir-normal {
+    animation-direction: normal!important;
+}
+.\-anim-dir-reverse {
+    animation-direction: reverse!important;
+}
+.\-anim-dir-alternate {
+    animation-direction: alternate!important;
+}
+.\-anim-dir-alternate-reverse {
+    animation-direction: alternate-reverse!important;
+}
+.\-anim-dir-initial {
+    animation-direction: initial!important;
+}
+.\-anim-dir-unset {
+    animation-direction: unset!important;
+}
+.\-anim-dir-inherit {
+    animation-direction: inherit!important;
+}
+/* Fill */
+.\-anim-fill-none {
+    animation-fill-mode: none!important;
+}
+.\-anim-fill-forwards {
+    animation-fill-mode: forwards!important;
+}
+.\-anim-fill-backwards {
+    animation-fill-mode: backwards!important;
+}
+.\-anim-fill-both {
+    animation-fill-mode: both!important;
+}
+/* Duration */
+.\-anim-0-15s {
+    animation-duration: 0.15s!important;
+}
+.\-anim-0-25s {
+    animation-duration: 0.25s!important;
+}
+.\-anim-0-50s {
+    animation-duration: 0.50s!important;
+}
+.\-anim-0-75s {
+    animation-duration: 0.75s!important;
+}
+.\-anim-1s {
+    animation-duration: 1s!important;
+}
+.\-anim-2s {
+    animation-duration: 2s!important;
+}
+.\-anim-3s {
+    animation-duration: 3s!important;
+}
+.\-anim-4s {
+    animation-duration: 4s!important;
+}
+.\-anim-5s {
+    animation-duration: 3s!important;
+}
+/* Delay */
+.\-anim-delay-75 {
+    animation-delay: 75ms!important;
+}
+.\-anim-delay-75 {
+    animation-delay: 75ms!important;
+}
+.\-anim-delay-50ms {
+    animation-delay: 50ms!important;
+}
+.\-anim-delay-75ms {
+    animation-delay: 75ms!important;
+}
+.\-anim-delay-100ms {
+    animation-delay: .1s!important;
+}
+.\-anim-delay-150ms {
+    animation-delay: .15s!important;
+}
+.\-anim-delay-200ms {
+    animation-delay: .2s!important;
+}
+.\-anim-delay-250ms {
+    animation-delay: .25s!important;
+}
+.\-anim-delay-300ms {
+    animation-delay: .3s!important;
+}
+.\-anim-delay-350ms {
+    animation-delay: .35s!important;
+}
+.\-anim-delay-400ms {
+    animation-delay: .4s!important;
+}
+.\-anim-delay-500ms {
+    animation-delay: .5s!important;
+}
+.\-anim-delay-700ms {
+    animation-delay: .7s!important;
+}
+.\-anim-delay-1s {
+    animation-delay: 1s!important;
+}
+.\-anim-delay-2s {
+    animation-delay: 2s!important;
+}
+.\-anim-delay-3s {
+    animation-delay: 3s!important;
+}
+/* ----ANIMATION---- */
+.\-rotate-all-infinite-linear-alternate {
+    animation: rotate-all 2s 0 infinite linear alternate;
+}
+
+.\-anim-confeti {
+    animation-name: confetti;
+}
+@keyframes confetti {
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1) translate(-50%, -50%)!important;
+    }
+}
+
+.\-anim-liquify {
+    animation-name: liquify;
+}
+@keyframes liquify {
+    0% {
+        transform: translate(-50%, -75%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -75%) rotate(360deg);
+    }
+}
+
+.\-anim-wave {
+    animation-name: wave;
+}
+@keyframes wave {
+    50% { transform: translateZ(4.5em); }
+}
+
+.\-anim-pop-in {
+    animation-name: pop-in;
+}
+@keyframes pop-in {
+    from {
+        transform: scale(0.1);
+        opacity: 0;
+   }
+    
+    60% {
+        transform: scale(1.2);
+        opacity: 1;
+   }
+    
+    to {
+        transform: scale(1);
+   }
+}
+
+.\-anim-square-to-circle-1 {
+    animation: square-to-circle 2.5s .5s infinite cubic-bezier(1,.015,.295,1.225) alternate-reverse;
+}
+@keyframes square-to-circle {
+    0%  {
+        border-radius:0 0 0 0;
+        background: none;
+        transform:rotate(45deg);
+    }
+    25%  {
+        border-radius:50% 0 0 0;
+        transform:rotate(135deg);
+    }
+    50%  {
+        border-radius:50% 50% 0 0;
+        transform:rotate(180deg);
+    }
+    75%  { 
+        border-radius:50% 50% 50% 0;
+        transform:rotate(315deg);
+    }
+    100% {  
+        border-radius:50%;
+        transform:rotate(404deg);
+    }
+}
+.\-anim-square-to-circle-2 {
+    animation: square-to-circle2 2.5s .42s infinite cubic-bezier(1,.015,.295,1.225) alternate-reverse;
+}
+@keyframes square-to-circle2 {
+    0%  {
+        border-radius:0 0 0 0;
+        transform:rotate(45deg);
+    }
+    25%  {
+        border-radius:0 0 50% 0;
+        transform:rotate(135deg);
+    }
+    50%  {
+        border-radius:0 0 50% 50%;
+        transform:rotate(180deg);
+    }
+    75%  { 
+        border-radius:50% 0 50% 50%;
+        transform:rotate(315deg);
+    }
+    100% {  
+        border-radius:50%;
+        transform:rotate(404deg);
+    }
+}
+
+.\-anim-loading {
+    animation-name: loading;
+}
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.\-anim-slide-left {
+    animation-name: slide-left;
+}
+@keyframes slide-left {
+    0% {
+        transform: translateX(-100vw);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+.\-anim-slide-left-out {
+    animation-name: slide-left-out;
+}
+@keyframes slide-left-out {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100vw);
+    }
+}
+.\-anim-slide-right {
+    animation-name: slide-right;
+}
+@keyframes slide-right {
+    0% {
+        transform: translateX(100vw);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+.\-anim-slide-right-out {
+    animation-name: slide-left-out;
+}
+@keyframes slide-right-out {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100vw);
+    }
+}
+.\-anim-slide-down {
+    animation-name: slide-down;
+}
+@keyframes slide-down {
+    0% {
+        transform: translateY(-500%);
+    }
+    60% {
+        transform: translateY(10%);
+    }
+    70% {
+        transform: translateY(-5%);
+    }
+    80% {
+        transform: translateY(5%);
+    }
+    90% {
+        transform: translateY(-2%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.\-anim-slide-down-out {
+    animation-name: slide-down-out;
+}
+@keyframes slide-down-out {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-500%);
+    }
+}
+.\-anim-slide-up {
+    animation-name: slide-up;
+}
+@keyframes slide-up {
+    0% {
+        transform: translateY(800%);
+    }
+    60% {
+        transform: translateY(-10%);
+    }
+    70% {
+        transform: translateY(5%);
+    }
+    80% {
+        transform: translateY(-5%);
+    }
+    90% {
+        transform: translateY(2%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.\-anim-slide-up-out {
+    animation-name: slide-up-out;
+}
+@keyframes slide-up-out {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(800%);
+    }
+}
+
+.\-anim-spin {
+    animation-name: spin;
+}
+.\-anim-spin-play {
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.\-anim-ping {
+    animation-name: ping;
+}
+.\-anim-ping-play {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ping {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.\-anim-pulse {
+    animation-name: pulse;
+}
+.\-anim-pulse-play {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .5;
+    }
+}
+
+.\-anim-bounce {
+    animation-name: bounce;
+}
+.\-anim-bounce-play {
+    animation: bounce 1s infinite;
+}
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(-25%);
+        animationTimingFunction: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+        transform: translateY(0);
+        animationTimingFunction: cubic-bezier(0, 0, 0.2, 1);
+    }
+}
+
+.\-anim-fade-in {
+    animation-name: fade-in;
+}
+.\-anim-fade-in-play {
+    animation: 2s fade-in forwards .5s;
+}
+@keyframes fade-in {
+    100% { opacity:1 }
+}
+.\-anim-fade-out {
+    animation-name: fade-out;
+}
+.\-anim-fade-out-play {
+    animation: 2s fade-out forwards .5s;
+}
+@keyframes fade-out {
+    0% { opacity:1 }
+    100% { opacity:0 }
+}
+
+.\-anim-rotate-from-t-right-left {
+    animation-name: rotate-from-t-right;
+}
+@keyframes rotate-from-t-right-left {
+    0% {
+        transform: translate(90%, -175%) rotate(180deg);
+    }
+    50% {
+        transform: translate(-40%, -10%) rotate(350deg);
+    }
+    100% {
+        transform: translate(0%, 0) rotate(360deg);
+    }
+}
+.\-anim-rotate-from-b-right-left {
+    animation-name: rotate-from-b-right;
+}
+@keyframes rotate-from-b-right-left {
+    0% {
+        transform: translate(-50%, 175%) rotate(180deg);
+    }
+    50% {
+        transform: translate(-40%, 0) rotate(350deg);
+    }
+    100% {
+        transform: translate(0%, 0) rotate(360deg);
+    }
+}
+.\-anim-rotate-from-t-left-right {
+    animation-name: rotate-from-t-left-right;
+}
+@keyframes rotate-from-t-left-right {
+    0% {
+        transform: translate(0, 0) rotate(0);
+    }
+    20% {
+        transform: translate(-500%, -500%) rotate(180deg);
+    }
+    50% {
+        transform: translate(-40%, -10%) rotate(350deg);
+    }
+    100% {
+        transform: translate(0%, 0) rotate(360deg);
+    }
+}
+.\-anim-rotate-from-b-left-right {
+    animation-name: rotate-from-b-left;
+}
+@keyframes rotate-from-b-left-right {
+    0% {
+        transform: translate(-500%, 175%) rotate(180deg);
+    }
+    50% {
+        transform: translate(10%, 0) rotate(350deg);
+    }
+    100% {
+        transform: translate(0%, 0) rotate(360deg);
+    }
+}

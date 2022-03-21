@@ -1,0 +1,168 @@
+.\-relative  { position: relative;}
+.\-absolute  { position: absolute;}
+.\-fixed     { position: fixed;}
+.\-static    { position: static;}
+.\-sticky    { position: sticky;}
+.\-pos-unset { position: unset;}
+.\-obj-l-t { object-position: left top;}
+.\-obj-l-c { object-position: left center;}
+.\-obj-l-b { object-position: left bottom;}
+.\-obj-c-t { object-position: center top;}
+.\-obj-c   { object-position: center center;}
+.\-obj-c-b { object-position: center bottom;}
+.\-obj-r-t { object-position: right top;}
+.\-obj-r-c { object-position: right center;}
+.\-obj-r-b { object-position: right bottom;}
+
+.\-top{top: 0;}
+.\-bottom{bottom: 0;}
+.\-right{right: 0;}
+.\-left{left: 0;}
+.\-centered {
+    display: block;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.\-top-1rm {top: 1rem;}
+.\-bottom-1rm {bottom: 1rem;}
+.\-right-1rm {right: 1rem;}
+.\-left-1rm {left: 1rem;}
+
+.\-top-2rm {top: 2rem;}
+.\-bottom-2rm {bottom: 2rem;}
+.\-right-2rm {right: 2rem;}
+.\-left-2rm {left: 2rem;}
+
+.\-top-3rm {top: 3rem;}
+.\-bottom-3rm {bottom: 3rem;}
+.\-right-3rm {right: 3rem;}
+.\-left-3rm {left: 3rem;}
+
+.\-top-4rm {top: 4rem;}
+.\-bottom-4rm {bottom: 4rem;}
+.\-right-4rm {right: 4rem;}
+.\-left-4rm {left: 4rem;}
+
+.\-top-5rm {top: 5rem;}
+.\-bottom-5rm {bottom: 5rem;}
+.\-right-5rm {right: 5rem;}
+.\-left-5rm {left: 5rem;}
+
+.\-top-1 {top: 1%;}
+.\-bottom-1 {bottom: 1%;}
+.\-right-1 {right: 1%;}
+.\-left-1 {left: 1%;}
+
+.\-top-2 {top: 2%;}
+.\-bottom-2 {bottom: 2%;}
+.\-right-2 {right: 2%;}
+.\-left-2 {left: 2%;}
+
+.\-top-3 {top: 3%;}
+.\-bottom-3 {bottom: 3%;}
+.\-right-3 {right: 3%;}
+.\-left-3 {left: 3%;}
+
+.\-top-4 {top: 4%;}
+.\-bottom-4 {bottom: 4%;}
+.\-right-4 {right: 4%;}
+.\-left-4 {left: 4%;}
+
+.\-top-5 {top: 5%;}
+.\-bottom-5 {bottom: 5%;}
+.\-right-5 {right: 5%;}
+.\-left-5 {left: 5%;}
+
+.\-top-10 {top: 10%;}
+.\-bottom-10 {bottom: 10%;}
+.\-right-10 {right: 10%;}
+.\-left-10 {left: 10%;}
+
+.\-top-15 {top: 15%;}
+.\-bottom-15 {bottom: 15%;}
+.\-right-15 {right: 15%;}
+.\-left-15 {left: 15%;}
+
+.\-top-20 {top: 20%;}
+.\-bottom-20 {bottom: 20%;}
+.\-right-20 {right: 20%;}
+.\-left-20 {left: 20%;}
+
+.\-top-25 {top: 25%;}
+.\-bottom-25 {bottom: 25%;}
+.\-right-25 {right: 25%;}
+.\-left-25 {left: 25%;}
+
+.\-top-30 {top: 30%;}
+.\-bottom-30 {bottom: 30%;}
+.\-right-30 {right: 30%;}
+.\-left-30 {left: 30%;}
+
+.\-top-33 {top: 33%;}
+.\-bottom-33 {bottom: 33%;}
+.\-right-33 {right: 33%;}
+.\-left-33 {left: 33%;}
+
+.\-top-35 {top: 35%;}
+.\-bottom-35 {bottom: 35%;}
+.\-right-35 {right: 35%;}
+.\-left-35 {left: 35%;}
+
+.\-top-40 {top: 40%;}
+.\-bottom-40 {bottom: 40%;}
+.\-right-40 {right: 40%;}
+.\-left-40 {left: 40%;}
+
+.\-top-45 {top: 45%;}
+.\-bottom-45 {bottom: 45%;}
+.\-right-45 {right: 45%;}
+.\-left-45 {left: 45%;}
+
+.\-top-50 {top: 50%;}
+.\-bottom-50 {bottom: 50%;}
+.\-right-50 {right: 50%;}
+.\-left-50 {left: 50%;}
+
+.\-float-c {
+    float: center;
+}
+.\-float-r {
+    float: right;
+}
+.\-float-l {
+    float: left;
+}
+.\-float-s {
+    float: inline-start;
+}
+.\-float-e {
+    float: inline-end;
+}
+
+.\-ord-1 {order: 1}
+.\-ord-2 {order: 2}
+.\-ord-3 {order: 3}
+.\-ord-4 {order: 4}
+.\-ord-5 {order: 5}
+.\-ord-6 {order: 6}
+.\-ord-7 {order: 7}
+.\-ord-8 {order: 8}
+.\-ord-9 {order: 9}
+.\-ord-10 {order: 10}
+.\-ord-11 {order: 11}
+.\-ord-12 {order: 12}
+
+.\-ord-neg-1 {order: -1}
+.\-ord-neg-2 {order: -2}
+.\-ord-neg-3 {order: -3}
+.\-ord-neg-4 {order: -4}
+.\-ord-neg-5 {order: -5}
+.\-ord-neg-6 {order: -6}
+.\-ord-neg-7 {order: -7}
+.\-ord-neg-8 {order: -8}
+.\-ord-neg-9 {order: -9}
+.\-ord-neg-10 {order: -10}
+.\-ord-neg-11 {order: -11}
+.\-ord-neg-12 {order: -12}

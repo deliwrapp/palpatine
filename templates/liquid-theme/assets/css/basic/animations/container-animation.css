@@ -1,0 +1,112 @@
+.dynamic-container .\-dynamic-section:target.\-slide-right *,
+.dynamic-container .\-dynamic-section.\-active.\-slide-right * {
+    animation-duration: var(--dynamic-section-slide-right-duration);
+    animation-delay: var(--dynamic-section-slide-right-delay);
+    animation-fill-mode: var(--dynamic-section-slide-right-fill);
+    animation-name: slide-right;
+}
+.dynamic-container .\-dynamic-section:target.\-slide-left *,
+.dynamic-container .\-dynamic-section.\-active.\-slide-left * {
+    animation-duration: var(--dynamic-section-slide-left-duration);
+    animation-delay: var(--dynamic-section-slide-left-delay);
+    animation-fill-mode: var(--dynamic-section-slide-left-fill);
+    animation-name: slide-left;
+}
+.dynamic-container .\-dynamic-section:target.\-slide-up *,
+.dynamic-container .\-dynamic-section.\-active.\-slide-up * {
+    animation-duration: var(--dynamic-section-slide-up-duration);
+    animation-delay: var(--dynamic-section-slide-up-delay);
+    animation-fill-mode: var(--dynamic-section-slide-up-fill);
+    animation-name: slide-up;
+}
+.dynamic-container .\-dynamic-section:target.\-slide-down *,
+.dynamic-container .\-dynamic-section.\-active.\-slide-down * {
+    animation-duration: var(--dynamic-section-slide-down-duration);
+    animation-delay: var(--dynamic-section-slide-down-delay);
+    animation-fill-mode: var(--dynamic-section-slide-down-fill);
+    animation-name: slide-down;
+}
+.dynamic-container .\-dynamic-section:target.\-pop-in *,
+.dynamic-container .\-dynamic-section.\-active.\-pop-in * {
+    animation: 2s pop-in forwards;
+    animation-duration: var(--dynamic-section-pop-in-duration);
+    animation-delay: var(--dynamic-section-pop-in-delay);
+    animation-fill-mode: var(--dynamic-section-pop-in-fill);
+    animation-name: pop-in;
+}
+.dynamic-container .\-dynamic-section:target.\-rotate-from-t-right-left *,
+.dynamic-container .\-dynamic-section.\-active.\-rotate-from-t-right-left * {
+    animation: 2s rotate-from-t-right-left forwards;
+    animation-duration: var(--dynamic-section-rotate-1-duration);
+    animation-delay: var(--dynamic-section-rotate-1-delay);
+    animation-fill-mode: var(--dynamic-section-rotate-1-fill);
+    animation-name: rotate-from-t-right-left;
+}
+.dynamic-container .\-dynamic-section:target.\-rotate-from-b-right-left * ,
+.dynamic-container .\-dynamic-section.\-active.\-rotate-from-b-right-left * {
+    animation-duration: var(--dynamic-section-rotate-2-duration);
+    animation-delay: var(--dynamic-section-rotate-2-delay);
+    animation-fill-mode: var(--dynamic-section-rotate-2-fill);
+    animation-name: rotate-from-b-right-left;
+}
+.dynamic-container .\-dynamic-section:target.\-rotate-from-t-left-right  *,
+.dynamic-container .\-dynamic-section.\-active.\-rotate-from-t-left-right  * {
+    animation-duration: var(--dynamic-section-rotate-3-duration);
+    animation-delay: var(--dynamic-section-rotate-3-delay);
+    animation-fill-mode: var(--dynamic-section-rotate-3-fill);
+    animation-name: rotate-from-t-left-right;
+}
+.dynamic-container .\-dynamic-section:target.\-rotate-from-b-left-right  *,
+.dynamic-container .\-dynamic-section.\-active.\-rotate-from-b-left-right  * {
+    animation-duration: var(--dynamic-section-rotate-4-duration);
+    animation-delay: var(--dynamic-section-rotate-4-delay);
+    animation-fill-mode: var(--dynamic-section-rotate-4-fill);
+    animation-name: rotate-from-b-left-right;
+}
+.dynamic-container .\-dynamic-section:target.\-fade-in *,
+.dynamic-container .\-dynamic-section.\-active.\-fade-in *,
+.dynamic-container .\-dynamic-section:target .\-fade-in,
+.dynamic-container .\-dynamic-section.\-active .\-fade-in {
+    opacity: var(--dynamic-section-fade-in-opacity-default);
+    animation-duration: var(--dynamic-section-fade-in-duration);
+    animation-delay: var(--dynamic-section-fade-in-delay);
+    animation-fill-mode: var(--dynamic-section-fade-in-fill);
+    animation-name: fade-in;
+}
+
+.dynamic-container .\-dynamic-section:target.\-fade-out *,
+.dynamic-container .\-dynamic-section.\-out.\-fade-out * {
+    opacity: var(--dynamic-section-fade-out-opacity-default);
+    animation-duration: var(--dynamic-section-fade-out-duration);
+    animation-delay: var(--dynamic-section-fade-out-delay);
+    animation-fill-mode: var(--dynamic-section-fade-out-fill);
+    animation-name: fade-out;
+}
+.dynamic-container .\-dynamic-section:target.\-slide-right-out *,
+.dynamic-container .\-dynamic-section.\-out.\-slide-right-out * {
+    animation-duration: var(--dynamic-section-slide-right-out-duration);
+    animation-delay: var(--dynamic-section-slide-right-out-delay);
+    animation-fill-mode: var(--dynamic-section-slide-right-out-fill);
+    animation-name: slide-right-out;
+}
+.dynamic-container .\-dynamic-section:target.\-slide-left-out *,
+.dynamic-container .\-dynamic-section.\-out.\-slide-left-out * {
+    animation-duration: var(--dynamic-section-slide-left-out-duration);
+    animation-delay: var(--dynamic-section-slide-left-out-delay);
+    animation-fill-mode: var(--dynamic-section-slide-left-out-fill);
+    animation-name: slide-left-out;
+}
+.dynamic-container .\-dynamic-section:target.\-slide-up-out *,
+.dynamic-container .\-dynamic-section.\-out.\-slide-up-out * {
+    animation-duration: var(--dynamic-section-slide-up-out-duration);
+    animation-delay: var(--dynamic-section-slide-up-out-delay);
+    animation-fill-mode: var(--dynamic-section-slide-up-out-fill);
+    animation-name: slide-up-out;
+}
+.dynamic-container .\-dynamic-section:target.\-slide-down-out *,
+.dynamic-container .\-dynamic-section.\-out.\-slide-down-out * {
+    animation-duration: var(--dynamic-section-slide-down-out-duration);
+    animation-delay: var(--dynamic-section-slide-down-out-delay);
+    animation-fill-mode: var(--dynamic-section-slide-down-out-fill);
+    animation-name: slide-down-out;
+}

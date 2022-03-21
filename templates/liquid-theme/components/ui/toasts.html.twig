@@ -1,0 +1,26 @@
+{% block flash %}
+    {% for flash_message in app.session.flashbag.get('success') %}
+        <div class="toast -success -shad-12 -shad-10-h" role="alert">
+            <p>{{ flash_message }}</p>
+            <button class="btn btn-clear"></button>
+        </div>
+    {% endfor %}
+    {% for flash_message in app.session.flashbag.get('info') %}
+        <div class="toast -info -shad-12 -shad-10-h" role="alert">
+            <p>{{ flash_message }}</p>
+            <button class="btn btn-clear"></button>
+        </div>
+    {% endfor %}
+    {% for flash_message in app.session.flashbag.get('warning') %}
+        <div class="toast -warning -shad-12 -shad-10-h" role="alert">
+            <p>{{ flash_message }}</p>
+            <button class="btn btn-clear"></button>
+        </div>
+    {% endfor %}
+    {% for flash_message in app.session.flashbag.get('danger') %}
+        <div class="toast -danger -shad-12 -shad-10-h" role="alert">
+            <p>{{ flash_message }}</p>
+            <button class="btn btn-clear"></button>
+        </div>
+  {% endfor %}
+{% endblock %}

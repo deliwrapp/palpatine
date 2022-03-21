@@ -1,0 +1,109 @@
+.pagination {
+    display: flex;
+    list-style: none;
+    margin: var(--pagination-margin-v) var(--pagination-margin-h);
+    padding: var(--pagination-padding-v) var(--pagination-padding-h);
+}
+.pagination .\-link-box {
+    float: left;
+    border-top: var(--link-box-border-t);
+    border-bottom: var(--link-box-border-b);
+    border-left: var(--link-box-border-l);
+    border-right: var(--link-box-border-r);
+    color: var(--link-box-color);
+    margin: var(--link-box-margin-v) var(--link-box-margin-h);
+    padding: var(--link-box-padding-v) var(--link-box-padding-h);
+}
+.pagination .\-page-item {
+    margin: var(--page-item-margin-v) var(--page-item-margin-h);
+    padding: var(--page-item-padding-v) var(--page-item-padding-h);
+}
+.pagination .\-page-item .\-pagination-dots {
+    display: inline-block;
+    margin: var(--pagination-dots-margin-v) var(--pagination-dots-margin-h);
+    padding: var(--pagination-dots-padding-v) var(--pagination-dots-padding-h);
+}
+.pagination .\-page-item .\-page-link  {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--page-link-w);
+    height: var(--page-link-h);
+    border-radius: var(--page-link-radius);
+    margin: var(--page-link-margin-v) var(--page-link-margin-h);
+    padding: var(--page-link-padding-v) var(--page-link-padding-h);
+    text-decoration: var(--page-link-text-decoration);
+    font-size: var(--page-link-font-size);
+}
+.pagination .\-page-item .\-page-link:hover {
+    color: var(--page-link-color-hov);
+    font-size: var(--page-link-font-size-hov);
+}
+.pagination .\-page-item .\-page-link:focus {
+    color: var(--page-link-color-foc);
+    font-size: var(--page-link-font-size-hov);
+}
+.pagination .\-page-item.\-active .\-page-link {
+    background: var(--page-link-active-bg);
+    color: var(--page-link-active-color);
+    border: var(--page-link-active-border);
+    border-radius: var(--page-link-active-radius);
+    font-size: var(--page-link-active-font-size);
+}
+.pagination .\-page-item.\-disabled .\-page-link {
+    cursor: var(--page-item-disabled-cursor);
+    opacity: var(--page-item-disabled-opacity);
+    pointer-events: none;
+}
+.pagination .\-page-link.\-page-prev,
+.pagination .\-page-link.\-page-next {
+    width: 100%;
+}
+.pagination .\-page-item.\-page-prev,
+.pagination .\-page-item.\-page-next {
+    display: flex;
+    cursor: pointer;
+    width: var(--pagination-prev-next-block-width);
+    font-size: var(--pagination-prev-next-block-font-size);
+    border-width: var(--pagination-prev-next-block-border-width);
+    border-style: var(--pagination-prev-next-block-border-style);
+    border-style: var(--pagination-prev-next-block-border-style);
+    border-color: var(--pagination-prev-next-block-border-color);
+    color: var(--pagination-prev-next-block-color);
+    margin: var(--pagination-prev-next-block-margin-v) var(--pagination-prev-next-block-margin-h);
+    padding: var(--pagination-prev-next-block-padding-v) var(--pagination-prev-next-block-padding-h);
+}
+.pagination .\-page-item.\-page-next {
+    text-align: right;
+}
+.pagination.\-full .\-page-link {
+    width: 100%;
+}
+.pagination .\-page-item .\-page-item-title {
+    font-size: var(--page-item-title-font-size);
+    color: var(--page-item-title-color);
+    margin: var(--page-item-title-margin-v) var(--page-item-title-margin-h);
+    padding: var(--page-item-title-padding-v) var(--page-item-title-padding-h);
+}
+.pagination .\-page-item .\-page-item-subtitle {
+    font-size: var(--page-item-subtitle-font-size);
+    color: var(--page-item-subtitle-color);
+    margin: var(--page-item-subtitle-margin-v) var(--page-item-subtitle-margin-h);
+    padding: var(--page-item-subtitle-padding-v) var(--page-item-subtitle-padding-h);
+    opacity: var(--page-item-subtitle-opacity);
+}
+.pagination .\-page-item .\-page-item-title:active,
+.pagination .\-page-item .\-page-item-title:hover {
+    font-size: var(--page-item-title-font-size-hov);
+    color: var(--page-item-title-color-hov);
+    margin: var(--page-item-title-margin-v-hov) var(--page-item-title-margin-h-hov);
+    padding: var(--page-item-title-padding-v-hov) var(--page-item-title-padding-h-hov);
+}
+.pagination .\-page-item .\-page-item-subtitle:active,
+.pagination .\-page-item .\-page-item-subtitle:hover {
+    font-size: var(--page-item-subtitle-font-size-hov);
+    color: var(--page-item-subtitle-color-hov);
+    margin: var(--page-item-subtitle-margin-v-hov) var(--page-item-subtitle-margin-h-hov);
+    padding: var(--page-item-subtitle-padding-v-hov) var(--page-item-subtitle-padding-h-hov);
+    opacity: var(--page-item-subtitle-opacity-hov);
+}

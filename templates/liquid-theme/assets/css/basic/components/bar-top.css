@@ -1,0 +1,38 @@
+.bar.\-top {
+    display: var(--topbar-display);
+    width: var(--topbar-width);
+    height: var(--topbar-height);
+    max-width: var(--topbar-max-width);
+    max-height: var(--topbar-max-height);
+    transition: var(--topbar-trans-selector) var(--topbar-trans-duration) var(--topbar-trans-type);
+}
+.bar-mini.\-top  {
+    display: var(--topbar-mini-display);
+    width: var(--topbar-mini-width);
+    height: var(--topbar-mini-height);
+    max-width: var(--topbar-mini-max-width);
+    max-height: var(--topbar-mini-max-height);
+    transition: var(--mini-trans-selector) var(--mini-trans-duration) var(--mini-trans-type);
+}
+.bar-full.\-top  {
+    display: var(--topbar-full-display);
+    width: var(--topbar-full-width);
+    height: var(--topbar-full-height);
+    max-width: var(--topbar-full-max-width);
+    max-height: var(--topbar-full-max-height);
+    transition: var(--topbar-trans-selector) var(--topbar-trans-duration) var(--topbar-trans-type);
+}
+.bar-mini.\-top.\-open,
+.bar-full.\-top.\-open,
+.bar.\-top.\-open  {
+    top: 0;
+}
+.bar.\-top.\-close  {
+    top: calc(-1 * var(--topbar-width));
+}
+.bar-mini.\-top.\-close  {
+    top: calc(-1 * var(--topbar-mini-width));
+}
+.bar-full.\-top.\-close  {
+    top: calc(-1 * var(--topbar-full-width));
+}

@@ -1,0 +1,7 @@
+/* Shapes */
+.s-rounded {
+    border-radius: 0.125rem;
+}
+.s-circle {
+    border-radius: 50%;
+}

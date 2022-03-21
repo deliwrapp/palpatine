@@ -1,3 +1,14 @@
 #index:
 #    path: /post
 #    controller: App\Controller\PostController::index
+
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: "%homepage_path%"
+        permanent: true
+
+app_routes:
+    resource: '../src/*/routes.yaml'
+

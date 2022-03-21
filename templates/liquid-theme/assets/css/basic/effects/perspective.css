@@ -1,0 +1,143 @@
+/* body {
+    font-size: 100%;
+} */
+.perpective-container {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.perpective-container .perspective {
+    background-color: hsla(0,0%,0%,.1);
+    background-image: linear-gradient(hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%),
+                      linear-gradient(90deg, hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%);
+    background-size: 3em 3em;
+    box-shadow: 0 0 0 .25em hsla(0,0%,0%,.2);
+    height: 9em;
+    left: 50%;
+    margin: -7.5em;
+    padding: 3em;
+    position: absolute;
+    top: 50%;
+    transform: perspective(500px) rotateX(45deg) rotateZ(45deg);
+    transform-style: preserve-3d;
+    transition: 1s;
+    width: 9em;
+}
+.perpective-container .cube,
+.perpective-container .cube:after,
+.perpective-container .cube:before {
+    box-shadow: inset 0 0 0 .25em hsla(0,0%,0%,.1);
+    content: '';
+    float: left;
+    height: 3em;
+    position: absolute;
+    width: 3em;
+}
+/* Top */
+.perpective-container .cube {
+    background-color: #f66;
+    position: relative;
+    transform: rotateZ(0deg) translateZ(3em);
+    transform-style: preserve-3d;
+    transition: .25s;
+}
+/* Left */
+.perpective-container .cube:after {
+    background-color: #e55;
+    transform: rotateX(-90deg) translateY(3em);
+    transform-origin: 100% 100%;
+}
+/* Right */
+.perpective-container .cube:before {
+    background-color: #d44;
+    transform: rotateY(90deg) translateX(3em);
+    transform-origin: 100% 0;
+}
+/* Alternate Colour */
+.perpective-container .cube:nth-child(even) {
+    background-color: #fc6;
+}
+.perpective-container .cube:nth-child(even):after {
+    background-color: #eb5;
+}
+.perpective-container .cube:nth-child(even):before {
+    background-color: #da4;
+}
+.perpective-container .cube:nth-child(1) {
+    animation: wave 2s .1s ease-in-out infinite;
+}
+.perpective-container .cube:nth-child(2) {
+    animation: wave 2s .2s ease-in-out infinite;
+}
+.perpective-container .cube:nth-child(3) {
+    animation: wave 2s .4s ease-in-out infinite;
+}
+.perpective-container .cube:nth-child(4) {
+    animation: wave 2s .3s ease-in-out infinite;
+}
+.perpective-container .cube:nth-child(5) {
+    animation: wave 2s .5s ease-in-out infinite;
+}
+.perpective-container .cube:nth-child(6) {
+    animation: wave 2s .7s ease-in-out infinite;
+}
+.perpective-container .cube:nth-child(7) {
+    animation: wave 2s .6s ease-in-out infinite;
+}
+.perpective-container .cube:nth-child(8) {
+    animation: wave 2s .8s ease-in-out infinite;
+}
+.perpective-container .cube:nth-child(9) {
+    animation: wave 2s .9s ease-in-out infinite;
+}
+/* Labels */
+.perpective-container .perpective-input {
+    display: none;
+}
+.perpective-container .perpective-label {
+    background: #ddd;
+    cursor: pointer;
+    display: block;
+    font-family: sans-serif;
+    line-height: 3em;
+    position: absolute;
+    right: .5em;
+    text-align: center;
+    top: 4em;
+    transition: .25s;
+    width: 4.5em;
+}
+.perpective-container .perpective-label[for="perpective-left"] {
+    right: 10.5em;
+}
+.perpective-container .perpective-label[for="perpective-reset"] {
+    right: 5.5em;
+}
+.perpective-container .perpective-label[for="perpective-up"] {
+    right: 5.5em;
+    top: .5em;
+}
+.perpective-container .perpective-label[for="perpective-down"] {
+    right: 5.5em;
+    top: 7.5em;
+}
+.perpective-container .perpective-label:hover {
+    background-color: #bbb;
+}
+.perpective-container .perpective-input:checked + .perpective-label {
+    background-color: #666;
+    color: #fff;
+}
+.perpective-container .perpective-left:checked ~ .perspective {
+    transform: perspective(500px) rotateX(45deg) rotateZ(75deg);
+}
+.perpective-container .perpective-right:checked ~ .perspective {
+    transform: perspective(500px) rotateX(45deg) rotateZ(15deg);
+}
+.perpective-container .perpective-up:checked ~ .perspective {
+    transform: perspective(500px) rotateX(75deg) rotateZ(45deg);
+}
+.perpective-container .perpective-down:checked ~ .perspective {
+    transform: perspective(500px) rotateX(15deg) rotateZ(45deg);
+}

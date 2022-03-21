@@ -1,0 +1,34 @@
+.\-loading {
+    color: transparent !important;
+    pointer-events: none;
+    position: relative;
+}
+.\-loading::after {
+    animation: loading 500ms infinite linear;
+    background: transparent;
+    border: .1rem solid var(--liquid-color-primary);
+    border-radius: 50%;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    content: "";
+    display: block;
+    height: .8rem;
+    left: 50%;
+    margin-left: -.4rem;
+    margin-top: -.4rem;
+    opacity: 1;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    width: .8rem;
+    z-index: 1;
+}
+.\-loading.\-loading-lg {
+    min-height: var(--btn-block-min-h);
+}
+.\-loading.\-loading-lg::after {
+    height: 1.6rem;
+    margin-left: -.8rem;
+    margin-top: -.8rem;
+    width: 1.6rem;
+}

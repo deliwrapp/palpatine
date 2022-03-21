@@ -1,0 +1,45 @@
+.chip {
+    background: var(--chip-bg);
+    border-radius: var(--chip-radius);
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--chip-font-size);
+    height: var(--chip-h);
+    line-height: var(--chip-line-height);
+    max-width: var(--chip-max-width);
+    margin: var(--chip-mar);
+    padding: var(--chip-pad);
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.chip.\-active {
+    background: var(--chip-bg-active);
+    color: var(--chip-color-active);
+}
+.chip.\-sm {
+    font-size: var(--chip-font-size-sm);
+    height: var(--chip-h-sm);
+    line-height: var(--chip-line-height-sm);
+    max-width: var(--chip-max-width-sm);
+    margin: var(--chip-mar-sm);
+    padding: var(--chip-pad-sm);
+}
+.chip.\-lg {
+    font-size: var(--chip-font-size-lg);
+    height: var(--chip-h-lg);
+    line-height: var(--chip-line-height-lg);
+    max-width: var(--chip-max-width-lg);
+    margin: var(--chip-mar-lg);
+    padding: var(--chip-pad-lg);
+}
+.chip .avatar {
+    margin-left: -.4rem;
+    margin-right: .2rem;
+}
+.chip .btn-clear {
+    border-radius: 50%;
+    transform: scale(var(--chip-btn-clear-scale));
+}
