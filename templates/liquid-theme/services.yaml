@@ -1,7 +1,0 @@
-twig:
-    paths:
-        '%kernel.project_dir%/templates/liquid-theme': liquid
-
-framework:
-    translator:
-        paths: ["%kernel.project_dir%/templates/liquid-theme/translations"]
