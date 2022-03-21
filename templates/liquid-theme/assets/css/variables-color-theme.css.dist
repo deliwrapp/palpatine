@@ -1,0 +1,264 @@
+/* liquid Variables and Theming. For more info, please see:
+/** liquid CSS Variables **/
+:root {
+    /* ------------------- EFFECTS -------------------- */
+    /* ---- COLOR ---- */
+    /* gradient */
+    --liquid-gradient-1: 120deg, var(--liquid-color-primary) 0%, var(--liquid-color-secondary) 100%;
+    --liquid-gradient-2: -145deg, var(--liquid-color-primary), var(--liquid-color-secondary);
+    --liquid-gradient-3: -145deg, var(--liquid-color-light), var(--liquid-color-secondary);
+    --liquid-gradient-4: -145deg, var(--liquid-color-light), var(--liquid-color-tertiary);
+    --liquid-gradient-5: -145deg, var(--liquid-color-secondary), var(--liquid-color-dark);
+    --liquid-gradient-6: -145deg, var(--liquid-color-tertiary), var(--liquid-color-dark);
+    --liquid-gradient-7: 95.2deg, rgba(173,252,234,1) 26.8%, rgba(192,229,246,1) 64%;
+    --liquid-gradient-8: to right, #ff512f, #f09819;
+    --liquid-gradient-9: to right, #fffbd5, #b20a2c;
+    --liquid-gradient-10: to right, #fc5c7d, #6a82fb;
+    --liquid-gradient-11: To right, #c6ffdd, #fbd786, #f7797d;
+    --liquid-gradient-12: to right, #00b4db, #0083b0;
+    --liquid-gradient-13: to right, #434343 0%, black 100%;
+    --liquid-gradient-14: -20deg, #00cdac 0%, #8ddad5 100%;
+    --liquid-gradient-15: to right, #0f0c29, #302b63, #24243e;
+    --liquid-gradient-16: to right, #00b09b, #96c93d;
+    --liquid-gradient-17: to right, rgb(242, 112, 156), rgb(255, 148, 114);
+    --liquid-gradient-18: 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1%;
+    --liquid-gradient-19: to right, #141e30, #243b55;
+    --liquid-gradient-20: to right, #ff9966, #ff5e62;
+    /* primary */
+    --liquid-color-primary: #3880ff;
+    --liquid-color-primary-rgb: 56, 128, 255;
+    --liquid-color-primary-contrast: #ffffff;
+    --liquid-color-primary-contrast-rgb: 255, 255, 255;
+    --liquid-color-primary-shade: #3171e0;
+    --liquid-color-primary-tint: #4c8dff;
+    /** secondary **/
+    --liquid-color-secondary: #3dc2ff;
+    --liquid-color-secondary-rgb: 61, 194, 255;
+    --liquid-color-secondary-contrast: #ffffff;
+    --liquid-color-secondary-contrast-rgb: 255, 255, 255;
+    --liquid-color-secondary-shade: #36abe0;
+    --liquid-color-secondary-tint: #50c8ff;
+    /** tertiary **/
+    --liquid-color-tertiary: #5260ff;
+    --liquid-color-tertiary-rgb: 82, 96, 255;
+    --liquid-color-tertiary-contrast: #ffffff;
+    --liquid-color-tertiary-contrast-rgb: 255, 255, 255;
+    --liquid-color-tertiary-shade: #4854e0;
+    --liquid-color-tertiary-tint: #6370ff;
+    /** success **/
+    --liquid-color-success: #2dd36f;
+    --liquid-color-success-rgb: 45, 211, 111;
+    --liquid-color-success-contrast: #ffffff;
+    --liquid-color-success-contrast-rgb: 255, 255, 255;
+    --liquid-color-success-shade: #28ba62;
+    --liquid-color-success-tint: #42d77d;
+    /** warning **/
+    --liquid-color-warning: #ffc409;
+    --liquid-color-warning-rgb: 255, 196, 9;
+    --liquid-color-warning-contrast: #000000;
+    --liquid-color-warning-contrast-rgb: 0, 0, 0;
+    --liquid-color-warning-shade: #e0ac08;
+    --liquid-color-warning-tint: #ffca22;
+    /** danger **/
+    --liquid-color-danger: #eb445a;
+    --liquid-color-danger-rgb: 235, 68, 90;
+    --liquid-color-danger-contrast: #ffffff;
+    --liquid-color-danger-contrast-rgb: 255, 255, 255;
+    --liquid-color-danger-shade: #cf3c4f;
+    --liquid-color-danger-tint: #ed576b;
+    /** dark **/
+    --liquid-color-dark: #222428;
+    --liquid-color-dark-rgb: 34, 36, 40;
+    --liquid-color-dark-contrast: #ffffff;
+    --liquid-color-dark-contrast-rgb: 255, 255, 255;
+    --liquid-color-dark-shade: #1e2023;
+    --liquid-color-dark-tint: #383a3e;
+    /** medium **/
+    --liquid-color-medium: #92949c;
+    --liquid-color-medium-rgb: 146, 148, 156;
+    --liquid-color-medium-contrast: #ffffff;
+    --liquid-color-medium-contrast-rgb: 255, 255, 255;
+    --liquid-color-medium-shade: #808289;
+    --liquid-color-medium-tint: #9d9fa6;
+    /** light **/
+    --liquid-color-light: #f4f5f8;
+    --liquid-color-light-rgb: 244, 245, 248;
+    --liquid-color-light-contrast: #000000;
+    --liquid-color-light-contrast-rgb: 0, 0, 0;
+    --liquid-color-light-shade: #d7d8da;
+    --liquid-color-light-tint: #f5f6f9;
+    /** white color **/
+    --liquid-color-white: #ffffff;
+    --liquid-color-white-rgb: 255, 255, 255;
+    --liquid-color-white-contrast: #280000;
+    --liquid-color-white-contrast-rgb: 40, 0, 0;
+    --liquid-color-white-shade: #bbbbbb;
+    --liquid-color-white-tint: #e4e4e4;
+    /** step color **/
+    --liquid-color-step-50: #0d0d0d;
+    --liquid-color-step-100: #1a1a1a;
+    --liquid-color-step-150: #262626;
+    --liquid-color-step-200: #333333;
+    --liquid-color-step-250: #404040;
+    --liquid-color-step-300: #4d4d4d;
+    --liquid-color-step-350: #595959;
+    --liquid-color-step-400: #666666;
+    --liquid-color-step-450: #737373;
+    --liquid-color-step-500: #808080;
+    --liquid-color-step-550: #8c8c8c;
+    --liquid-color-step-600: #999999;
+    --liquid-color-step-650: #a6a6a6;
+    --liquid-color-step-700: #b3b3b3;
+    --liquid-color-step-750: #bfbfbf;
+    --liquid-color-step-800: #cccccc;
+    --liquid-color-step-850: #d9d9d9;
+    --liquid-color-step-900: #e6e6e6;
+    --liquid-color-step-950: #f2f2f2;
+    --liquid-item-background: #000000;
+    --liquid-card-background: #1c1c1d;
+}
+
+@media (prefers-color-scheme: dark) {
+    /*
+   * Dark Colors
+   * -------------------------------------------
+   */
+    body {
+        --liquid-color-primary: #428cff;
+        --liquid-color-primary-rgb: 66, 140, 255;
+        --liquid-color-primary-contrast: #ffffff;
+        --liquid-color-primary-contrast-rgb: 255, 255, 255;
+        --liquid-color-primary-shade: #3a7be0;
+        --liquid-color-primary-tint: #5598ff;
+
+        --liquid-color-secondary: #50c8ff;
+        --liquid-color-secondary-rgb: 80, 200, 255;
+        --liquid-color-secondary-contrast: #ffffff;
+        --liquid-color-secondary-contrast-rgb: 255, 255, 255;
+        --liquid-color-secondary-shade: #46b0e0;
+        --liquid-color-secondary-tint: #62ceff;
+
+        --liquid-color-tertiary: #6a64ff;
+        --liquid-color-tertiary-rgb: 106, 100, 255;
+        --liquid-color-tertiary-contrast: #ffffff;
+        --liquid-color-tertiary-contrast-rgb: 255, 255, 255;
+        --liquid-color-tertiary-shade: #5d58e0;
+        --liquid-color-tertiary-tint: #7974ff;
+
+        --liquid-color-success: #2fdf75;
+        --liquid-color-success-rgb: 47, 223, 117;
+        --liquid-color-success-contrast: #000000;
+        --liquid-color-success-contrast-rgb: 0, 0, 0;
+        --liquid-color-success-shade: #29c467;
+        --liquid-color-success-tint: #44e283;
+
+        --liquid-color-warning: #ffd534;
+        --liquid-color-warning-rgb: 255, 213, 52;
+        --liquid-color-warning-contrast: #000000;
+        --liquid-color-warning-contrast-rgb: 0, 0, 0;
+        --liquid-color-warning-shade: #e0bb2e;
+        --liquid-color-warning-tint: #ffd948;
+
+        --liquid-color-danger: #ff4961;
+        --liquid-color-danger-rgb: 255, 73, 97;
+        --liquid-color-danger-contrast: #ffffff;
+        --liquid-color-danger-contrast-rgb: 255, 255, 255;
+        --liquid-color-danger-shade: #e04055;
+        --liquid-color-danger-tint: #ff5b71;
+
+        --liquid-color-dark: #f4f5f8;
+        --liquid-color-dark-rgb: 244, 245, 248;
+        --liquid-color-dark-contrast: #000000;
+        --liquid-color-dark-contrast-rgb: 0, 0, 0;
+        --liquid-color-dark-shade: #d7d8da;
+        --liquid-color-dark-tint: #f5f6f9;
+
+        --liquid-color-medium: #989aa2;
+        --liquid-color-medium-rgb: 152, 154, 162;
+        --liquid-color-medium-contrast: #000000;
+        --liquid-color-medium-contrast-rgb: 0, 0, 0;
+        --liquid-color-medium-shade: #86888f;
+        --liquid-color-medium-tint: #a2a4ab;
+
+        --liquid-color-light: #222428;
+        --liquid-color-light-rgb: 34, 36, 40;
+        --liquid-color-light-contrast: #ffffff;
+        --liquid-color-light-contrast-rgb: 255, 255, 255;
+        --liquid-color-light-shade: #1e2023;
+        --liquid-color-light-tint: #383a3e;
+
+        --liquid-color-white: #280000;
+        --liquid-color-white-rgb: 40, 0, 0;
+        --liquid-color-white-contrast: #ffffff;
+        --liquid-color-white-contrast-rgb: 40, 0, 0;
+        --liquid-color-white-shade: #252525;
+        --liquid-color-white-tint: #1d1d1d;
+
+        --liquid-background-color: #000000;
+        --liquid-background-color-rgb: 0, 0, 0;
+
+        --liquid-text-color: #161414;
+        --liquid-text-color-rgb: rgb(22, 20, 20);
+
+        --liquid-color-step-50: #0d0d0d;
+        --liquid-color-step-100: #1a1a1a;
+        --liquid-color-step-150: #262626;
+        --liquid-color-step-200: #333333;
+        --liquid-color-step-250: #404040;
+        --liquid-color-step-300: #4d4d4d;
+        --liquid-color-step-350: #595959;
+        --liquid-color-step-400: #666666;
+        --liquid-color-step-450: #737373;
+        --liquid-color-step-500: #808080;
+        --liquid-color-step-550: #8c8c8c;
+        --liquid-color-step-600: #999999;
+        --liquid-color-step-650: #a6a6a6;
+        --liquid-color-step-700: #b3b3b3;
+        --liquid-color-step-750: #bfbfbf;
+        --liquid-color-step-800: #cccccc;
+        --liquid-color-step-850: #d9d9d9;
+        --liquid-color-step-900: #e6e6e6;
+        --liquid-color-step-950: #f2f2f2;
+        --liquid-item-background: #000000;
+        --liquid-card-background: #1c1c1d;
+    }
+    .liquid-modal {
+        --liquid-background-color: var(--liquid-color-step-100);
+        --liquid-toolbar-background: var(--liquid-color-step-150);
+        --liquid-toolbar-border-color: var(--liquid-color-step-250);
+    }
+    /*
+   * Material Design Dark Theme
+   * -------------------------------------------
+   */
+    .md body {
+        --liquid-background-color: #121212;
+        --liquid-background-color-rgb: 18, 18, 18;
+        --liquid-text-color: #ffffff;
+        --liquid-text-color-rgb: 255, 255, 255;
+        --liquid-border-color: #222222;
+        --liquid-color-step-50: #1e1e1e;
+        --liquid-color-step-100: #2a2a2a;
+        --liquid-color-step-150: #363636;
+        --liquid-color-step-200: #414141;
+        --liquid-color-step-250: #4d4d4d;
+        --liquid-color-step-300: #595959;
+        --liquid-color-step-350: #656565;
+        --liquid-color-step-400: #717171;
+        --liquid-color-step-450: #7d7d7d;
+        --liquid-color-step-500: #898989;
+        --liquid-color-step-550: #949494;
+        --liquid-color-step-600: #a0a0a0;
+        --liquid-color-step-650: #acacac;
+        --liquid-color-step-700: #b8b8b8;
+        --liquid-color-step-750: #c4c4c4;
+        --liquid-color-step-800: #d0d0d0;
+        --liquid-color-step-850: #dbdbdb;
+        --liquid-color-step-900: #e7e7e7;
+        --liquid-color-step-950: #f3f3f3;
+        --liquid-item-background: #1e1e1e;
+        --liquid-toolbar-background: #1f1f1f;
+        --liquid-tab-bar-background: #1f1f1f;
+        --liquid-card-background: #1e1e1e;
+    }
+}

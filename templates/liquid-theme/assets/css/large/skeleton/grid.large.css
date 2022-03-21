@@ -1,0 +1,53 @@
+
+@media (min-width: 996px) and (max-width: 1249px) {
+    .g-col.\-col-l2-rows { grid-row-end: span 2 }
+    .g-col.\-col-l3-rows { grid-row-end: span 3 }
+    .g-col.\-col-l4-rows { grid-row-end: span 4 }
+    .g-col.\-col-l5-rows { grid-row-end: span 5 }
+    .g-col.\-col-l6-rows { grid-row-end: span 6 }
+    .g-col.\-col-l7-rows { grid-row-end: span 7 }
+    .g-col.\-col-l8-rows { grid-row-end: span 8 }
+    .g-col.\-col-l9-rows { grid-row-end: span 9 }
+    .g-col.\-col-l10-rows { grid-row-end: span 10 }
+    .g-col.\-col-l11-rows { grid-row-end: span 11 }
+    .g-col.\-col-l12-rows { grid-row-end: span 12 }
+
+    .g-col.\-col-l1 { grid-column-end: span 1; }
+    .g-col.\-col-l2 { grid-column-end: span 2 }
+    .g-col.\-col-l3 { grid-column-end: span 3 }
+    .g-col.\-col-l4 { grid-column-end: span 4 }
+    .g-col.\-col-l5 { grid-column-end: span 5 }
+    .g-col.\-col-l6 { grid-column-end: span 6 }
+    .g-col.\-col-l7 { grid-column-end: span 7 }
+    .g-col.\-col-l8 { grid-column-end: span 8 }
+    .g-col.\-col-l9 { grid-column-end: span 9 }
+    .g-col.\-col-l10 { grid-column-end: span 10 }
+    .g-col.\-col-l11 { grid-column-end: span 11 }
+    .g-col.\-col-l12 { grid-column-end: span 12 }
+}
+@media (min-width: 1250px) {
+    .g-col.\-col-xl2-rows { grid-row-end: span 2 }
+    .g-col.\-col-xl3-rows { grid-row-end: span 3 }
+    .g-col.\-col-xl4-rows { grid-row-end: span 4 }
+    .g-col.\-col-xl5-rows { grid-row-end: span 5 }
+    .g-col.\-col-xl6-rows { grid-row-end: span 6 }
+    .g-col.\-col-xl7-rows { grid-row-end: span 7 }
+    .g-col.\-col-xl8-rows { grid-row-end: span 8 }
+    .g-col.\-col-xl9-rows { grid-row-end: span 9 }
+    .g-col.\-col-xl10-rows { grid-row-end: span 10 }
+    .g-col.\-col-xl11-rows { grid-row-end: span 11 }
+    .g-col.\-col-xl12-rows { grid-row-end: span 12 }
+
+    .g-col.\-col-xl1 { grid-column-end: span 1; }
+    .g-col.\-col-xl2 { grid-column-end: span 2 }
+    .g-col.\-col-xl3 { grid-column-end: span 3 }
+    .g-col.\-col-xl4 { grid-column-end: span 4 }
+    .g-col.\-col-xl5 { grid-column-end: span 5 }
+    .g-col .\-col-xl6 { grid-column-end: span 6 }
+    .g-col.\-col-xl7 { grid-column-end: span 7 }
+    .g-col.\-col-xl8 { grid-column-end: span 8 }
+    .g-col.\-col-xl9 { grid-column-end: span 9 }
+    .g-col.\-col-xl10 { grid-column-end: span 10 }
+    .g-col.\-col-xl11 { grid-column-end: span 11 }
+    .g-col.\-col-xl12 { grid-column-end: span 12 }
+}

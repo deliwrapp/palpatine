@@ -1,0 +1,73 @@
+.liquid-page-container {
+    padding-top: var(--liquid-page-padding-t);
+    padding-bottom: var(--liquid-page-padding-b);
+    padding-right: var(--liquid-page-padding-r);
+    padding-left: var(--liquid-page-padding-l);
+}
+.liquid-container {
+    margin: 0 auto;
+    padding: 0;
+    height: 100%;
+    width: var(--liquid-container-width);
+}
+.dynamic-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+.dynamic-container .\-dynamic-section {
+    display: var(--dynamic-section-display-default);
+    flex-direction: var(--dynamic-section-direction);
+    justify-content: var(--dynamic-section-align-content);
+    align-items: var(--dynamic-section-align-items);
+    position: relative;
+    top: var(--dynamic-section-top);
+    height: var(--dynamic-section-height);
+    width: var(--dynamic-section-width);
+    opacity: var(--dynamic-section-default-opacity);
+    transition: var(--dynamic-section-trans);
+}
+/* Styles applied on trigger */
+.dynamic-container .\-dynamic-section:target,
+.dynamic-container .\-dynamic-section.\-active {
+    display: var(--dynamic-section-display-active-default);
+    opacity: var(--dynamic-section-default-active-opacity);
+    position: relative;
+    left: var(--dynamic-section-active-left);
+    width: var(--dynamic-section-active-width);
+    height: var(--dynamic-section-active-height);
+    z-index: var(--dynamic-section-active-index);
+}
+.dynamic-container .\-dynamic-section:target.\-anim *,
+.dynamic-container .\-dynamic-section.\-active.\-anim *  {
+    opacity: var(--dynamic-section-active-default-opacity);
+    animation: var(--dynamic-section-active-default-anim);
+}
+.\-limit-to-screen {
+    max-height: 100vw;
+    max-width: 100vw;
+}
+.\-container-xl {
+    max-width: var(--container-xl-max-width);
+}
+.\-container-lg {
+    max-width: var(--container-lg-max-width);
+}
+.\-container-md {
+    max-width: var(--container-md-max-width);
+}
+.\-container-sm {
+    max-width: var(--container-sm-max-width);
+}
+.\-container-xs {
+    max-width: var(--container-xs-max-width);
+}
+
+.\-wrapper {
+    position: relative;
+    display: flex;
+}
+.\-wrapper .sidebar,
+.\-wrapper .main-content {
+    flex: 1 1 0;
+}

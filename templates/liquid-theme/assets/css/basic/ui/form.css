@@ -1,0 +1,335 @@
+/* Forms ========================================================================== */
+/** 1. Change the font styles in all browsers (opinionated). 2. Remove the margin in Firefox and Safari. */
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit;
+    /* 1 (changed) */
+    font-size: inherit;
+    /* 1 (changed) */
+    line-height: inherit;
+    /* 1 (changed) */
+    margin: 0;
+    /* 2 */
+}
+/** Show the overflow in IE. 1. Show the overflow in Edge. */
+button,
+input {
+    /* 1 */
+    overflow: visible;
+}
+/** Remove the inheritance of text transform in Edge, Firefox, and IE. 1. Remove the inheritance of text transform in Firefox. */
+button,
+select {
+    /* 1 */
+    text-transform: none;
+}
+/** 1. Prevent a WebKit bug where (2) destroys native `audio` and `video` controls in Android 4. 2. Correct the inability to style clickable types in iOS and Safari. */
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+    /* 2 */
+}
+/** Remove the inner border and padding in Firefox. */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+}
+/** Restore the focus styles unset by the previous rule (removed). */
+/** Change the border, margin, and padding in all browsers (opinionated) (changed). */
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+/** 1. Correct the text wrapping in Edge and IE. 2. Correct the color inheritance from `fieldset` elements in IE. 3. Remove the padding so developers are not caught out when they zero out `fieldset` elements in all browsers. */
+legend {
+    box-sizing: border-box;
+    /* 1 */
+    color: inherit;
+    /* 2 */
+    display: table;
+    /* 1 */
+    max-width: 100%;
+    /* 1 */
+    padding: 0;
+    /* 3 */
+    white-space: normal;
+    /* 1 */
+}
+/** 1. Add the correct display in IE 9-. 2. Add the correct vertical alignment in Chrome, Firefox, and Opera. */
+progress {
+    display: inline-block;
+    /* 1 */
+    vertical-align: baseline;
+    /* 2 */
+}
+/** Remove the default vertical scrollbar in IE. */
+textarea {
+    overflow: auto;
+}
+/** 1. Add the correct box sizing in IE 10-. 2. Remove the padding in IE 10-. */
+[type="checkbox"],
+[type="radio"] {
+    box-sizing: border-box;
+    /* 1 */
+    padding: 0;
+    /* 2 */
+}
+/** Correct the cursor style of increment and decrement buttons in Chrome. */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+}
+/** 1. Correct the odd appearance in Chrome and Safari. 2. Correct the outline style in Safari. */
+[type="search"] {
+    -webkit-appearance: textfield;
+    /* 1 */
+    outline-offset: -2px;
+    /* 2 */
+}
+/** Remove the inner padding and cancel buttons in Chrome and Safari on macOS. */
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+/** 1. Correct the inability to style clickable types in iOS and Safari. 2. Change font properties to `inherit` in Safari. */
+::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    /* 1 */
+    font: inherit;
+    /* 2 */
+}
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    text-transform: none;
+}
+input:focus,
+optgroup:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+}
+input,
+select {
+    vertical-align: middle;
+}
+input[type=checkbox],
+input[type=radio] {
+    vertical-align: text-top;
+}
+input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+input[type=button],
+input[type=reset],
+input[type=submit] {
+    width: auto;
+    overflow: visible;
+    -webkit-appearance: button;
+}
+label,
+input[type=button],
+input[type=reset],
+input[type=submit],
+input[type=file] {
+    cursor: pointer;
+}
+[type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+.form-field {
+    outline: none;
+    display: block;
+    width: 100%;
+    -webkit-appearance: none;
+    background: var(--input-background);
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--form-border-color);
+    padding: var(--input-padding-w) var(--input-padding-h);
+    color: var(--input-text-color);
+    border-radius: var(--input-radius);
+}
+.form-field[disabled],
+.form-field[readonly],
+fieldset[disabled] .form-field {
+    opacity: 1;
+    background: var(--form-disabled);
+}
+.form-field[disabled],
+fieldset[disabled] .form-field {
+    cursor: not-allowed;
+}
+.form-field-msg {
+    position: relative;
+}
+.checkbox,
+.radio,
+.switch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.form-field:focus {
+    outline: none;
+    border-color: var(--form-border-focus);
+    border-width: var(--form-border-focus-weight);
+}
+.form-field.success,
+.form-field.success:focus {
+    border-color: var(--liquid-color-success);
+}
+.form-field.error,
+.form-field.error:focus {
+    border-color: var(--liquid-color-danger);
+}
+.form-field.error.filled,
+.form-field.error.filled:focus {
+    background: rgba(var(--liquid-color-danger-contrast-rgb), .1);
+}
+.form-field:focus.filled {
+    background: none;
+}
+.form-field:-webkit-autofill {
+    box-shadow: 0 0 0 1000px var(--input-background) inset !important;
+    -webkit-box-shadow: 0 0 0 1000px var(--input-background) inset !important;
+    -webkit-text-fill-color: var(--input-text-color) !important;
+}
+.form-file-field {
+    outline: none;
+    display: block;
+    width: 100%;
+    -webkit-appearance: none;
+    position: relative;
+    background: var(--input-background);
+    border: 1px solid var(--form-border-color);
+    padding: var(--input-padding-w) var(--input-padding-h);
+    border-radius: var(--input-radius);
+    white-space: nowrap;
+    overflow: hidden;
+}
+.form-file-field.focus {
+    border-color: var(--form-border-focus);
+}
+.file-btn {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 8px;
+    border-radius: var(--input-radius);
+    background: var(--input-file-button-background);
+    color: var(--input-file-button-color);
+    font-size: var(--input-file-button-font-size);
+    font-weight: var(---input-file-button-font-weight);
+    position: relative;
+    left: -0.25rem;
+}
+.file-msg {
+    display: inline-block;
+    vertical-align: top;
+    font-size: var(--input-file-font-size);
+    font-weight: var(--input-file-font-weight);
+    color: var(--input-file-color);
+}
+.form-file-field.active .file-msg {
+    color: var(--input-file-color-active);
+}
+.form-file-field input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    cursor: pointer;
+    opacity: 0;
+}
+.form-file-field input:focus {
+    outline: none;
+}
+textarea.form-field {
+    resize: vertical;
+}
+.form-element {
+    margin-bottom: var(--form-element-bottom);
+    width: 100%;
+}
+.form-element label {
+    color: var(--label-color);
+    margin-bottom: var(--label-bottom);
+    font-weight: var(--label-weight);
+    max-width: 100%;
+}
+.password {
+    position: relative;
+}
+form .horizontal .form-element .static {
+    margin-bottom: 0;
+}
+.checkbox.inline,
+.radio.inline,
+.switch.inline {
+    padding-top: var(--input-padding-v) + 2;
+}
+.checkbox.inline,
+.radio.inline,
+.switch.inline {
+    margin: 0 .75rem 0 0;
+    display: inline-block;
+}
+.checkbox input,
+.radio input,
+.switch input {
+    display: none;
+}
+.has-icon-left,
+.has-icon-right {
+    position: relative;
+}
+.has-icon-left .form-icon,
+.has-icon-right .form-icon {
+    height: .8rem;
+    margin: 0 .25rem;
+    position: absolute;
+    top: 40%;
+    width: .8rem;
+    z-index: 2;
+}
+.has-icon-left .form-icon {
+    left: .25rem;
+}
+.has-icon-left .form-field {
+    padding-left: 2rem;
+}
+.has-icon-right .form-icon {
+    right: .5rem;
+}
+.has-icon-right .form-field {
+    padding-right: 2rem;
+}
+/*------------- MEDIA QUERIES --------------*/
+@media(min-width: 481px) {
+    form .horizontal .form-element>label {
+        margin-bottom: 0;
+        padding: var(--input-padding-v) 0;
+    }
+
+    form .horizontal .form-element .static {
+        padding: var(--input-padding-v) 0;
+    }
+}

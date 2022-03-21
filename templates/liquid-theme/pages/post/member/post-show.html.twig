@@ -1,0 +1,90 @@
+{% extends 'liquid-theme/layout.html.twig' %}
+
+{% block title %}POSTS SHOW{% endblock %}
+
+{% block mainContent %}
+
+    {% if post is defined %}
+        {% include 'blocks/post/oldway_show_post.html.twig' with {
+            'postContent' : post.content,
+            'postTitle' : post.title,
+            'postTime' : '16/12/2204',
+            'category' : post.author,
+            'postLink' : '#comment-area',
+            'postLinkText': 'comments'
+        } %}
+        <hr>
+        {# HERE the add comment form #}
+        <hr>
+        {# HERE the comments list #}
+        <h2 class="h3">COMMENTS AREA</h2>
+        
+        {# HERE the comments add form #}
+        <section id="comment-area" class="col -col-11">
+            {% if editComment is defined and editComment is not null %}
+                <p> Bah Gamin t'es en mode édition la !!! </p>
+            {% endif %} 
+            <div class="tile -shad-5 -shad-12-h w-f">
+                {{ form_start(form) }}
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Author:</th>
+                        <td>{{ form_widget(form.author) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Content:</th>
+                        <td>{{ form_widget(form.content) }}</td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>{{ form_widget(form.submit) }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                {{ form_end(form) }}
+            </div>
+        {% if editComment is defined and editComment is null %}
+            <ul class="-w-f -p0">   
+                {% if comments is defined and comments is not empty  %}
+                    {% for comment in comments %}
+                        <li class="tile -shad-5 -shad-12-h -cursor-pointer -m0">
+                            <div class="-tile-content -w-f">
+                                <p class="-tile-title -t-u -t-bld">{{ comment.author }}</p>
+                                <p class="-tile-subtitle">
+                                {{ comment.content }} 
+                                </p>
+                            </div>
+                            <div class="-tile-action">
+                                {% include 'liquid-theme/components/ui/buttons/btn-action.html.twig' with {
+                                    'path': path('MemberPostShow', { 'id': post.id, 'commentId': comment.id}),
+                                    'action': 'Edit',
+                                    'tooltip': 'Edit',
+                                    'icon': 'fa-regular fa-pen-to-square'
+                                } %}
+                                {% include 'liquid-theme/components/ui/buttons/btn-delete.html.twig' with {
+                                    'path': path('MemberCommentDelete', { 'id': comment.id, 'postId': post.id }),
+                                    'message': 'Are you sure to delete this comment ?' ,
+                                    'token': 'delete-comment'
+                                } %}
+                            
+
+                            </div>
+                            
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <p> There is no comments caralhoooo !!! </p>
+                {% endif %}
+            </ul>
+        {% endif %}
+
+        </section>
+                
+    {% else %}
+        <p> There is no post caralhoooo !!! </p>
+    {% endif %}
+
+
+{{ parent() }}
+{% endblock %}

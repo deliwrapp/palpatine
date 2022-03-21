@@ -1,0 +1,41 @@
+.bar.\-bottom {
+    top: unset;
+    display: var(--bottombar-display);
+    width: var(--bottombar-width);
+    height: var(--bottombar-height);
+    max-width: var(--bottombar-max-width);
+    max-height: var(--bottombar-max-height);
+    transition: var(--bottombar-trans-selector) var(--bottombar-trans-duration) var(--bottombar-trans-type);
+}
+.bar-mini.\-bottom {
+    top: unset;
+    display: var(--bottombar-mini-display);
+    width: var(--bottombar-mini-width);
+    height: var(--bottombar-mini-height);
+    max-width: var(--bottombar-mini-max-width);
+    max-height: var(--bottombar-mini-max-height);
+    transition: var(--bottombar-trans-selector) var(--bottombar-trans-duration) var(--bottombar-trans-type);
+}
+.bar-full.\-bottom {
+    top: unset;
+    display: var(--bottombar-full-display);
+    width: var(--bottombar-full-width);
+    height: var(--bottombar-full-height);
+    max-width: var(--bottombar-full-max-width);
+    max-height: var(--bottombar-full-max-height);
+    transition: var(--bottombar-trans-selector) var(--bottombar-trans-duration) var(--bottombar-trans-type);
+}
+.bar-mini.\-bottom.\-open,
+.bar-full.\-bottom.\-open,
+.bar.\-bottom.\-open  {
+    bottom: 0;
+}
+.bar.\-bottom.\-close {
+    bottom: calc(-1 * var(--bottombar-width));
+}
+.bar-mini.\-bottom.\-close {
+    bottom: calc(-1 * var(--bottombar-mini-width));
+}
+.bar-full.\-bottom.\-close {
+    bottom: calc(-1 * var(--bottombar-full-width));
+}

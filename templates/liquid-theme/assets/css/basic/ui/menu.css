@@ -1,0 +1,195 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: var(--menu-align-content);
+    align-items: var(--menu-align-items);
+    min-width: var(--menu-min-width);
+    min-height: var(--menu-min-height);
+    max-width: var(--menu-max-width);
+    max-height: var(--menu-max-height);
+    width: var(--menu-width);
+    height: var(--menu-height);
+    border-color: var(--menu-border-color);
+    border-top: var(--menu-border-t);
+    border-bottom: var(--menu-border-b);
+    border-left: var(--menu-border-l);
+    border-right: var(--menu-border-r);
+    border-top-left-radius: var(--menu-border-radius-tl);
+    border-top-right-radius: var(--menu-border-radius-tr);
+    border-bottom-left-radius: var(--menu-border-radius-bl);
+    border-bottom-right-radius: var(--menu-border-radius-br);
+    padding-top: var(--menu-padding-t);
+    padding-bottom: var(--menu-padding-b);
+    padding-left: var(--menu-padding-l);
+    padding-right: var(--menu-padding-r);
+    margin-top: var(--menu-margin-t);
+    margin-bottom: var(--menu-margin-b);
+    margin-left: var(--menu-margin-l);
+    margin-right: var(--menu-margin-r);
+    background: var(--menu-bg);
+    color: var(--menu-color);
+    list-style: var(--menu-list-style);
+    box-shadow: var(--menu-box-shadow);
+    z-index: var(--menu-index);
+}
+.\-menu-badge .checkbox,
+.\-menu-badge .radio, 
+.\-menu-badge .switch {
+    padding-left: 2rem;
+}
+.menu .\-menu-item {
+    display: var(--menu-item-diplay);
+    flex-direction: var(--menu-item-direction);
+    justify-content: var(--menu-item-align-content);
+    align-items: var(--menu-item-align-items);
+    position: relative;
+    margin: var(--menu-item-margin-v) var(--menu-item-margin-h);
+    padding: var(--menu-item-padding-v) var(--menu-item-padding-h);
+    text-decoration: var(--menu-item-text-decoration);
+    min-width: var(--menu-item-min-width);
+    min-height: var(--menu-item-min-height);
+    max-width: var(--menu-item-max-width);
+    max-height: var(--menu-item-max-height);
+}
+.menu .\-menu-item>.\-menu-link,
+.menu .\-menu-item>a {
+    border-radius: inherit;
+    margin: var(--menu-item-link-margin-v) var(--menu-item-link-margin-h);
+    padding: var(--menu-item-link-padding-v) var(--menu-item-link-padding-h);
+    min-height: var(--menu-item-min-height);
+    width: var(--menu-item-link-width);
+    text-decoration: var(--menu-item-link-text-decoration);
+    background: var(--menu-item-link-bg);
+    color: var(--menu-item-link-color);;
+}
+.menu .\-menu-item>.\-menu-link:focus,
+.menu .\-menu-item>.\-menu-link:hover,
+.menu .\-menu-item>a:focus,
+.menu .\-menu-item>a:hover {
+    background: var(--menu-item-link-bg-hov);
+    color: var(--menu-item-link-color-hov);
+    margin: var(--menu-item-link-margin-v-hov) var(--menu-item-link-margin-h-hov);
+    padding: var(--menu-item-link-padding-v-hov) var(--menu-item-link-padding-h-hov);
+    width: var(--menu-item-link-width-hov);
+    text-decoration: var(--menu-item-link-text-decoration-hov);
+}
+.menu .\-menu-item>.\-menu-link:active
+.menu .\-menu-item>.\-menu-link.\-active
+.menu .\-menu-item>a:active,
+.menu .\-menu-item>a.\-active {
+    background: var(--menu-item-link-bg-active);
+    color: var(--menu-item-link-color-active);
+    margin: var(--menu-item-link-margin-v-active) var(--menu-item-link-margin-h-active);
+    padding: var(--menu-item-link-padding-v-active) var(--menu-item-link-padding-h-active);
+    width: var(--menu-item-link-width-active);
+    text-decoration: var(--menu-item-link-text-decoration-active);
+}
+
+.menu.\-inline {
+    display: flex;
+    flex-direction: row;
+    justify-content: var(--menu-inline-align-content);
+    align-items: var(--menu-inline-align-items);
+    flex-wrap: var(--menu-inline-wrap);
+    overflow-y: var(--menu-inline-overflow-y);
+    overflow-x: var(--menu-inline-overflow-x);
+    justify-content: var(--menu-inline-align-content);
+    align-items: var(--menu-inline-align-items);
+    min-width: var(--menu-inline-min-width);
+    min-height: var(--menu-inline-min-height);
+    max-width: var(--menu-inline-max-width);
+    max-height: var(--menu-inline-max-height);
+    width: var(--menu-inline-width);
+    height: var(--menu-inline-height);
+    border-color: var(--menu-inline-border-color);
+    border-top: var(--menu-inline-border-t);
+    border-bottom: var(--menu-inline-border-b);
+    border-left: var(--menu-inline-border-l);
+    border-right: var(--menu-inline-border-r);
+    border-top-left-radius: var(--menu-inline-border-radius-tl);
+    border-top-right-radius: var(--menu-inline-border-radius-tr);
+    border-bottom-left-radius: var(--menu-inline-border-radius-bl);
+    border-bottom-right-radius: var(--menu-inline-border-radius-br);
+    padding-top: var(--menu-inline-padding-t);
+    padding-bottom: var(--menu-inline-padding-b);
+    padding-left: var(--menu-inline-padding-l);
+    padding-right: var(--menu-inline-padding-r);
+    margin-top: var(--menu-inline-margin-t);
+    margin-bottom: var(--menu-inline-margin-b);
+    margin-left: var(--menu-inline-margin-l);
+    margin-right: var(--menu-inline-margin-r);
+    background: var(--menu-inline-bg);
+    color: var(--menu-inline-color);
+    list-style: var(--menu-inline-list-style);
+    box-shadow: var(--menu-inline-box-shadow);
+}
+.menu.\-inline .\-menu-item {
+    display: var(--menu-inline-item-diplay);
+    flex-direction: var(--menu-inline-item-direction);
+    justify-content: var(--menu-inline-item-align-content);
+    align-items: var(--menu-inline-item-align-items);
+    position: relative;
+    margin: var(--menu-inline-item-margin-v) var(--menu-item-margin-h);
+    padding: var(--menu-inline-item-padding-v) var(--menu-item-padding-h);
+    text-decoration: var(--menu-inline-item-text-decoration);
+    min-width: var(--menu-inline-item-min-width);
+    min-height: var(--menu-inline-item-min-height);
+    max-width: var(--menu-inline-item-max-width);
+    max-height: var(--menu-inline-item-max-height);
+}
+.menu.\-inline .\-menu-item>.\-menu-link,
+.menu.\-inline .\-menu-item>a {
+    border-radius: inherit;
+    margin: var(--menu-item-link-margin-v) var(--menu-item-link-margin-h);
+    padding: var(--menu-item-link-padding-v) var(--menu-item-link-padding-h);
+    min-height: var(--menu-item-min-height);
+    width: var(--menu-item-link-width);
+    text-decoration: var(--menu-item-link-text-decoration);
+    background: var(--menu-item-link-bg);
+    color: var(--menu-item-link-color);;
+}
+.menu.\-inline .\-menu-item>.\-menu-link:focus,
+.menu.\-inline .\-menu-item>.\-menu-link:hover,
+.menu.\-inline .\-menu-item>a:focus,
+.menu.\-inline .\-menu-item>a:hover {
+    background: var(--menu-item-link-bg-hov);
+    color: var(--menu-item-link-color-hov);
+    margin: var(--menu-item-link-margin-v-hov) var(--menu-item-link-margin-h-hov);
+    padding: var(--menu-item-link-padding-v-hov) var(--menu-item-link-padding-h-hov);
+    width: var(--menu-item-link-width-hov);
+    text-decoration: var(--menu-item-link-text-decoration-hov);
+}
+.menu.\-inline .\-menu-item>.\-menu-link:active
+.menu.\-inline .\-menu-item>.\-menu-link.\-active
+.menu.\-inline .\-menu-item>a:active,
+.menu.\-inline .\-menu-item>a.\-active {
+    background: var(--menu-item-link-bg-active);
+    color: var(--menu-item-link-color-active);
+    margin: var(--menu-item-link-margin-v-active) var(--menu-item-link-margin-h-active);
+    padding: var(--menu-item-link-padding-v-active) var(--menu-item-link-padding-h-active);
+    width: var(--menu-item-link-width-active);
+    text-decoration: var(--menu-item-link-text-decoration-active);
+}
+
+.menu .\-menu-item+.menu-item {
+    margin-top: var(--menu-item-menu-item-margin-t);
+}
+.menu .\-menu-badge {
+    display: var(--menu-badge-display);
+    position: absolute;
+    align-items: var(--menu-badge-align-items);
+    justify-content: var(--menu-badge-align-content);
+    right: var(--menu-badge-right);
+    top: var(--menu-badge-top);
+    height: 100%;
+}
+.menu .\-menu-badge.\-left {
+    left: var(--menu-badge-left);
+}
+.menu .\-menu-badge .label {
+    margin-right: var(--menu-badge-label-margin-r);
+}
+.menu.\-menu-nav {
+    background: transparent;
+    box-shadow: none;
+}
