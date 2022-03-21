@@ -1321,6 +1321,7 @@
     --sidebar-scrollbar-thumb-radius: 3rem;
     --sidebar-mini-font-size: .75rem;
     /* ---- NAV ---- */
+    /* ---- NAV ---- */
     --navbar-position: sticky;
     --navbar-brand-font-size: .9rem;
     --nav-h: unset;
@@ -1345,8 +1346,13 @@
     --nav-padding-t: .5rem;
     --nav-padding-b: .5rem;
     --nav-padding-r: .5rem;
-    --nav-padding-l: .5rem;
+    --nav-padding-l: 0;
 
+    --nav-height-close: 3rem;
+    --nav-height-open: 3rem;
+    --nav-items-opacity-close: 0;
+
+    --nav-items-direction: column;
     --nav-items-wrap: nowrap;
     --nav-items-over-y: none;
     --nav-items-over-x: none;
@@ -1425,6 +1431,42 @@
     --nav-item-padding-b-focus: .25rem;
     --nav-item-padding-r-focus: .25rem;
     --nav-item-padding-l-focus: .25rem;
+    /* ---- TAB-BAR ---- */
+    --tab-bar-bg: var(--liquid-color-dark-contrast);
+    --tab-bar-color: var(--liquid-color-dark);
+    --tab-bar-shadow: 1px 4px 20px rgba(0, 0, 0, 0.2);
+    --tab-bar-padding: .3rem;
+    --tab-bar-margin: .6rem;
+    --tab-bar-radius: .3rem;
+    --tab-bar-transition: all 0.3s ease-in-out;
+    --tab-bar-tab-border: 1px solid var(--liquid-color-medium);
+    --tab-bar-tab-h: 4.5rem;
+    --tab-bar-tab-w: 4.5rem;
+    --tab-bar-tab-padding: .5rem;
+    --tab-bar-tab-bg: var(--liquid-color-light-shade);
+    --tab-bar-tab-bg-active: var(--liquid-color-success);
+    --tab-bar-icon-size: 1.5rem;
+    /* ---- TABBAR ---- */
+    --tabbar-items-slots: 4;
+    --tabbar-icon-active: var(--liquid-color-tertiary);
+    --tabbar-icon-inactive: var(--liquid-color-light-shade);
+    --tabbar-icon-hover: var(--liquid-color-light);
+    --tabbar-text: var(--liquid-color-dark-contrast);
+    --tabbar-circle: var(--liquid-color-dark-contrast);
+    --tabbar-bg: var(--liquid-color-dark);
+    --tabbar--shadow: 0 .5rem 1rem rgba(18, 22, 33, 0.1);
+    --tabbar--radius: 0 0 12px 12px;
+    --tabbar--width: 100%;
+    --tabbar--height: 4rem;
+    --tabbar--padding: 0 .8rem;
+    --tabbar--svg-h: 2rem;
+    --tabbar--svg-w: 2rem;
+    --tabbar--min-width: 4rem;
+    --tabbar-selector-w: 3rem;
+    --tabbar-selector-h: 3rem;
+    --tabbar-selector-left: 49%;
+    --tabbar-text-font-size: .65rem;
+    --tabbar-text-font-weight: 500;
     /* ---- TAB ---- */
     --tab-display: flex;
     --tab-align-items: center;
@@ -1842,6 +1884,53 @@
     --card-border: .05rem solid var(--liquid-color-light);
     --card-image-left-radius: .2rem;
     --card-image-right-radius: .2rem;
+    /* ------------------- DYNAMIC-CARD -------------------- */
+    --dynamic-card-mod-1-wrapper-background: url(https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80);
+    --dynamic-card-mod-2-wrapper-background: url(https://tvseriescritic.files.wordpress.com/2016/10/stranger-things-bicycle-lights-children.jpg);
+    --dynamic-card-main-title-font-weight: 300;
+    --dynamic-card-main-title-font-size: 2rem;
+    --dynamic-card-padding: 0 1.7rem;
+    --dynamic-card-header-width: 100%;
+    --dynamic-card-header-height:5rem;
+    --dynamic-card-menu-content-link-color: var(--liquid-color-dark-contrast);
+    --dynamic-card-menu-content-font-size: .6rem;
+    --dynamic-card-menu-content-font-weight: 700;
+    --dynamic-card-menu-content-font-family: "Open Sans";
+    --dynamic-card-wrapper-bg-color: var(--liquid-color-dark-contrast);
+    --dynamic-card-wrapper-min-height: 540px;
+    --dynamic-card-wrapper-box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.2);
+    --dynamic-card-author-font-size: .75rem;
+    --dynamic-card-title-margin-top: .6rem;
+    --dynamic-card-text-height: 4.5rem;
+    --dynamic-card-mod-1-date-bg: var(--liquid-color-light-shade);
+    --dynamic-card-mod-1-date-color: var(--liquid-color-dark-contrast);
+    --dynamic-card-mod-1-date-padding: .8em;
+    --dynamic-card-mod-1-date-font-size: 1.5rem;
+    --dynamic-card-mod-1-date-font-weight: 700;
+    --dynamic-card-mod-1-date-text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.18);
+    --dynamic-card-mod-1-month-text-transform: uppercase;
+    --dynamic-card-mod-1-month-year-font-size: 1rem;
+    --dynamic-card-mod-1-content-bg: var(--liquid-color-dark-contrast);
+    --dynamic-card-mod-1-content-box-shadow: 0 5px 30px 10px rgba(0, 0, 0, 0.3);
+    --dynamic-card-mod-1-title-link-color: var(--liquid-color-medium-shade);
+    --dynamic-card-mod-1-menu-button-bg: var(--liquid-color-medium-shade);
+    --dynamic-card-mod-1-menu-button-color: var(--liquid-color-medium-shade);
+    --dynamic-card-mod-1-menu-content-li-bg: var(--liquid-color-medium);
+    --dynamic-card-mod-1-menu-content-li-height: 60px;
+    --dynamic-card-mod-1-menu-content-link-font-size: 1.5rem;
+    --dynamic-card-mod-2-header-color: var(--liquid-color-dark-contrast);
+    --dynamic-card-mod-2-header-padding: 1em;
+    --dynamic-card-mod-2-button-content: "→";
+    --dynamic-card-mod-2-button-font-weight: 700;
+    --dynamic-card-mod-2-button-color: var(--liquid-color-dark-contrast);
+    --dynamic-card-mod-2-button-width: 100px;
+    --dynamic-card-mod-2-button-margin: 2em auto 1em;
+    --dynamic-card-mod-2-button-line-height: 1;
+    --dynamic-card-mod-2-button-font-size: .75rem;
+    --dynamic-card-mod-2-data-color: var(--liquid-color-dark-contrast);
+    --dynamic-card-mod-2-title-link-color: var(--liquid-color-dark-contrast);
+    --dynamic-card-mod-2-menu-content-margin: 0 5px;
+    --dynamic-card-mod-2-header-font-size: .75rem;
     /* ------------------- OTHER -------------------- */
 }
 

@@ -1,0 +1,80 @@
+{% extends 'app.html.twig' %}
+
+{% block head %}
+  {{ parent() }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/svg-with-js.min.css" integrity="sha512-OiNHhQwzS1LlbvAM+EbRs/LeCL5RhAkv2pvr432TxTFGcxNcG6I8VVII7s4dUVwJJG7HtHKvsR7zzD5vuSlAlA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/v4-font-face.min.css" integrity="sha512-RiiIeQoUxWFBj0r8eZ49ooAfgtvwzW2pUMpxsWPYwn7u39JzHYxN8Bmb3AwXjnvjoFf4n4TQNgmB+BLYTZChVw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/v4-shims.min.css" integrity="sha512-UtgpaUQPTevIy6walAy8W82eDxOdZJqKS0w2vf0eTItGubnT6TKkbM1GoNyoNvlM4DKhbl45kOK+Z4EhtuK2RA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/v5-font-face.min.css" integrity="sha512-HoJcK6M3SQctK5xy9FlRUy0X4HsoUY5DZpqK5LuuTVbeJNlH8j3PyfGIs0oHmxzl4+mHfAyWd5w4T7kMO81c9w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {{ encore_entry_link_tags('liquid-css') }}
+{% endblock %}
+
+{% block title %}
+  {% if title is defined %}
+    {{title}}
+  {% else %}
+    {{ 'core.layout.app' | trans }}
+  {% endif %}
+{% endblock %}
+{% block body %}
+  <section class="liquid-app">
+    <section id="top-page" class="liquid-page-container">
+      <header {% block headerAttr %}  {% endblock %} >
+        {% block header %}
+          {% include 'liquid-theme/components/layout/nav/nav.html.twig' with {
+            'class': '-shad-12',
+            'color': '-bg-light',
+            'navItemsCenter' : [
+                {
+                    'class': 'btn btn-link ',
+                    'color': '',
+                    'path' : '/',
+                    'text' : 'Go to website'
+                },
+                {
+                    'class': 'btn btn-link ',
+                    'color': '',
+                    'path' : 'AdminPostsList',
+                    'text' : 'index'
+                },
+            ]
+          } %}
+        {% endblock %}
+        {% include 'liquid-theme/components/ui/toasts.html.twig' %}
+      </header>
+      <main  {% block mainAttr %} class="{% if wrapperContent is defined %}-wrapper {% endif %} -top-4rm" {% endblock %}>
+        {% block main %}
+          {% block leftSide %} 
+          
+          {% endblock %}
+          {% block rightSide %} {% endblock %}
+          {% block modal %} {% endblock %}
+          <section 
+            {% block mainContentAttr %} class="{% if wrapperContent is defined %}main-content{% endif %}liquid-container liquid-grid -center -middle -z1 -overflow-x-hidden" {% endblock %}
+          >
+            {% block mainContent %}
+            
+            {% endblock %}  
+          </section>
+        {% endblock %}
+      </main>
+      <footer {% block footerAttr %}  {% endblock %}>
+        {% block footer %}
+          
+        {% endblock %}
+      </footer>
+    </section>
+  </section>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('app') }}
+  {{ encore_entry_script_tags('liquid-app') }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/js/all.min.js" integrity="sha512-Cvxz1E4gCrYKQfz6Ne+VoDiiLrbFBvc6BPh4iyKo2/ICdIodfgc5Q9cBjRivfQNUXBCEnQWcEInSXsvlNHY/ZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}

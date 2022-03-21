@@ -4031,7 +4031,7 @@ Table
     -- Add Card Component
     -- Add Fun Loader Extensed Component 
     -- New Demo Page Version 2
-- 1.0.0.alpha-3: Currently
+- 1.0.0.alpha-3:
     -- modified:   @extensed/extensed.css
     -- modified:   basic/effects/border.css
     -- modified:   basic/effects/colors.css
@@ -4051,3 +4051,14 @@ Table
     -- add:   variables-base-theme.css.dist
     -- add:   variables-color-theme.css.dist
     -- add:   variables.css.dist
+- 1.0.0.alpha-4: Currently
+    -- 64 files changed
+    -- create @demo/extensed-components/context-menu.html
+    -- create@extensed/components/context-menu.css
+    -- rename basic/{layout-components => components}
+    -- rename basic/{ui-components => ui}
+    -- create basic/components/dynamic-card.css
+    -- create  basic/components/fluid-tab-bar.css
+    -- rewrite basic/main.basic.css
+    -- move large/variables.large.css => variables.large.css
+    -- move medium/variables.medium.css => variables.medium.css

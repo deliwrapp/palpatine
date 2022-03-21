@@ -1,27 +1,6 @@
-{% extends 'app.html.twig' %}
+{% extends 'liquid-theme/layout-admin.html.twig' %}
 
 {% block title %}ADMIN POSTS EDIT{% endblock %}
-
-{% block header %}
-    {% include 'liquid-theme/components/layout/nav/nav.html.twig' with {
-        'class': '-shad-12',
-        'color': '-bg-light',
-        'navItemsCenter' : [
-            {
-                'class': 'btn btn-link ',
-                'color': '',
-                'path' : 'AdminPostsList',
-                'text' : 'index'
-            },
-            {
-                'class': 'btn btn-link ',
-                'color': '',
-                'path' : 'AdminPostCreate',
-                'text' : 'create'
-            },
-        ]
-    } %}
-{% endblock %}
 
 {% block mainContent %}
     <section class="col -col-12">

@@ -14,9 +14,30 @@
     <input class="dropdown--touch" type="checkbox" id="dropdown--touch">
     <div class="dropdown-content -pos-left">
         <ul>
-            <li class="-light -hover"><a href="#">One</a></li>
-            <li class="-light -hover"><a href="#">Two</a></li>
-            <li class="-light -hover"><a href="#">Three</a></li>
+            <li class="-light -hover">
+                <i class="fa-regular fa-user"></i>
+                <a href="#">
+                    Profil
+                </a>
+            </li>
+            <li class="-light -hover">
+                <i class="fa-solid fa-user-gear"></i>
+                <a href="#">
+                    Account
+                </a>
+            </li>
+            <li class="-light -hover">
+                <i class="fa-solid fa-lock"></i>
+                <a href="{{path('AdminDashboard')}}">
+                    Admin
+                </a>
+            </li>
+            <li class="-light -hover">
+                <i class="fa-solid fa-door-open"></i>
+                <a href="#">
+                    Logout
+                </a>
+            </li>
         </ul>
     </div>
 </div>

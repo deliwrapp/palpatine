@@ -6,7 +6,9 @@
 .dropdown-content .\-link,
 .dropdown-content a {
   text-decoration: none;
-  display: block;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   color: inherit;
   padding: var(--dropdown-content-link-padding-v) var(--dropdown-content-link-padding-h);
 }
@@ -50,12 +52,18 @@
   transform: var(--dropdown-content-transform);
   visibility: visible;
 }
+.dropdown .\-container,
 .dropdown ul {
   padding : var(--dropdown-ul-padding-v) var(--dropdown-ul-padding-h);
 }
+.dropdown .\-container-item,
 .dropdown li {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   padding : var(--dropdown-li-padding-v) var(--dropdown-li-padding-h); 
-  text-decoration : none; list-style: none;
+  text-decoration : none;
+  list-style: none;
 }
 
 .slide-dropdown {

@@ -1,9 +1,10 @@
 {#
 // Variables
-- class : custom classes
-- color : classes de modification de la classe principale
-- path : lien
-- text : Texte de l'élément
+- class : custom classes {string}
+- color : classes de modification de la classe principale {string}
+- path : lien {string}
+- text : Texte de l'élément {string}
+- icon : Icon de l'élément {string}
 #}
 
 {% if path is not defined or path == null or path == '#' %}
@@ -56,5 +57,8 @@
     class="{% if color is defined %}-{{ color }}{% endif %} {% if class is defined %}{{ class }}{% else %} btn btn-link {% endif %}"
     href="{{ path }}"
 >
+  {% if icon is defined and icon is not null %}
+    <i class="{{icon}}"></i>
+  {% endif %}
     {{ text |trans }}
 </a>

@@ -6,8 +6,8 @@
     left: var(--nav-pos-l);
     display: flex;
     flex-wrap: var(--nav-wrap);
+    height: var(--nav-height-open);
     width: var(--nav-w);
-    height: var(--nav-h);
     max-width: 100%;
     overflow-x: var(--nav-over-x);
     overflow-y: var(--nav-over-y);
@@ -25,9 +25,18 @@
     padding-right: var(--nav-padding-r);
     padding-left: var(--nav-padding-l);
 }
+.nav.\-close {
+    height: var(--nav-height-close);
+}
+.nav.\-close  .nav-items{
+    opacity: var(--nav-items-opacity-close);
+}
+
 .nav .nav-items {
     position: relative;
     display: flex;
+    opacity: 1;
+    flex-direction: var(--nav-items-direction);
     flex-wrap: var(--nav-items-wrap);
     overflow-x: var(--nav-items-over-x);
     overflow-y: var(--nav-items-over-y);

@@ -239,8 +239,8 @@
 }
 
 .\-mod-1 .\-wrapper {
-    background: var(--dynamic-card-mod-1-wrapper-background);
+    background: var(--dynamic-card-mod-1-wrapper-background) 20% 1%/cover no-repeat;
 }
 .\-mod-2 .\-wrapper {
-    background: var(--dynamic-card-mod-2-wrapper-background);
+    background: var(--dynamic-card-mod-2-wrapper-background) center/cover no-repeat;
 }

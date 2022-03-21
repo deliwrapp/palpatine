@@ -1,70 +1,45 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
-
 <head>
   {% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" integrity="sha512-8Vtie9oRR62i7vkmVUISvuwOeipGv8Jd+Sur/ORKDD5JiLgTGeBSkI3ISOhc730VGvA5VVQPwKIKlmi+zMZ71w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/regular.min.css" integrity="sha512-sWLOh8QiEOmwfP3jd0n7AneUOa6XKif5g8GU8FqdFMIbr6rYBt1PKWBp/Wv4E6PQ6N9lFtVAndujl9HbniDTog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   {% endblock %}
   {% block stylesheets %}
-  {{ encore_entry_link_tags('liquid-css') }}
   {{ encore_entry_link_tags('app') }}
   {% endblock %}
-    <link rel="stylesheet" href="../../main.css">
-    <title>
-      {% block title %}
-        {% if title is defined %}
-          {{title}}
-        {% else %}
-          {{ 'core.layout.app' | trans }}
-        {% endif %}
-      {% endblock %}
-    </title>
+  <title>
+    {% block title %}
+      {% if title is defined %}
+        {{title}}
+      {% else %}
+        {{ 'core.layout.app' | trans }}
+      {% endif %}
+    {% endblock %}
+  </title>
 </head>
-
 <body {% block bodyClass %} class="{{app.request.get('_route')}}" {% endblock %}>
   {% block body %}
-    <section class="liquid-app">
-      <section id="top-page" class="liquid-page-container">
-        <header {% block headerAttr %}  {% endblock %} >
-          {% block header %}
-            
-          {% endblock %}
-          {% include 'liquid-theme/components/ui/toasts.html.twig' %}
-        </header>
+    <header {% block headerAttr %}  {% endblock %} >
+      {% block header %}
         
-        <main  {% block mainAttr %} class="{% if wrapperContent is defined %}-wrapper {% endif %} -top-4rm" {% endblock %}>
-          {% block main %}
-            {% block leftSide %} 
-            
-            {% endblock %}
-            {% block rightSide %} {% endblock %}
-            {% block modal %} {% endblock %}
-            <section 
-              {% block mainContentAttr %} class="{% if wrapperContent is defined %}main-content{% endif %}liquid-container liquid-grid -center -middle -z1 -overflow-x-hidden" {% endblock %}
-            >
-              {% block mainContent %}
-              
-              {% endblock %}  
-            </section>
-          {% endblock %}
-        </main>
-        
-        <footer {% block footerAttr %}  {% endblock %}>
-          {% block footer %}
-            
-          {% endblock %}
-        </footer>
-      </section>
-    </section>
+      {% endblock %}
+    </header>    
+    <main  {% block mainAttr %} {% endblock %}>
+      {% block main %}
+        {% block leftSide %} {% endblock %}
+        {% block rightSide %} {% endblock %}
+        {% block modal %} {% endblock %}
+        {% block mainContent %} {% endblock %}
+      {% endblock %}
+    </main>        
+    <footer {% block footerAttr %}  {% endblock %}>
+      {% block footer %} {% endblock %}
+    </footer>
   {% endblock %}
   {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_script_tags('liquid-app') }}
   {% endblock %}
 </body>
-
 </html>

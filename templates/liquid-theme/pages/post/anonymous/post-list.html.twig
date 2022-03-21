@@ -1,21 +1,6 @@
-{% extends 'app.html.twig' %}
+{% extends 'liquid-theme/layout.html.twig' %}
 
 {% block title %}POSTS LIST {% endblock %}
-
-{% block header %}
-    {% include 'liquid-theme/components/layout/nav/nav.html.twig' with {
-        'class': '-shad-12',
-        'color': '-bg-light',
-        'navItemsCenter' : [
-            {
-                'class': 'btn btn-link ',
-                'color': '',
-                'path' : 'PostsList',
-                'text' : 'index'
-            }
-        ]
-    } %}
-{% endblock %}
 
 {% block mainContent %}
 <section class="col -col-11" id="post-list">
@@ -41,7 +26,7 @@
                 ],
                 'tableItems': posts,
                 'actions' :  {
-                    'show': {'path': 'memberPostShow', 'tooltip': 'show', 'icon': 'icon-eye-solid'},
+                    'show': {'path': 'memberPostShow', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
                 }
             }
         %}   
@@ -58,7 +43,7 @@
             <div class="-tile-action">
                 <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
                     <a class="-tertiary" href="{{ path('postCreate') }}">
-                        <i class="icon icon-plus"></i> 
+                        <i class="fa-regular fa-plus"></i> 
                     </a>
                 </button>
             </div>
