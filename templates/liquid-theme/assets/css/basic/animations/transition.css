@@ -1,0 +1,114 @@
+.\-trans-none {
+    transition-property: none;
+}
+.\-trans-all {
+    transition-property: all;
+}
+.\-trans-colors {
+    transition-property: background-color, border-color, color, fill, stroke;
+}
+.\-trans-opacity {
+    transition-property: opacity;
+}
+.\-trans-shadow {
+    transition-property: v;
+}
+.\-trans-transform {
+    transition-property: transform;
+}
+.\-transition-all-05 {
+    transition: all 0.5s ease-in-out;
+}
+.\-transition-all-1 {
+    transition: all 1s ease-in-out;
+}
+.\-transition-all-2 {
+    transition: all 2s ease-in-out;
+}
+.\-trans-duration-75 {
+    transition-duration: 75ms;
+}
+.\-trans-duration-100 {
+    transition-duration: 100ms;
+}
+.\-trans-duration-150 {
+    transition-duration: 150ms;
+}
+.\-trans-duration-200 {
+    transition-duration: 200ms;
+}
+.\-trans-duration-250 {
+    transition-duration: 250ms;
+}
+.\-trans-duration-300 {
+    transition-duration: 300ms;
+}
+.\-trans-duration-350 {
+    transition-duration: 350ms;
+}
+.\-trans-duration-400 {
+    transition-duration: 400ms;
+}
+.\-trans-duration-500 {
+    transition-duration: 500ms;
+}
+.\-trans-duration-700 {
+    transition-duration: 700ms;
+}
+.\-trans-duration-1000 {
+    transition-duration: 1000ms;
+}
+.\-trans-delay-75 {
+    transition-delay: 75ms;
+}
+.\-trans-delay-100 {
+    transition-delay: 100ms;
+}
+.\-trans-delay-150 {
+    transition-delay: 150ms;
+}
+.\-trans-delay-200 {
+    transition-delay: 200ms;
+}
+.\-trans-delay-250 {
+    transition-delay: 250ms;
+}
+.\-trans-delay-300 {
+    transition-delay: 300ms;
+}
+.\-trans-delay-350 {
+    transition-delay: 350ms;
+}
+.\-trans-delay-400 {
+    transition-delay: 400ms;
+}
+.\-trans-delay-500 {
+    transition-delay: 500ms;
+}
+.\-trans-delay-700 {
+    transition-delay: 700ms;
+}
+.\-trans-delay-1000 {
+    transition-delay: 1000ms;
+}
+.\-linear {
+    transition-timing-function: linear;
+}
+.\-ease {
+    transition-timing-function: ease;
+}
+.\-ease-in {
+    transition-timing-function: ease-in;
+}
+.\-ease-out {
+    transition-timing-function: ease-out;
+}
+.\-ease-in-out {
+    transition-timing-function: ease-in-out;
+}
+.\-step-start {
+    transition-timing-function: step-start;
+}
+.\-step-end {
+    transition-timing-function: step-end;
+}

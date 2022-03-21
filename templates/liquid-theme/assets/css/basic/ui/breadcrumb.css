@@ -1,0 +1,22 @@
+.breadcrumb {
+    list-style: none;
+    margin: var(--breadcrumb-mar);
+    padding: var(--breadcrumb-pad);
+}
+.breadcrumb .\-breadcrumb-item {
+    color: var(--breadcrumb-item-color);
+    display: inline-block;
+    margin: var(--breadcrumb-item-mar);
+    padding: var(--breadcrumb-item-pad);
+}
+.breadcrumb .\-breadcrumb-item:not(:last-child) {
+    margin-right: var(--breadcrumb-item-mar-right);
+}
+.breadcrumb .\-breadcrumb-item:not(:last-child) a {
+    color: var(--breadcrumb-item-color-ter);
+}
+.breadcrumb .\-breadcrumb-item:not(:first-child)::before {
+    color: var(--breadcrumb-item-color-sec);
+    content: "/";
+    padding-right: var(--breadcrumb-item-padding-right);
+}

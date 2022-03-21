@@ -1,0 +1,122 @@
+.tile {
+    display: var(--tile-display);
+    min-width: var(--tile-min-width);
+    min-height: var(--tile-min-height);
+    max-width: var(--tile-max-width);
+    max-height: var(--tile-max-height);
+    width: var(--tile-width);
+    height: var(--tile-height);
+    flex-direction: var(--tile-direction);
+    align-content: var(--tile-align-content);
+    align-items: var(--tile-align-items);
+    border-top: var(--tile-border-t);
+    border-bottom: var(--tile-border-b);
+    border-left: var(--tile-border-l);
+    border-right: var(--tile-border-r);
+    border-top-left-radius: var(--tile-border-radius-tl);
+    border-top-right-radius: var(--tile-border-radius-tr);
+    border-bottom-left-radius: var(--tile-border-radius-bl);
+    border-bottom-left-radius: var(--tile-border-radius-bl);
+    padding-top: var(--tile-padding-t);
+    padding-bottom: var(--tile-padding-b);
+    padding-left: var(--tile-padding-l);
+    padding-right: var(--tile-padding-r);
+    margin-top: var(--tile-margin-t);
+    margin-bottom: var(--tile-margin-b);
+    margin-left: var(--tile-margin-l);
+    margin-right: var(--tile-margin-r);
+}
+.tile .\-tile-icon {
+    flex: var(--tile-icon-flex);
+}
+.tile .\-tile-action {
+    flex: var(--tile-action-flex);
+}
+.tile .\-tile-content {
+    flex: var(--tile-content-flex);
+}
+.tile .\-tile-content:not(:first-child) {
+    padding-left: var(--tile-content-child-padding-left);
+}
+.tile .\-tile-content:not(:last-child) {
+    padding-right: var(--tile-content-child-padding-right);
+}
+.tile .\-tile-title,
+.tile .\-tile-subtitle {
+    line-height: var(--tile-line-height);
+}
+.tile.\-tile-compact {
+    display: var(--tile-compact-display);
+    min-width: var(--tile-compact-min-width);
+    min-height: var(--tile-compact-min-height);
+    max-width: var(--tile-compact-max-width);
+    max-height: var(--tile-compact-max-height);
+    width: var(--tile-compact-width);
+    height: var(--tile-compact-height);
+    flex-direction: var(--tile-compact-direction);
+    align-content: var(--tile-compact-align-content);
+    align-items: var(--tile-compact-align-items);
+    border-top: var(--tile-compact-border-t);
+    border-bottom: var(--tile-compact-border-b);
+    border-left: var(--tile-compact-border-l);
+    border-right: var(--tile-compact-border-r);
+    border-top-left-radius: var(--tile-compact-border-radius-tl);
+    border-top-right-radius: var(--tile-compact-border-radius-tr);
+    border-bottom-left-radius: var(--tile-compact-border-radius-bl);
+    border-bottom-left-radius: var(--tile-compact-border-radius-bl);
+    padding-top: var(--tile-compact-padding-t);
+    padding-bottom: var(--tile-compact-padding-b);
+    padding-left: var(--tile-compact-padding-l);
+    padding-right: var(--tile-compact-padding-r);
+    margin-top: var(--tile-compact-margin-t);
+    margin-bottom: var(--tile-compact-margin-b);
+    margin-left: var(--tile-compact-margin-l);
+    margin-right: var(--tile-compact-margin-r);
+}
+.tile.\-tile-compact .\-tile-content {
+    overflow: var(--tile-compact-content-overflow);
+}
+.tile.\-tile-compact .\-tile-title,
+.tile.\-tile-compact .\-tile-subtitle {
+    margin-bottom: var(--tile-compact-title-margin-bottom);
+    overflow: var(--tile-compact-title-overflow);
+    text-overflow: var(--tile-compact-title-text-overflow);
+    white-space: var(--tile-compact-title-white-space);
+}
+.tile:hover {
+    border-top: var(--tile-border-t-hov);
+    border-bottom: var(--tile-border-b-hov);
+    border-left: var(--tile-border-l-hov);
+    border-right: var(--tile-border-r-hov);
+    border-top-left-radius: var(--tile-border-radius-tl-hov);
+    border-top-right-radius: var(--tile-border-radius-tr-hov);
+    border-bottom-left-radius: var(--tile-border-radius-bl-hov);
+    border-bottom-right-radius: var(--tile-border-radius-br-hov);
+    padding-top: var(--tile-padding-t-hov);
+    padding-bottom: var(--tile-padding-b-hov);
+    padding-left: var(--tile-padding-l-hov);
+    padding-right: var(--tile-padding-r-hov);
+    margin-top: var(--tile-margin-t-hov);
+    margin-bottom: var(--tile-margin-b-hov);
+    margin-left: var(--tile-margin-l-hov);
+    margin-right: var(--tile-margin-r-hov);
+}
+
+.tile.\-tile-compact:hover {
+    border-top: var(--tile-compact-border-t-hov);
+    border-bottom: var(--tile-compact-border-b-hov);
+    border-left: var(--tile-compact-border-l-hov);
+    border-right: var(--tile-compact-border-r-hov);
+    border-top-left-radius: var(--tile-compact-border-radius-tl-hov);
+    border-top-right-radius: var(--tile-compact-border-radius-tr-hov);
+    border-bottom-left-radius: var(--tile-compact-border-radius-bl-hov);
+    border-bottom-right-radius: var(--tile-compact-border-radius-br-hov);
+    padding-top: var(--tile-compact-padding-t-hov);
+    padding-bottom: var(--tile-compact-padding-b-hov);
+    padding-left: var(--tile-compact-padding-l-hov);
+    padding-right: var(--tile-compact-padding-r-hov);
+    margin-top: var(--tile-compact-margin-t-hov);
+    margin-bottom: var(--tile-compact-margin-b-hov);
+    margin-left: var(--tile-compact-margin-l-hov);
+    margin-right: var(--tile-compact-margin-r-hov);
+}

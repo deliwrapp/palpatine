@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+  {% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% endblock %}
+  {% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  {% endblock %}
+  <title>
+    {% block title %}
+      {% if title is defined %}
+        {{title}}
+      {% else %}
+        {{ 'core.layout.app' | trans }}
+      {% endif %}
+    {% endblock %}
+  </title>
+</head>
+<body {% block bodyClass %} class="{{app.request.get('_route')}}" {% endblock %}>
+  {% block body %}
+    <header {% block headerAttr %}  {% endblock %} >
+      {% block header %}
+        
+      {% endblock %}
+    </header>    
+    <main  {% block mainAttr %} {% endblock %}>
+      {% block main %}
+        {% block leftSide %} {% endblock %}
+        {% block rightSide %} {% endblock %}
+        {% block modal %} {% endblock %}
+        {% block mainContent %} {% endblock %}
+      {% endblock %}
+    </main>        
+    <footer {% block footerAttr %}  {% endblock %}>
+      {% block footer %} {% endblock %}
+    </footer>
+  {% endblock %}
+  {% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+  {% endblock %}
+</body>
+</html>

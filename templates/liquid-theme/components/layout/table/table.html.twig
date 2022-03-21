@@ -1,0 +1,74 @@
+{#
+// Variables
+- class : custom table classes {string}
+- color : background table color {string}
+- caption : Caption {string},
+- tableHead: Table Head Items show {boolean = true},
+- tableHeadItems: Table Head Items information {array}
+- actions: set of action handler
+#}
+{% if tableHead is not defined %}  
+        {% set tableHead = true %}
+{% endif %}
+{% if tableHeadItems is not defined %}  
+        {% set tableHeadItems = [] %}
+{% endif %}
+
+<table class="table {% if color is defined %}-{{ color }}{% endif %} {% if class is defined %}{{ class }}{% else %} -striped -hover -responsive -inline {% endif %}">
+    {% if caption is defined %}  
+        <caption>{{caption|trans}}</caption>
+    {% endif %}
+    {% if tableHead %}
+        <thead class="-shad-12 -shad-17-h">
+            <tr>
+                {% for item in tableHeadItems %}
+                    <th {% if loop.first %} scope="col" {% endif %} >
+                        {{item.text|trans}}
+                    </th>
+                {% endfor %}
+                {% if actions is defined %}
+                    <th>
+                        {{'action'|trans}}
+                    </th>
+                {% endif %}
+            </tr>
+        </thead>
+    {% endif %}
+    <tbody>
+        {% if tableItems is defined %}
+            {% for item in tableItems %}
+                <tr class="-shad-12 -shad-14-h">
+                    {% for td in tableHeadItems %}
+                        <td 
+                            {% if loop.first %} scope="row" {% endif %}
+                            data-label="{{td.text|trans|upper}}"
+                        >
+                            {{item[td.attr]}}
+                        </td>
+                    {% endfor %}
+                    {% if actions is defined %}
+                        <td>
+                            {% for key, action in actions %}
+                                {% if key == 'delete' %}
+                                    {% include 'liquid-theme/components/ui/buttons/btn-delete.html.twig' with {
+                                        'path': path(action['path'], { 'id': item.id }),
+                                        'message': action['message'] ,
+                                        'token': action['token']
+                                    } %}
+                                {% else %}
+                                     {% include 'liquid-theme/components/ui/buttons/btn-action.html.twig' with {
+                                        'path': path(action['path'], { 'id': item.id }),
+                                        'action': key,
+                                        'tooltip': action['tooltip'],
+                                        'icon': action['icon']
+                                    } %}
+                                {% endif %}
+                            {% endfor %}
+
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% endif %}        
+    </tbody>
+</table>

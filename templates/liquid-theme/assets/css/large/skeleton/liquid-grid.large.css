@@ -1,0 +1,28 @@
+@media (min-width: 996px) and (max-width: 1249px) {   
+    .col.\-l1  { width: calc(100% * 1 / 12); }
+    .col.\-l2  { width: calc(100% * 2 / 12); }
+    .col.\-l3  { width: calc(100% * 3 / 12); }
+    .col.\-l4  { width: calc(100% * 4 / 12); }
+    .col.\-l5  { width: calc(100% * 5 / 12); }
+    .col.\-l6  { width: calc(100% * 6 / 12); }
+    .col.\-l7  { width: calc(100% * 7 / 12); }
+    .col.\-l8  { width: calc(100% * 8 / 12); }
+    .col.\-l9  { width: calc(100% * 9 / 12); }
+    .col.\-l10 { width: calc(100% * 10 / 12); }
+    .col.\-l11 { width: calc(100% * 11 / 12); }
+    .col.\-l12 { width: 100%; }
+}
+@media (min-width: 1250px) {
+    .col.\-xl1  { width: calc(100% * 1 / 12); }
+    .col.\-xl2  { width: calc(100% * 2 / 12); }
+    .col.\-xl3  { width: calc(100% * 3 / 12); }
+    .col.\-xl4  { width: calc(100% * 4 / 12); }
+    .col.\-xl5  { width: calc(100% * 5 / 12); }
+    .col.\-xl6  { width: calc(100% * 6 / 12); }
+    .col.\-xl7  { width: calc(100% * 7 / 12); }
+    .col.\-xl8  { width: calc(100% * 8 / 12); }
+    .col.\-xl9  { width: calc(100% * 9 / 12); }
+    .col.\-xl10 { width: calc(100% * 10 / 12); }
+    .col.\-xl11 { width: calc(100% * 11 / 12); }
+    .col.\-xl12 { width: 100%; }
+}
