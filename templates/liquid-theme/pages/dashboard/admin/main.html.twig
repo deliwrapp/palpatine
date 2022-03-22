@@ -8,6 +8,27 @@
         <div class="h5 mt-10">ADMIN DASHBOARD</div>
     </div>
 </section>
+
+<section class="col -col-4 -md6 -sm12 -xs12" id="post-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                User Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx user.
+                <a class="-t-u btn -sm -light -hover" href="{{path('app_login')}}"> See User List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create User"> 
+                <a class="-success" href="{{ path('admin_app_user_create') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
 <section class="col -col-4 -md6 -sm12 -xs12" id="post-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
@@ -27,6 +48,5 @@
             </button>
         </div>
     </div>
-    
 </section>
 {% endblock %}
