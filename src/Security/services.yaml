@@ -1,0 +1,32 @@
+services:
+    App\Security\:
+        resource: '../Security/*'
+        exclude: '../Security/{DependencyInjection,Entity,Migrations,Templates,Tests,DataFixtures}'
+
+    App\Security\Controller\:
+        resource: '../Security/Controller'
+        tags: ['controller.service_arguments']
+
+    App\Security\Repository\:
+        resource: '../Security/Repository'
+        autowire: true
+        tags: ['doctrine.repository_service']
+
+twig:
+    paths:
+        '%kernel.project_dir%/templates/%base_theme_folder%/pages/security/': security
+
+framework:
+    translator:
+        paths: ["%kernel.project_dir%/src/Security/Translations"]
+
+doctrine:
+    orm:
+        auto_mapping: true
+        mappings:
+            User:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Security/Entity'
+                prefix: 'App\Security\Entity'
+                alias: User

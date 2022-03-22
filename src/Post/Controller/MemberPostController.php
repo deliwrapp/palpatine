@@ -29,7 +29,7 @@ class MemberPostController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}/{commentId}", name="MemberPostShow")
+     * @Route("/show/{id}/{commentId}", name="MemberPostShow", defaults={"commentId"=null})
      */
     public function show(int $id, int $commentId = null, ManagerRegistry $doctrine): Response
     {
