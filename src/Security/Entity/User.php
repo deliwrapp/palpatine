@@ -132,10 +132,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ArrayAc
          * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
          *
          * @see UserInterface
+         * @return
          */
-        public function getSalt()
+        public function getSalt(): string
         {
-                // not needed when using the "bcrypt" algorithm in security.yaml
+                return '';
         }
 
         /**

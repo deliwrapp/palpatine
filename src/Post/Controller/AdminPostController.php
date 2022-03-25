@@ -74,7 +74,6 @@ class AdminPostController extends AbstractController
             'change' => 'Edit'
         ]);
 
-
         if (!$post) {
             $this->addFlash(
                 'warning',
@@ -82,7 +81,7 @@ class AdminPostController extends AbstractController
             );
             return $this->redirect($this->generateUrl('AdminPostList'));
         }
-
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
