@@ -5,14 +5,16 @@ namespace App\Security\Entity;
 use App\Security\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ArrayAccess;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, ArrayAccess
 {
         /**
          * @ORM\Id()
@@ -23,6 +25,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         /**
          * @ORM\Column(type="string", length=180, unique=true)
+         *
+         * @var string
+         * 
+         * @Assert\Email()
         */
         private $email;
 
@@ -141,6 +147,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 // $this->plainPassword = null;
         }
 
+        public function getIsVerified(): bool
+        {
+            return $this->isVerified;
+        }
+
         public function isVerified(): bool
         {
             return $this->isVerified;
@@ -151,5 +162,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->isVerified = $isVerified;
 
             return $this;
+        }
+
+                
+        public function offsetExists($offset) {
+                // In this example we say that exists means it is not null
+                $value = $this->{"get$offset"}();
+                return $value !== null;
+        }
+
+        public function offsetSet($offset, $value) {
+                $this->{"set$offset"}($value);
+        }
+
+        public function offsetGet($offset) {
+                return $this->{"get$offset"}();
+        }
+
+        public function offsetUnset($offset) {
+                $this->{"set$offset"}(null);
         }
 }

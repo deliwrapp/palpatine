@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("/", name="AdminUsersList", methods={"GET"})
+     * @Route("/", name="admin_user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -27,9 +27,9 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="admin_app_user_create", methods={"GET", "POST"})
+     * @Route("/new", name="admin_user_create", methods={"GET", "POST"})
      */
-    public function new(Request $request, ManagerRegistry $doctrine): Response
+    public function create(ManagerRegistry $doctrine, Request $request): Response
     {
         $user = new User();
         $form = $this->createForm(AdminUserType::class, $user);
@@ -40,18 +40,21 @@ class AdminUserController extends AbstractController
             $em = $doctrine->getManager();
             $em->persist($user);
             $em->flush();
-
-            return $this->redirectToRoute('admin_app_user_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash(
+                'info',
+                'Saved new user with id '.$user->getId()
+            );
+            return $this->redirectToRoute('admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
+        /* var_dump($form);die; */
 
-        return $this->renderForm('@security/user/admin/user-create.html.twig', [
-            'user' => $user,
-            'form' => $form,
+        return $this->render('@security/user/admin/user-create.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/{id}", name="admin_app_user_show", methods={"GET"})
+     * @Route("/{id}", name="admin_user_show", methods={"GET"})
      */
     public function show(User $user): Response
     {
@@ -61,7 +64,7 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_app_user_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit", name="admin_user_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user, ManagerRegistry $doctrine): Response
     {
@@ -71,18 +74,22 @@ class AdminUserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $doctrine->getManager();
             $em->flush();
-
-            return $this->redirectToRoute('admin_app_user_index', [], Response::HTTP_SEE_OTHER);
+            
+            $this->addFlash(
+                'info',
+                'Updated new user with id '.$user->getId()
+            );
+            return $this->redirectToRoute('admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('@security/user/admin/user-edit.html.twig', [
+        return $this->render('@security/user/admin/user-edit.html.twig', [
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="admin_app_user_delete", methods={"POST"})
+     * @Route("/{id}", name="admin_user_delete", methods={"POST"})
      */
     public function delete(Request $request, User $user, ManagerRegistry $doctrine): Response
     {
@@ -90,8 +97,13 @@ class AdminUserController extends AbstractController
             $em = $doctrine->getManager();
             $em->remove($user);
             $em->flush();
+            
+            $this->addFlash(
+                'info',
+                'User have been deleted id '
+            );
         }
 
-        return $this->redirectToRoute('admin_app_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }

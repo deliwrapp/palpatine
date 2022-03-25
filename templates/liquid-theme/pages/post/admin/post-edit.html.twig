@@ -3,32 +3,79 @@
 {% block title %}ADMIN POSTS EDIT{% endblock %}
 
 {% block mainContent %}
-    <section class="col -col-12">
-        <div class="row">
-            {{ form_start(form) }}
-            <table>
-                <tbody>
-                <tr>
-                    <th>Title:</th>
-                    <td>{{ form_widget(form.title) }}</td>
-                </tr>
-                <tr>
-                    <th>Author:</th>
-                    <td>{{ form_widget(form.author) }}</td>
-                </tr>
-                <tr>
-                    <th>Content:</th>
-                    <td>{{ form_widget(form.content) }}</td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td>{{ form_widget(form.submit) }}</td>
-                </tr>
-                </tbody>
-            </table>
-            {{ form_end(form) }}
+<section class="col -col-12">
+    <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+        <div class="-panel-header -text-center">
+            {% if post is defined and post is not null %}
+                <button class="tooltip tooltip-left -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="show" type="submit">   
+                    <a class="-light -hover" href="{{ path('MemberPostShow', { 'id': post.id }) }}">
+                        <i class="fa-solid fa-eye fa-2x"></i>        
+                    </a>
+                </button>
+            {% endif %}
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="toast -warning -shad-12 -shad-10-h" role="alert">
+                    <p>{{ flashError }}</p>
+                    <button class="btn btn-clear"></button>
+                </div>
+            {% endfor %}
         </div>
-    </section>
+        {{ form_start(form, {'attr': {'class': '-w-f'}}) }}
+            <section class="-panel-body -flex -wrap">
+                <div class="col -col-8 -md8 -sm12 -xs12">
+                    {{ form_label(form.title, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.title) }}</small>
+                    {{ form_errors(form.title) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(form.title, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-heading"></i>
+                    </div>
+                </div>
+                <div class="col -col-4 -md4 -sm8 -xs8">
+                    {{ form_label(form.author, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.author) }}</small>
+                    {{ form_errors(form.author) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(form.author, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-at"></i>
+                    </div>
+                </div>
 
-{{ parent() }}
+                {# 
+                <div class="col -col-2 -md2 -sm4 -xs4">
+                    <div class="form-element">
+                        <label class="switch">
+                            {{ form_widget(form.published) }}
+                            <i class="form-icon -shad-12"></i>
+                            <span class="form-field-msg -t-c -t-bld -color-dark">Published</span>
+                        </label>
+                    </div>
+                    <small>{{ form_help(form.published) }}</small>
+                    {{ form_errors(form.published) }} 
+                </div>   
+                #}
+                
+                <div class="col -col-12">
+                    {{ form_label(form.content, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.content) }}</small>
+                    {{ form_errors(form.content) }}
+                    <div class="form-element has-icon-right -w-f">
+                        {{ form_widget(form.content, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-pen"></i>
+                    </div>
+                </div>
+            </section>
+
+            <section class="-panel-footer -text-center ">
+                {{ form_widget(form.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+            </section>
+        {{ form_end(form) }}
+    </div>
+</section>
 {% endblock %}

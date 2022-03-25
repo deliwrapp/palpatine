@@ -1,11 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'liquid-theme/layout-admin.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}ADMIN USER CREATE{% endblock %}
 
-{% block body %}
-    <h1>Create new User</h1>
-
-    {{ include('user/_form.html.twig') }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
+{% block mainContent %}
+    <a class="btn -block" href="{{ path('admin_user_index') }}">back to list</a>
+    {{ include('@security/user/admin/_form.html.twig') }}
 {% endblock %}

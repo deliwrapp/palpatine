@@ -7,8 +7,10 @@ security:
             algorithm: auto
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_MODERATOR: ROLE_USER
+        ROLE_EDITOR: ROLE_MODERATOR
+        ROLE_ADMIN: ROLE_EDITOR
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_MODERATOR, ROLE_EDITOR, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
         
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
@@ -30,6 +32,10 @@ security:
             lazy: true
             provider: users_in_memory
             custom_authenticator: App\Security\Services\AppSecurityAuthenticator
+            remember_me:
+                secret:   '%kernel.secret%' # required
+                lifetime: 604800 # 1 week in seconds
+                always_remember_me: true
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -45,7 +51,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/editor, roles: ROLE_EDITOR }
+        - { path: ^/moderator, roles: ROLE_MODERATOR }
+        - { path: ^/member, roles: ROLE_USER }
 
 when@test:
     security:

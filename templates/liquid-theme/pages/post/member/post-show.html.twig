@@ -5,6 +5,15 @@
 {% block mainContent %}
 
     {% if post is defined %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+            <section class="-shad-12 col -col-12 -row">
+                <button class="tooltip -tooltip-bottom -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="edit post" type="submit">   
+                    <a class="-light -hover" href="{{ path('AdminPostEdit', { 'id': post.id }) }}">
+                        <i class="fa-solid fa-pen fa-2x"></i>        
+                    </a>
+                </button>
+            <section>
+        {% endif %}
         {% include 'blocks/post/oldway_show_post.html.twig' with {
             'postContent' : post.content,
             'postTitle' : post.title,
@@ -14,10 +23,10 @@
             'postLinkText': 'comments'
         } %}
         <hr>
-        {# HERE the add comment form #}
-        <hr>
         {# HERE the comments list #}
-        <h2 class="h3">COMMENTS AREA</h2>
+        <section class="-shad-12 col -col-12">
+            <h2 class="h3">COMMENTS AREA</h2>
+        </section>
         
         {# HERE the comments add form #}
         <section id="comment-area" class="col -col-11">
@@ -44,47 +53,44 @@
                 </table>
                 {{ form_end(form) }}
             </div>
-        {% if editComment is defined and editComment is null %}
-            <ul class="-w-f -p0">   
-                {% if comments is defined and comments is not empty  %}
-                    {% for comment in comments %}
-                        <li class="tile -shad-5 -shad-12-h -cursor-pointer -m0">
-                            <div class="-tile-content -w-f">
-                                <p class="-tile-title -t-u -t-bld">{{ comment.author }}</p>
-                                <p class="-tile-subtitle">
-                                {{ comment.content }} 
-                                </p>
-                            </div>
-                            <div class="-tile-action">
-                                {% include 'liquid-theme/components/ui/buttons/btn-action.html.twig' with {
-                                    'path': path('MemberPostShow', { 'id': post.id, 'commentId': comment.id}),
-                                    'action': 'Edit',
-                                    'tooltip': 'Edit',
-                                    'icon': 'fa-regular fa-pen-to-square'
-                                } %}
-                                {% include 'liquid-theme/components/ui/buttons/btn-delete.html.twig' with {
-                                    'path': path('MemberCommentDelete', { 'id': comment.id, 'postId': post.id }),
-                                    'message': 'Are you sure to delete this comment ?' ,
-                                    'token': 'delete-comment'
-                                } %}
-                            
+            {% if editComment is defined and editComment is null %}
+                <ul class="-w-f -p0">   
+                    {% if comments is defined and comments is not empty  %}
+                        {% for comment in comments %}
+                            <li class="tile -shad-5 -shad-12-h -cursor-pointer -m0">
+                                <div class="-tile-content -w-f">
+                                    <p class="-tile-title -t-u -t-bld">{{ comment.author }}</p>
+                                    <p class="-tile-subtitle">
+                                    {{ comment.content }} 
+                                    </p>
+                                </div>
+                                <div class="-tile-action">
+                                    {% include 'liquid-theme/components/ui/buttons/btn-action.html.twig' with {
+                                        'path': path('MemberPostShow', { 'id': post.id, 'commentId': comment.id}),
+                                        'action': 'Edit',
+                                        'tooltip': 'Edit',
+                                        'icon': 'fa-regular fa-pen-to-square'
+                                    } %}
+                                    {% include 'liquid-theme/components/ui/buttons/btn-delete.html.twig' with {
+                                        'path': path('MemberCommentDelete', { 'id': comment.id, 'postId': post.id }),
+                                        'message': 'Are you sure to delete this comment ?' ,
+                                        'token': 'delete-comment'
+                                    } %}
+                                
 
-                            </div>
-                            
-                        </li>
-                    {% endfor %}
-                {% else %}
-                    <p> There is no comments caralhoooo !!! </p>
-                {% endif %}
-            </ul>
-        {% endif %}
-
+                                </div>
+                                
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <p> There is no comments caralhoooo !!! </p>
+                    {% endif %}
+                </ul>
+            {% endif %}
         </section>
                 
     {% else %}
         <p> There is no post caralhoooo !!! </p>
     {% endif %}
 
-
-{{ parent() }}
 {% endblock %}

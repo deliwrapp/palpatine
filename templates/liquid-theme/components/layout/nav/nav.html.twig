@@ -52,7 +52,22 @@
                     } %}
                 {% endfor %}
             {% endif %}
-            {% include 'liquid-theme/components/layout/nav/nav-user.html.twig'%}
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {% include 'liquid-theme/components/layout/nav/nav-user.html.twig'%}
+            {% else %}
+            <div class="btn -light -hover">
+                <i class="fa-solid fa-door-open"></i>
+                <a href="{{path('app_register')}}">
+                    Register
+                </a>
+            </div>
+            <div class="btn -light -hover">
+                <i class="fa-solid fa-lock-open"></i>
+                <a href="{{path('app_login')}}">
+                    Login
+                </a>
+            </div>
+            {% endif %}
         {% endblock %} 
     </section>
 </nav>
