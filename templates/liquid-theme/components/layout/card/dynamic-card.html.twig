@@ -56,7 +56,7 @@
                     </h2>
                 {% endif %}
                 {% if cardText is defined %}
-                    <p class="-text">{{cardText}}</p>
+                    <div class="-text">{{cardText| raw }}</div>
                 {% endif %}
                 {% if cardLinkPath is defined %}
                     <a href="{{cardLinkPath}}" class="-button">

@@ -1,0 +1,16 @@
+services:
+    App\Controller\:
+        resource: '../Core/*'
+        exclude: '../Core/{DependencyInjection,Entity,Migrations,Templates,Tests,DataFixtures}'
+
+    App\Core\Controller\:
+        resource: '../Core/Controller'
+        tags: ['controller.service_arguments']
+
+twig:
+    paths:
+        '%kernel.project_dir%/templates/%base_theme_folder%/pages/core/': core
+
+framework:
+    translator:
+        paths: ["%kernel.project_dir%/src/Core/Translations"]

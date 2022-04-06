@@ -1,4 +1,10 @@
 {
+    "name": "bloogy",
+    "author": "Deliwrapp & Co",
+    "description": "A CMS.",
+    "version": "1.0.0.alpha",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "private": true,
     "devDependencies": {
         "@hotwired/stimulus": "^3.0.0",
         "@symfony/stimulus-bridge": "^3.0.0",
@@ -8,8 +14,6 @@
         "regenerator-runtime": "^0.13.2",
         "webpack-notifier": "^1.6.0"
     },
-    "license": "UNLICENSED",
-    "private": true,
     "scripts": {
         "dev-server": "encore dev-server",
         "dev": "encore dev",

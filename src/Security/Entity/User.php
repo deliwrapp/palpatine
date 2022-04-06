@@ -3,19 +3,33 @@
 namespace App\Security\Entity;
 
 use App\Security\Repository\UserRepository;
+use App\Core\Entity\SoftEditionTrackingTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ArrayAccess;
 
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email") 
+ * @HasLifecycleCallbacks
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface, ArrayAccess
+class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable, ArrayAccess
 {
+
+        public function __construct()
+        {
+                $this->isVerified = false;
+                $this->isActive = false;
+                $this->isRestricted = false;
+        }
+
+        use SoftEditionTrackingTrait;
+
         /**
          * @ORM\Id()
          * @ORM\GeneratedValue()
@@ -28,6 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ArrayAc
          *
          * @var string
          * 
+         * @Assert\NotBlank()
          * @Assert\Email()
         */
         private $email;
@@ -52,6 +67,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ArrayAc
          * @ORM\Column(type="boolean")
          */
         private $isVerified = false;
+
+        /**
+         * @ORM\Column(type="boolean")
+        */
+        private $isRestricted;
+
+        /**
+         * @ORM\Column(type="boolean")
+        */
+        private $isActive;
         
 
         public function getId(): ?int
@@ -163,6 +188,55 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, ArrayAc
             $this->isVerified = $isVerified;
 
             return $this;
+        }
+
+        function getIsActive() {
+                return $this->isActive;
+        }
+        function setIsActive($isActive) {
+                $this->isActive = $isActive;
+        }
+        
+        public function getIsRestricted(): ?bool
+        {
+                return $this->isRestricted;
+        }
+        public function setIsRestricted(?bool $isRestricted): self
+        {
+                $this->isRestricted = $isRestricted;
+
+                return $this;
+        }
+
+        public function __toString()
+        {
+          return (string) $this->getEmail();
+        }
+    
+        /** @see \Serializable::serialize() */
+        public function serialize() {
+                return serialize(array(
+                $this->id,
+                $this->email,
+                $this->username,
+                $this->password,
+                $this->isVerified,
+                $this->isActive,
+                $this->isRestricted,
+                ));
+        }
+
+        /** @see \Serializable::unserialize() */
+        public function unserialize($serialized) {
+                list (
+                $this->id,
+                $this->email,
+                $this->username,
+                $this->password,
+                $this->isVerified,
+                $this->isActive,
+                $this->isRestricted,
+                ) = unserialize($serialized);
         }
 
                 

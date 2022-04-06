@@ -30,6 +30,7 @@ class AdminUserType extends AbstractType
             ])
             ->add('password')
             ->add('isVerified')
+            ->add('isRestricted')
         ;
         // roles field data transformer 
         $builder->get('roles')

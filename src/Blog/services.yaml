@@ -1,0 +1,38 @@
+services:
+    App\Blog\:
+        resource: '../Blog/*'
+        exclude: '../Blog/{DependencyInjection,Entity,Migrations,Templates,Tests,DataFixtures}'
+
+    App\Blog\Controller\:
+        resource: '../Blog/Controller'
+        tags: ['controller.service_arguments']
+
+    App\Blog\Repository\:
+        resource: '../Blog/Repository'
+        autowire: true
+        tags: ['doctrine.repository_service']
+
+twig:
+    paths:
+        '%kernel.project_dir%/templates/%base_theme_folder%/pages/blog/': blog
+
+framework:
+    translator:
+        paths: ["%kernel.project_dir%/src/Blog/Translations"]
+
+doctrine:
+    orm:
+        auto_mapping: true
+        mappings:
+            Post:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Blog/Entity'
+                prefix: 'App\Blog\Entity'
+                alias: Post
+            Comment:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Blog/Entity'
+                prefix: 'App\Blog\Entity'
+                alias: Comment

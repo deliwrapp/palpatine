@@ -1,0 +1,3 @@
+core_routes:
+    resource: './Controller/'
+    type:     annotation

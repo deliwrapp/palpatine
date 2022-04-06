@@ -1,0 +1,55 @@
+{% extends 'liquid-theme/layout-admin.html.twig' %}
+
+{% block title %}POSTS LIST{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-11" id="post-list">
+    <div class="-text-center">
+        <div class="h5 mt-10">ADMIN POSTS LIST</div>
+    </div>
+    
+    {% if posts is defined and posts is not empty %}
+        {% include 'liquid-theme/components/layout/table/table.html.twig' with {
+                'tableHeadItems' : [
+                    {
+                        'text': 'id',
+                        'attr': 'id'
+                    },
+                    {
+                        'text': 'title',
+                        'attr': 'title'
+                    },
+                    {
+                        'text': 'author',
+                        'attr': 'author'
+                    },
+                ],
+                'tableItems': posts,
+                'actions' :  {
+                    'show': {'path': 'MemberPostShow', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
+                    'edit': {'path': 'AdminPostEdit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
+                    'delete': {'path': 'AdminPostDelete', 'token': 'delete-post', 'message': 'Are you sure you want to delete this Post ?'}
+                }
+            }
+        %}   
+    {% else %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    There is no post caralhoooo !!!
+                </div>
+                <div class="-tile-subtitle">
+                    You can create a new post
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
+                    <a class="-tertiary" href="{{ path('AdminPostCreate') }}">
+                        <i class="fa-solid fa-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

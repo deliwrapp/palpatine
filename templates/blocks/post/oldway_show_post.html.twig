@@ -34,14 +34,14 @@
         <div class="post__content">
             <header>
                 {% if postTime is defined and postTime is not null %}  
-                    <time class="post__time">{{postTime}}</time>
+                    <time class="post__time">{{postTime|date("d/m/Y")}}</time>
                 {% endif %}
                 {% if postTitle is defined and postTitle is not null %}
                     <h1 class="post__header"><span>{{postTitle}}</h1>
                 {% endif %}
             </header>
             {% if postContent is defined and postContent is not null %}
-                <p class="post__text">{{postContent}}</p>
+                <p class="post__text">{{postContent| raw }}</p>
             {% endif %}
         </div>
         {% if postLink is defined and postLink is not null %}

@@ -6,7 +6,6 @@ import Toast from './Toast';
 import SlidePanel from './SlidePanel';
 import MegaSearch from './MegaSearch';
 
-
 new BlockTabs();
 new MegaSearch('[data-btn="search"]', '[data-behaviour="sortable"] .table--item');
 

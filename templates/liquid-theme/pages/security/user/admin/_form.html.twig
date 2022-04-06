@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 
-                <div class="col -col-3 -md6 -sm12 -xs12">
+                <div class="col -col-2 -md6 -sm12 -xs12">
                     <small>{{ form_help(form.roles) }}</small>
                     {{ form_errors(form.roles) }}
                     <div class="form-element">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col -col-3 -md6 -sm12 -xs12">
+                <div class="col -col-2 -md3 -sm12 -xs12">
                     <div class="form-element">
                         <label class="switch">
                             {{ form_widget(form.isVerified) }}
@@ -72,6 +72,17 @@
                     </div>
                     <small>{{ form_help(form.isVerified) }}</small>
                     {{ form_errors(form.isVerified) }}
+                </div>
+                <div class="col -col-2 -md3 -sm12 -xs12">
+                    <div class="form-element">
+                        <label class="switch">
+                            {{ form_widget(form.isRestricted) }}
+                            <i class="form-icon -shad-12"></i>
+                            <span class="form-field-msg -t-c -t-bld -color-dark">Restricted</span>
+                        </label>
+                    </div>
+                    <small>{{ form_help(form.isRestricted) }}</small>
+                    {{ form_errors(form.isRestricted) }}
                 </div>
             </section>
             <section class="-panel-footer -text-center ">
