@@ -1,0 +1,142 @@
+@charset "utf-8";
+
+.file-icon {
+    position: relative;
+    font-family: var(--file-icon-font-familly);
+    font-weight: var(--file-icon-font-weight);
+    display: inline-block;
+    width: var(--file-icon-width);
+    height: var(--file-icon-height);
+    background: var(--file-icon-bg);
+    border-radius: var(--file-icon-border-radius);
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+}
+
+.file-icon::before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-bottom-left-radius: var(--file-icon-before-border-left-radius);
+    border-width: var(--file-icon-before-border-width);
+    border-style: solid;
+    border-color: var(--file-icon-before-border-color);
+}
+.file-icon::after {
+    display: block;
+    content: attr(data-type);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: var(--file-icon-after-font-size);
+    color: var(--file-icon-after-color);
+    text-transform: var(--file-icon-after-text-transform);
+    width: 100%;
+    padding: var(--file-icon-after-padding);
+    white-space: nowrap;
+    overflow: hidden;
+}
+/* fileicons */
+.file-icon-xs {
+    width: var(--file-icon-xs-width);
+    height: var(--file-icon-xs-height);
+    border-radius: var(--file-icon-xs-border-radius);
+}
+.file-icon-xs::before {
+    border-bottom-left-radius: 1px;
+    border-width: 3px;
+}
+.file-icon-xs::after {
+    content: "";
+    border-bottom: var(--file-icon-xs-after-border-bottom);
+    width: auto;
+    left: var(--file-icon-xs-after-left);
+    right: var(--file-icon-xs-after-right);
+    bottom: var(--file-icon-xs-after-bottom);
+}
+.file-icon-sm {
+    width: var(--file-icon-sm-width);
+    height: var(--file-icon-sm-height);
+    border-radius: var(--file-icon-sm-border-radius);
+}
+.file-icon-sm::before {
+    border-bottom-left-radius: var(--file-icon-sm-border-bottom-left-radius);
+    border-width: var(--file-icon-sm-border-width);
+}
+.file-icon-sm::after {
+    font-size: var(--file-icon-sm-after-font-size);
+    padding: var(--file-icon-sm-after-padding);
+}
+.file-icon-lg {
+    width: var(--file-icon-lg-width);
+    height: var(--file-icon-lg-height);
+    border-radius: var(--file-icon-lg-border-radius);
+}
+.file-icon-lg::before {
+    border-bottom-left-radius: var(--file-icon-lg-before-border-bottom-left-radius);
+    border-width: var(--file-icon-lg-before-border-width);
+}
+.file-icon-lg::after {
+    font-size: var(--file-icon-lg-after-font-size);
+    padding: var(--file-icon-lg-after-padding);
+}
+.file-icon-xl {
+    width: var(--file-icon-xl-width);
+    height: var(--file-icon-xl-height);
+    border-radius: var(--file-icon-xl-border-radius);
+}
+.file-icon-xl::before {
+    border-bottom-left-radius: var(--file-icon-xl-before-border-bottom-left-radius);
+    border-width: var(--file-icon-xl-before-border-width);
+}
+.file-icon-xl::after {
+    font-size: var(--file-icon-xl-after-font-size);
+    padding: var(--file-icon-xl-after-padding);
+}
+
+/* fileicon.types */
+.file-icon[data-type=zip],
+.file-icon[data-type=rar] {
+    background: var(--archive-icon-bg);
+}
+.file-icon[data-type^=doc] {
+    background: var(--doc-icon-bg);
+}
+.file-icon[data-type^=xls] {
+    background: var(--xls-icon-bg);
+}
+.file-icon[data-type^=ppt] {
+    background: var(--ppt-icon-bg);
+}
+.file-icon[data-type=pdf] {
+    background: var(--pdf-icon-bg);
+}
+.file-icon[data-type=txt] {
+    background: var(--txt-icon-bg);
+}
+.file-icon[data-type=mp3],
+.file-icon[data-type=wma],
+.file-icon[data-type=m4a],
+.file-icon[data-type=flac] {
+    background: var(--audio-icon-bg);
+}
+
+.file-icon[data-type=mp4],
+.file-icon[data-type=wmv],
+.file-icon[data-type=mov],
+.file-icon[data-type=avi],
+.file-icon[data-type=mkv] {
+    background: var(--video-icon-bg);
+}
+
+.file-icon[data-type=bmp],
+.file-icon[data-type=jpg],
+.file-icon[data-type=jpeg],
+.file-icon[data-type=gif],
+.file-icon[data-type=png] {
+    background: var(--img-icon-bg);
+}

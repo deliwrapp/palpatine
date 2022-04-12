@@ -1,0 +1,28 @@
+/* Accordions */
+.accordion input:checked ~ .\-accordion-header > .icon:first-child, .accordion[open] .\-accordion-header > .icon:first-child {
+    transform: rotate(90deg);
+}
+.accordion input:checked ~ .\-accordion-body, .accordion[open] .\-accordion-body {
+    max-height: var(--accordion-max-height);
+    opacity: 1;
+    transform: var(--accordion-transform-open);
+}
+.accordion .\-accordion-header {
+    display: block;
+    padding: var(--accordion-padding-v) var(--accordion-padding-h);
+}
+.accordion .\-accordion-header .icon {
+    transition: transform 0.25s;
+}
+.accordion .\-accordion-body {
+    margin-bottom: var(--accordion-margin-b);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: var(--accordion-transition);
+    transform: var(--accordion-transform-close);
+}
+/* Remove default details marker in Webkit */
+summary.\-accordion-header::-webkit-details-marker {
+    display: none;
+}

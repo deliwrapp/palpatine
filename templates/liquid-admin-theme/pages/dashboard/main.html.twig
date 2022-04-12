@@ -1,0 +1,92 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}ADMIN-DASHBORD{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-11" id="post-list">
+    <div class="-text-center">
+        <div class="h5 mt-10">ADMIN DASHBOARD</div>
+    </div>
+</section>
+
+<section class="col -col-3 -md6 -sm12 -xs12" id="user-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                User Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx user.
+                <a class="-t-u btn -sm -light -hover" href="{{path('admin_user_index')}}"> See User List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create User"> 
+                <a class="-success" href="{{ path('admin_user_create') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="col -col-3 -md6 -sm12 -xs12" id="post-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Post Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx posts.
+                <a class="-t-u btn -sm -light -hover" href="{{path('AdminPostsList')}}"> See List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
+                <a class="-tertiary" href="{{ path('AdminPostCreate') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="col -col-3 -md6 -sm12 -xs12" id="page-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Page Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx Pages.
+                <a class="-t-u btn -sm -light -hover" href="{{path('AdminPageList')}}"> See List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Page"> 
+                <a class="-tertiary" href="{{ path('AdminPageCreate') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="col -col-3 -md6 -sm12 -xs12" id="block-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Block Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx blocks.
+                <a class="-t-u btn -sm -light -hover" href="{{path('AdminBlockList')}}"> See List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Block"> 
+                <a class="-tertiary" href="{{ path('AdminBlockCreate') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+{% endblock %}

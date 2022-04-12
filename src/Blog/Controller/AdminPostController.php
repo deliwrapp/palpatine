@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Blog\Entity\Post;
 use App\Blog\Repository\PostRepository;
@@ -23,7 +24,7 @@ class AdminPostController extends AbstractController
     {
         $posts = $postRepo->findAll();
 
-        return $this->render('@blog/post/admin/post-list.html.twig', [
+        return $this->render('@blog-admin/post/post-list.html.twig', [
             'posts' => $posts
         ]);
     }
@@ -31,12 +32,17 @@ class AdminPostController extends AbstractController
     /**
      * @Route("/create", name="AdminPostCreate")
     */
-    public function create(ManagerRegistry $doctrine, Request $request): Response
+    public function create(
+        ManagerRegistry $doctrine,
+        Request $request,
+        ParameterBagInterface $params
+    ): Response
     {
         $post = new Post();
-
+        $tplOptions = $params->get('posts_templates');
         $form = $this->createForm(PostFormType::class, $post, [
-            'change' => 'Create'
+            'change' => 'Create',
+            'tplOptions' => $tplOptions
         ]);
 
         $form->handleRequest($request);
@@ -59,7 +65,7 @@ class AdminPostController extends AbstractController
             ]));
         }
         
-        return $this->render('@blog/post/admin/post-edit.html.twig', [
+        return $this->render('@blog-admin/post/post-edit.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -67,12 +73,19 @@ class AdminPostController extends AbstractController
     /**
      * @Route("/update/{id}", name="AdminPostEdit")
      */
-    public function edit(ManagerRegistry $doctrine, Request $request, int $id): Response
+    public function edit(
+        int $id,
+        ManagerRegistry $doctrine,
+        Request $request,
+        ParameterBagInterface $params
+    ): Response
     {
         $post = $doctrine->getRepository(Post::class);
         $post = $post->find($id);
+        $tplOptions = $params->get('posts_templates');
         $form = $this->createForm(PostFormType::class, $post, [
-            'change' => 'Edit'
+            'change' => 'Edit',
+            'tplOptions' => $tplOptions
         ]);
 
         if (!$post) {
@@ -80,7 +93,7 @@ class AdminPostController extends AbstractController
                 'warning',
                 'There is no post  with id ' . $id
             );
-            return $this->redirect($this->generateUrl('AdminPostList'));
+            return $this->redirect($this->generateUrl('AdminPostsList'));
         }
         
         $form->handleRequest($request);
@@ -99,7 +112,7 @@ class AdminPostController extends AbstractController
         }
 
         return $this->render(
-            '@blog/post/admin/post-edit.html.twig',
+            '@blog-admin/post/post-edit.html.twig',
             [
                 'form' => $form->createView(),
                 'post' => $post

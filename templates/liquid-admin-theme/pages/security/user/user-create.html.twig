@@ -1,0 +1,8 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}ADMIN USER CREATE{% endblock %}
+
+{% block mainContent %}
+    <a class="btn -block" href="{{ path('admin_user_index') }}">back to list</a>
+    {{ include('liquid-admin-theme/pages/security/user/_form.html.twig') }}
+{% endblock %}

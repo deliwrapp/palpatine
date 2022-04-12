@@ -1,0 +1,28 @@
+{% extends 'liquid-admin-theme/layout.html.twig' %}
+
+{% block title %}BLOCK SHOW{% endblock %}
+
+{% block mainContent %}
+
+    {% if page is defined and page.blocks is defined and page.blocks is not null %}
+       {#  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+            <section class="-shad-12 col -col-12 -row">
+                <button class="tooltip -tooltip-bottom -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="edit page" type="submit">   
+                    <a class="-light -hover" href="{{ path('AdminPageEdit', { 'id': page.id }) }}">
+                        <i class="fa-solid fa-pen fa-2x"></i>        
+                    </a>
+                </button>
+            </section>
+        {% endif %} #}
+
+        <section class="-w-f"> 
+            {% for pageBlock in page.blocks %}  
+                {% set vars = pageBlock.data ? {data : pageBlock.data} : {} %}    
+                {% include pageBlock.blockTemplate with vars %}
+            {% endfor %}
+        </section>
+    {% else %}
+        <p> There is no block !!! </p>
+    {% endif %}
+
+{% endblock %}

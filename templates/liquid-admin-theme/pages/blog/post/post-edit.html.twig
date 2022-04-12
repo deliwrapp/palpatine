@@ -1,0 +1,132 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}ADMIN POSTS EDIT{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-12">
+    <a class="btn -block" href="{{ path('AdminPostsList') }}">back to list</a> 
+    <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+        <div class="-panel-header -text-center">
+            {% if post is defined and post is not null %}
+                <button class="tooltip tooltip-left -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="show" type="submit">   
+                    <a class="-light -hover" href="{{ path('MemberPostShow', { 'id': post.id }) }}">
+                        <i class="fa-solid fa-eye fa-2x"></i>        
+                    </a>
+                </button>
+            {% endif %}
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="toast -warning -shad-12 -shad-10-h" role="alert">
+                    <p>{{ flashError }}</p>
+                    <button class="btn btn-clear"></button>
+                </div>
+            {% endfor %}
+        </div>
+        {{ form_start(form, {'attr': {'class': '-w-f'}}) }}
+            <section class="-panel-body -flex -wrap">
+                <div class="col -col-6 -md5 -sm12 -xs12">
+                    {{ form_label(form.title, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.title) }}</small>
+                    {{ form_errors(form.title) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(form.title, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-heading"></i>
+                    </div>
+                </div>
+
+                <div class="col -col-4 -md5 -sm12 -xs12">
+                    <small>{{ form_help(form.blockTemplate) }}</small>
+                    {{ form_errors(form.blockTemplate) }}
+                    <div class="form-element">
+                        {{ form_label(form.blockTemplate, null, {
+                            'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                        }) }}
+                        <div class="-sm9">
+                            {{ form_widget(form.blockTemplate, {'attr': {'class': 'form-select -shad-12'}}) }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col -col-2 -md2 -sm12 -xs12">
+                    <div class="form-element">
+                        <label class="switch">
+                            {{ form_widget(form.isPublished) }}
+                            <i class="form-icon -shad-12"></i>
+                            <span class="form-field-msg -t-c -t-bld -color-dark">Published</span>
+                        </label>
+                    </div>
+                    <small>{{ form_help(form.isPublished) }}</small>
+                    {{ form_errors(form.isPublished) }} 
+                </div> 
+                
+                <div class="col -col-6 -md6 -sm12 -xs12">
+                    {{ form_label(form.link, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.link) }}</small>
+                    {{ form_errors(form.link) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(form.link, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-link"></i>
+                    </div>
+                </div>
+
+                <div class="col -col-6 -md6 -sm12 -xs12">
+                    {{ form_label(form.linkText, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.linkText) }}</small>
+                    {{ form_errors(form.linkText) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(form.linkText, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-link"></i>
+                    </div>
+                </div>
+
+                <div class="col -col-12">
+                    {{ form_label(form.content, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.content) }}</small>
+                    {{ form_errors(form.content) }}
+                    <div class=" form-element has-icon-right -w-f">
+                        {{ form_widget(form.content, {'attr': {'class': 'editor form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-pen"></i>
+                    </div>
+                </div>
+            </section>
+
+            <section class="-panel-footer -text-center ">
+                {{ form_widget(form.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+            </section>
+        {{ form_end(form) }}
+    </div>
+</section>
+{% endblock %}
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('assets/ckeditor-classic/ckeditor.js') }}"></script>
+  <script>
+    ClassicEditor
+        .create( document.querySelector( '.editor' ), {
+            
+            licenseKey: '',
+            
+            
+            
+        } )
+        .then( editor => {
+            window.editor = editor;
+            
+        } )
+        .catch( error => {
+            console.error( 'Oops, something went wrong!' );
+            console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+            console.warn( 'Build id: urcmyxwt760y-t7k3khokxct7' );
+            console.error( error );
+        } );
+    </script>
+  {% endblock %}
+
+

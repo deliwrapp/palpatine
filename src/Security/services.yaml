@@ -14,7 +14,8 @@ services:
 
 twig:
     paths:
-        '%kernel.project_dir%/templates/%base_theme_folder%/pages/security/': security
+        '%kernel.project_dir%/templates/%base_theme%/pages/security/': security
+        '%kernel.project_dir%/templates/%admin_theme%/pages/security/': security-admin
 
 framework:
     translator:

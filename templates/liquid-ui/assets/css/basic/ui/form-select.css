@@ -1,0 +1,216 @@
+select.form-select,
+.form-select {
+    position: relative;
+    display: var(--select-display);
+    flex-direction: var(--select-direction);
+    justify-content: var(--select-align-content);
+    align-items: var(--select-align-items);
+    width: var(--select-width);
+    padding: var(--select-padding-v) var(--select-padding-h);
+    background: var(--select-bg);
+    color: var(--select-color);
+    cursor: var(--select-cursor);
+    border: 1px solid var(--select-border-color);
+    border-radius: var(--select-radius);
+    line-height: var(--select-line-height);
+    outline: none;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+.form-select>.select-input,
+.form-select>span {
+    position: relative;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    background: inherit;
+    color: inherit;
+    border-radius: inherit;
+    line-height: inherit;
+    width: calc(var(--select-width) - 2%);
+    padding: var(--select-padding-v) Calc(var(--select-padding-h) + 2rem) var(--select-padding-v) var(--select-padding-h);
+    -webkit-transition: var(--select-line-transition);
+    transition: var(--select-line-transition);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.form-select>.select-input:after,
+.form-select>span:after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 50%;
+    margin-top: -2px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: var(--select-arrow-border-width);
+    right: var(--select-padding-h);
+    border-color: var(--select-arrow) transparent transparent transparent;
+    transition: var(--select-arrow-transition);
+}
+.form-select.disabled>.select-input,
+.form-select.disabled>span {
+    cursor: not-allowed;
+    background: var(--select-color-disabled);
+    color: var(--liquid-text-color);
+}
+.form-select.disabled>.select-input:after,
+.form-select.disabled>span:after {
+    border-color: var(--select-color-disabled) transparent transparent transparent;
+}
+.form-select.open>.select-input,
+.form-select.open>span {
+    border-color: var(--select-bg-active);
+}
+.form-select.open>.select-input:after,
+.form-select.open>span:after {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.form-select.open>.select-options,
+.form-select.open>div {
+    display: var(--select-options-open-display);
+    opacity: 1;
+    width: 100%;
+}
+.form-select>.select-options,
+.form-select>div {
+    position: absolute;
+    display: block;
+    opacity: 0;
+    width: 0;
+    flex-direction: var(--select-options-direction);
+    justify-content: var(--select-options-align-content);
+    align-items: var(--select-options-align-items);
+    padding: var(--select-options-padding);
+    background: var(--select-bg);
+    margin: var(--select-options-margin);
+    border-radius: var(--select-options-radius);
+    z-index: var(--select-index);
+    box-shadow: var(--select-options-shadow);
+    transition: var(--select-options-transition);
+    top: 100%;
+    left: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.form-select>.select-options .select-opt,
+.form-select>div span {
+    display: block;
+    position: relative;
+    width: 100%;
+    line-height: var(--select-opt-line-height);
+    font-weight: var(--select-opt-font-weight);
+    font-size: var(--select-opt-font-size);
+    padding: var(--select-opt-padding);
+    cursor: var(--select-opt-cursor);
+    background: var(--select-opt-bg);
+    color: var(--select-opt-color);
+    transition: var(--select-opt-transition);
+    -webkit-transition: all 0.3s ease 0s;
+    white-space: nowrap;
+}
+.form-select>.select-options .select-opt:hover,
+.form-select>div span:hover {
+    background: var(--select-opt-bg-hover);
+    color: var(--select-opt-color-hover);
+}
+.form-select>.select-options .select-opt.active,
+.form-select>div span.active {
+    display: var(--select-display-active);
+    color: var(--select-color-active);
+    background: var(--select-bg-active);
+}
+.form-select:focus {
+    border-color: #5755d9;
+    box-shadow: 0 0 0 .1rem rgba(87, 85, 217, .2);
+}
+.form-select::-ms-expand {
+    display: none;
+}
+.form-select.select-sm {
+    font-size: .7rem;
+    height: 1.4rem;
+    padding: .05rem 1.1rem .05rem .3rem;
+}
+.form-select.select-lg {
+    font-size: .9rem;
+    height: 2rem;
+    padding: .35rem 1.4rem .35rem .6rem;
+}
+.form-select[size] option,
+.form-select[multiple] option {
+    padding: .1rem .2rem;
+}
+
+.input-group .form-select {
+    flex: 1 1 auto;
+}
+.input-group .form-select:first-child:not(:last-child) {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+.input-group .form-select:not(:first-child):not(:last-child) {
+  border-radius: 0;
+  margin-left: -.05rem;
+}
+
+.input-group .form-select:not(:first-child):not(:last-child) {
+  border-radius: 0;
+  margin-left: -.05rem;
+}
+
+.input-group .form-select:last-child:not(:first-child) {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  margin-left: -.05rem;
+}
+
+.input-group .form-select {
+  width: 90%;
+  padding: 0;
+}
+
+.has-success .form-input,
+.form-input.is-success,
+.has-success .form-select,
+.form-select.is-success {
+  background: #f9fdfa;
+  border-color: #32b643;
+}
+
+.has-success .form-input:focus,
+.form-input.is-success:focus,
+.has-success .form-select:focus,
+.form-select.is-success:focus {
+  box-shadow: 0 0 0 .1rem rgba(50, 182, 67, .2);
+}
+
+.form-input.is-error,
+.has-error .form-select,
+.form-select.is-error {
+  background: #fffaf7;
+  border-color: #e85600;
+}
+
+.form-select.is-error:focus {
+  box-shadow: 0 0 0 .1rem rgba(232, 86, 0, .2);
+}
+.form-select:disabled,
+.form-select.disabled {
+  background-color: #eef0f3;
+  cursor: not-allowed;
+  opacity: .5;
+}

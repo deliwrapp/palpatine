@@ -45,6 +45,21 @@ class Post implements ArrayAccess
     private $isPublished;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $blockTemplate;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $link;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $linkText;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="App\Security\Entity\User")
      */
     private $author;
@@ -72,7 +87,7 @@ class Post implements ArrayAccess
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 
@@ -86,6 +101,42 @@ class Post implements ArrayAccess
     public function setIsPublished(?bool $isPublished): self
     {
         $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getBlockTemplate(): ?string
+    {
+        return $this->blockTemplate;
+    }
+
+    public function setBlockTemplate(?string $blockTemplate): self
+    {
+        $this->blockTemplate = $blockTemplate;
+
+        return $this;
+    }
+
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
+    public function setLink(?string $link): self
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+    
+    public function getLinkText(): ?string
+    {
+        return $this->linkText;
+    }
+
+    public function setLinkText(?string $linkText): self
+    {
+        $this->linkText = $linkText;
 
         return $this;
     }

@@ -1,0 +1,96 @@
+.switch {
+    display: var(--switch-display);
+    position: relative;
+    justify-content: var(--switch-align-content);
+    align-items: var(--switch-align-items);
+    line-height: var(--switch-line-height);
+    margin: var(--switch-margin-v) var(--switch-margin-h);
+    min-height: var(--switch-min-height);
+    padding-top: var(--switch-padding-t);
+    padding-bottom: var(--switch-padding-b);
+    padding-right: var(--switch-padding-r);
+    padding-left: var(--switch-padding-l);
+    text-indent: var(--switch-text-indent);
+    flex-wrap: wrap;
+}
+.switch .form-icon {
+    display: inline-block;
+    position: relative;
+    margin: var(--switch-margin);
+    border: var(--switch-border);
+    cursor: var(--switch-cursor);
+    transition: var(--switch-transition);
+    background: var(--switch-background);
+    background-clip: padding-box;
+    border-radius: var(--switch-radius);
+    height: var(--switch-size);
+    top: var(--switch-top);
+    bottom: var(--switch-bottom);
+    left: var(--switch-left);
+    right: var(--switch-right);
+    width: calc(var(--switch-size) * 2);
+}
+.switch input {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    height: var(--switch-size);
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
+.switch input:focus + .form-icon {
+    border-color: var(--liquid-color-tertiary); 
+    box-shadow: var(--switch-box-shadow);
+}
+.switch input:checked + .form-icon {
+    background: var(--liquid-color-tertiary); ;
+    border-color: var(--liquid-color-tertiary); ;
+}
+.switch .form-icon::before {
+    display: block;
+    position: absolute;
+    background: var(--switch-inactive);
+    border-radius: var(--switch-dot-radius);
+    content: "";
+    height: var(--switch-dot-size);
+    width: var(--switch-dot-size);
+    top: var(--switch-dot-top);
+    left: var(--switch-dot-left);
+    transition: var(--switch-dot-transition);
+}
+.switch input:disabled + .form-icon::before,
+.switch input.disabled + .form-icon::before {
+  background: var(--switch-disabled);
+  border-color: var(--switch-disabled-border-color);
+  cursor: not-allowed;
+}
+.switch input:checked+.form-icon::before {
+    left: var(--switch-left-active);
+    background: var(--switch-active);
+    border: var(--switch-border-active);
+}
+.switch input:active+.form-icon::before {
+    background: var(--switch-touch-color);
+}
+.switch.input-sm {
+    font-size: var(--switch-input-sm);
+    margin: var(--switch-input-sm-margin);
+}
+.switch.input-lg {
+    font-size: var(--switch-input-lg);
+    margin: var(--switch-input-lg-margin);
+}
+.has-error .switch .form-icon,
+.switch.is-error .form-icon {
+  border-color: var(--liquid-color-warning);
+}
+.has-error .switch input:checked + .form-icon,
+.switch.is-error input:checked + .form-icon {
+  background: var(--liquid-color-danger);
+  border-color: var(--liquid-color-warning);
+}
+.has-error .switch input:focus + .form-icon,
+.switch.is-error input:focus + .form-icon {
+  border-color: var(--liquid-color-warning); 
+  box-shadow: var(--switch-error-box-shadow);
+}

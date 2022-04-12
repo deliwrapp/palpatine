@@ -1,0 +1,7 @@
+twig:
+    paths:
+        '%kernel.project_dir%/templates/liquid-admin-theme': liquid-admin-theme
+
+framework:
+    translator:
+        paths: ["%kernel.project_dir%/templates/liquid-admin-theme/translations"]

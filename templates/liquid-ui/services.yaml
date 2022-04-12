@@ -1,0 +1,7 @@
+twig:
+    paths:
+        '%kernel.project_dir%/templates/liquid-ui': liquid-ui
+
+framework:
+    translator:
+        paths: ["%kernel.project_dir%/templates/liquid-ui/translations"]

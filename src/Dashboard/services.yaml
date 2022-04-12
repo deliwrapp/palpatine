@@ -9,7 +9,8 @@ services:
 
 twig:
     paths:
-        '%kernel.project_dir%/templates/%base_theme_folder%/pages/dashboard/': dashboard
+        '%kernel.project_dir%/templates/%base_theme%/pages/dashboard/': dashboard
+        '%kernel.project_dir%/templates/%admin_theme%/pages/dashboard/': dashboard-admin
 
 framework:
     translator:

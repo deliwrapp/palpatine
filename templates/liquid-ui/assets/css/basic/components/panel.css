@@ -1,0 +1,53 @@
+.panel {
+    transition: all 0.25s ease-in-out;
+    display: var(--panel-display);
+    flex-direction: var(--panel-direction);
+    justify-content: var(--panel-align-content);
+    align-items: var(--panel-align-items);
+    min-width: var(--panel-min-width);
+    min-height: var(--panel-min-height);
+    max-width: var(--panel-max-width);
+    max-height: var(--panel-max-height);
+    width: var(--panel-width);
+    height: var(--panel-height);
+    border-color: var(--panel-border-color);
+    border-top: var(--panel-border-t);
+    border-bottom: var(--panel-border-b);
+    border-left: var(--panel-border-l);
+    border-right: var(--panel-border-r);
+    border-top-left-radius: var(--panel-border-radius-tl);
+    border-top-right-radius: var(--panel-border-radius-tr);
+    border-bottom-left-radius: var(--panel-border-radius-bl);
+    border-bottom-right-radius: var(--panel-border-radius-br);
+    padding-top: var(--panel-padding-t);
+    padding-bottom: var(--panel-padding-b);
+    padding-left: var(--panel-padding-l);
+    padding-right: var(--panel-padding-r);
+    margin-top: var(--panel-margin-t);
+    margin-bottom: var(--panel-margin-b);
+    margin-left: var(--panel-margin-l);
+    margin-right: var(--panel-margin-r);
+    background: var(--panel-bg);
+    color: var(--panel-color);
+}
+.panel .\-panel-header {
+    width: 100%;
+    flex: 0 0 auto;
+    padding: var(--panel-header-padding-v) var(--panel-header-padding-h);
+}
+.panel .\-panel-footer {
+    width: 100%;
+    flex: 0 0 auto;
+    padding: var(--panel-header-padding-v) var(--panel-header-padding-h);
+}
+.panel .\-panel-nav {
+    width: 100%;
+    flex: 0 0 auto;
+}
+.panel .\-panel-body {
+    width: 100%;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: var(--panel-body-overflow-x);
+    padding: var(--panel-body-padding-v) var(--panel-body-padding-h);
+}

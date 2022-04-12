@@ -19,6 +19,6 @@ class MemberUserController extends AbstractController
     public function index(): Response
     {
 
-        return $this->render('@security/user/member/index.html.twig', []);
+        return $this->render('@security/user/member/account-show.html.twig', []);
     }
 }

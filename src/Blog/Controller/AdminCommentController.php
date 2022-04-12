@@ -23,7 +23,7 @@ class AdminCommentController extends AbstractController
     {
         $comments = $commentRepo->findAll();
 
-        return $this->render('@blog/comment/admin/comment-list.html.twig', [
+        return $this->render('@blog-admin/comment/comment-list.html.twig', [
             'comments' => $comments
         ]);
     }
@@ -63,7 +63,7 @@ class AdminCommentController extends AbstractController
         }
 
         return $this->render(
-            '@blog/comment/admin/comment-edit.html.twig',
+            '@blog-admin/comment/comment-edit.html.twig',
             [
                 'form' => $form->createView(),
                 'comment' => $comment

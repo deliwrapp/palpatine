@@ -1,5 +1,5 @@
 services:
-    App\Controller\:
+    App\Core\:
         resource: '../Core/*'
         exclude: '../Core/{DependencyInjection,Entity,Migrations,Templates,Tests,DataFixtures}'
 
@@ -7,10 +7,38 @@ services:
         resource: '../Core/Controller'
         tags: ['controller.service_arguments']
 
+    App\Core\Repository\:
+        resource: '../Core/Repository'
+        autowire: true
+        tags: ['doctrine.repository_service']
 twig:
     paths:
-        '%kernel.project_dir%/templates/%base_theme_folder%/pages/core/': core
+        '%kernel.project_dir%/templates/%base_theme%/pages/core/': core
+        '%kernel.project_dir%/templates/%admin_theme%/pages/core/': core-admin
 
 framework:
     translator:
         paths: ["%kernel.project_dir%/src/Core/Translations"]
+
+doctrine:
+    orm:
+        auto_mapping: true
+        mappings:
+            Page:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Core/Entity'
+                prefix: 'App\Core\Entity'
+                alias: Page
+            Block:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Core/Entity'
+                prefix: 'App\Core\Entity'
+                alias: Block
+            PageBlock:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Core/Entity'
+                prefix: 'App\Core\Entity'
+                alias: PageBlock

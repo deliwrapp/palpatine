@@ -21,7 +21,7 @@ class AdminUserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('@security/user/admin/user-index.html.twig', [
+        return $this->render('@security-admin/user/user-index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -48,7 +48,7 @@ class AdminUserController extends AbstractController
         }
         /* var_dump($form);die; */
 
-        return $this->render('@security/user/admin/user-create.html.twig', [
+        return $this->render('@security-admin/user/user-create.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -58,7 +58,7 @@ class AdminUserController extends AbstractController
      */
     public function show(User $user): Response
     {
-        return $this->render('@security/user/admin/user-show.html.twig', [
+        return $this->render('@security-admin/user//user-show.html.twig', [
             'user' => $user,
         ]);
     }
@@ -82,7 +82,7 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('@security/user/admin/user-edit.html.twig', [
+        return $this->render('@security-admin/user/user-edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);

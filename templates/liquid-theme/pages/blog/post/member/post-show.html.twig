@@ -14,13 +14,16 @@
                 </button>
             <section>
         {% endif %}
-        {% include 'blocks/post/oldway_show_post.html.twig' with {
+        {% set linkTemplate = post.blockTemplate ? post.blockTemplate : 'blocks/post/oldway_show_post.html.twig' %}
+        
+        {% include linkTemplate with {
             'postContent' : post.content,
             'postTitle' : post.title,
             'postTime' : post.createdAt,
-            'category' : post.author.username,
-            'postLink' : '#comment-area',
-            'postLinkText': 'comments'
+            'postCategory' : null,
+            'postAuthor' : post.author.username,
+            'postLink' : post.link,
+            'postLinkText': post.linkText
         } %}
         <hr>
         {# HERE the comments list #}

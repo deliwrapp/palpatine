@@ -1,0 +1,188 @@
+.nav {
+    position: var(--nav-position);
+    top: var(--nav-pos-t);
+    bottom: var(--nav-pos-b);
+    right: var(--nav-pos-r);
+    left: var(--nav-pos-l);
+    display: flex;
+    flex-wrap: var(--nav-wrap);
+    height: var(--nav-height-open);
+    width: var(--nav-w);
+    max-width: 100%;
+    overflow-x: var(--nav-over-x);
+    overflow-y: var(--nav-over-y);
+    background: var(--nav-background);
+    justify-content: var(--nav-justify-content);
+    align-items: var(--nav-align-items);
+    list-style: var(--nav-list-style);
+    list-style-type: var(--nav-list-type);
+    margin-top: var(--nav-margin-t);
+    margin-bottom: var(--nav-margin-b);
+    margin-right: var(--nav-margin-r);
+    margin-left: var(--nav-margin-l);
+    padding-top: var(--nav-padding-t);
+    padding-bottom: var(--nav-padding-b);
+    padding-right: var(--nav-padding-r);
+    padding-left: var(--nav-padding-l);
+}
+.nav.\-close {
+    height: var(--nav-height-close);
+}
+.nav.\-close  .nav-items{
+    opacity: var(--nav-items-opacity-close);
+}
+
+.nav .nav-items {
+    position: relative;
+    display: flex;
+    opacity: 1;
+    flex-direction: var(--nav-items-direction);
+    flex-wrap: var(--nav-items-wrap);
+    overflow-x: var(--nav-items-over-x);
+    overflow-y: var(--nav-items-over-y);
+    background: var(--nav-items-background);
+    justify-content: var(--nav-items-justify-content);
+    align-items: var(--nav-items-align-items);
+    list-style: var(--nav-items-list-style);
+    list-style-type: var(--nav-list-type);
+    margin-top: var(--nav-items-margin-t);
+    margin-bottom: var(--nav-items-margin-b);
+    margin-right: var(--nav-items-margin-r);
+    margin-left: var(--nav-items-margin-l);
+    padding-top: var(--nav-items--padding-t);
+    padding-bottom: var(--nav-items-padding-b);
+    padding-right: var(--nav-items-padding-r);
+    padding-left: var(--nav-items-padding-l);
+}
+.nav .nav-items .nav-item,
+.nav .nav-item,
+.nav .nav-item a,
+.nav .nav-item p,
+.nav .nav-item span,
+.nav .nav-item div {
+    color: var(--nav-item-color);
+    font-size: var(--nav-item-font-size);
+    font-weight: var(--nav-item-weight);
+    text-transform: var(--nav-item-transform);
+    text-decoration: var(--nav-item-decoration);
+}
+.nav .nav-items .nav-item,
+.nav .nav-item {
+    flex-wrap: var(--nav-item-wrap);
+    overflow-x: var(--nav-item-over-x);
+    overflow-y: var(--nav-item-over-y);
+    background: var(--nav-item-background);
+    margin-top: var(--nav-item-margin-t);
+    margin-bottom: var(--nav-item-margin-b);
+    margin-right: var(--nav-item-margin-r);
+    margin-left: var(--nav-item-margin-l);
+    padding-top: var(--nav-item-padding-t);
+    padding-bottom: var(--nav-item-padding-b);
+    padding-right: var(--nav-item-padding-r);
+    padding-left: var(--nav-item-padding-l);
+}
+.nav.nav-column,
+.nav .nav-items.nav-column,
+.nav .nav-item.nav-column {
+    flex-direction: column;
+}
+.\-nav-brand {
+    font-size: var(--navbar-brand-font-size);
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Hover Effect*/
+.nav .nav-items .nav-item:hover,
+.nav .nav-item:hover,
+.nav .nav-item a:hover,
+.nav .nav-item p:hover,
+.nav .nav-item span:hover,
+.nav .nav-item div:hover {
+    color: var(--nav-item-color-hover);
+    font-size: var(--nav-item-font-size-hover);
+    font-weight: var(--nav-item-weight-hover);
+    text-transform: var(--nav-item-transform-hover);
+    text-decoration: var(--nav-item-decoration-hover);
+}
+.nav .nav-items .nav-item:hover,
+.nav .nav-item:hover {
+    background: var(--nav-item-background-hover);
+    margin-top: var(--nav-item-margin-t-hover);
+    margin-bottom: var(--nav-item-margin-b-hover);
+    margin-right: var(--nav-item-margin-r-hover);
+    margin-left: var(--nav-item-margin-l-hover);
+    padding-top: var(--nav-item-padding-t-hover);
+    padding-bottom: var(--nav-item-padding-b-hover);
+    padding-right: var(--nav-item-padding-r-hover);
+    padding-left: var(--nav-item-padding-l-hover);
+}
+/* Active Effect*/
+.nav .nav-items .nav-item:active,
+.nav .nav-item:active,
+.nav .nav-item a:active,
+.nav .nav-item p:active,
+.nav .nav-item span:active,
+.nav .nav-item div:active,
+.nav .nav-items .nav-item.\-active,
+.nav .nav-item.\-active,
+.nav .nav-item.\-active a,
+.nav .nav-item.\-active p,
+.nav .nav-item.\-active span,
+.nav .nav-item.\-active div {
+    color: var(--nav-item-color-active);
+    font-size: var(--nav-item-font-size-active);
+    font-weight: var(--nav-item-weight-hover-active);
+    text-transform: var(--nav-item-transform-active);
+    text-decoration: var(--nav-item-decoration-active);
+}
+.nav .nav-items .nav-item:active,
+.nav .nav-item:active,
+.nav .nav-items .nav-item.\-active,
+.nav .nav-item.\-active {
+    background: var(--nav-item-background-active);
+    margin-top: var(--nav-item-margin-t-active);
+    margin-bottom: var(--nav-item-margin-b-active);
+    margin-right: var(--nav-item-margin-r-active);
+    margin-left: var(--nav-item-margin-l-active);
+    padding-top: var(--nav-item-padding-t-active);
+    padding-bottom: var(--nav-item-padding-b-active);
+    padding-right: var(--nav-item-padding-r-active);
+    padding-left: var(--nav-item-padding-l-active);
+}
+/* Focus Effect*/
+.nav .nav-items .nav-item:focus,
+.nav .nav-item:focus,
+.nav .nav-item a:focus,
+.nav .nav-item p:focus,
+.nav .nav-item span:focus,
+.nav .nav-item div:focus {
+    color: var(--nav-item-color-focus);
+    font-size: var(--nav-item-font-size-focus);
+    font-weight: var(--nav-item-weight-hover-focus);
+    text-transform: var(--nav-item-transform-focus);
+    text-decoration: var(--nav-item-decoration-focus);
+}
+.nav .nav-items .nav-item:focus,
+.nav .nav-item:focus {
+    background: var(--nav-item-background-focus);
+    margin-top: var(--nav-item-margin-t-focus);
+    margin-bottom: var(--nav-item-margin-b-focus);
+    margin-right: var(--nav-item-margin-r-focus);
+    margin-left: var(--nav-item-margin-l-focus);
+    padding-top: var(--nav-item-padding-t-focus);
+    padding-bottom: var(--nav-item-padding-b-focus);
+    padding-right: var(--nav-item-padding-r-focus);
+    padding-left: var(--nav-item-padding-l-focus);
+}
+.nav .\-active-parent,
+.nav .\-active-parent a,
+.nav .\-active-parent span,
+.nav .\-active-parent div,
+.nav .\-active-parent h2,
+.nav .\-active-parent h3,
+.nav .\-active-parent h4,
+.nav .\-active-parent h5,
+.nav .\-active-parent h6 {
+    text-decoration: underline;
+    transform: scale(0.75);
+}

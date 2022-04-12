@@ -1,9 +1,0 @@
-{% extends 'liquid-theme/layout-admin.html.twig' %}
-
-{% block title %}ADMIN USER EDIT{% endblock %}
-
-{% block mainContent %}
-    <a class="btn -block" href="{{ path('admin_user_index') }}">back to list</a>
-    {{ include('@security/user/admin/_form.html.twig', {'button_label': 'Update'}) }}
-    {{ include('@security/user/admin/_delete_form.html.twig') }}
-{% endblock %}

@@ -1,0 +1,69 @@
+{#
+// Variables
+- class : Custom Class
+- color : Custom color class
+- post.content : Post Content
+- post.title : Post title
+- post.createdAt : Creation Date of the post
+- post.category : Post category
+- post.author : Post author
+- post.link : Post link CTA,
+- post.linkText: Post link CTA text
+- post.img: Post Image
+#}
+
+{% if vars is defined and vars.data is defined %}  
+        {% set post = vars.data %}
+{% endif %}
+{% if color is not defined %}  
+        {% set color = '-tertiary' %}
+{% endif %}
+{% if class is not defined %}  
+        {% set class = 'btn -tertiary s-circle btn-link btn-action -btn-lg -shad-12 -shad-14-h' %}
+{% endif %}
+
+<section class="oldway-post">
+    {% if post is defined %}  
+        <article class="post">
+            <div>
+                {# {% if post.img is defined and post.img is not null %}  
+                    <div class="absolute-bg" style="background-image: url({{post.img}});"></div>
+                {% endif %} #}
+                </div>
+            <div class="post__container">
+                
+               {#  {% if post.category is defined and post.category is not null %}  
+                        <span class="post__category">{{post.category}}</span>
+                {% endif %} #}
+                {% if post.author is defined and post.author is not null %}  
+                        <span class="post__category">by {{post.author.username}}</span>
+                {% endif %}
+                
+                <div class="post__content">
+                    <header>
+                        {% if post.createdAt is defined and post.createdAt is not null %}  
+                            <time class="post__time">{{post.createdAt|date("d/m/Y")}}</time>
+                        {% endif %}
+                        {% if post.title is defined and post.title is not null %}
+                            <h1 class="post__header"><span>{{post.title}}</h1>
+                        {% endif %}
+                    </header>
+                    {% if post.content is defined and post.content is not null %}
+                        <p class="post__text">{{post.content| raw }}</p>
+                    {% endif %}
+                </div>
+                {% if post.link is defined and post.link is not null %}
+                    <div class="post__link">
+                        <a href="{{post.link}}">
+                            {% if post.linkText is defined and post.linkText is not null %}
+                                {{post.linkText}}
+                            {% else %}
+                                more...
+                            {% endif %}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </article>
+    {% endif %}
+</section>

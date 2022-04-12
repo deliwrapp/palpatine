@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Post\Voter;
+namespace App\Blog\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Security;
-use App\Post\Entity\Post;
+use App\Blog\Entity\Post;
 
 class PostVoter extends Voter
 {

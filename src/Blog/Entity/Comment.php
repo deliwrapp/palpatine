@@ -3,9 +3,9 @@
 namespace App\Blog\Entity;
 
 use App\Blog\Entity\Post;
+use App\Blog\Repository\CommentRepository;
 use App\Security\Entity\User;
 use App\Core\Entity\SoftEditionTrackingTrait;
-use App\Comment\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use ArrayAccess;

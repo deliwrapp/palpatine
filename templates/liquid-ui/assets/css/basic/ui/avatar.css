@@ -1,0 +1,83 @@
+/* Avatars */
+.avatar {
+    display: inline-block;
+    font-size: var(--avatar-size) / 2;
+    height: var(--avatar-size);
+    width: var(--avatar-size);
+    background: var(--avatar-bg-color-rgb);
+    border-radius: var(--avatar-radius);
+    color: var(--avatar-color);
+    font-weight: var(--avatar-font-weight);
+    line-height: var(--avatar-line-height);
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+}
+.avatar.avatar-xs {
+    font-size: var(--avatar-size-xs) / 2;
+    height: var(--avatar-size-xs);
+    width: var(--avatar-size-xs);
+}
+.avatar.avatar-sm {
+    font-size: var(--avatar-size-sm) / 2;
+    height: var(--avatar-size-sm);
+    width: var(--avatar-size-sm);
+}
+.avatar.avatar-lg {
+    font-size: var(--avatar-size-lg) / 2;
+    height: var(--avatar-size-lg);
+    width: var(--avatar-size-lg);
+}
+.avatar.avatar-xl {
+    font-size: var(--avatar-size-xl) / 2;
+    height: var(--avatar-size-xl);
+    width: var(--avatar-size-xl);
+}
+.avatar.avatar-xxl {
+    font-size: var(--avatar-size-xxl) / 2;
+    height: var(--avatar-size-xxl);
+    width: var(--avatar-size-xxl);
+}
+.avatar img {
+    position: relative;
+    border-radius: var(--avatar-radius);
+    height: 100%;
+    width: 100%;
+    z-index: var(--avatar-index);
+}
+.avatar .avatar-icon, .avatar .avatar-presence {
+    background: var(--avatar-presence-bg-color-rgb);
+    bottom: 14.64%;
+    height: 50%;
+    padding: var(--avatar-padding);
+    position: absolute;
+    right: 14.64%;
+    transform: translate(50%, 50%);
+    width: 50%;
+    z-index: var(--avatar-index);
+}
+.avatar .avatar-presence {
+    background: var(--avatar-presence-bg);
+    box-shadow: var(--avatar-presence-shadow);
+    border-radius: 50%;
+    height: 0.5em;
+    width: 0.5em;
+}
+.avatar .avatar-presence.\-online {
+    background: var(--liquid-color-success);
+}
+.avatar .avatar-presence.\-busy {
+    background: var(--liquid-color-danger);
+}
+.avatar .avatar-presence.\-away {
+    background: var(--liquid-color-warning);
+}
+.avatar[data-initial]::before {
+    color: currentColor;
+    content: attr(data-initial);
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: var(--avatar-index);
+}
