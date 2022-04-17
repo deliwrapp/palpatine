@@ -6,6 +6,10 @@ services:
     App\Core\Controller\:
         resource: '../Core/Controller'
         tags: ['controller.service_arguments']
+    
+    App\Core\Api\:
+        resource: '../Core/Api'
+        tags: ['controller.service_arguments']
 
     App\Core\Repository\:
         resource: '../Core/Repository'

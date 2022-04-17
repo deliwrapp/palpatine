@@ -26,7 +26,7 @@
     <section id="top-page" class="liquid-page-container">
       <header {% block headerAttr %}  {% endblock %} >
         {% block header %}
-          {% include 'liquid-theme/components/layout/nav/nav.html.twig' with {
+          {% include 'liquid-ui/components/layout/nav/nav.html.twig' with {
             'class': '-shad-12',
             'color': '-bg-light',
             'navItemsCenter' : [
@@ -45,7 +45,7 @@
             ]
           } %}
         {% endblock %}
-        {% include 'liquid-theme/components/ui/toasts.html.twig' %}
+        {% include 'liquid-ui/components/ui/toasts.html.twig' %}
       </header>
       <main  {% block mainAttr %} class="{% if wrapperContent is defined %}-wrapper {% endif %} -top-4rm" {% endblock %}>
         {% block main %}

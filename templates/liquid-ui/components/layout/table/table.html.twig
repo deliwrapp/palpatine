@@ -50,13 +50,13 @@
                         <td>
                             {% for key, action in actions %}
                                 {% if key == 'delete' %}
-                                    {% include 'liquid-theme/components/ui/buttons/btn-delete.html.twig' with {
+                                    {% include 'liquid-ui/components/ui/buttons/btn-delete.html.twig' with {
                                         'path': path(action['path'], { 'id': item.id }),
                                         'message': action['message'] ,
                                         'token': action['token']
                                     } %}
                                 {% else %}
-                                     {% include 'liquid-theme/components/ui/buttons/btn-action.html.twig' with {
+                                     {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
                                         'path': path(action['path'], { 'id': item.id }),
                                         'action': key,
                                         'tooltip': action['tooltip'],

@@ -1,5 +1,18 @@
 {
-    "modules": ["post"],
-    "themes": ["liquid-theme"]
+    "modules": ["core", "security", "blog"],
+    "themes": ["liquid-ui"],
+    "controller_guard_access": {
+        "admin": {
+            "admin_user_password_edit": {
+                "id": "a_u_f_00001",
+                "controller": "admin_user_password_edit",
+                "role": "ROLE_ADMIN",
+                "lifetime": "900s",
+                "failure_limit": "5",
+                "failure_ban_time": "900s"
+            }
+        },
+        "user": {}
+    }
 }
   

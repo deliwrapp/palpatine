@@ -16,7 +16,7 @@
         {% block nav_section_start %}
             {% if navItemsStart is defined %}
                 {% for item in navItemsStart %}
-                    {% include 'liquid-theme/components/layout/nav/nav-item.html.twig' with {
+                    {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
                         'class': item['class'],
                         'color': item['color'],
                         'path': item['path'],
@@ -30,7 +30,7 @@
         {% block nav_section_center %}
             {% if navItemsCenter is defined %}
                 {% for item in navItemsCenter %}
-                    {% include 'liquid-theme/components/layout/nav/nav-item.html.twig' with {
+                    {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
                         'class': item['class'],
                         'color': item['color'],
                         'path': item['path'],
@@ -44,7 +44,7 @@
         {% block nav_section_end %}
             {% if navItemsEnd is defined %}
                 {% for item in navItemsEnd %}
-                    {% include 'liquid-theme/components/layout/nav/nav-item.html.twig' with {
+                    {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
                         'class': item['class'],
                         'color': item['color'],
                         'path': item['path'],
@@ -53,7 +53,7 @@
                 {% endfor %}
             {% endif %}
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                {% include 'liquid-theme/components/layout/nav/nav-user.html.twig'%}
+                {% include 'liquid-ui/components/layout/nav/nav-user.html.twig'%}
             {% else %}
             <div class="btn -light -hover">
                 <i class="fa-solid fa-door-open"></i>

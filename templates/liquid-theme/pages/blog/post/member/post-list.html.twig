@@ -10,7 +10,7 @@
     {% if posts is defined and posts is not empty %}
         {% for post in posts %}
             <div class="col -col-4 -md6 -sm12 -xs12">
-                {% include 'liquid-theme/components/layout/card/dynamic-card.html.twig' with {
+                {% include 'liquid-ui/components/layout/card/dynamic-card.html.twig' with {
                         'cardMode' : 2,
                         'day' : post.createdAt|date("d"),
                         'month' : post.createdAt|date("m"),

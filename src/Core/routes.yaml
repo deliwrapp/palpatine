@@ -1,3 +1,8 @@
 core_routes:
     resource: './Controller/'
     type:     annotation
+
+api_core_routes:
+    resource: './Api/'
+    type:     annotation
+    prefix:   '/api'

@@ -5,6 +5,7 @@ namespace App\Security\Form;
 use App\Security\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\CallbackTransformer;
@@ -28,10 +29,14 @@ class AdminUserType extends AbstractType
                   'Super Admin' => 'ROLE_SUPER_ADMIN',
                 ],
             ])
-            ->add('password')
             ->add('isVerified')
             ->add('isRestricted')
         ;
+
+        if ($options['mode'] == "create") {
+            $builder->add('password', PasswordType::class, ['label' => 'Password']);
+        }
+
         // roles field data transformer 
         $builder->get('roles')
         ->addModelTransformer(new CallbackTransformer(
@@ -50,6 +55,7 @@ class AdminUserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'mode' => 'edit',
         ]);
     }
 }

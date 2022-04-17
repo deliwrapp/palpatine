@@ -68,13 +68,13 @@
                                    
                                 </div>
                                 <div class="-tile-action">
-                                    {% include 'liquid-theme/components/ui/buttons/btn-action.html.twig' with {
+                                    {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
                                         'path': path('MemberPostShow', { 'id': post.id, 'commentId': comment.id}),
                                         'action': 'Edit',
                                         'tooltip': 'Edit',
                                         'icon': 'fa-regular fa-pen-to-square'
                                     } %}
-                                    {% include 'liquid-theme/components/ui/buttons/btn-delete.html.twig' with {
+                                    {% include 'liquid-ui/components/ui/buttons/btn-delete.html.twig' with {
                                         'path': path('MemberCommentDelete', { 'id': comment.id, 'postId': post.id }),
                                         'message': 'Are you sure to delete this comment ?' ,
                                         'token': 'delete-comment'

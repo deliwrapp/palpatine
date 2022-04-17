@@ -38,6 +38,21 @@ class Page implements ArrayAccess
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $url;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pageGroupId;
+
+    /**
+     * @ORM\Column(type="string", length=8)
+     */
+    private $locale;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Core\Entity\PageBlock", mappedBy="page")
      */
     private $blocks;
@@ -61,6 +76,42 @@ class Page implements ArrayAccess
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+    
+    public function getPageGroupId(): ?string
+    {
+        return $this->pageGroupId;
+    }
+
+    public function setPageGroupId(string $pageGroupId): self
+    {
+        $this->pageGroupId = $pageGroupId;
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
 
         return $this;
     }

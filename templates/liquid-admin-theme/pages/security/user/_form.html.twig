@@ -38,17 +38,19 @@
                         <i class="form-icon fa-solid fa-at"></i>
                     </div>
                 </div>
-                <div class="col -col-3 -md6 -sm12 -xs12">
-                    {{ form_label(form.password, 'Password', {
-                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
-                    }) }}
-                    <small>{{ form_help(form.password) }}</small>
-                    {{ form_errors(form.password) }}
-                    <div class="form-element has-icon-right">
-                        {{ form_widget(form.password, {'attr': {'class': 'form-field -shad-12-h'}}) }}
-                        <i class="form-icon fa-solid fa-lock"></i>
+                {% if form.password is defined %}
+                    <div class="col -col-3 -md6 -sm12 -xs12">
+                        {{ form_label(form.password, 'Password', {
+                            'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                        }) }}
+                        <small>{{ form_help(form.password) }}</small>
+                        {{ form_errors(form.password) }}
+                        <div class="form-element has-icon-right">
+                            {{ form_widget(form.password, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                            <i class="form-icon fa-solid fa-lock"></i>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
                 
                 <div class="col -col-2 -md6 -sm12 -xs12">
                     <small>{{ form_help(form.roles) }}</small>
