@@ -29,6 +29,16 @@ class AdminUserType extends AbstractType
                   'Super Admin' => 'ROLE_SUPER_ADMIN',
                 ],
             ])
+            ->add('locale', ChoiceType::class, [
+                'choices'  => [
+                    'français' => 'fr',
+                    'english' => 'en',
+                    'espanol' => 'es',
+                    'portugues' => 'pt',
+                    'italian' => 'it',
+                    'deutsch' => 'de',
+                ]
+            ])
             ->add('isVerified')
             ->add('isRestricted')
         ;

@@ -1,0 +1,23 @@
+{% set appLocales = appLocales|split('|') %}
+<div class="dropdown  -mr5">
+    <label for="dropdown--touch">
+        <span>
+            <figure class="avatar -light -cursor-pointer" data-initial="{{app.request.locale|slice(0, 2)|capitalize}}"></figure>
+        </span>
+    </label>
+    <input class="dropdown--touch" type="checkbox" id="dropdown--touch">
+    <div class="dropdown-content -pos-left">
+        <ul>
+            {% for locale in appLocales %}
+                {% if locale != app.request.locale %}
+                    <li class="-light -hover">
+                        <i class="fas fa-flag"></i>
+                        <a href="{{ path('homepage', { '_locale': locale }) }}">
+                            {{ locale }}
+                        </a>
+                    </li>
+                {% endif %} 
+            {% endfor %}     
+        </ul>
+    </div>
+</div>

@@ -1,14 +1,17 @@
-#index:
-#    path: /post
-#    controller: App\Controller\PostController::index
-
-homepage:
+homepage_redirect:
     path: /
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
     defaults:
         path: "%homepage_path%"
         permanent: true
 
-app_routes:
+#app_routes_default:
+#    resource: '../src/*/routes.yaml'
+
+app_routes_localized:
+    prefix: /{_locale}
     resource: '../src/*/routes.yaml'
+    requirements:
+        _locale: '%appLocales%'
+    defaults: { _locale: '%kernel.default_locale%'}
 

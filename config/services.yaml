@@ -17,6 +17,10 @@ services:
             - '../src/Tests/'
             - '../src/tests/'
             - '../src/Kernel.php'
+twig:
+    globals:
+        appLocales: '%appLocales%'
+
 
 imports:
   - { resource: "parameters.yaml" }

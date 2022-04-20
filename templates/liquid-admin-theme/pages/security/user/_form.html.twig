@@ -65,6 +65,18 @@
                     </div>
                 </div>
                 <div class="col -col-2 -md3 -sm12 -xs12">
+                    <small>{{ form_help(form.locale) }}</small>
+                    {{ form_errors(form.locale) }}
+                    <div class="form-element">
+                        {{ form_label(form.locale, null, {
+                            'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                        }) }}
+                        <div class="-sm9">
+                            {{ form_widget(form.locale, {'attr': {'class': 'form-select -shad-12'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col -col-2 -md3 -sm12 -xs12">
                     <div class="form-element">
                         <label class="switch">
                             {{ form_widget(form.isVerified) }}

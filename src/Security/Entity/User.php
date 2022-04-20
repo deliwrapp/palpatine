@@ -77,6 +77,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
          * @ORM\Column(type="boolean")
         */
         private $isActive;
+
+        /**
+         * @ORM\Column(type="string", length=8, nullable=true)
+        */
+        private $locale;
         
 
         public function getId(): ?int
@@ -207,7 +212,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
 
                 return $this;
         }
+      
+        public function getLocale(): ?string
+        {
+                return $this->locale;
+        }
 
+        public function setLocale(string $locale): self
+        {
+                $this->locale = $locale;
+
+                return $this;
+        }
+        
         public function __toString()
         {
           return (string) $this->getEmail();
@@ -223,6 +240,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
                 $this->isVerified,
                 $this->isActive,
                 $this->isRestricted,
+                $this->locale,
                 ));
         }
 
@@ -236,6 +254,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
                 $this->isVerified,
                 $this->isActive,
                 $this->isRestricted,
+                $this->locale,
                 ) = unserialize($serialized);
         }
 

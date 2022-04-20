@@ -15,6 +15,11 @@ services:
         resource: '../Core/Repository'
         autowire: true
         tags: ['doctrine.repository_service']
+
+    App\Core\EventSubscriber\LocaleSubscriber:
+        arguments: ['%kernel.default_locale%']
+        # uncomment the next line if you are not using autoconfigure
+        # tags: [kernel.event_subscriber]
 twig:
     paths:
         '%kernel.project_dir%/templates/%base_theme%/pages/core/': core

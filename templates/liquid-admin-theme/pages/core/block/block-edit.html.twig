@@ -4,12 +4,12 @@
 
 {% block mainContent %}
 <section class="col -col-12">
-    <a class="btn -block" href="{{ path('AdminBlockList') }}">back to list</a>
+    <a class="btn -block" href="{{ path('admin_block_list') }}">back to list</a>
     <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
         <div class="-panel-header -text-center">
             {% if block is defined and block is not null %}
                 <button class="tooltip tooltip-left -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="show" type="submit">   
-                    <a class="-light -hover" href="{{ path('AdminBlockShow', { 'id': block.id }) }}">
+                    <a class="-light -hover" href="{{ path('admin_block_show', { 'id': block.id }) }}">
                         <i class="fa-solid fa-eye fa-2x"></i>        
                     </a>
                 </button>

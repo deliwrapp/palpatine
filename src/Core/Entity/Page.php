@@ -9,10 +9,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use ArrayAccess;
 
 /**
- * @ORM\Entity(repositoryClass=PageRepository::class) 
+ * @ORM\Entity(repositoryClass=PageRepository::class)
+ * @UniqueEntity(fields="name", message="Name is already taken.")
+ * @UniqueEntity(fields="url", message="URL is already taken.")
+* @UniqueEntity(fields="fullPath", message="FullPath is already taken.")
  * @HasLifecycleCallbacks
  */
 class Page implements ArrayAccess
@@ -20,6 +24,7 @@ class Page implements ArrayAccess
     public function __construct()
     {
         $this->isPublished = false;
+        $this->isHomepage = false;
         $this->blocks = new ArrayCollection();
     }
 
@@ -38,9 +43,19 @@ class Page implements ArrayAccess
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50, unique=true)
      */
     private $url;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $prefix;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $fullPath;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -53,7 +68,7 @@ class Page implements ArrayAccess
     private $locale;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Core\Entity\PageBlock", mappedBy="page")
+     * @ORM\OneToMany(targetEntity="App\Core\Entity\PageBlock", mappedBy="page", cascade={"persist", "remove"})
      */
     private $blocks;
     
@@ -62,6 +77,10 @@ class Page implements ArrayAccess
      */
     private $isPublished;
     
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isHomepage;
     
     public function getId(): ?int
     {
@@ -88,6 +107,30 @@ class Page implements ArrayAccess
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getPrefix(): ?string
+    {
+        return $this->prefix;
+    }
+
+    public function setPrefix(string $prefix): self
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    public function getFullPath(): ?string
+    {
+        return $this->fullPath;
+    }
+
+    public function setFullPath(string $fullPath): self
+    {
+        $this->fullPath = $fullPath;
 
         return $this;
     }
@@ -155,6 +198,29 @@ class Page implements ArrayAccess
         $this->isPublished = $isPublished;
 
         return $this;
+    }
+
+    public function getIsHomepage(): ?bool
+    {
+        return $this->isHomepage;
+    }
+    public function setIsHomepage(?bool $isHomepage): self
+    {
+        $this->isHomepage = $isHomepage;
+
+        return $this;
+    }
+
+    public function duplicate(Page $page): Page
+    {
+        $page->setName($this->name);
+        $page->setUrl($this->url);
+        $page->setPrefix($this->prefix);
+        $page->setFullPath($this->fullPath);
+        $page->setPageGroupId($this->pageGroupId);
+        $page->setLocale($this->locale);
+        $page->setIsHomepage($this->isHomepage);
+        return $page;
     }
   
     public function offsetExists($offset) {

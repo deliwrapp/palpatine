@@ -1,0 +1,72 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}PAGES DUPLICATE{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-12">
+    <a class="btn -block" href="{{ path('admin_page_list') }}">back to list</a> 
+    {% if form is defined %}
+        <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+            {{ form_start(form, {'attr': {'class': '-w-f'}}) }}
+                <section class="-panel-body -flex -wrap">
+                    <section class="col -col-6 -md6 -sm12 -xs12">
+                        {{ form_label(form.name, null, {
+                            'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                        }) }}
+                        <small>{{ form_help(form.name) }}</small>
+                        {{ form_errors(form.name) }}
+                        <div class="form-element has-icon-right">
+                            {{ form_widget(form.name, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                            <i class="form-icon fa-solid fa-heading"></i>
+                        </div>
+                    </section>
+                    <section class="col -col-4 -md4 -sm12 -xs12">
+                        {{ form_label(form.locale, null, {
+                            'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                        }) }}
+                        <small>{{ form_help(form.locale) }}</small>
+                        {{ form_errors(form.locale) }}
+                        <div class="form-element has-icon-right">
+                            {{ form_widget(form.locale, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                            <i class="form-icon fas fa-flag"></i>
+                        </div>
+                    </section>
+                    <section class="col -col-2 -md2 -sm12 -xs12">
+                        {{ form_widget(form.submit, {'attr': {'class': '-t-u -t-bld btn -warning -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+                    </section>
+                </section>
+            {{ form_end(form) }}
+        </div>
+    {% endif %}
+</section>
+<section class="col -col-12" id="page-overview">
+    <div class="-text-center">
+        <div class="h5 mt-10">ADMIN PAGE DUPLICATION</div>
+    </div>
+    
+    {% if page is defined and page is not null %}
+        {% if page.blocks is defined and page.blocks is not null %}
+            {#  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+                <section class="-shad-12 col -col-12 -row">
+                    <button class="tooltip -tooltip-bottom -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="edit page" type="submit">   
+                        <a class="-light -hover" href="{{ path('admin_page_edit', { 'id': page.id }) }}">
+                            <i class="fa-solid fa-pen fa-2x"></i>        
+                        </a>
+                    </button>
+                </section>
+            {% endif %} #}
+
+            <section class="-w-f"> 
+                {% for pageBlocks in page.blocks %}  
+                    {% set vars = pageBlock.data ? {data : pageBlock.data} : {} %}    
+                    {% include pageBlock.blockTemplate with vars %}
+                {% endfor %}
+            </section>
+        {% else %}
+            <p> There is no block !!! </p>
+        {% endif %}
+    {% else %}
+        <p> There is no page !!! </p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -116,6 +116,14 @@ class Block implements ArrayAccess
         return $this;
     }
 
+    public function duplicate(Block $block): Block
+    {
+        $block->setName($this->name);
+        $block->setQuery($this->query);
+        $block->setBlockTemplate($this->blockTemplate);
+        return $block;
+    }
+
     public function offsetExists($offset) {
         $value = $this->{"get$offset"}();
         return $value !== null;

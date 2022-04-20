@@ -1,19 +1,12 @@
 {% extends 'liquid-theme/layout.html.twig' %}
 
-{% block title %}BLOCK SHOW{% endblock %}
+{% block title %}
+    {% if page is defined and page is not null %}{{page.name}}{% else %}Basic Page{% endif %}
+{% endblock %}
 
 {% block mainContent %}
-
-    {% if page is defined and page.blocks is defined and page.blocks is not null %}
-       {#  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
-            <section class="-shad-12 col -col-12 -row">
-                <button class="tooltip -tooltip-bottom -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="edit page" type="submit">   
-                    <a class="-light -hover" href="{{ path('AdminPageEdit', { 'id': page.id }) }}">
-                        <i class="fa-solid fa-pen fa-2x"></i>        
-                    </a>
-                </button>
-            </section>
-        {% endif %} #}
+    {% if page is defined and page is not null %}
+       <h2>{{page.name}}</h2>
 
         <section class="-w-f"> 
             {% for pageBlock in page.blocks %}  
@@ -21,8 +14,26 @@
                 {% include pageBlock.blockTemplate with vars %}
             {% endfor %}
         </section>
+        {% if page is defined and page.blocks is defined and page.blocks is not null %}
+        {#  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+                <section class="-shad-12 col -col-12 -row">
+                    <button class="tooltip -tooltip-bottom -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="edit page" type="submit">   
+                        <a class="-light -hover" href="{{ path('admin_page_edit', { 'id': page.id }) }}">
+                            <i class="fa-solid fa-pen fa-2x"></i>        
+                        </a>
+                    </button>
+                </section>
+            {% endif %} #}
+
+            <section class="-w-f"> 
+                {% for pageBlock in page.blocks %}  
+                    {% set vars = pageBlock.data ? {data : pageBlock.data} : {} %}    
+                    {% include pageBlock.blockTemplate with vars %}
+                {% endfor %}
+            </section>
+        {% endif %}
     {% else %}
-        <p> There is no block !!! </p>
+        <p> There is no Page !!! </p>
     {% endif %}
 
 {% endblock %}

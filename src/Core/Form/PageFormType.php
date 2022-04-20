@@ -5,7 +5,6 @@ namespace App\Core\Form;
 use App\Core\Entity\Page;
 use App\Core\Repository\PageRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class PageFormType extends AbstractType
 {
+    /** @var PageRepository */
+    private $pageRepo;
+    
     public function __construct(PageRepository $pageRepo)
     {
         $this->pageRepo = $pageRepo;
@@ -26,13 +28,20 @@ class PageFormType extends AbstractType
                 $builder
                     ->add('name') 
                     ->add('isPublished')
+                    ->add('isHomepage')
                     ->add('submit', SubmitType::class, [
                         'label' => 'Edit',
                     ]);
                 break;
             case 'edit-locale':
                 $builder
-                    ->add('locale')
+                    ->add('locale', ChoiceType::class, [
+                        'choices'  => [
+                            'français' => 'fr',
+                            'english' => 'en',
+                            'portugues' => 'pt'
+                        ]
+                    ])
                     ->add('submit', SubmitType::class, [
                         'label' => 'Edit Locale',
                     ]);
@@ -70,8 +79,14 @@ class PageFormType extends AbstractType
                 $builder
                     ->add('name') 
                     ->add('isPublished')
-                    ->add('pageGroupId')
-                    ->add('locale')
+                    ->add('isHomepage')
+                    ->add('locale', ChoiceType::class, [
+                        'choices'  => [
+                            'français' => 'fr',
+                            'english' => 'en',
+                            'portugues' => 'pt'
+                        ]
+                    ])
                     ->add('submit', SubmitType::class, [
                         'label' => 'Validate'
                     ]);

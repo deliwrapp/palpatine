@@ -5,7 +5,8 @@ namespace App\Core\Repository;
 use App\Core\Entity\Page;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 /**
  * @method Page|null find($id, $lockMode = null, $lockVersion = null)
  * @method Page|null findOneBy(array $criteria, array $orderBy = null)
@@ -19,6 +20,39 @@ class PageRepository extends ServiceEntityRepository
         parent::__construct($registry, Page::class);
     }
 
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function add(Page $entity, bool $flush = true): void
+    {
+        $this->_em->persist($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function remove(Page $entity, bool $flush = true): void
+    {
+        $this->_em->remove($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function flush(): void
+    {
+        $this->_em->flush();
+    }
+    
     /**
      * @return Page[] Returns an array of Page objects
      */
@@ -66,6 +100,21 @@ class PageRepository extends ServiceEntityRepository
             ->andWhere('p.pageGroupId = :group')
             ->andWhere('p.locale = :locale')
             ->setParameter('group', $group)
+            ->setParameter('locale', $locale)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    /**
+     * @return Page[] Returns an array of Page objects
+     */
+    public function findOneByIsHomepageAndLocale($isHomepage, $locale)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.is_homepage = :isHomepage')
+            ->andWhere('p.locale = :locale')
+            ->setParameter('group', $isHomepage)
             ->setParameter('locale', $locale)
             ->getQuery()
             ->getOneOrNullResult()

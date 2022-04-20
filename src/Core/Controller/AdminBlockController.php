@@ -19,7 +19,7 @@ use App\Core\Form\BlockFormType;
 class AdminBlockController extends AbstractController
 {
     /**
-     * @Route("/", name="AdminBlockList")
+     * @Route("/", name="admin_block_list")
      */
     public function index(BlockRepository $blockRepo): Response
     {
@@ -31,7 +31,7 @@ class AdminBlockController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="AdminBlockCreate")
+     * @Route("/create", name="admin_block_create")
     */
     public function create(
         ManagerRegistry $doctrine,
@@ -54,7 +54,7 @@ class AdminBlockController extends AbstractController
                 'info',
                 'Saved new Block with id '.$block->getId()
             );
-            return $this->redirect($this->generateUrl('AdminBlockShow', [
+            return $this->redirect($this->generateUrl('admin_block_show', [
                 'id' => $block->getId()
             ]));
         }
@@ -65,7 +65,7 @@ class AdminBlockController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="AdminBlockEdit")
+     * @Route("/update/{id}", name="admin_block_edit")
      */
     public function edit(
         int $id,
@@ -84,7 +84,7 @@ class AdminBlockController extends AbstractController
                 'warning',
                 'There is no Block  with id ' . $id
             );
-            return $this->redirect($this->generateUrl('AdminBlockList'));
+            return $this->redirect($this->generateUrl('admin_block_list'));
         }
         
         $form->handleRequest($request);
@@ -97,7 +97,7 @@ class AdminBlockController extends AbstractController
                 'info',
                 'Block updated'
             );
-            return $this->redirect($this->generateUrl('AdminBlockShow', [
+            return $this->redirect($this->generateUrl('admin_block_show', [
                 'id' => $block->getId()
             ]));
         }
@@ -112,7 +112,7 @@ class AdminBlockController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="AdminBlockShow")
+     * @Route("/show/{id}", name="admin_block_show")
      */
     public function show(int $id, ManagerRegistry $doctrine): Response
     {
@@ -124,7 +124,7 @@ class AdminBlockController extends AbstractController
                 'warning',
                 'There is no block  with id ' . $id
             );
-            return $this->redirect($this->generateUrl('AdminBlockList'));
+            return $this->redirect($this->generateUrl('admin_block_list'));
         }
         $em = $doctrine->getManager();
         $query = $em->createQuery($blockContainer->getQuery());
@@ -137,7 +137,7 @@ class AdminBlockController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="AdminBlockDelete")
+     * @Route("/delete/{id}", name="admin_block_delete")
      */
     public function delete(int $id, ManagerRegistry $doctrine, Request $request): Response
     {
@@ -174,7 +174,7 @@ class AdminBlockController extends AbstractController
             );
         }
         
-        return $this->redirect($this->generateUrl('AdminBlocksList'));
+        return $this->redirect($this->generateUrl('admin_block_list'));
     }
 
 }

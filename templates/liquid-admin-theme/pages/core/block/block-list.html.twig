@@ -26,9 +26,9 @@
                 ],
                 'tableItems': blocks,
                 'actions' :  {
-                    'show': {'path': 'AdminBlockShow', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
-                    'edit': {'path': 'AdminBlockEdit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
-                    'delete': {'path': 'AdminBlockDelete', 'token': 'delete-block', 'message': 'Are you sure you want to delete this Block ?'}
+                    'show': {'path': 'admin_block_show', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
+                    'edit': {'path': 'admin_block_edit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
+                    'delete': {'path': 'admin_block_delete', 'token': 'delete-block', 'message': 'Are you sure you want to delete this Block ?'}
                 }
             }
         %}   
@@ -44,7 +44,7 @@
             </div>
             <div class="-tile-action">
                 <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Block"> 
-                    <a class="-tertiary" href="{{ path('AdminBlockCreate') }}">
+                    <a class="-tertiary" href="{{ path('admin_block_create') }}">
                         <i class="fa-solid fa-plus"></i> 
                     </a>
                 </button>

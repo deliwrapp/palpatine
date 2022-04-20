@@ -16,6 +16,10 @@
                         'attr': 'id'
                     },
                     {
+                        'text': 'locale',
+                        'attr': 'locale'
+                    },
+                    {
                         'text': 'name',
                         'attr': 'name'
                     },
@@ -26,9 +30,10 @@
                 ],
                 'tableItems': pages,
                 'actions' :  {
-                    'show': {'path': 'AdminPageShow', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
-                    'edit': {'path': 'AdminPageEdit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
-                    'delete': {'path': 'AdminPageDelete', 'token': 'delete-page', 'message': 'Are you sure you want to delete this Page ?'}
+                    'duplicate': {'path': 'admin_page_duplicate', 'tooltip': 'duplicate', 'icon': 'fas fa-copy'},
+                    'show': {'path': 'admin_page_show', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
+                    'edit': {'path': 'admin_page_edit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
+                    'delete': {'path': 'admin_page_delete', 'token': 'delete-page', 'message': 'Are you sure you want to delete this Page ?'}
                 }
             }
         %}   
@@ -44,7 +49,7 @@
             </div>
             <div class="-tile-action">
                 <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Page"> 
-                    <a class="-tertiary" href="{{ path('AdminPageCreate') }}">
+                    <a class="-tertiary" href="{{ path('admin_page_create') }}">
                         <i class="fa-solid fa-plus"></i> 
                     </a>
                 </button>

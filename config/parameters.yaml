@@ -2,10 +2,11 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     locale: fr
+    appLocales: 'fr|en|es|pt|it|de'
     base_theme: liquid-theme
     admin_theme: liquid-admin-theme
     data_folder: Data
-    homepage_path: /posts
+    homepage_path: '/%kernel.default_locale%'
     gmap_api: AIzaSyAadz2owJTc8CJnIkvzps2jgzQpnsnxdgA
     posts_templates:
       blocks/post/oldway_show_post.html.twig: oldway

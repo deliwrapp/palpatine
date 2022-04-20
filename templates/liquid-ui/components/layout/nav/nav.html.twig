@@ -10,7 +10,7 @@
 #}
 
 <nav 
-    class="bar {% if color is defined %}-{{ color }}{% endif %} {% if class is defined %}{{ class }}{% else %} -bg-light -shad-12{% endif %}"
+    class="bar {% if color is defined %}-{{ color }}{% endif %} {% if class is defined %}{{ class }}{% else %} -bg-light -shad-12{% endif %} "
 >
     <section class="-bar-section-start">
         {% block nav_section_start %}
@@ -55,19 +55,20 @@
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 {% include 'liquid-ui/components/layout/nav/nav-user.html.twig'%}
             {% else %}
-            <div class="btn -light -hover">
-                <i class="fa-solid fa-door-open"></i>
-                <a href="{{path('app_register')}}">
-                    Register
-                </a>
-            </div>
-            <div class="btn -light -hover">
-                <i class="fa-solid fa-lock-open"></i>
-                <a href="{{path('app_login')}}">
-                    Login
-                </a>
-            </div>
+                <div class="btn -light -hover">
+                    <i class="fa-solid fa-door-open"></i>
+                    <a href="{{path('app_register')}}">
+                        Register
+                    </a>
+                </div>
+                <div class="btn -light -hover">
+                    <i class="fa-solid fa-lock-open"></i>
+                    <a href="{{path('app_login')}}">
+                        Login
+                    </a>
+                </div>
             {% endif %}
+            {% include 'liquid-ui/components/layout/nav/nav-lang.html.twig'%}
         {% endblock %} 
     </section>
 </nav>
