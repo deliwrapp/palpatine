@@ -9,23 +9,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class PageDuplicationFormType extends AbstractType
 {
+    /** @var ParameterBagInterface */
+    private $params;
+
+    public function __construct(
+        ParameterBagInterface $params
+    )
+    {
+        $this->params = $params;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    {   
+        $localesList = $this->params->get('appLocalesList');
         $builder
             ->add('name', TextType::class)
             ->add('locale', ChoiceType::class, [
-                'choices'  => [
-                    'français' => 'fr',
-                    'english' => 'en',
-                    'espanol' => 'es',
-                    'portugues' => 'pt',
-                    'italian' => 'it',
-                    'deutsch' => 'de',
-                ]
+                'choices'  => array_flip($localesList)
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Duplicate'

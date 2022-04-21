@@ -9,11 +9,23 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class AdminUserType extends AbstractType
 {
+    /** @var ParameterBagInterface */
+    private $params;
+
+    public function __construct(
+        ParameterBagInterface $params
+    )
+    {
+        $this->params = $params;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $localesList = $this->params->get('appLocalesList');
         $builder
             ->add('email')
             ->add('username')
@@ -30,14 +42,7 @@ class AdminUserType extends AbstractType
                 ],
             ])
             ->add('locale', ChoiceType::class, [
-                'choices'  => [
-                    'français' => 'fr',
-                    'english' => 'en',
-                    'espanol' => 'es',
-                    'portugues' => 'pt',
-                    'italian' => 'it',
-                    'deutsch' => 'de',
-                ]
+                'choices'  => array_flip($localesList)
             ])
             ->add('isVerified')
             ->add('isRestricted')

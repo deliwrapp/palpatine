@@ -65,16 +65,16 @@
                     <small>{{ form_help(form.isHomepage) }}</small>
                     {{ form_errors(form.isHomepage) }} 
                 </div>
-                {% if page is defined and page is not null %}
-                    <div class="col -col-4 -md4 -sm6 -xs6">
-                        {{ include('liquid-admin-theme/pages/core/page/_delete_form.html.twig') }}
-                    </div>
-                {% endif %}
             </section>
             <section class="-panel-footer -text-center ">
                 {{ form_widget(form.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
             </section>
         {{ form_end(form) }}
+        {% if page is defined and page is not null %}
+            <div class="-flex">
+                {{ include('liquid-admin-theme/pages/core/page/_delete_form.html.twig') }}
+            </div>
+        {% endif %}
     </div>
 
     {% if formLocale is defined %}

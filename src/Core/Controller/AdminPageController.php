@@ -8,8 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Core\Entity\Page;
-use App\Core\Entity\Block;
-use App\Core\Entity\PageBlock;
 use App\Core\FormObject\PageDuplication;
 use App\Core\Form\PageFormType;
 use App\Core\Form\PageDuplicationFormType;
@@ -202,7 +200,7 @@ class AdminPageController extends AbstractController
                 'info',
                 'Page updated'
             );
-            return $this->redirect($this->generateUrl('admin_page_show', [
+            return $this->redirect($this->generateUrl('admin_page_edit', [
                 'id' => $page->getId()
             ]));
         }
@@ -386,24 +384,6 @@ class AdminPageController extends AbstractController
         ]));
 
     }
-
-
-
-    // Page Add SubPage
-
-
-    // Page Remove SubPage
-
-
-    // Page Link As a Subpage
-
-
-    // SubPage Remove Link
-
-
-    // Page Duplicate To an Other Language
-
-    
 
     /**
      * @Route("/show/{id}", name="admin_page_show")

@@ -52,6 +52,7 @@ class PageFactory
         }
         $page->setUrl($this->urlConverter($page->getname()));
         $page->setPageGroupId($this->pageGroupeInit());
+        $page = $this->createFullPath($page);
         if ($record) {
             $this->recordPage($page);
         }
@@ -59,7 +60,6 @@ class PageFactory
     }
 
     public function duplicatePage(Page $page, string $name, string $locale, $record = false) {
-
         $newPage = false;
         $testHomepage = false;
         $testGroupAndLocale = $this->pageVerif->checkIfPageGroupAndLocaleExists($page->getPageGroupId(), $locale);
@@ -73,6 +73,7 @@ class PageFactory
             $newPage->setName($name);
             $newPage->setLocale($locale);
             $newPage->setUrl($this->urlConverter($name));
+            $newPage = $this->createFullPath($newPage);
             if ($page->getBlocks()) {
                 foreach ($page->getBlocks() as $pageBlock) {
                     $newPageBlock = new PageBlock;
@@ -114,5 +115,10 @@ class PageFactory
     public function pageGroupeInit(): string {
         $randomNbr = random_int(12346, 9876543);
         return uniqid('page_group_'.$randomNbr.'_', true);
+    }
+    public function createFullPath(Page $page): Page {
+        $fullPath = $page->getPrefix().'/'.$page->getUrl();
+        $page->setFullPath($fullPath);
+        return $page;
     }
 }

@@ -112,9 +112,9 @@ class PageRepository extends ServiceEntityRepository
     public function findOneByIsHomepageAndLocale($isHomepage, $locale)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.is_homepage = :isHomepage')
+            ->andWhere('p.isHomepage = :isHomepage')
             ->andWhere('p.locale = :locale')
-            ->setParameter('group', $isHomepage)
+            ->setParameter('isHomepage', $isHomepage)
             ->setParameter('locale', $locale)
             ->getQuery()
             ->getOneOrNullResult()

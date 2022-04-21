@@ -6,19 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Core\Entity\Page;
+use App\Core\Repository\PageRepository;
 
 
 class HomePageController extends AbstractController
 {
-
     /**
      * @Route("/", name="homepage")
      */
-    public function show(Request; $request, PageRepository $pageRepo): Response
+    public function show(Request $request, PageRepository $pageRepo): Response
     {
         $locale = $request->getLocale();
-        $page = $this->pageRepo->findOneBy(['isHomepage' => true, 'locale' => $locale]);
+        $page = $pageRepo->findOneBy(['isHomepage' => true,'isPublished' => true, 'locale' => $locale]);
         if ($page) {
             return $this->render('@core/page/basic-page.html.twig', [
                 'page' => $page
@@ -26,9 +25,5 @@ class HomePageController extends AbstractController
         }
         
         return $this->render('@core/page/homepage.html.twig');
-    }
-    
-    {
-        
     }
 }

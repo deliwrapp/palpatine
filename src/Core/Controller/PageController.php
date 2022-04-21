@@ -7,34 +7,33 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use App\Core\Entity\Page;
-use App\Core\Entity\Block;
-use App\Core\Entity\PageBlock;
 use App\Core\Repository\PageRepository;
 
-/**
- * @Route("/page")
- */
 class PageController extends AbstractController
 {
-
     /**
-     * @Route("/show/{id}", name="page_show")
+     * @Route("/{pageUrl}", priority=-1, name="page_show")
      */
-    public function show(int $id, ManagerRegistry $doctrine): Response
+    public function show(Request $request, PageRepository $pageRepo, string $pageUrl): Response
     {
-        $page = $doctrine->getRepository(Page::class);
-        $page = $page->find($id);
-
+        $page = $pageRepo->findOneBY(['url' => $pageUrl]);
         if (!$page) {
             $this->addFlash(
                 'warning',
-                'There is no page  with id ' . $id
+                'There is no page  with url ' . $pageUrl
             );
             return $this->redirect($this->generateUrl('homepage'));
         }
         
+        $locale = $request->getLocale();
+        if ($locale !== $page->getLocale()) {
+            return $this->redirect($this->generateUrl('page_show', [
+                '_locale' => $page->getLocale(),
+                'pageUrl' => $pageUrl
+            ]));
+        }
+
         return $this->render('@core/page/basic-page.html.twig', [
             'page' => $page
         ]);

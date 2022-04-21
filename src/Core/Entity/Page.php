@@ -215,7 +215,9 @@ class Page implements ArrayAccess
     {
         $page->setName($this->name);
         $page->setUrl($this->url);
-        $page->setPrefix($this->prefix);
+        if ($page->getPrefix()) {
+            $page->setPrefix($this->prefix);
+        }
         $page->setFullPath($this->fullPath);
         $page->setPageGroupId($this->pageGroupId);
         $page->setLocale($this->locale);

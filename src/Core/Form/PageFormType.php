@@ -9,15 +9,23 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class PageFormType extends AbstractType
 {
     /** @var PageRepository */
     private $pageRepo;
+
+    /** @var ParameterBagInterface */
+    private $params;
     
-    public function __construct(PageRepository $pageRepo)
+    public function __construct(
+        PageRepository $pageRepo,
+        ParameterBagInterface $params
+    )
     {
         $this->pageRepo = $pageRepo;
+        $this->params = $params;
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -34,13 +42,10 @@ class PageFormType extends AbstractType
                     ]);
                 break;
             case 'edit-locale':
+                $localesList = $this->params->get('appLocalesList');
                 $builder
                     ->add('locale', ChoiceType::class, [
-                        'choices'  => [
-                            'français' => 'fr',
-                            'english' => 'en',
-                            'portugues' => 'pt'
-                        ]
+                        'choices'  => array_flip($localesList)
                     ])
                     ->add('submit', SubmitType::class, [
                         'label' => 'Edit Locale',
