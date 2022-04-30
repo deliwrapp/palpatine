@@ -1,0 +1,45 @@
+<section class="-w-f" id="blocks-to-add-list">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Basic Block
+            </div>
+            <div class="-tile-subtitle">
+                Text or image block
+            </div>
+        </div>
+        <div class="-tile-action">
+            {% if page is defined %}
+                <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Add To Page"> 
+                    <a class="-success" href="{{ path('admin_page_block_add', { 'blockId': 'text' , 'pageId': page.id }) }}">
+                        <i class="fa-solid fa-plus"></i> 
+                    </a>
+                </button>
+            {% endif %}
+        </div>
+    </div>
+    {% if blocks is defined %}
+        {% for blockContainer in blocks %}
+            <div class="tile -tile-compact -w-f -m0 -shad-12">
+                <div class="-tile-content">
+                    <div class="-tile-title -t-bld">
+                        {{ blockContainer.name }}
+                        <a class="-t-u btn -sm -light -hover" target="_blank" href="{{path('admin_block_show', { 'id': blockContainer.id})}}">See</a>
+                    </div>
+                    <div class="-tile-subtitle">
+                        {{ blockContainer.blockTemplate }}
+                    </div>
+                </div>
+                <div class="-tile-action">
+                    {% if page is defined %}
+                        <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Add To Page"> 
+                            <a class="-tertiary" href="{{ path('admin_page_block_add', { 'blockId': blockContainer.id , 'pageId': page.id }) }}">
+                                <i class="fa-solid fa-plus"></i> 
+                            </a>
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</section>

@@ -31,6 +31,7 @@ class PageBlock
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Core\Entity\Block")
+     * @ORM\JoinColumn(name="block_id", referencedColumnName="id", nullable=true)
      */
     private $block;
     
@@ -39,7 +40,11 @@ class PageBlock
      */
     private $position;
     
-
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $content;
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -57,7 +62,7 @@ class PageBlock
         return $this;
     }
 
-    public function getBlock():Block
+    public function getBlock()
     {
         return $this->block;
     }
@@ -76,6 +81,25 @@ class PageBlock
     public function setPosition(int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(?string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function setContentToNull(): self
+    {
+        $this->content = null;
 
         return $this;
     }

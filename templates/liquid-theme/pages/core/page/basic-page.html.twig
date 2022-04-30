@@ -7,12 +7,17 @@
 {% block mainContent %}
     <section class="col -col-12"> 
         {% if page is defined and page is not null %}
-        <h2>{{page.name}}</h2>
-            {% if page.blocks is defined and page.blocks is not null %}
+            {% if page.blocks is defined and page.blocks is not empty %}
                 <section class="-w-f"> 
-                    {% for pageBlock in page.blocks %}  
-                        {% set vars = pageBlock.data ? {data : pageBlock.data} : {} %}    
-                        {% include pageBlock.blockTemplate with vars %}
+                    {% for pageBlock in page.blocks|sort((a, b) => a.position <=> b.position) %}  
+                        {% if pageBlock.content is defined and pageBlock.content is not null %}
+                            {{pageBlock.content|raw}}
+                        {% endif %}
+                        
+                        {% if pageBlock.block is defined and pageBlock.block is not null %}
+                            {% set data = pageBlock.block.data ? {data : pageBlock.block.data} : {} %}    
+                            {% include pageBlock.block.blockTemplate with data %}
+                        {% endif %}
                     {% endfor %}
                 </section>
             {% endif %}

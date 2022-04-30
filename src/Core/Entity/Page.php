@@ -166,6 +166,14 @@ class Page implements ArrayAccess
     {
         return $this->blocks;
     }
+
+    /**
+     * @return ArrayCollection|PageBlock[]
+     */
+    public function getBlocksArray()
+    {
+        return $this->blocks;
+    }
     
     /**
      * @param PageBlock $pageBlock

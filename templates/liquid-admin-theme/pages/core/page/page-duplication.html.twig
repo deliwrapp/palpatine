@@ -45,21 +45,17 @@
     </div>
     
     {% if page is defined and page is not null %}
-        {% if page.blocks is defined and page.blocks is not null %}
-            {#  {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
-                <section class="-shad-12 col -col-12 -row">
-                    <button class="tooltip -tooltip-bottom -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="edit page" type="submit">   
-                        <a class="-light -hover" href="{{ path('admin_page_edit', { 'id': page.id }) }}">
-                            <i class="fa-solid fa-pen fa-2x"></i>        
-                        </a>
-                    </button>
-                </section>
-            {% endif %} #}
-
+        {% if page.blocks is defined and page.blocks is not empty %}
             <section class="-w-f"> 
-                {% for pageBlocks in page.blocks %}  
-                    {% set vars = pageBlock.data ? {data : pageBlock.data} : {} %}    
-                    {% include pageBlock.blockTemplate with vars %}
+                {% for pageBlock in page.blocks|sort((a, b) => a.position <=> b.position) %}  
+                    {% if pageBlock.content is defined and pageBlock.content is not null %}
+                        {{pageBlock.content|raw}}
+                    {% endif %}
+                    
+                    {% if pageBlock.block is defined and pageBlock.block is not null %}
+                        {% set data = pageBlock.block.data ? {data : pageBlock.block.data} : {} %}    
+                        {% include pageBlock.block.blockTemplate with data %}
+                    {% endif %}
                 {% endfor %}
             </section>
         {% else %}

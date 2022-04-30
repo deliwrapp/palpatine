@@ -1,6 +1,7 @@
 {
     "modules": ["core", "security", "blog"],
     "themes": ["liquid-ui"],
+    "blocks": ["post"],
     "controller_guard_access": {
         "admin": {
             "admin_user_password_edit": {
@@ -9,7 +10,8 @@
                 "role": "ROLE_ADMIN",
                 "lifetime": "900s",
                 "failure_limit": "5",
-                "failure_ban_time": "900s"
+                "failure_ban_time": "900s",
+                "user_owner_test": false
             }
         },
         "user": {}

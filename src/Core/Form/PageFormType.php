@@ -5,9 +5,11 @@ namespace App\Core\Form;
 use App\Core\Entity\Page;
 use App\Core\Repository\PageRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -29,14 +31,17 @@ class PageFormType extends AbstractType
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-            
+    {     
         switch ($options['mode']) {
             case 'edition':
                 $builder
-                    ->add('name') 
-                    ->add('isPublished')
-                    ->add('isHomepage')
+                    ->add('name', TextType::class) 
+                    ->add('isPublished', CheckboxType::class, [
+                        'required'   => false
+                    ])
+                    ->add('isHomepage', CheckboxType::class, [
+                        'required'   => false
+                    ])
                     ->add('submit', SubmitType::class, [
                         'label' => 'Edit',
                     ]);
@@ -53,7 +58,7 @@ class PageFormType extends AbstractType
                 break;
             case 'edit-url':
                 $builder
-                    ->add('url')
+                    ->add('url', TextType::class)
                     ->add('submit', SubmitType::class, [
                         'label' => 'Edit Url',
                     ]);
@@ -64,7 +69,7 @@ class PageFormType extends AbstractType
                         // looks for choices from this entity
                         'choices' => $this->pageRepo->getPages(),
                         'choice_value' => 'pageGroupId',
-                        'choice_label' => 'pageGroupId',
+                        'choice_label' => 'name',
                         // used to render a select box, check boxes or radios
                         // 'multiple' => true,
                         // 'expanded' => true,
@@ -73,18 +78,11 @@ class PageFormType extends AbstractType
                         'label' => 'Add to Page Group',
                     ]);
                 break;
-            case 'send-page-to-page-group':
-                $builder
-                    ->add('pageGroupId')
-                    ->add('submit', SubmitType::class, [
-                        'label' => 'Send to Page Group',
-                    ]);
-                break; 
             default:
                 $builder
-                    ->add('name') 
-                    ->add('isPublished')
-                    ->add('isHomepage')
+                    ->add('name', TextType::class) 
+                    ->add('isPublished', CheckboxType::class)
+                    ->add('isHomepage', CheckboxType::class)
                     ->add('locale', ChoiceType::class, [
                         'choices'  => [
                             'français' => 'fr',
@@ -96,8 +94,7 @@ class PageFormType extends AbstractType
                         'label' => 'Validate'
                     ]);
                 break;
-        }
-        
+        }  
     }
 
     public function configureOptions(OptionsResolver $resolver): void

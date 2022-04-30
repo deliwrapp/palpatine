@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('admin_template_delete', {'id': template.id}) }}" onsubmit="return confirm('Are you sure you want to delete this template?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete-template') }}">
+    <button class="btn -danger">Delete</button>
+</form>

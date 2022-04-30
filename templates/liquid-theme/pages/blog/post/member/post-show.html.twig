@@ -6,13 +6,13 @@
 
     {% if post is defined %}
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
-            <section class="-shad-12 col -col-12 -row">
-                <button class="tooltip -tooltip-bottom -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="edit post" type="submit">   
-                    <a class="-light -hover" href="{{ path('AdminPostEdit', { 'id': post.id }) }}">
+            <section class="-shad-12 col -col-12 -row -fixed -bottom -z100">
+                <button class="tooltip -tooltip-top -light btn btn-action -xl s-circle -hover -shad-12 -shad-14-h" data-tooltip="edit post" type="submit">   
+                    <a href="{{ path('AdminPostEdit', { 'id': post.id }) }}">
                         <i class="fa-solid fa-pen fa-2x"></i>        
                     </a>
                 </button>
-            <section>
+            </section>
         {% endif %}
         {% set linkTemplate = post.blockTemplate ? post.blockTemplate : 'blocks/post/oldway_show_post.html.twig' %}
         

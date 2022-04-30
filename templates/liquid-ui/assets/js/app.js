@@ -1,13 +1,15 @@
 import ButtonToggle from "./ButtonToggle";
-import BlockTabs from "./BlockTabs";
+import Tabs from "./Tabs";
+import ModalHandler from "./ModalHandler";
 import Sidebar from './Sidebar';
 import SidebarOut from './SidebarOut';
 import Toast from './Toast';
 import SlidePanel from './SlidePanel';
-import MegaSearch from './MegaSearch';
+/* import MegaSearch from './MegaSearch'; */
 
-new BlockTabs();
-new MegaSearch('[data-btn="search"]', '[data-behaviour="sortable"] .table--item');
+new ModalHandler();
+new Tabs();
+/* new MegaSearch('[data-btn="search"]', '[data-behaviour="sortable"] .table--item'); */
 
 Array.from(document.getElementsByClassName("toast")).forEach(
   el => {

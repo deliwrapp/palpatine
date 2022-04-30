@@ -25,4 +25,6 @@ twig:
 imports:
   - { resource: "parameters.yaml" }
   - { resource: "../src/*/services.yaml" }
+  - { resource: "../templates/*/services.yaml" }
+  - { resource: "../templates/blocks/*/services.yaml" }
 

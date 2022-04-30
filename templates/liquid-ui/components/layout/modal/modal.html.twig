@@ -1,0 +1,66 @@
+{#
+// Variables
+- modalId : Modal Id {string}
+- modalClass : Custom class{string}
+- modalWidth : Active full width {string | opts: sm/lg/fullwidth} 
+- modalHeight : Active full height {string| opts: sm/lg/fullheight}
+- modalAnim : animation class {string | default = -anim-5}
+- modalTitle : Modal Tritle {string}
+- modalContent: Modal content include path
+- modalContentData: Modal content Data
+- modalFooter: Modal Footer include path
+- modalFooterData: Modal Footer Data
+#}
+
+{% if modalClass is not defined %}
+    {% set modalClass = null %}
+{% endif %}
+{% if modalAnim is not defined %}
+    {% set modalAnim = "-anim-5" %}
+{% endif %}
+{% if modalHeight is not defined %}
+    {% set modalHeight = null %}
+{% endif %}
+{% if modalWidth is not defined %}
+    {% set modalWidth = null %}
+{% endif %}
+{% if modalTitle is not defined %}
+    {% set modalTitle = null %}
+{% endif %}
+
+<div 
+    class="modal  {{ modalWidth ? '-modal-' ~ modalWidth : null }} {{ modalHeight ? '-modal-' ~ modalHeight : null }} {{modalAnim}} {{modalClass}}"
+    id="{{modalId}}"
+>
+  <a href="#close" class="-modal-overlay -modal-close" aria-label="Close"></a>
+                              
+  <div class="-modal-container -shad-8">
+    <div class="-modal-header">
+        {% if modalTitle %}
+            <div class="-modal-title h5">{{modalTitle}}</div>
+        {% endif %}                           
+      <a href="#close" class="btn btn-clear -modal-close" aria-label="Close"></a>
+    </div>
+                                
+    <div class="-modal-body">
+      <div class="-content">
+        {% if modalContent is defined %}
+            {% if modalContentData is not defined %}
+                {% include modalContent with modalContentData %}
+            {% else %}
+                {% include modalContent %}
+            {% endif %}
+        {% endif %}
+      </div>
+    </div>
+    {% if modalFooter is defined %}
+        <div class="-modal-footer">
+            {% if modalFooterData is not defined %}
+                {% include modalFooter with modalFooterData %}
+            {% else %}
+                {% include modalFooter %}
+            {% endif %}
+        </div>
+    {% endif %}
+  </div>
+</div>

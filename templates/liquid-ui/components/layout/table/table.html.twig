@@ -14,6 +14,17 @@
         {% set tableHeadItems = [] %}
 {% endif %}
 
+{% if '.' in tableHeadItems %}
+  {% set txt = tableHeadItems|split('.') %}
+  {% if _context[txt[0]][txt[1]] is defined %}
+    {% set tableHeadItems = _context[txt[0]][txt[1]] %}}
+  {% endif %}
+{% endif %}
+
+{% if tableHeadItems is not iterable %}
+  {% set tableHeadItems = _context[tableHeadItems] %}
+{% endif %}
+
 <table class="table {% if color is defined %}-{{ color }}{% endif %} {% if class is defined %}{{ class }}{% else %} -striped -hover -responsive -inline {% endif %}">
     {% if caption is defined %}  
         <caption>{{caption|trans}}</caption>
@@ -43,7 +54,15 @@
                             {% if loop.first %} scope="row" {% endif %}
                             data-label="{{td.text|trans|upper}}"
                         >
-                            {{item[td.attr]}}
+                                {% if item[td.attr] is same as(false) or item[td.attr] is same as(true) %}
+                                    {% if item[td.attr] == 1 %}
+                                        {{"core.word.yes"|trans }}
+                                    {% else %}
+                                        {{"core.word.no"|trans }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ item[td.attr]|trans|slice(0, 20)|raw }}
+                                {% endif %}
                         </td>
                     {% endfor %}
                     {% if actions is defined %}

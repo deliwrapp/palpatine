@@ -3,12 +3,25 @@
 {% block title %}PAGES LIST{% endblock %}
 
 {% block mainContent %}
-<section class="col -col-11" id="page-list">
-    <div class="-text-center">
-        <div class="h5 mt-10">ADMIN PAGE LIST</div>
-    </div>
-    
+<section class="col -col-12" id="page-list">    
     {% if pages is defined and pages is not empty %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    ADMIN PAGE LIST
+                </div>
+                <div class="-tile-subtitle">
+                    Create a new Page
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Page"> 
+                    <a class="-tertiary" href="{{ path('admin_page_create') }}">
+                        <i class="fa-solid fa-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
         {% include 'liquid-ui/components/layout/table/table.html.twig' with {
                 'tableHeadItems' : [
                     {

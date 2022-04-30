@@ -1,19 +1,36 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}POSTS LIST{% endblock %}
+{% block title %}BLOCKS LIST{% endblock %}
 
 {% block mainContent %}
-<section class="col -col-11" id="block-list">
-    <div class="-text-center">
-        <div class="h5 mt-10">ADMIN BLOCK LIST</div>
-    </div>
-    
+<section class="col -col-12" id="block-list">
     {% if blocks is defined and blocks is not empty %}
+        <div class="tile -tile-compact -w-f -shad-12 -sticky -top">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    ADMIN BLOCK LIST
+                </div>
+                <div class="-tile-subtitle">
+                    Create a new block
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Block"> 
+                    <a class="-tertiary" href="{{ path('admin_block_create') }}">
+                        <i class="fa-solid fa-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
         {% include 'liquid-ui/components/layout/table/table.html.twig' with {
                 'tableHeadItems' : [
                     {
                         'text': 'id',
                         'attr': 'id'
+                    },
+                    {
+                        'text': 'locale',
+                        'attr': 'locale'
                     },
                     {
                         'text': 'name',

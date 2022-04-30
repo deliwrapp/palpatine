@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Core\Controller;
+namespace App\Core\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ManagerRegistry;
 use App\Core\Entity\Page;
 use App\Core\FormObject\PageDuplication;
 use App\Core\Form\PageFormType;
 use App\Core\Form\PageDuplicationFormType;
 use App\Core\Repository\PageRepository;
 use App\Core\Services\PageFactory;
-use App\Core\Services\PageVerificator;
+use App\Core\Repository\BlockRepository;
 
 /**
  * @Route("/admin/page")
@@ -23,36 +22,30 @@ class AdminPageController extends AbstractController
     /** @var PageRepository */
     private $pageRepo;
 
+    /** @var BlockRepository */
+    private $blockRepo;
+
     /** @var PageFactory */
     private $pageFactory;
 
-    /** @var PageVerificator */
-    private $pageVerif;
-
-    /** @var ManagerRegistry */
-    private $em;
-
     public function __construct(
         PageRepository $pageRepo,
-        PageFactory $pageFactory,
-        PageVerificator $pageVerif,
-        ManagerRegistry $em
+        BlockRepository $blockRepo,
+        PageFactory $pageFactory
     )
     {
-        $this->pageRepo= $pageRepo;
-        $this->pageFactory= $pageFactory;
-        $this->pageVerif= $pageVerif;
-        $this->em = $em->getManager();
+        $this->pageRepo = $pageRepo;
+        $this->blockRepo = $blockRepo;
+        $this->pageFactory = $pageFactory;
     }
 
     // Page List
     /**
      * @Route("/", name="admin_page_list")
      */
-    public function index(PageRepository $pageRepo): Response
+    public function index(): Response
     {
         $pages = $this->pageRepo->getPages();
-
         return $this->render('@core-admin/page/page-list.html.twig', [
             'pages' => $pages
         ]);
@@ -70,7 +63,6 @@ class AdminPageController extends AbstractController
             'mode' => 'creation'
         ]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $page = $this->pageFactory->initPage($form->getData(), true);
             if ($page instanceof Page) {
@@ -88,8 +80,7 @@ class AdminPageController extends AbstractController
                 );
                 return $this->redirect($this->generateUrl('admin_page_create'));
             }
-        }
-        
+        }   
         return $this->render('@core-admin/page/page-edit.html.twig', [
             'form' => $form->createView()
         ]);
@@ -101,21 +92,13 @@ class AdminPageController extends AbstractController
     */
     public function duplicate(Request $request, int $id, string $name = null): Response
     {
-        $page = $this->pageRepo->find($id);
-        if (!$page) {
-            $this->addFlash(
-                'warning',
-                'There is no Page  with id ' . $id
-            );
-            return $this->redirect($this->generateUrl('admin_page_list'));
-        }
+        $page = $this->pageVerificator($id);
         $pageDuplication = new PageDuplication();
         if ($name) {
             $pageDuplication->setName($name);
         }
         $form = $this->createForm(PageDuplicationFormType::class, $pageDuplication);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $name = $form->get('name')->getData();
             $locale = $form->get('locale')->getData();
@@ -138,6 +121,15 @@ class AdminPageController extends AbstractController
                     'name' => $name
                 ]));
             }
+        }
+        if ($page->getBlocks()) {
+            $pageBlocks = $page->getBlocks();
+            foreach ($pageBlocks as $pageBlock) {
+                if ($pageBlock->getBlock()) {
+                    $data = $this->blockRepo->getBlockData($pageBlock->getBlock()->getQuery());
+                    $pageBlock->getBlock()->setData($data);
+                }
+            }
         }  
         return $this->render('@core-admin/page/page-duplication.html.twig', [
             'form' => $form->createView(),
@@ -147,19 +139,11 @@ class AdminPageController extends AbstractController
 
     // Page Edit 
     /**
-     * @Route("/update/{id}", name="admin_page_edit")
+     * @Route("/update/{id}",  name="admin_page_edit")
      */
     public function edit(int $id, Request $request): Response
     {
-        $page = $this->pageRepo->find($id);
-        if (!$page) {
-            $this->addFlash(
-                'warning',
-                'There is no Page  with id ' . $id
-            );
-            return $this->redirect($this->generateUrl('admin_page_list'));
-        }
-
+        $page = $this->pageVerificator($id);
         $form = $this->createForm(PageFormType::class, $page, [
             'submitBtn' => 'Edit'
         ]);
@@ -184,14 +168,6 @@ class AdminPageController extends AbstractController
             ]),
             'method' => 'POST',
         ]);
-        $formSendToPageGroup = $this->createForm(PageFormType::class, $page, [
-            'mode' => 'send-page-to-page-group',
-            'action' => $this->generateUrl('admin_page_send_to_page_group', [
-                'id' => $page->getId()
-            ]),
-            'method' => 'POST',
-        ]);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $page = $form->getData();
@@ -204,7 +180,16 @@ class AdminPageController extends AbstractController
                 'id' => $page->getId()
             ]));
         }
-
+        if ($page->getBlocks()) {
+            $pageBlocks = $page->getBlocks();
+            foreach ($pageBlocks as $pageBlock) {
+                if ($pageBlock->getBlock()) {
+                    $data = $this->blockRepo->getBlockData($pageBlock->getBlock()->getQuery());
+                    $pageBlock->getBlock()->setData($data);
+                }
+            }
+        }
+        $blocks = $this->blockRepo->findBy(['isPublished' => true]);
         return $this->render(
             '@core-admin/page/page-edit.html.twig',
             [
@@ -212,8 +197,8 @@ class AdminPageController extends AbstractController
                 'formLocale' => $formLocale->createView(),
                 'formUrl' => $formUrl->createView(),
                 'formAddToPageGroup' => $formAddToPageGroup->createView(),
-                'formSendToPageGroup' => $formSendToPageGroup->createView(),
-                'page' => $page
+                'page' => $page,
+                'blocks' => $blocks
             ]
         );
     }
@@ -224,14 +209,7 @@ class AdminPageController extends AbstractController
      */
     public function editUrl(int $id, Request $request): Response
     {
-        $page = $this->pageRepo->find($id);
-        if (!$page) {
-            $this->addFlash(
-                'warning',
-                'There is no Page  with id ' . $id
-            );
-            return $this->redirect($this->generateUrl('admin_page_list'));
-        }
+        $page = $this->pageVerificator($id);
         $formUrl = $this->createForm(PageFormType::class, $page, [
             'mode' => 'edit-url',
             'action' => $this->generateUrl('admin_page_edit_url', [
@@ -240,7 +218,6 @@ class AdminPageController extends AbstractController
             'method' => 'POST',
         ]);
         $formUrl->handleRequest($request);
-
         if ($formUrl->isSubmitted() && $formUrl->isValid()) {
             $url = $formUrl->get('url')->getData();
             $url = $this->pageFactory->urlConverter($url);
@@ -262,15 +239,7 @@ class AdminPageController extends AbstractController
      */
     public function editLocale(int $id, Request $request): Response
     {
-        $page = $this->pageRepo->find($id);
-        if (!$page) {
-            $this->addFlash(
-                'warning',
-                'There is no Page  with id ' . $id
-            );
-            return $this->redirect($this->generateUrl('admin_page_list'));
-        }
-
+        $page = $this->pageVerificator($id);
         $formLocale = $this->createForm(PageFormType::class, $page, [
             'mode' => 'edit-locale',
             'action' => $this->generateUrl('admin_page_edit_locale', [
@@ -279,13 +248,10 @@ class AdminPageController extends AbstractController
             'method' => 'POST',
         ]);
         $formLocale->handleRequest($request);
-
         if ($formLocale->isSubmitted() && $formLocale->isValid()) {
-
             $newLocale = $formLocale->get('locale')->getData();
             $pageGroupId = $page->getPageGroupId();
             $pageTest = $this->pageRepo->findOneByPageGroupAndLocale($pageGroupId, $newLocale);
-
             if ($pageTest) {
                 $this->addFlash(
                     'warning',
@@ -311,7 +277,7 @@ class AdminPageController extends AbstractController
      */
     public function addPageToPageGroup(int $id, Request $request): Response
     {
-        $page = $this->pageRepo->find($id);
+        $page = $this->pageVerificator($id);
         $formAddToPageGroup = $this->createForm(PageFormType::class, $page, [
             'mode' => 'add-page-to-page-group',
             'action' => $this->generateUrl('admin_page_add_to_page_group', [
@@ -319,15 +285,6 @@ class AdminPageController extends AbstractController
             ]),
             'method' => 'POST',
         ]);
-
-        if (!$page) {
-            $this->addFlash(
-                'warning',
-                'There is no Page with id ' . $id
-            );
-            return $this->redirect($this->generateUrl('admin_page_list'));
-        }
-        
         $formAddToPageGroup->handleRequest($request);
         if ($formAddToPageGroup->isSubmitted() && $formAddToPageGroup->isValid()) {
             
@@ -338,51 +295,9 @@ class AdminPageController extends AbstractController
                 'Page Group updated'
             );
         }
-
         return $this->redirect($this->generateUrl('admin_page_edit', [
             'id' => $page->getId()
         ]));
-    }
-
-    // Page Send page to other pageGroup
-    /**
-     * @Route("/update/page-group-goal/{id}", name="admin_page_send_to_page_group")
-     */
-    public function sendPageToPageGroup(int $id, Request $request): Response
-    {
-        $page = $this->pageRepo->find($id);
-
-        $formSendToPageGroup = $this->createForm(PageFormType::class, $page, [
-            'mode' => 'send-page-to-page-group',
-            'action' => $this->generateUrl('admin_page_send_to_page_group', [
-                'id' => $page->getId()
-            ]),
-            'method' => 'POST',
-        ]);
-
-        if (!$page) {
-            $this->addFlash(
-                'warning',
-                'There is no Page with id ' . $id
-            );
-            return $this->redirect($this->generateUrl('admin_page_list'));
-        }
-        
-        $formSendToPageGroup->handleRequest($request);
-
-        if ($formSendToPageGroup->isSubmitted() && $formSendToPageGroup->isValid()) {
-            /* $page = $formAddToPageGroup->getData();
-            $this->em->flush(); */
-            $this->addFlash(
-                'info',
-                'Page Group updated'
-            );
-        }
-
-        return $this->redirect($this->generateUrl('admin_page_edit', [
-            'id' => $page->getId()
-        ]));
-
     }
 
     /**
@@ -390,16 +305,16 @@ class AdminPageController extends AbstractController
      */
     public function show(int $id): Response
     {
-        $page = $this->pageRepo->find($id);
-
-        if (!$page) {
-            $this->addFlash(
-                'warning',
-                'There is no page  with id ' . $id
-            );
-            return $this->redirect($this->generateUrl('admin_page_list'));
-        }
-        
+        $page = $this->pageVerificator($id);
+        if ($page->getBlocks()) {
+            $pageBlocks = $page->getBlocks();
+            foreach ($pageBlocks as $pageBlock) {
+                if ($pageBlock->getBlock()) {
+                    $data = $this->blockRepo->getBlockData($pageBlock->getBlock()->getQuery());
+                    $pageBlock->getBlock()->setData($data);
+                }
+            }
+        } 
         return $this->render('@core-admin/page/page-show.html.twig', [
             'page' => $page
         ]);
@@ -412,19 +327,12 @@ class AdminPageController extends AbstractController
     {
         $submittedToken = $request->request->get('token'); 
         if ($this->isCsrfTokenValid('delete-page', $submittedToken)) {
-            $page = $this->pageRepo->find($id);
-            if (!$page) {
-                $this->addFlash(
-                    'warning',
-                    'There is no Page  with id ' . $id
-                );
-            } else {
-                $this->pageRepo->remove($page);
-                $this->addFlash(
-                    'success',
-                    'The Page with ' . $id . ' have been deleted '
-                );
-            } 
+            $page = $this->pageVerificator($id);
+            $this->pageRepo->remove($page);
+            $this->addFlash(
+                'success',
+                'The Page with ' . $id . ' have been deleted '
+            ); 
         } else {
             $this->addFlash(
                 'warning',
@@ -434,4 +342,16 @@ class AdminPageController extends AbstractController
         return $this->redirect($this->generateUrl('admin_page_list'));
     }
 
+    public function pageVerificator(int $pageId)
+    {
+        $page = $this->pageRepo->find($pageId);
+        if (!$page) {
+            $this->addFlash(
+                'warning',
+                'There is no Page  with id ' . $pageId
+            );
+            return $this->redirect($this->generateUrl('admin_page_list'));
+        }
+        return $page;
+    }
 }

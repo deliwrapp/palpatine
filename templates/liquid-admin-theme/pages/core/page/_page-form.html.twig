@@ -1,0 +1,146 @@
+<div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+	<section class="-panel-header -text-center -flex -justify-space-evenly">
+		{% if page is defined and page is not null %}
+			<button class="tooltip -tooltip-bottom -tertiary btn btn-action s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="show" type="submit">
+				<a href="{{ path('admin_page_show', { 'id': page.id }) }}">
+					<i class="fa-solid fa-eye fa-2x"></i>
+				</a>
+			</button>
+
+			<button class="tooltip -tooltip-bottom -warning btn btn-action s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="refresh blocks" type="submit">
+				<a href="{{ path('admin_page_block_reorder', { 'pageId': page.id}) }}">
+					<i class="fas fa-refresh"></i>
+				</a>
+			</button>
+		{% endif %}
+	</section>
+	{{ form_start(form, {'attr': {'class': '-w-f'}}) }}
+	<section class="-panel-body -flex -wrap">
+		<div class="col -col-12">
+			{{ form_label(form.name, null, {
+								'label_attr': {'class': '-t-c -t-bld -color-dark'}
+							}) }}
+			<small>{{ form_help(form.name) }}</small>
+			{{ form_errors(form.name) }}
+			<div class="form-element has-icon-right">
+				{{ form_widget(form.name, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+				<i class="form-icon fa-solid fa-heading"></i>
+			</div>
+		</div>
+
+		{% if page is not defined %}
+			<div class="col -col-4 -md4 -sm6 -xs6">
+				{{ form_label(form.locale, null, {
+									'label_attr': {'class': '-t-c -t-bld -color-dark'}
+								}) }}
+				<small>{{ form_help(form.locale) }}</small>
+				{{ form_errors(form.locale) }}
+				<div class="form-element has-icon-right">
+					{{ form_widget(form.locale, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+					<i class="form-icon fas fa-flag"></i>
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="col -col-6">
+			<div class="form-element">
+				<label class="switch">
+					{{ form_widget(form.isPublished) }}
+					<i class="form-icon -shad-12"></i>
+					<span class="form-field-msg -t-c -t-bld -color-dark">Published</span>
+				</label>
+			</div>
+			<small>{{ form_help(form.isPublished) }}</small>
+			{{ form_errors(form.isPublished) }}
+		</div>
+		<div class="col -col-6">
+			<div class="form-element">
+				<label class="switch">
+					{{ form_widget(form.isHomepage) }}
+					<i class="form-icon -shad-12"></i>
+					<span class="form-field-msg -t-c -t-bld -color-dark">Homepage</span>
+				</label>
+			</div>
+			<small>{{ form_help(form.isHomepage) }}</small>
+			{{ form_errors(form.isHomepage) }}
+		</div>
+	</section>
+	<section class="-panel-footer -text-center ">
+		{{ form_widget(form.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+	</section>
+	{{ form_end(form) }}
+	{% if page is defined and page is not null %}
+		<div class="-flex">
+			{{ include('liquid-admin-theme/pages/core/page/_delete_form.html.twig') }}
+		</div>
+	{% endif %}
+</div>
+
+{% if formLocale is defined %}
+	<div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+		{{ form_start(formLocale, {'attr': {'class': '-w-f'}}) }}
+		<section class="-panel-body -flex -wrap">
+			<section class="col -col-6 -md5 -sm12 -xs12">
+				{{ form_label(formLocale.locale, null, {
+                                'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                            }) }}
+				<small>{{ form_help(formLocale.locale) }}</small>
+				{{ form_errors(formLocale.locale) }}
+				<div class="form-element has-icon-right">
+					{{ form_widget(formLocale.locale, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+					<i class="form-icon fas fa-flag"></i>
+				</div>
+			</section>
+			<section class="col -col-6 -md5 -sm12 -xs12">
+				{{ form_widget(formLocale.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+			</section>
+		</section>
+		{{ form_end(formLocale) }}
+	</div>
+{% endif %}
+
+{% if formAddToPageGroup is defined %}
+	<div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+		{{ form_start(formAddToPageGroup, {'attr': {'class': '-w-f'}}) }}
+		<section class="-panel-body -flex -wrap">
+			<section class="col -col-8 -md8 -sm12 -xs12">
+				{{ form_label(formAddToPageGroup.pageGroupId, null, {
+								'label_attr': {'class': '-t-c -t-bld -color-dark'}
+							}) }}
+				<small>{{ form_help(formAddToPageGroup.pageGroupId) }}</small>
+				{{ form_errors(formAddToPageGroup.pageGroupId) }}
+				<div class="form-element has-icon-right">
+					{{ form_widget(formAddToPageGroup.pageGroupId, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+					<i class="form-icon fa-solid fa-link"></i>
+				</div>
+			</section>
+			<section class="col -col-4 -md4 -sm12 -xs12">
+				{{ form_widget(formAddToPageGroup.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+			</section>
+		</section>
+		{{ form_end(formAddToPageGroup) }}
+	</div>
+{% endif %}
+
+{% if formUrl is defined %}
+	<div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+		{{ form_start(formUrl, {'attr': {'class': '-w-f'}}) }}
+		<section class="-panel-body -flex -wrap">
+			<section class="col -col-8 -md8 -sm12 -xs12">
+				{{ form_label(formUrl.url, null, {
+                                'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                            }) }}
+				<small>{{ form_help(formUrl.url) }}</small>
+				{{ form_errors(formUrl.url) }}
+				<div class="form-element has-icon-right">
+					{{ form_widget(formUrl.url, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+					<i class="form-icon fas fa-link"></i>
+				</div>
+			</section>
+			<section class="col -col-4 -md4 -sm12 -xs12">
+				{{ form_widget(formUrl.submit, {'attr': {'class': '-t-u -t-bld btn -warning -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+			</section>
+		</section>
+		{{ form_end(formUrl) }}
+	</div>
+{% endif %}

@@ -16,6 +16,7 @@ class Block implements ArrayAccess
 {
     public function __construct()
     {
+        $this->singleResult = true;
         $this->isPublished = false;
     }
 
@@ -39,6 +40,11 @@ class Block implements ArrayAccess
     private $query;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $singleResult;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $blockTemplate;
@@ -48,6 +54,10 @@ class Block implements ArrayAccess
      */
     private $isPublished;
 
+    /**
+     * @ORM\Column(type="string", length=8)
+     */
+    private $locale;
     
     private $data;
 
@@ -81,6 +91,17 @@ class Block implements ArrayAccess
         return $this;
     }
 
+    public function getSingleResult(): ?bool
+    {
+        return $this->singleResult;
+    }
+    public function setSingleResult(?bool $singleResult): self
+    {
+        $this->singleResult = $singleResult;
+
+        return $this;
+    }
+
     public function getBlockTemplate(): ?string
     {
         return $this->blockTemplate;
@@ -104,6 +125,18 @@ class Block implements ArrayAccess
         return $this;
     }
 
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
     public function getData()
     {
         return $this->data;
@@ -119,7 +152,9 @@ class Block implements ArrayAccess
     public function duplicate(Block $block): Block
     {
         $block->setName($this->name);
+        $block->setLocale($this->locale);
         $block->setQuery($this->query);
+        $block->setSingleResult($this->singleResult);
         $block->setBlockTemplate($this->blockTemplate);
         return $block;
     }

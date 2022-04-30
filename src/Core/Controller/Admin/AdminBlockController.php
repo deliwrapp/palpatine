@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Controller;
+namespace App\Core\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,12 +18,19 @@ use App\Core\Form\BlockFormType;
  */
 class AdminBlockController extends AbstractController
 {
+    public function __construct(
+        BlockRepository $blockRepo
+    )
+    {
+        $this->blockRepo = $blockRepo;
+    }
+
     /**
      * @Route("/", name="admin_block_list")
      */
-    public function index(BlockRepository $blockRepo): Response
+    public function index(): Response
     {
-        $blocks = $blockRepo->findAll();
+        $blocks = $this->blockRepo->findAll();
 
         return $this->render('@core-admin/block/block-list.html.twig', [
             'blocks' => $blocks
@@ -33,10 +40,7 @@ class AdminBlockController extends AbstractController
     /**
      * @Route("/create", name="admin_block_create")
     */
-    public function create(
-        ManagerRegistry $doctrine,
-        Request $request
-    ): Response
+    public function create(Request $request): Response
     {
         $block = new Block();
         $form = $this->createForm(BlockFormType::class, $block, [
@@ -47,9 +51,7 @@ class AdminBlockController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $block = $form->getData();
-            $em = $doctrine->getManager();
-            $em->persist($block);
-            $em->flush();
+            $this->blockRepo->add($block);
             $this->addFlash(
                 'info',
                 'Saved new Block with id '.$block->getId()
@@ -67,14 +69,9 @@ class AdminBlockController extends AbstractController
     /**
      * @Route("/update/{id}", name="admin_block_edit")
      */
-    public function edit(
-        int $id,
-        ManagerRegistry $doctrine,
-        Request $request
-    ): Response
+    public function edit(int $id, Request $request): Response
     {
-        $block = $doctrine->getRepository(Block::class);
-        $block = $block->find($id);
+        $block = $this->blockRepo->find($id);
         $form = $this->createForm(BlockFormType::class, $block, [
             'submitBtn' => 'Edit'
         ]);
@@ -90,14 +87,13 @@ class AdminBlockController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $doctrine->getManager();
             $block = $form->getData();
-            $em->flush();
+            $this->blockRepo->flush();
             $this->addFlash(
                 'info',
                 'Block updated'
             );
-            return $this->redirect($this->generateUrl('admin_block_show', [
+            return $this->redirect($this->generateUrl('admin_block_edit', [
                 'id' => $block->getId()
             ]));
         }
@@ -116,8 +112,7 @@ class AdminBlockController extends AbstractController
      */
     public function show(int $id, ManagerRegistry $doctrine): Response
     {
-        $blockContainer = $doctrine->getRepository(Block::class);
-        $blockContainer = $blockContainer->find($id);
+        $blockContainer = $this->blockRepo->find($id);
 
         if (!$blockContainer) {
             $this->addFlash(
@@ -126,10 +121,9 @@ class AdminBlockController extends AbstractController
             );
             return $this->redirect($this->generateUrl('admin_block_list'));
         }
-        $em = $doctrine->getManager();
-        $query = $em->createQuery($blockContainer->getQuery());
-        $data = $query->execute();
-        
+        $data = $this->blockRepo->getBlockData($blockContainer->getQuery(), $blockContainer->getSingleResult());
+        $blockContainer->setData($data);
+       
         return $this->render('@core-admin/block/block-show.html.twig', [
             'blockContainer' => $blockContainer,
             'data' => $data

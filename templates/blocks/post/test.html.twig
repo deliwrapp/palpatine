@@ -1,6 +1,6 @@
 {#
 // Variables
-- class : Custom Class
+- blockClass : Custom Class
 - color : Custom color class
 - post.content : Post Content
 - post.title : Post title
@@ -12,26 +12,38 @@
 - post.img: Post Image
 #}
 
-{% if vars is defined and vars.data is defined %}  
-        {% set post = vars.data %}
+{% if imgUrl is not defined %}  
+        {% set imgUrl = 'https://source.unsplash.com/f9C8ytxaItI/2000x1200' %}
+{% endif %}
+
+{% if data is defined %}  
+        {% set post = data %}
 {% endif %}
 {% if color is not defined %}  
         {% set color = '-tertiary' %}
 {% endif %}
-{% if class is not defined %}  
-        {% set class = 'btn -tertiary s-circle btn-link btn-action -btn-lg -shad-12 -shad-14-h' %}
+{% if blockClass is not defined %}  
+        {% set blockClass = '' %}
 {% endif %}
 
-<section class="oldway-post">
-    {% if post is defined %}  
+<section class="oldway-post {{blockClass}}">
+    {% if post is defined %}
+        
         <article class="post">
-            <div>
-                {# {% if post.img is defined and post.img is not null %}  
-                    <div class="absolute-bg" style="background-image: url({{post.img}});"></div>
-                {% endif %} #}
+        
+                <div>
+                    {% if imgUrl is defined and imgUrl is not null %}  
+                        <div class="absolute-bg" style="background-image: url({{imgUrl}});"></div>
+                    {% endif %}
                 </div>
             <div class="post__container">
-                
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+                    <button style="margin-top:-0rem;" class="tooltip -tooltip-top -light btn btn-action s-circle -hover -shad-12 -shad-14-h -z100 -relative -top -left" data-tooltip="edit post" type="submit">   
+                        <a class="-light" target="_blank" href="{{ path('AdminPostEdit', { 'id': post.id }) }}">
+                            <i class="fa-solid fa-pen"></i>        
+                        </a>
+                    </button>
+                {% endif %}   
                {#  {% if post.category is defined and post.category is not null %}  
                         <span class="post__category">{{post.category}}</span>
                 {% endif %} #}

@@ -40,7 +40,7 @@
         {% endblock %}
         {% include 'liquid-ui/components/ui/toasts.html.twig' %}
       </header>
-      <main  {% block mainAttr %} class="{% if wrapperContent is defined %}-wrapper {% endif %} -top-4rm" {% endblock %}>
+      <main  {% block mainAttr %}  {% endblock %} class="{% if wrapperContent is defined %}-wrapper {% endif %} {% block mainClass %} -top-4rm  {% endblock %}">
         {% block main %}
           {% block leftSide %} 
           
@@ -48,7 +48,7 @@
           {% block rightSide %} {% endblock %}
           {% block modal %} {% endblock %}
           <section 
-            {% block mainContentAttr %} class="{% if wrapperContent is defined %}main-content{% endif %}liquid-container liquid-grid -center -middle -z1 -overflow-x-hidden" {% endblock %}
+            {% block mainContentAttr %} {% endblock %} class="{% if wrapperContent is defined %}main-content{% endif %} {% block mainContentClass %} liquid-container liquid-grid -z1 -overflow-x-hidden {% endblock %}"
           >
             {% block mainContent %}
             

@@ -78,11 +78,16 @@ class PageFactory
                 foreach ($page->getBlocks() as $pageBlock) {
                     $newPageBlock = new PageBlock;
                     $block = $pageBlock->getBlock();
-                    $newBlock = new Block();
-                    $newBlock = $block->duplicate($block);
-                    $newPageBlock->setBlock($newBlock);
+                    if ($pageBlock->getBlock()) {
+                        $newBlock = new Block();
+                        $newBlock = $block->duplicate($newBlock);
+                        $newBlock->setLocale($locale);
+                        $newPageBlock->setBlock($newBlock);
+                        $this->blockRepo->add($newBlock, false);
+                    }
+                    $newPageBlock->setPosition($pageBlock->getPosition());
+                    $newPageBlock->setContent($pageBlock->getContent());
                     $newPage->addBlock($newPageBlock);
-                    $this->blockRepo->add($newBlock, false);
                     $this->pageBlockRepo->add($newPageBlock, false);
                 }
             }
@@ -116,9 +121,23 @@ class PageFactory
         $randomNbr = random_int(12346, 9876543);
         return uniqid('page_group_'.$randomNbr.'_', true);
     }
+
     public function createFullPath(Page $page): Page {
         $fullPath = $page->getPrefix().'/'.$page->getUrl();
         $page->setFullPath($fullPath);
+        return $page;
+    }
+
+    public function reOrderPageBlock(Page $page): Page {
+        $blocks = $page->getBlocks();
+        $blocks = $blocks->toArray();
+        $blocksPosition = 1;
+        usort($blocks, function($a, $b) {return strcmp($a->getPosition(), $b->getPosition());});
+        foreach ($blocks as $block) {
+            $block->setPosition($blocksPosition);
+            $blocksPosition = $blocksPosition + 1;
+        }
+        $this->blockRepo->flush();
         return $page;
     }
 }

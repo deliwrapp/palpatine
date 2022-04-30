@@ -29,26 +29,6 @@
         </div>
     </div>
 </section>
-<section class="col -col-3 -md6 -sm12 -xs12" id="post-manager">
-    <div class="tile -tile-compact -w-f -m0 -shad-12">
-        <div class="-tile-content">
-            <div class="-tile-title -t-bld">
-                Post Manager
-            </div>
-            <div class="-tile-subtitle">
-                You have xx posts.
-                <a class="-t-u btn -sm -light -hover" href="{{path('AdminPostsList')}}"> See List</a>
-            </div>
-        </div>
-        <div class="-tile-action">
-            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
-                <a class="-tertiary" href="{{ path('AdminPostCreate') }}">
-                    <i class="fa-solid fa-plus"></i> 
-                </a>
-            </button>
-        </div>
-    </div>
-</section>
 <section class="col -col-3 -md6 -sm12 -xs12" id="page-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
@@ -83,6 +63,48 @@
         <div class="-tile-action">
             <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Block"> 
                 <a class="-tertiary" href="{{ path('admin_block_create') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="col -col-3 -md6 -sm12 -xs12" id="block-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Template Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx templates.
+                <a class="-t-u btn -sm -light -hover" href="{{path('admin_template_list')}}"> See List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Template"> 
+                <a class="-tertiary" href="{{ path('admin_template_create') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<hr>
+
+<section class="col -col-3 -md6 -sm12 -xs12" id="post-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Post Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx posts.
+                <a class="-t-u btn -sm -light -hover" href="{{path('AdminPostsList')}}"> See List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
+                <a class="-tertiary" href="{{ path('AdminPostCreate') }}">
                     <i class="fa-solid fa-plus"></i> 
                 </a>
             </button>

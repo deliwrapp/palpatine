@@ -53,4 +53,17 @@ class BlockRepository extends ServiceEntityRepository
     {
         $this->_em->flush();
     }
+
+    public function getBlockData(string $dql, bool $singleResult = true)
+    {   
+        $query = $this->getEntityManager()->createQuery($dql);
+        //var_dump($query->getSQL());die;
+        if ($singleResult) {
+            $data = $query->getSingleResult();
+        } else {
+            $data = $query->getArrayResult();
+        }
+        //var_dump($data);die;
+        return $data;
+    }
 }

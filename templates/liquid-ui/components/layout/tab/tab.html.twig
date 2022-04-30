@@ -1,0 +1,55 @@
+{#
+// Variables
+- tabClass : custom tab classes {string}
+- color : background tab color {string}
+- tabItems: Tab Items data {array}
+- tabHeadItems: Tab Head Items information {array}
+#}
+{% if tabHeadItems is not defined %}  
+  {% set tabHeadItems = [] %}
+{% endif %}
+{% if tabItems is not defined %}  
+  {% set tabItems = [] %}
+{% endif %}
+{% if '.' in tabItems %}
+  {% set txt = tabItems|split('.') %}
+  {% if _context[txt[0]][txt[1]] is defined %}
+    {% set tabItems = _context[txt[0]][txt[1]] %}}
+  {% endif %}
+{% endif %}
+{% if tabItems is not iterable %}
+  {% set tabItems = _context[tabItems] %}
+{% endif %}
+{% if '_fragment' in app.request.attributes.get('_route_params')|keys %}
+  {% for item in tabItems %}
+        {% if item.id == app.request.attributes.get('_route_params')['_fragment'] %}
+          {% set activeTab = app.request.attributes.get('_route_params')['_fragment'] %}
+        {% endif %}
+      {% endfor %}
+<p>hello</p>
+{% endif %}
+
+<section class="{% if color is defined %}-{{ color }}{% endif %} {% if tabClass is defined %} {{ tabClass }} {% endif %} tab-container-full">
+	<nav>
+		<ul class="tab -tab-block">
+      {% for item in tabItems %}
+        <li class="-tab-item {% if loop.first and activeTab is not defined or loop.first and activeTab is defined and activeTab == null or activeTab is defined and activeTab == item.id %} -active {% endif %}">
+            <a href="#{{item.id}}">{{item.tabName|trans}}</a>
+        </li>
+      {% endfor %}
+		</ul>
+	</nav>
+  <section class="dynamic-container">
+    {% for item in tabItems %}  
+      <section 
+        class="-tab-section -dynamic-section {% if item.anim is defined %} {{item.anim}} {% endif %} 
+        {% if loop.first and activeTab is not defined or loop.first and activeTab is defined and activeTab == null or activeTab is defined and activeTab == item.id %} -active {% endif %}"
+        id="{{item.id}}"
+      >
+        {% if item.include is defined and item.include is not null %} 
+          {% include item.include %}
+        {% endif %}
+      </section>
+    {% endfor %}
+  </section>
+</section>

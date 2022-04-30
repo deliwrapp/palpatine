@@ -1,0 +1,24 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}TEMPLATE SHOW{% endblock %}
+
+{% block mainContent %}
+
+    {% if template is defined %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+            <section class="-shad-12 col -col-12 -row">
+                <button class="tooltip -tooltip-bottom -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="edit post" type="submit">   
+                    <a class="-light -hover" href="{{ path('admin_template_edit', { 'id': template.id }) }}">
+                        <i class="fa-solid fa-pen fa-2x"></i>        
+                    </a>
+                </button>
+            </section>
+        {% endif %}
+        <section class="-w-f">     
+            {% include template.templatePath %}
+        </section>
+    {% else %}
+        <p> There is no template !!! </p>
+    {% endif %}
+
+{% endblock %}

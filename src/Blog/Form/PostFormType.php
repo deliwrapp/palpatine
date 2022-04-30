@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\CallbackTransformer;
 
 class PostFormType extends AbstractType
 {
@@ -36,18 +35,6 @@ class PostFormType extends AbstractType
                     'oldway' => 'blocks/post/oldway_show_post.html.twig',
                 ],
             ]);
-
-        /* $builder->get('blockTemplate')
-        ->addModelTransformer(new CallbackTransformer(
-            function ($tplArray) {
-                // transform the array to a string
-                return count($tplArray)? $tplArray[0]: null;
-            },
-            function ($tplString) {
-                // transform the string back to an array
-                return [$tplString];
-            }
-        )); */
             
         if ($options) {
             $builder

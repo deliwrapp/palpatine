@@ -30,19 +30,29 @@ function initModulesAssets (folder){
                 }
             }
         }
-        else {
-        for(let i=0; i<Object.keys(moduleFolder).length; i++){
-            let webpackPath = './src/' + moduleFolder[i] + '/webpack.require.js';
+        else if (folder == "blocks") {
+            for(let i=0; i<Object.keys(moduleFolder).length; i++){
+                let webpackPath = './blocks/' + moduleFolder[i].toLowerCase() + '/webpack.require.js';
 
-            if (fs.existsSync(webpackPath) == true) {
-                require(webpackPath);
+                if (fs.existsSync(webpackPath) == true) {
+                    require(webpackPath);
+                }
             }
         }
+        else {
+            for(let i=0; i<Object.keys(moduleFolder).length; i++){
+                let webpackPath = './src/' + moduleFolder[i] + '/webpack.require.js';
+
+                if (fs.existsSync(webpackPath) == true) {
+                    require(webpackPath);
+                }
+            }
         }
     }
 }
 
 initModulesAssets('themes');
+initModulesAssets('blocks');
 
 Encore
     /*
