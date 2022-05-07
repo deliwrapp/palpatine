@@ -57,33 +57,42 @@ class AdminPageController extends AbstractController
     */
     public function create(Request $request): Response
     {
-        $page = new Page();
-        $form = $this->createForm(PageFormType::class, $page, [
-            'submitBtn' => 'Create',
-            'mode' => 'creation'
-        ]);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $page = $this->pageFactory->initPage($form->getData(), true);
-            if ($page instanceof Page) {
-                $this->addFlash(
-                    'info',
-                    'Saved new Page with id '.$page->getId()
-                );
-                return $this->redirect($this->generateUrl('admin_page_edit', [
-                    'id' => $page->getId()
-                ]));
-            } else {
-                $this->addFlash(
-                    'warning',
-                    $page
-                );
-                return $this->redirect($this->generateUrl('admin_page_create'));
-            }
-        }   
-        return $this->render('@core-admin/page/page-edit.html.twig', [
-            'form' => $form->createView()
-        ]);
+        try {
+            $page = new Page();
+            $form = $this->createForm(PageFormType::class, $page, [
+                'submitBtn' => 'Create',
+                'mode' => 'creation'
+            ]);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $page = $this->pageFactory->initPage($form->getData(), true);
+                if ($page instanceof Page) {
+                    $this->addFlash(
+                        'info',
+                        'Saved new Page with id '.$page->getId()
+                    );
+                    return $this->redirect($this->generateUrl('admin_page_edit', [
+                        'id' => $page->getId()
+                    ]));
+                } else {
+                    $this->addFlash(
+                        'warning',
+                        $page
+                    );
+                    return $this->redirect($this->generateUrl('admin_page_create'));
+                }
+            }   
+            return $this->render('@core-admin/page/page-edit.html.twig', [
+                'form' => $form->createView()
+            ]);
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('admin_page_list'));
+        }
+        
     }
 
     // Page Duplicate
@@ -92,49 +101,58 @@ class AdminPageController extends AbstractController
     */
     public function duplicate(Request $request, int $id, string $name = null): Response
     {
-        $page = $this->pageVerificator($id);
-        $pageDuplication = new PageDuplication();
-        if ($name) {
-            $pageDuplication->setName($name);
-        }
-        $form = $this->createForm(PageDuplicationFormType::class, $pageDuplication);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $name = $form->get('name')->getData();
-            $locale = $form->get('locale')->getData();
-            $duplicatedPage = $this->pageFactory->duplicatePage($page, $name, $locale, true);
-            if ($duplicatedPage instanceof Page) {
-                $this->addFlash(
-                    'info',
-                    'Saved new duplicated Page with id '.$duplicatedPage->getId()
-                );
-                return $this->redirect($this->generateUrl('admin_page_edit', [
-                    'id' => $duplicatedPage->getId()
-                ]));
-            } else {
-                $this->addFlash(
-                    'warning',
-                    'Duplication not possible - ' .$duplicatedPage
-                );
-                return $this->redirect($this->generateUrl('admin_page_duplicate', [
-                    'id' => $page->getId(),
-                    'name' => $name
-                ]));
+        try {
+            $page = $this->pageVerificator($id);
+            $pageDuplication = new PageDuplication();
+            if ($name) {
+                $pageDuplication->setName($name);
             }
-        }
-        if ($page->getBlocks()) {
-            $pageBlocks = $page->getBlocks();
-            foreach ($pageBlocks as $pageBlock) {
-                if ($pageBlock->getBlock()) {
-                    $data = $this->blockRepo->getBlockData($pageBlock->getBlock()->getQuery());
-                    $pageBlock->getBlock()->setData($data);
+            $form = $this->createForm(PageDuplicationFormType::class, $pageDuplication);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $name = $form->get('name')->getData();
+                $locale = $form->get('locale')->getData();
+                $duplicatedPage = $this->pageFactory->duplicatePage($page, $name, $locale, true);
+                if ($duplicatedPage instanceof Page) {
+                    $this->addFlash(
+                        'info',
+                        'Saved new duplicated Page with id '.$duplicatedPage->getId()
+                    );
+                    return $this->redirect($this->generateUrl('admin_page_edit', [
+                        'id' => $duplicatedPage->getId()
+                    ]));
+                } else {
+                    $this->addFlash(
+                        'warning',
+                        'Duplication not possible - ' .$duplicatedPage
+                    );
+                    return $this->redirect($this->generateUrl('admin_page_duplicate', [
+                        'id' => $page->getId(),
+                        'name' => $name
+                    ]));
                 }
             }
-        }  
-        return $this->render('@core-admin/page/page-duplication.html.twig', [
-            'form' => $form->createView(),
-            'page' => $page
-        ]);
+            if ($page->getBlocks()) {
+                $pageBlocks = $page->getBlocks();
+                foreach ($pageBlocks as $pageBlock) {
+                    if ($pageBlock->getQuery()) {
+                        $data = $this->blockRepo->getBlockData($pageBlock->getQuery());
+                        $pageBlock->setData($data);
+                    }
+                }
+            }  
+            return $this->render('@core-admin/page/page-duplication.html.twig', [
+                'form' => $form->createView(),
+                'page' => $page
+            ]);
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('admin_page_list'));
+        }
+        
     }
 
     // Page Edit 
@@ -143,64 +161,73 @@ class AdminPageController extends AbstractController
      */
     public function edit(int $id, Request $request): Response
     {
-        $page = $this->pageVerificator($id);
-        $form = $this->createForm(PageFormType::class, $page, [
-            'submitBtn' => 'Edit'
-        ]);
-        $formLocale = $this->createForm(PageFormType::class, $page, [
-            'mode' => 'edit-locale',
-            'action' => $this->generateUrl('admin_page_edit_locale', [
-                'id' => $page->getId()
-            ]),
-            'method' => 'POST',
-        ]);
-        $formUrl = $this->createForm(PageFormType::class, $page, [
-            'mode' => 'edit-url',
-            'action' => $this->generateUrl('admin_page_edit_url', [
-                'id' => $page->getId()
-            ]),
-            'method' => 'POST',
-        ]);
-        $formAddToPageGroup = $this->createForm(PageFormType::class, $page, [
-            'mode' => 'add-page-to-page-group',
-            'action' => $this->generateUrl('admin_page_add_to_page_group', [
-                'id' => $page->getId()
-            ]),
-            'method' => 'POST',
-        ]);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $page = $form->getData();
-            $this->pageRepo->add($page);
-            $this->addFlash(
-                'info',
-                'Page updated'
-            );
-            return $this->redirect($this->generateUrl('admin_page_edit', [
-                'id' => $page->getId()
-            ]));
-        }
-        if ($page->getBlocks()) {
-            $pageBlocks = $page->getBlocks();
-            foreach ($pageBlocks as $pageBlock) {
-                if ($pageBlock->getBlock()) {
-                    $data = $this->blockRepo->getBlockData($pageBlock->getBlock()->getQuery());
-                    $pageBlock->getBlock()->setData($data);
+        try {
+            $page = $this->pageVerificator($id);
+            $form = $this->createForm(PageFormType::class, $page, [
+                'submitBtn' => 'Edit'
+            ]);
+            $formLocale = $this->createForm(PageFormType::class, $page, [
+                'mode' => 'edit-locale',
+                'action' => $this->generateUrl('admin_page_edit_locale', [
+                    'id' => $page->getId()
+                ]),
+                'method' => 'POST',
+            ]);
+            $formUrl = $this->createForm(PageFormType::class, $page, [
+                'mode' => 'edit-url',
+                'action' => $this->generateUrl('admin_page_edit_url', [
+                    'id' => $page->getId()
+                ]),
+                'method' => 'POST',
+            ]);
+            $formAddToPageGroup = $this->createForm(PageFormType::class, $page, [
+                'mode' => 'add-page-to-page-group',
+                'action' => $this->generateUrl('admin_page_add_to_page_group', [
+                    'id' => $page->getId()
+                ]),
+                'method' => 'POST',
+            ]);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $page = $form->getData();
+                $this->pageRepo->add($page);
+                $this->addFlash(
+                    'info',
+                    'Page updated'
+                );
+                return $this->redirect($this->generateUrl('admin_page_edit', [
+                    'id' => $page->getId()
+                ]));
+            }
+            if ($page->getBlocks()) {
+                $pageBlocks = $page->getBlocks();
+                foreach ($pageBlocks as $pageBlock) {
+                    if ($pageBlock->getQuery()) {
+                        $data = $this->blockRepo->getBlockData($pageBlock->getQuery());
+                        $pageBlock->setData($data);
+                    }
                 }
             }
+            $blocks = $this->blockRepo->findBy(['isPublished' => true]);
+            return $this->render(
+                '@core-admin/page/page-edit.html.twig',
+                [
+                    'form' => $form->createView(),
+                    'formLocale' => $formLocale->createView(),
+                    'formUrl' => $formUrl->createView(),
+                    'formAddToPageGroup' => $formAddToPageGroup->createView(),
+                    'page' => $page,
+                    'blocks' => $blocks
+                ]
+            );
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('admin_page_list'));
         }
-        $blocks = $this->blockRepo->findBy(['isPublished' => true]);
-        return $this->render(
-            '@core-admin/page/page-edit.html.twig',
-            [
-                'form' => $form->createView(),
-                'formLocale' => $formLocale->createView(),
-                'formUrl' => $formUrl->createView(),
-                'formAddToPageGroup' => $formAddToPageGroup->createView(),
-                'page' => $page,
-                'blocks' => $blocks
-            ]
-        );
+        
     }
 
     // Page Edit Url
@@ -209,28 +236,36 @@ class AdminPageController extends AbstractController
      */
     public function editUrl(int $id, Request $request): Response
     {
-        $page = $this->pageVerificator($id);
-        $formUrl = $this->createForm(PageFormType::class, $page, [
-            'mode' => 'edit-url',
-            'action' => $this->generateUrl('admin_page_edit_url', [
+        try {
+            $page = $this->pageVerificator($id);
+            $formUrl = $this->createForm(PageFormType::class, $page, [
+                'mode' => 'edit-url',
+                'action' => $this->generateUrl('admin_page_edit_url', [
+                    'id' => $page->getId()
+                ]),
+                'method' => 'POST',
+            ]);
+            $formUrl->handleRequest($request);
+            if ($formUrl->isSubmitted() && $formUrl->isValid()) {
+                $url = $formUrl->get('url')->getData();
+                $url = $this->pageFactory->urlConverter($url);
+                $page->setUrl($url);
+                $this->pageRepo->flush();
+                $this->addFlash(
+                    'info',
+                    'Page Url updated'
+                );
+            }
+            return $this->redirect($this->generateUrl('admin_page_edit', [
                 'id' => $page->getId()
-            ]),
-            'method' => 'POST',
-        ]);
-        $formUrl->handleRequest($request);
-        if ($formUrl->isSubmitted() && $formUrl->isValid()) {
-            $url = $formUrl->get('url')->getData();
-            $url = $this->pageFactory->urlConverter($url);
-            $page->setUrl($url);
-            $this->pageRepo->flush();
+            ]));
+        } catch (\Exception $e) {
             $this->addFlash(
-                'info',
-                'Page Url updated'
+                'danger',
+                $e->getMessage()
             );
+            return $this->redirect($this->generateUrl('admin_page_list'));
         }
-        return $this->redirect($this->generateUrl('admin_page_edit', [
-            'id' => $page->getId()
-        ]));
     }
  
     // Page Change Locale
@@ -239,36 +274,44 @@ class AdminPageController extends AbstractController
      */
     public function editLocale(int $id, Request $request): Response
     {
-        $page = $this->pageVerificator($id);
-        $formLocale = $this->createForm(PageFormType::class, $page, [
-            'mode' => 'edit-locale',
-            'action' => $this->generateUrl('admin_page_edit_locale', [
-                'id' => $page->getId()
-            ]),
-            'method' => 'POST',
-        ]);
-        $formLocale->handleRequest($request);
-        if ($formLocale->isSubmitted() && $formLocale->isValid()) {
-            $newLocale = $formLocale->get('locale')->getData();
-            $pageGroupId = $page->getPageGroupId();
-            $pageTest = $this->pageRepo->findOneByPageGroupAndLocale($pageGroupId, $newLocale);
-            if ($pageTest) {
-                $this->addFlash(
-                    'warning',
-                    'An Page with this Locale already exists !'
-                );
-            } else {
-                $page->setLocale($newLocale);
-                $this->pageRepo->flush();
-                $this->addFlash(
-                    'info',
-                    'Page Locale updated'
-                );
+        try {
+            $page = $this->pageVerificator($id);
+            $formLocale = $this->createForm(PageFormType::class, $page, [
+                'mode' => 'edit-locale',
+                'action' => $this->generateUrl('admin_page_edit_locale', [
+                    'id' => $page->getId()
+                ]),
+                'method' => 'POST',
+            ]);
+            $formLocale->handleRequest($request);
+            if ($formLocale->isSubmitted() && $formLocale->isValid()) {
+                $newLocale = $formLocale->get('locale')->getData();
+                $pageGroupId = $page->getPageGroupId();
+                $pageTest = $this->pageRepo->findOneByPageGroupAndLocale($pageGroupId, $newLocale);
+                if ($pageTest) {
+                    $this->addFlash(
+                        'warning',
+                        'An Page with this Locale already exists !'
+                    );
+                } else {
+                    $page->setLocale($newLocale);
+                    $this->pageRepo->flush();
+                    $this->addFlash(
+                        'info',
+                        'Page Locale updated'
+                    );
+                }
             }
+            return $this->redirect($this->generateUrl('admin_page_edit', [
+                'id' => $page->getId()
+            ]));
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('admin_page_list'));
         }
-        return $this->redirect($this->generateUrl('admin_page_edit', [
-            'id' => $page->getId()
-        ]));
     }
 
     // Page Add other page to page pageGroup
@@ -277,27 +320,35 @@ class AdminPageController extends AbstractController
      */
     public function addPageToPageGroup(int $id, Request $request): Response
     {
-        $page = $this->pageVerificator($id);
-        $formAddToPageGroup = $this->createForm(PageFormType::class, $page, [
-            'mode' => 'add-page-to-page-group',
-            'action' => $this->generateUrl('admin_page_add_to_page_group', [
+        try {
+            $page = $this->pageVerificator($id);
+            $formAddToPageGroup = $this->createForm(PageFormType::class, $page, [
+                'mode' => 'add-page-to-page-group',
+                'action' => $this->generateUrl('admin_page_add_to_page_group', [
+                    'id' => $page->getId()
+                ]),
+                'method' => 'POST',
+            ]);
+            $formAddToPageGroup->handleRequest($request);
+            if ($formAddToPageGroup->isSubmitted() && $formAddToPageGroup->isValid()) {
+                
+                /* $page = $formAddToPageGroup->getData();
+                $this->pageRepo->flush(); */
+                $this->addFlash(
+                    'info',
+                    'Page Group updated'
+                );
+            }
+            return $this->redirect($this->generateUrl('admin_page_edit', [
                 'id' => $page->getId()
-            ]),
-            'method' => 'POST',
-        ]);
-        $formAddToPageGroup->handleRequest($request);
-        if ($formAddToPageGroup->isSubmitted() && $formAddToPageGroup->isValid()) {
-            
-            /* $page = $formAddToPageGroup->getData();
-            $this->pageRepo->flush(); */
+            ]));
+        } catch (\Exception $e) {
             $this->addFlash(
-                'info',
-                'Page Group updated'
+                'danger',
+                $e->getMessage()
             );
+            return $this->redirect($this->generateUrl('admin_page_list'));
         }
-        return $this->redirect($this->generateUrl('admin_page_edit', [
-            'id' => $page->getId()
-        ]));
     }
 
     /**
@@ -305,19 +356,27 @@ class AdminPageController extends AbstractController
      */
     public function show(int $id): Response
     {
-        $page = $this->pageVerificator($id);
-        if ($page->getBlocks()) {
-            $pageBlocks = $page->getBlocks();
-            foreach ($pageBlocks as $pageBlock) {
-                if ($pageBlock->getBlock()) {
-                    $data = $this->blockRepo->getBlockData($pageBlock->getBlock()->getQuery());
-                    $pageBlock->getBlock()->setData($data);
+        try {
+            $page = $this->pageVerificator($id);
+            if ($page->getBlocks()) {
+                $pageBlocks = $page->getBlocks();
+                foreach ($pageBlocks as $pageBlock) {
+                    if ($pageBlock->getQuery()) {
+                        $data = $this->blockRepo->getBlockData($pageBlock->getQuery());
+                        $pageBlock->setData($data);
+                    }
                 }
-            }
-        } 
-        return $this->render('@core-admin/page/page-show.html.twig', [
-            'page' => $page
-        ]);
+            } 
+            return $this->render('@core-admin/page/page-show.html.twig', [
+                'page' => $page
+            ]);
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('admin_page_list'));
+        }
     }
 
     /**
@@ -325,20 +384,27 @@ class AdminPageController extends AbstractController
      */
     public function delete(int $id, Request $request): Response
     {
-        $submittedToken = $request->request->get('token'); 
-        if ($this->isCsrfTokenValid('delete-page', $submittedToken)) {
-            $page = $this->pageVerificator($id);
-            $this->pageRepo->remove($page);
+        try {
+            $submittedToken = $request->request->get('token'); 
+            if ($this->isCsrfTokenValid('delete-page', $submittedToken)) {
+                $page = $this->pageVerificator($id);
+                $this->pageRepo->remove($page);
+                $this->addFlash(
+                    'success',
+                    'The Page with ' . $id . ' have been deleted '
+                ); 
+            } else {
+                $this->addFlash(
+                    'warning',
+                    'Your CSRF token is not valid ! '
+                );
+            } 
+        } catch (\Exception $e) {
             $this->addFlash(
-                'success',
-                'The Page with ' . $id . ' have been deleted '
-            ); 
-        } else {
-            $this->addFlash(
-                'warning',
-                'Your CSRF token is not valid ! '
+                'danger',
+                $e->getMessage()
             );
-        } 
+        }
         return $this->redirect($this->generateUrl('admin_page_list'));
     }
 

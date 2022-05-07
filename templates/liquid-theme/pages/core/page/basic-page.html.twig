@@ -1,5 +1,16 @@
 {% extends 'liquid-theme/layout.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% if page.blocks is defined and page.blocks is not empty  %}
+        {% for pageBlock in page.blocks %}
+            {% if pageBlock.blockTemplate and pageBlock.blockTemplate.cssLink is defined and pageBlock.blockTemplate.cssLink is not null %}
+                {{ encore_entry_link_tags(pageBlock.blockTemplate.cssLink) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
 {% block title %}
     {% if page is defined and page is not null %}{{page.name}}{% else %}Basic Page{% endif %}
 {% endblock %}
@@ -9,14 +20,9 @@
         {% if page is defined and page is not null %}
             {% if page.blocks is defined and page.blocks is not empty %}
                 <section class="-w-f"> 
-                    {% for pageBlock in page.blocks|sort((a, b) => a.position <=> b.position) %}  
-                        {% if pageBlock.content is defined and pageBlock.content is not null %}
-                            {{pageBlock.content|raw}}
-                        {% endif %}
-                        
-                        {% if pageBlock.block is defined and pageBlock.block is not null %}
-                            {% set data = pageBlock.block.data ? {data : pageBlock.block.data} : {} %}    
-                            {% include pageBlock.block.blockTemplate with data %}
+                    {% for pageBlock in page.blocks|sort((a, b) => a.position <=> b.position) %}
+                        {% if pageBlock.blockTemplate is defined and pageBlock.blockTemplate is not null %}
+                            {% include pageBlock.blockTemplate.templatePath with {data: pageBlock.data, content: pageBlock.content} %}
                         {% endif %}
                     {% endfor %}
                 </section>
@@ -25,4 +31,15 @@
             <p> There is no Page !!! </p>
         {% endif %}
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if page.blocks is defined and page.blocks is not empty  %}
+        {% for pageBlock in page.blocks %}
+            {% if pageBlock.blockTemplate and pageBlock.blockTemplate.scriptLink is defined and pageBlock.blockTemplate.scriptLink is not null %}
+                {{ encore_entry_script_tags(pageBlock.blockTemplate.scriptLink) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}

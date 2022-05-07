@@ -25,32 +25,40 @@ class PageController extends AbstractController
      */
     public function show(Request $request, string $pageUrl): Response
     {
-        $page = $this->pageRepo->findOneBy(['url' => $pageUrl]);
-        if (!$page) {
+        try {
+            $page = $this->pageRepo->findOneBy(['url' => $pageUrl]);
+            if (!$page) {
+                $this->addFlash(
+                    'warning',
+                    'There is no page  with url ' . $pageUrl
+                );
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+            if ($page->getBlocks()) {
+                $pageBlocks = $page->getBlocks();
+                foreach ($pageBlocks as $pageBlock) {
+                    if ($pageBlock->getQuery()) {
+                        $data = $this->blockRepo->getBlockData($pageBlock->getQuery());
+                        $pageBlock->setData($data);
+                    }
+                }
+            }
+            $locale = $request->getLocale();
+            if ($locale !== $page->getLocale()) {
+                return $this->redirect($this->generateUrl('page_show', [
+                    '_locale' => $page->getLocale(),
+                    'pageUrl' => $pageUrl
+                ]));
+            }
+            return $this->render('@core/page/basic-page.html.twig', [
+                'page' => $page
+            ]);
+        }  catch (\Exception $e) {
             $this->addFlash(
-                'warning',
-                'There is no page  with url ' . $pageUrl
+                'danger',
+                $e->getMessage()
             );
             return $this->redirect($this->generateUrl('homepage'));
         }
-        if ($page->getBlocks()) {
-            $pageBlocks = $page->getBlocks();
-            foreach ($pageBlocks as $pageBlock) {
-                if ($pageBlock->getBlock()) {
-                    $data = $this->blockRepo->getBlockData($pageBlock->getBlock()->getQuery());
-                    $pageBlock->getBlock()->setData($data);
-                }
-            }
-        }
-        $locale = $request->getLocale();
-        if ($locale !== $page->getLocale()) {
-            return $this->redirect($this->generateUrl('page_show', [
-                '_locale' => $page->getLocale(),
-                'pageUrl' => $pageUrl
-            ]));
-        }
-        return $this->render('@core/page/basic-page.html.twig', [
-            'page' => $page
-        ]);
     }
 }

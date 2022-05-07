@@ -15,6 +15,15 @@ parameters:
         cd: 'čeština'
     base_theme: liquid-theme
     admin_theme: liquid-admin-theme
+    menuPositionsOpts: 
+        top: 'Top Bar'
+        top_fixed: 'Top Bar Fixed'
+        bottom: 'Bottom Bar'
+        bottom_fixed: 'Bottom Bar Fixed'
+        sidebar_left: 'Sidebar Left'
+        sidebar_right: 'Sidebar Right'
+        footer: 'Footer'
+    defaultBlockTpl: 'blocks/default/default.html.twig'
     data_folder: Data
     homepage_path: '/%kernel.default_locale%'
     gmap_api: AIzaSyAadz2owJTc8CJnIkvzps2jgzQpnsnxdgA

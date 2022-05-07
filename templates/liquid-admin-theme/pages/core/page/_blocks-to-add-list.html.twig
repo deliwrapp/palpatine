@@ -10,11 +10,13 @@
         </div>
         <div class="-tile-action">
             {% if page is defined %}
-                <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Add To Page"> 
-                    <a class="-success" href="{{ path('admin_page_block_add', { 'blockId': 'text' , 'pageId': page.id }) }}">
-                        <i class="fa-solid fa-plus"></i> 
-                    </a>
-                </button>
+                <a
+                    href="{{ path('admin_page_block_add', {'pageId': page.id, 'option': 'new'}) }}"
+                    class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left"
+                    data-tooltip="Add To Page"
+                > 
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
             {% endif %}
         </div>
     </div>
@@ -32,11 +34,13 @@
                 </div>
                 <div class="-tile-action">
                     {% if page is defined %}
-                        <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Add To Page"> 
-                            <a class="-tertiary" href="{{ path('admin_page_block_add', { 'blockId': blockContainer.id , 'pageId': page.id }) }}">
-                                <i class="fa-solid fa-plus"></i> 
-                            </a>
-                        </button>
+                        <a
+                            class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left"
+                            data-tooltip="Add To Page"
+                            href="{{ path('admin_page_block_add', {'pageId': page.id, 'option': 'duplicate', 'blockId': blockContainer.id}) }}"
+                        >
+                            <i class="fa-solid fa-plus"></i>
+                        </a>
                     {% endif %}
                 </div>
             </div>

@@ -1,5 +1,16 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% if page.blocks is defined and page.blocks is not empty  %}
+        {% for pageBlock in page.blocks %}
+            {% if pageBlock.blockTemplate and pageBlock.blockTemplate.cssLink is defined and pageBlock.blockTemplate.cssLink is not null %}
+                {{ encore_entry_link_tags(pageBlock.blockTemplate.cssLink) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
 {% block title %}BLOCK SHOW{% endblock %}
 
 {% block mainContent %}
@@ -14,8 +25,10 @@
                 </button>
             </section>
         {% endif %}
-        <section class="-w-f">     
-            {% include blockContainer.blockTemplate with {data:data} %}
+        <section class="-w-f"> 
+            {% if blockContainer.blockTemplate is defined and blockContainer.blockTemplate is not null %}
+                {% include blockContainer.blockTemplate.templatePath with {data: data, content: blockContainer.content} %}
+            {% endif %}
         </section>
     {% else %}
         <p> There is no block !!! </p>

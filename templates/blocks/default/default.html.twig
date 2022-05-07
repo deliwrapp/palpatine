@@ -1,0 +1,18 @@
+{#
+// Variables
+- content : Content
+- data : Data
+#}
+
+<section style="min-height: 3rem";>
+    {% if content is defined and content is not null %}
+        {{content|raw}}
+    {% endif %}
+    {% if data is defined and data is not null %}  
+            <pre>
+                <code>
+                    {{dump(data)}}
+                </code>
+            </pre>
+    {% endif %}
+</section>

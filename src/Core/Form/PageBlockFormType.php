@@ -3,10 +3,12 @@
 namespace App\Core\Form;
 
 use App\Core\Entity\PageBlock;
-use App\Core\Entity\Block;
+use App\Core\Entity\Template;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -18,13 +20,23 @@ class PageBlockFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('name', TextType::class)
             ->add('content', TextareaType::class, [
                 'required'   => false
             ])
             ->add('position', NumberType::class)
-            ->add('block', EntityType::class, [
-                'class' => Block::class,
+            ->add('blockTemplate', EntityType::class, [
+                'class' => Template::class,
                 'choice_label' => 'name',
+                //'default_value' => 'block/default/default.html.twig',
+            ])
+            ->add('query', TextType::class, [
+                'required'   => false
+            ])
+            ->add('singleResult', CheckboxType::class, [
+                'required'   => false
+            ])
+            ->add('isPublished', CheckboxType::class, [
                 'required'   => false
             ]);
             

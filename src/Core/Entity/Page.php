@@ -16,7 +16,7 @@ use ArrayAccess;
  * @ORM\Entity(repositoryClass=PageRepository::class)
  * @UniqueEntity(fields="name", message="Name is already taken.")
  * @UniqueEntity(fields="url", message="URL is already taken.")
-* @UniqueEntity(fields="fullPath", message="FullPath is already taken.")
+ * @UniqueEntity(fields="fullPath", message="FullPath is already taken.")
  * @HasLifecycleCallbacks
  */
 class Page implements ArrayAccess

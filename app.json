@@ -1,7 +1,7 @@
 {
     "modules": ["core", "security", "blog"],
     "themes": ["liquid-ui"],
-    "blocks": ["post"],
+    "blocks": ["default", "post"],
     "controller_guard_access": {
         "admin": {
             "admin_user_password_edit": {

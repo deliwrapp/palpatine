@@ -77,16 +77,7 @@ class PageFactory
             if ($page->getBlocks()) {
                 foreach ($page->getBlocks() as $pageBlock) {
                     $newPageBlock = new PageBlock;
-                    $block = $pageBlock->getBlock();
-                    if ($pageBlock->getBlock()) {
-                        $newBlock = new Block();
-                        $newBlock = $block->duplicate($newBlock);
-                        $newBlock->setLocale($locale);
-                        $newPageBlock->setBlock($newBlock);
-                        $this->blockRepo->add($newBlock, false);
-                    }
-                    $newPageBlock->setPosition($pageBlock->getPosition());
-                    $newPageBlock->setContent($pageBlock->getContent());
+                    $newPageBlock = $pageBlock->duplicate($newPageBlock, true);
                     $newPage->addBlock($newPageBlock);
                     $this->pageBlockRepo->add($newPageBlock, false);
                 }

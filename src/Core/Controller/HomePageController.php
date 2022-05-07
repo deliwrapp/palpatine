@@ -31,9 +31,9 @@ class HomePageController extends AbstractController
             if ($page->getBlocks()) {
                 $pageBlocks = $page->getBlocks();
                 foreach ($pageBlocks as $pageBlock) {
-                    if ($pageBlock->getBlock()) {
-                        $data = $this->blockRepo->getBlockData($pageBlock->getBlock()->getQuery());
-                        $pageBlock->getBlock()->setData($data);
+                    if ($pageBlock->getQuery()) {
+                        $data = $this->blockRepo->getBlockData($pageBlock->getQuery());
+                        $pageBlock->setData($data);
                     }
                 }
             }

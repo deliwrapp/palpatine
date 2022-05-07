@@ -1,5 +1,16 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% if page.blocks is defined and page.blocks is not empty  %}
+        {% for pageBlock in page.blocks %}
+            {% if pageBlock.blockTemplate and pageBlock.blockTemplate.cssLink is defined and pageBlock.blockTemplate.cssLink is not null %}
+                {{ encore_entry_link_tags(pageBlock.blockTemplate.cssLink) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
 {% block title %}ADMIN PAGE EDIT{% endblock %}
 
 {% block mainContent %}
@@ -27,6 +38,16 @@
             %} 
         </section>
     {% endif %}
+{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% if page.blocks is defined and page.blocks is not empty  %}
+        {% for pageBlock in page.blocks %}
+            {% if pageBlock.blockTemplate and pageBlock.blockTemplate.scriptLink is defined and pageBlock.blockTemplate.scriptLink is not null %}
+                {{ encore_entry_script_tags(pageBlock.blockTemplate.scriptLink) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}
 

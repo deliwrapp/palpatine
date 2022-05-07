@@ -1,0 +1,77 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}MENU LIST{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-12" id="menu-list">    
+    {% if menus is defined and menus is not empty %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    ADMIN MENU LIST
+                </div>
+                <div class="-tile-subtitle">
+                    Create a new Menu
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Menu"> 
+                    <a class="-tertiary" href="{{ path('admin_menu_create') }}">
+                        <i class="fa-solid fa-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
+        {% include 'liquid-ui/components/layout/table/table.html.twig' with {
+                'tableHeadItems' : [
+                    {
+                        'text': 'id',
+                        'attr': 'id'
+                    },
+                    {
+                        'text': 'name',
+                        'attr': 'name'
+                    },
+                    {
+                        'text': 'position',
+                        'attr': 'position'
+                    },
+                    {
+                        'text': 'main menu',
+                        'attr': 'isMainMenu'
+                    },
+                    {
+                        'text': 'published',
+                        'attr': 'isPublished'
+                    },
+                ],
+                'tableItems': menus,
+                'actions' :  {
+                    'duplicate': {'path': 'admin_menu_duplicate', 'tooltip': 'duplicate', 'icon': 'fas fa-copy'},
+                    'show': {'path': 'admin_menu_show', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
+                    'edit': {'path': 'admin_menu_edit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
+                    'delete': {'path': 'admin_menu_delete', 'token': 'delete-menu', 'message': 'Are you sure you want to delete this Menu ?'}
+                }
+            }
+        %}   
+    {% else %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    There is no menus !!!
+                </div>
+                <div class="-tile-subtitle">
+                    You can create a new Menu
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Menu"> 
+                    <a class="-tertiary" href="{{ path('admin_menu_create') }}">
+                        <i class="fa-solid fa-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

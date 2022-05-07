@@ -3,6 +3,8 @@
 namespace App\Core\Entity;
 
 use App\Core\Repository\BlockRepository;
+use App\Core\Entity\PageBlock;
+use App\Core\Entity\Template;
 use App\Core\Entity\SoftEditionTrackingTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
@@ -35,7 +37,7 @@ class Block implements ArrayAccess
     private $name;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $query;
 
@@ -45,7 +47,7 @@ class Block implements ArrayAccess
     private $singleResult;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="App\Core\Entity\Template")
      */
     private $blockTemplate;
     
@@ -58,10 +60,14 @@ class Block implements ArrayAccess
      * @ORM\Column(type="string", length=8)
      */
     private $locale;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $content;
     
     private $data;
 
-    
     public function getId(): ?int
     {
         return $this->id;
@@ -102,12 +108,12 @@ class Block implements ArrayAccess
         return $this;
     }
 
-    public function getBlockTemplate(): ?string
+    public function getBlockTemplate(): ?Template
     {
         return $this->blockTemplate;
     }
 
-    public function setBlockTemplate(?string $blockTemplate): self
+    public function setBlockTemplate(?Template $blockTemplate): self
     {
         $this->blockTemplate = $blockTemplate;
 
@@ -137,6 +143,25 @@ class Block implements ArrayAccess
         return $this;
     }
 
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(?string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function setContentToNull(): self
+    {
+        $this->content = null;
+
+        return $this;
+    }
+
     public function getData()
     {
         return $this->data;
@@ -157,6 +182,16 @@ class Block implements ArrayAccess
         $block->setSingleResult($this->singleResult);
         $block->setBlockTemplate($this->blockTemplate);
         return $block;
+    }
+
+    public function copyToPageBlock(PageBlock $pageBlock): PageBlock
+    {
+        $pageBlock->setName($this->name);
+        $pageBlock->setQuery($this->query);
+        $pageBlock->setSingleResult($this->singleResult);
+        $pageBlock->setBlockTemplate($this->blockTemplate);
+        $pageBlock->setContent($this->content);
+        return $pageBlock;
     }
 
     public function offsetExists($offset) {

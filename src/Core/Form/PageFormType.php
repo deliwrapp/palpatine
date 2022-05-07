@@ -66,13 +66,9 @@ class PageFormType extends AbstractType
             case 'add-page-to-page-group':
                 $builder
                     ->add('pageGroupId', ChoiceType::class, [
-                        // looks for choices from this entity
                         'choices' => $this->pageRepo->getPages(),
                         'choice_value' => 'pageGroupId',
-                        'choice_label' => 'name',
-                        // used to render a select box, check boxes or radios
-                        // 'multiple' => true,
-                        // 'expanded' => true,
+                        'choice_label' => 'name'
                     ])
                     ->add('submit', SubmitType::class, [
                         'label' => 'Add to Page Group',

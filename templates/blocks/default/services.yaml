@@ -1,0 +1,7 @@
+twig:
+    paths:
+        '%kernel.project_dir%/templates/blocks/default': default
+
+framework:
+    translator:
+        paths: ["%kernel.project_dir%/templates/blocks/default/translations"]

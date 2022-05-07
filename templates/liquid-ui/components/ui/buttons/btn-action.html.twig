@@ -21,20 +21,18 @@
 {% endif %}
 
 {% if path is defined %}
-    <button 
-        class="tooltip tooltip-left {{color}} {{class}}"
+    <a 
+        class="btn tooltip -tooltip-left {{color}} {{class}}"
         {% if tooltip is defined and tooltip is not null %}
             data-tooltip="{{ tooltip|trans }}"
         {% endif %}
-        type="submit"
-    >   
-        <a class="{{color}}" href="{{ path }}">
-            {% if text is defined and text is not null %}
-                {{ text|trans }} 
-            {% endif %}
-            {% if icon and icon is not null %}   
-                <i class="{{icon}}"></i> 
-            {% endif %}
-        </a>
-    </button>
+        href="{{ path }}"
+    >
+        {% if text is defined and text is not null %}
+            {{ text|trans }} 
+        {% endif %}
+        {% if icon and icon is not null %}   
+            <i class="{{icon}}"></i> 
+        {% endif %}
+    </a>
 {% endif %}

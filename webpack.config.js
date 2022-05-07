@@ -24,7 +24,6 @@ function initModulesAssets (folder){
         if (folder == "themes") {
             for(let i=0; i<Object.keys(moduleFolder).length; i++){
                 let webpackPath = './templates/' + moduleFolder[i].toLowerCase() + '/webpack.require.js';
-
                 if (fs.existsSync(webpackPath) == true) {
                     require(webpackPath);
                 }
@@ -32,8 +31,7 @@ function initModulesAssets (folder){
         }
         else if (folder == "blocks") {
             for(let i=0; i<Object.keys(moduleFolder).length; i++){
-                let webpackPath = './blocks/' + moduleFolder[i].toLowerCase() + '/webpack.require.js';
-
+                let webpackPath = './templates/blocks/' + moduleFolder[i].toLowerCase() + '/webpack.require.js';
                 if (fs.existsSync(webpackPath) == true) {
                     require(webpackPath);
                 }

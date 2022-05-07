@@ -37,6 +37,16 @@ class Template implements ArrayAccess
      * @ORM\Column(type="string")
      */
     private $templatePath;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cssLink;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $scriptLink;
     
     /**
      * @ORM\Column(type="boolean")
@@ -73,6 +83,30 @@ class Template implements ArrayAccess
         return $this;
     }
 
+    public function getCssLink(): ?string
+    {
+        return $this->cssLink;
+    }
+
+    public function setCssLink(string $cssLink): self
+    {
+        $this->cssLink = $cssLink;
+
+        return $this;
+    }
+
+    public function getScriptLink(): ?string
+    {
+        return $this->scriptLink;
+    }
+
+    public function setScriptLink(string $scriptLink): self
+    {
+        $this->scriptLink = $scriptLink;
+
+        return $this;
+    }
+
     public function getIsPublished(): ?bool
     {
         return $this->isPublished;
@@ -93,6 +127,8 @@ class Template implements ArrayAccess
     {
         $template->setName($this->name);
         $template->setTemplatePath($this->templatePath);
+        $template->setCssLink($this->cssLink);
+        $template->setScriptLink($this->scriptLink);
         return $template;
     }
 

@@ -42,11 +42,18 @@ class AdminSubPageController extends AbstractController
      */
     public function addSubpage(int $id, PageRepository $pageRepo): Response
     {
-        $page = $this->pageRepo->find($id);
-
-        return $this->render('@core-admin/page/page-show.html.twig', [
-            'page' => $page
-        ]);
+        try {
+            $page = $this->pageRepo->find($id);
+            return $this->render('@core-admin/page/page-show.html.twig', [
+                'page' => $page
+            ]);
+        }  catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('AdminDashboard'));
+        }  
     }
 
 

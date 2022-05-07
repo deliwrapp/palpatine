@@ -27,7 +27,7 @@
     <form  class = 'btn btn-link -btn-lg'{% if titleForm is defined and titleForm is not null %}title="{{ titleForm }}" {% endif %} method="post" action="{{ path }}" onclick="return confirm('{{ message }}');" onsubmit="return confirm({{ message }});" style="padding:0;">
         <input type="hidden" name="token" value="{{ csrf_token(token) }}"/>
         <button 
-            class="tooltip tooltip-left {{color}} {{class}}" 
+            class="tooltip -tooltip-left {{color}} {{class}}" 
             data-tooltip="Delete" type="submit"
         >
             {% if text is defined and text is not null %}

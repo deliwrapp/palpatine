@@ -3,8 +3,9 @@
 namespace App\Core\Entity;
 
 use App\Core\Repository\PageBlockRepository;
-use App\Core\Entity\Block;
 use App\Core\Entity\Page;
+use App\Core\Entity\Block;
+use App\Core\Entity\Template;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,6 +15,7 @@ class PageBlock
 {
     public function __construct()
     {
+        $this->singleResult = true;
         $this->isPublished = false;
     }
 
@@ -30,10 +32,29 @@ class PageBlock
     private $page;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Core\Entity\Block")
-     * @ORM\JoinColumn(name="block_id", referencedColumnName="id", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $block;
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $query;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $singleResult;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Core\Entity\Template")
+     */
+    private $blockTemplate;
+    
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished;
     
     /**
      * @ORM\Column(type="integer")
@@ -44,6 +65,8 @@ class PageBlock
      * @ORM\Column(type="text", nullable=true)
      */
     private $content;
+    
+    private $data;
     
     public function getId(): ?int
     {
@@ -62,14 +85,60 @@ class PageBlock
         return $this;
     }
 
-    public function getBlock()
+    public function getName(): ?string
     {
-        return $this->block;
+        return $this->name;
     }
 
-    public function setBlock(Block $block): self
+    public function setName(string $name): self
     {
-        $this->block = $block;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getQuery(): ?string
+    {
+        return $this->query;
+    }
+
+    public function setQuery(?string $query): self
+    {
+        $this->query = $query;
+
+        return $this;
+    }
+
+    public function getSingleResult(): ?bool
+    {
+        return $this->singleResult;
+    }
+    public function setSingleResult(?bool $singleResult): self
+    {
+        $this->singleResult = $singleResult;
+
+        return $this;
+    }
+
+    public function getBlockTemplate(): ?Template
+    {
+        return $this->blockTemplate;
+    }
+
+    public function setBlockTemplate(?Template $blockTemplate): self
+    {
+        $this->blockTemplate = $blockTemplate;
+
+        return $this;
+    }
+
+    public function getIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+    public function setIsPublished(?bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
 
         return $this;
     }
@@ -102,6 +171,42 @@ class PageBlock
         $this->content = null;
 
         return $this;
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function setData($data): self
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function duplicate(PageBlock $pageBlock, $full = false): PageBlock
+    {
+        $pageBlock->setName($this->name);
+        $pageBlock->setContent($this->content);
+        $pageBlock->setQuery($this->query);
+        $pageBlock->setSingleResult($this->singleResult);
+        $pageBlock->setBlockTemplate($this->blockTemplate);
+        if ($full) {
+            $pageBlock->setPosition($this->position);
+        }
+        return $pageBlock;
+    }
+
+    public function generateBlockModel(Block $block): Block
+    {
+        $block->setName($this->name);
+        $block->setContent($this->content);
+        $block->setQuery($this->query);
+        $block->setSingleResult($this->singleResult);
+        $block->setLocale($this->page->getLocale());
+        $block->setBlockTemplate($this->blockTemplate);
+        return $block;
     }
 
 }

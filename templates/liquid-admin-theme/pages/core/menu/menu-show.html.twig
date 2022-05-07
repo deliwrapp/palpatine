@@ -1,0 +1,24 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}MENU SHOW{% endblock %}
+
+{% block mainContent %}
+    {% if menu is defined %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+            <section class="-shad-12 col -col-12 -row">
+                <a 
+                    class="btn tooltip -tooltip-bottom -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h"
+                    data-tooltip="edit menu"
+                    href="{{ path('admin_menu_edit', { 'id': menu.id }) }}"
+                >
+                    <i class="fa-solid fa-pen fa-2x"></i>
+                </a>
+            </section>
+        {% endif %}
+        <section class="-w-f">     
+            {{dump(menu)}}
+        </section>
+    {% else %}
+        <p> There is no menu !!! </p>
+    {% endif %}
+{% endblock %}

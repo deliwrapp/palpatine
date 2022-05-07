@@ -88,7 +88,16 @@
                         <i class="form-icon fa-solid fa-question"></i>
                     </div>
                 </div>
-
+                <section class="col -col-12"> 
+                    {{ form_label(form.content, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.content) }}</small>
+                    {{ form_errors(form.content) }}
+                    <div class=" form-element -w-f">
+                        {{ form_widget(form.content, {'attr': {'class': 'editor -shad-12-h'}}) }}
+                    </div>
+                </section>
             </section>
 
             <section class="-panel-footer -text-center ">

@@ -16,7 +16,7 @@
         {% set imgUrl = 'https://source.unsplash.com/f9C8ytxaItI/2000x1200' %}
 {% endif %}
 
-{% if data is defined %}  
+{% if data is defined and data is not null %}  
         {% set post = data %}
 {% endif %}
 {% if color is not defined %}  
@@ -26,11 +26,13 @@
         {% set blockClass = '' %}
 {% endif %}
 
-<section class="oldway-post {{blockClass}}">
+{% if content is defined and content is not null %}
+    {{content|raw}}
+{% endif %}
+
+<section style="min-height: 3rem"; class="oldway-post {{blockClass}}">
     {% if post is defined %}
-        
         <article class="post">
-        
                 <div>
                     {% if imgUrl is defined and imgUrl is not null %}  
                         <div class="absolute-bg" style="background-image: url({{imgUrl}});"></div>

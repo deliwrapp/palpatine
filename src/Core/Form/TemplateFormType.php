@@ -18,7 +18,15 @@ class TemplateFormType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('templatePath', TextType::class)
-            ->add('isPublished', CheckboxType::class);
+            ->add('cssLink', TextType::class, [
+                'required'   => false
+            ])
+            ->add('scriptLink', TextType::class, [
+                'required'   => false
+            ])
+            ->add('isPublished', CheckboxType::class, [
+                'required'   => false
+            ]);
             
         if ($options) {
             $builder

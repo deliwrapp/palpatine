@@ -29,11 +29,18 @@ class AdminTemplateController extends AbstractController
      */
     public function index(): Response
     {
-        $templates = $this->templateRepo->findAll();
-
-        return $this->render('@core-admin/template/template-list.html.twig', [
-            'templates' => $templates
-        ]);
+        try {
+            $templates = $this->templateRepo->findAll();
+            return $this->render('@core-admin/template/template-list.html.twig', [
+                'templates' => $templates
+            ]);
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('AdminDashboard'));
+        } 
     }
 
     /**
@@ -41,28 +48,36 @@ class AdminTemplateController extends AbstractController
     */
     public function create(Request $request): Response
     {
-        $template = new Template();
-        $form = $this->createForm(TemplateFormType::class, $template, [
-            'submitBtn' => 'Create'
-        ]);
+        try {
+            $template = new Template();
+            $form = $this->createForm(TemplateFormType::class, $template, [
+                'submitBtn' => 'Create'
+            ]);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $template = $form->getData();
-            $this->templateRepo->add($template);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $template = $form->getData();
+                $this->templateRepo->add($template);
+                $this->addFlash(
+                    'info',
+                    'Saved new Template with id '.$template->getId()
+                );
+                return $this->redirect($this->generateUrl('admin_template_edit', [
+                    'id' => $template->getId()
+                ]));
+            }
+            
+            return $this->render('@core-admin/template/template-edit.html.twig', [
+                'form' => $form->createView()
+            ]);
+        }  catch (\Exception $e) {
             $this->addFlash(
-                'info',
-                'Saved new Template with id '.$template->getId()
+                'danger',
+                $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('admin_template_edit', [
-                'id' => $template->getId()
-            ]));
+            return $this->redirect($this->generateUrl('admin_template_list'));
         }
-        
-        return $this->render('@core-admin/template/template-edit.html.twig', [
-            'form' => $form->createView()
-        ]);
     }
 
     /**
@@ -70,40 +85,46 @@ class AdminTemplateController extends AbstractController
      */
     public function edit(int $id, Request $request): Response
     {
-        $template = $this->templateRepo->find($id);
-        $form = $this->createForm(TemplateFormType::class, $template, [
-            'submitBtn' => 'Edit'
-        ]);
+        try {
+            $template = $this->templateRepo->find($id);
+            if (!$template) {
+                $this->addFlash(
+                    'warning',
+                    'There is no template  with id ' . $id
+                );
+                return $this->redirect($this->generateUrl('admin_template_list'));
+            }
+            $form = $this->createForm(TemplateFormType::class, $template, [
+                'submitBtn' => 'Edit'
+            ]);
+            $form->handleRequest($request);
 
-        if (!$template) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $template = $form->getData();
+                $this->templateRepo->flush();
+                $this->addFlash(
+                    'info',
+                    'Template updated'
+                );
+                return $this->redirect($this->generateUrl('admin_template_edit', [
+                    'id' => $template->getId()
+                ]));
+            }
+
+            return $this->render(
+                '@core-admin/template/template-edit.html.twig',
+                [
+                    'form' => $form->createView(),
+                    'template' => $template
+                ]
+            );
+        }  catch (\Exception $e) {
             $this->addFlash(
-                'warning',
-                'There is no template  with id ' . $id
+                'danger',
+                $e->getMessage()
             );
             return $this->redirect($this->generateUrl('admin_template_list'));
         }
-        
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $template = $form->getData();
-            $this->templateRepo->flush();
-            $this->addFlash(
-                'info',
-                'Template updated'
-            );
-            return $this->redirect($this->generateUrl('admin_template_edit', [
-                'id' => $template->getId()
-            ]));
-        }
-
-        return $this->render(
-            '@core-admin/template/template-edit.html.twig',
-            [
-                'form' => $form->createView(),
-                'template' => $template
-            ]
-        );
     }
 
     /**
@@ -111,19 +132,27 @@ class AdminTemplateController extends AbstractController
      */
     public function show(int $id): Response
     {
-        $template = $this->templateRepo->find($id);
+        try {
+            $template = $this->templateRepo->find($id);
 
-        if (!$template) {
+            if (!$template) {
+                $this->addFlash(
+                    'warning',
+                    'There is no template  with id ' . $id
+                );
+                return $this->redirect($this->generateUrl('admin_template_list'));
+            }
+        
+            return $this->render('@core-admin/template/template-show.html.twig', [
+                'template' => $template
+            ]);
+        }  catch (\Exception $e) {
             $this->addFlash(
-                'warning',
-                'There is no template  with id ' . $id
+                'danger',
+                $e->getMessage()
             );
             return $this->redirect($this->generateUrl('admin_template_list'));
         }
-       
-        return $this->render('@core-admin/template/template-show.html.twig', [
-            'template' => $template
-        ]);
     }
 
     /**
@@ -131,28 +160,35 @@ class AdminTemplateController extends AbstractController
      */
     public function delete(int $id, Request $request): Response
     {
-        $submittedToken = $request->request->get('token');
-        
-        if ($this->isCsrfTokenValid('delete-template', $submittedToken)) {
-            $template = $this->templateRepo->find($id);
-            if (!$template) {
+        try {
+            $submittedToken = $request->request->get('token');
+            
+            if ($this->isCsrfTokenValid('delete-template', $submittedToken)) {
+                $template = $this->templateRepo->find($id);
+                if (!$template) {
+                    $this->addFlash(
+                        'warning',
+                        'There is no template  with id ' . $id
+                    );
+                } else {                
+                    $this->templateRepo->remove($template);
+                    $this->addFlash(
+                        'success',
+                        'The Template with ' . $id . ' have been deleted '
+                    );
+                } 
+            } else {
                 $this->addFlash(
                     'warning',
-                    'There is no template  with id ' . $id
+                    'Your CSRF token is not valid ! '
                 );
-            } else {                
-                $this->templateRepo->remove($template);
-                $this->addFlash(
-                    'success',
-                    'The Template with ' . $id . ' have been deleted '
-                );
-            } 
-        } else {
+            }
+        }  catch (\Exception $e) {
             $this->addFlash(
-                'warning',
-                'Your CSRF token is not valid ! '
+                'danger',
+                $e->getMessage()
             );
-        }        
+        }
         return $this->redirect($this->generateUrl('admin_template_list'));
     }
 

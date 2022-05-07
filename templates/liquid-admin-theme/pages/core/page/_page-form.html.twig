@@ -1,17 +1,20 @@
 <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
 	<section class="-panel-header -text-center -flex -justify-space-evenly">
 		{% if page is defined and page is not null %}
-			<button class="tooltip -tooltip-bottom -tertiary btn btn-action s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="show" type="submit">
-				<a href="{{ path('admin_page_show', { 'id': page.id }) }}">
-					<i class="fa-solid fa-eye fa-2x"></i>
-				</a>
-			</button>
-
-			<button class="tooltip -tooltip-bottom -warning btn btn-action s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="refresh blocks" type="submit">
-				<a href="{{ path('admin_page_block_reorder', { 'pageId': page.id}) }}">
-					<i class="fas fa-refresh"></i>
-				</a>
-			</button>
+			<a 
+				 class="btn tooltip -tooltip-bottom -tertiary btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
+				 data-tooltip="show" 
+				href="{{ path('admin_page_show', { 'id': page.id }) }}"
+			>
+				<i class="fa-solid fa-eye fa-2x"></i>
+			</a>
+			<a 
+				class="btn tooltip -tooltip-bottom -warning btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
+				data-tooltip="refresh blocks"
+				href="{{ path('admin_page_block_reorder', { 'pageId': page.id}) }}"
+			>
+				<i class="fas fa-refresh"></i>
+			</a>
 		{% endif %}
 	</section>
 	{{ form_start(form, {'attr': {'class': '-w-f'}}) }}

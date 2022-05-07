@@ -51,3 +51,21 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Core/Entity'
                 prefix: 'App\Core\Entity'
                 alias: PageBlock
+            Menu:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Core/Entity'
+                prefix: 'App\Core\Entity'
+                alias: Menu
+            MenuItem:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Core/Entity'
+                prefix: 'App\Core\Entity'
+                alias: MenuItem
+            Template:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Core/Entity'
+                prefix: 'App\Core\Entity'
+                alias: Template
