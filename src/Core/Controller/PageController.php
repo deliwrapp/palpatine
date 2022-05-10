@@ -57,7 +57,7 @@ class PageController extends AbstractController
                     'pageUrl' => $pageUrl
                 ]));
             }
-            return $this->render('@core/page/basic-page.html.twig', [
+            return $this->render('@core/basic-page.html.twig', [
                 'page' => $page
             ]);
         }  catch (\Exception $e) {

@@ -218,7 +218,6 @@ class AdminMenuController extends AbstractController
         return $this->redirect($this->generateUrl('admin_menu_list'));
     }
 
-
     /**
      * @Route("/add-menu-item-to/{menuId}/{type}", name="admin_menu_item_create")
      */
@@ -353,5 +352,4 @@ class AdminMenuController extends AbstractController
         }
         return $menu;
     }
-
 }

@@ -37,11 +37,11 @@ class HomePageController extends AbstractController
                     }
                 }
             }
-            return $this->render('@core/page/basic-page.html.twig', [
+            return $this->render('@core/basic-page.html.twig', [
                 'page' => $page
             ]);
         }
         
-        return $this->render('@core/page/homepage.html.twig');
+        return $this->render('@core/homepage.html.twig');
     }
 }
