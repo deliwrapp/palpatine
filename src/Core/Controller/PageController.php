@@ -34,6 +34,13 @@ class PageController extends AbstractController
                 );
                 return $this->redirect($this->generateUrl('homepage'));
             }
+            if ($page->getRoleAccess() && !$this->isGranted($page->getRoleAccess())) {
+                $this->addFlash(
+                    'warning',
+                    'Unauthorised Access '
+                );
+                return $this->redirect($this->generateUrl('homepage'));
+            }
             if ($page->getBlocks()) {
                 $pageBlocks = $page->getBlocks();
                 foreach ($pageBlocks as $pageBlock) {

@@ -1,6 +1,5 @@
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
-
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -20,7 +19,8 @@ services:
 twig:
     globals:
         appLocales: '%appLocales%'
-
+        # menu loader
+        menuLoader: '@App\Core\Services\MenuLoader'
 
 imports:
   - { resource: "parameters.yaml" }

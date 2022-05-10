@@ -15,13 +15,14 @@ use ArrayAccess;
 /**
  * @ORM\Entity(repositoryClass=MenuRepository::class)
  * @UniqueEntity(fields="name", message="Name is already taken.")
+ * @UniqueEntity(fields="position", message="Position is already taken.")
  * @HasLifecycleCallbacks
  */
 class Menu implements ArrayAccess
 {
     public function __construct()
     {
-        $this->name = "menu-".$this->id;
+        $this->name = "menu-";
         $this->isPublished = false;
         $this->isMainMenu = false;
         $this->menuItems = new ArrayCollection();
@@ -37,7 +38,7 @@ class Menu implements ArrayAccess
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
@@ -83,7 +84,7 @@ class Menu implements ArrayAccess
     {
         return $this->position;
     }
-    public function setPosition(string $position): self
+    public function setPosition(?string $position): self
     {
         $this->position = $position;
 
@@ -101,7 +102,7 @@ class Menu implements ArrayAccess
      */
     public function getMenuItems(): Collection
     {
-        return $this->blocks;
+        return $this->menuItems;
     }
 
     /**
@@ -109,7 +110,7 @@ class Menu implements ArrayAccess
      */
     public function getMenuItemsArray()
     {
-        return $this->blocks;
+        return $this->menuItems;
     }
     
     /**

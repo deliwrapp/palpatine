@@ -34,6 +34,7 @@ class PageFormType extends AbstractType
     {     
         switch ($options['mode']) {
             case 'edition':
+                $userRoles = $this->params->get('userRoles');
                 $builder
                     ->add('name', TextType::class) 
                     ->add('isPublished', CheckboxType::class, [
@@ -41,6 +42,12 @@ class PageFormType extends AbstractType
                     ])
                     ->add('isHomepage', CheckboxType::class, [
                         'required'   => false
+                    ])
+                    ->add('roleAccess', ChoiceType::class, [
+                        'required' => false,
+                        'multiple' => false,
+                        'expanded' => false,
+                        'choices'  => $userRoles,
                     ])
                     ->add('submit', SubmitType::class, [
                         'label' => 'Edit',
@@ -74,11 +81,18 @@ class PageFormType extends AbstractType
                         'label' => 'Add to Page Group',
                     ]);
                 break;
-            default:
+            default:   
+                $userRoles = $this->params->get('userRoles');
                 $builder
                     ->add('name', TextType::class) 
                     ->add('isPublished', CheckboxType::class)
-                    ->add('isHomepage', CheckboxType::class)
+                    ->add('isHomepage', CheckboxType::class) 
+                    ->add('roleAccess', ChoiceType::class, [
+                        'required' => false,
+                        'multiple' => false,
+                        'expanded' => false,
+                        'choices'  => $userRoles,
+                    ])
                     ->add('locale', ChoiceType::class, [
                         'choices'  => [
                             'français' => 'fr',

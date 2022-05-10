@@ -68,6 +68,11 @@ class Page implements ArrayAccess
     private $locale;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $roleAccess;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Core\Entity\PageBlock", mappedBy="page", cascade={"persist", "remove"})
      */
     private $blocks;
@@ -155,6 +160,17 @@ class Page implements ArrayAccess
     public function setLocale(string $locale): self
     {
         $this->locale = $locale;
+
+        return $this;
+    }
+   
+    public function getRoleAccess(): ?string
+    {
+        return $this->roleAccess;
+    }
+    public function setRoleAccess(?string $roleAccess): self
+    {
+        $this->roleAccess = $roleAccess;
 
         return $this;
     }

@@ -1,0 +1,89 @@
+{#
+// Variables
+- customBottomBarClass : custom classes
+- color : classes de modification de la classe principale
+- bottomBarStartMenu: Menu to include in the start part,
+- bottomBarCenterMenu: Menu to include in the center part,
+- bottomBarEndMenu: Menu to include in the end part,
+- fixed: position fixed
+#}
+
+<nav 
+    class="bar -w-f {% if fixed is defined and fixed %}-fixed -bottom{% endif %} {% if color is defined %}{{ color }}{% endif %} {% if customBottomBarClass is defined and customBottomBarClass is not null %}{{ customBottomBarClass }}{% else %} -bg-light -shad-12{% endif %}"
+>
+    {% if bottomBarStartMenu is defined and bottomBarStartMenu is not null and bottomBarStartMenu.menuItems is defined and bottomBarStartMenu.menuItems is not empty %}
+        <section class="-bar-section-start">
+            {% for item in bottomBarStartMenu.menuItems %}
+                {% if item.roleAccess %}
+                    {% if is_granted(item.roleAccess) %}
+                        {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                            'customNavItemClass': item.customClass,
+                            'color': '',
+                            'path': item.path,
+                            'text': item.name,
+                            'target': item.target
+                        } %}
+                    {% endif %}
+                {% else %}
+                    {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                        'customNavItemClass': item.customClass,
+                        'color': '',
+                        'path': item.path,
+                        'text': item.name,
+                        'target': item.target
+                    } %}
+                {% endif %}
+            {% endfor %}
+        </section>
+    {% endif %}
+    {% if bottomBarCenterMenu is defined and bottomBarCenterMenu is not null and bottomBarCenterMenu.menuItems is defined and bottomBarCenterMenu.menuItems is not empty %}
+        <section class="-bar-center">
+            {% for item in bottomBarCenterMenu.menuItems %}
+                {% if item.roleAccess %}
+                    {% if is_granted(item.roleAccess) %}
+                        {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                            'customNavItemClass': item.customClass,
+                            'color': '',
+                            'path': item.path,
+                            'text': item.name,
+                            'target': item.target
+                        } %}
+                    {% endif %}
+                {% else %}
+                    {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                        'customNavItemClass': item.customClass,
+                        'color': '',
+                        'path': item.path,
+                        'text': item.name,
+                        'target': item.target
+                    } %}
+                {% endif %}
+            {% endfor %}
+        </section>
+    {% endif %}
+    {% if bottomBarEndMenu is defined and bottomBarEndMenu is not null and bottomBarEndMenu.menuItems is defined and bottomBarEndMenu.menuItems is not empty %}
+        <section class="-bar-section-end">
+            {% for item in bottomBarEndMenu.menuItems %}
+                {% if item.roleAccess %}
+                    {% if is_granted(item.roleAccess) %}
+                        {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                            'customNavItemClass': item.customClass,
+                            'color': '',
+                            'path': item.path,
+                            'text': item.name,
+                            'target': item.target
+                        } %}
+                    {% endif %}
+                {% else %}
+                    {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                        'customNavItemClass': item.customClass,
+                        'color': '',
+                        'path': item.path,
+                        'text': item.name,
+                        'target': item.target
+                    } %}
+                {% endif %}
+            {% endfor %}
+        </section>
+    {% endif %}
+</nav>

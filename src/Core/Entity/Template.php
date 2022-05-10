@@ -76,7 +76,7 @@ class Template implements ArrayAccess
         return $this->templatePath;
     }
 
-    public function setTemplatePath(?string $templatePath): self
+    public function setTemplatePath(string $templatePath): self
     {
         $this->templatePath = $templatePath;
 
@@ -88,7 +88,7 @@ class Template implements ArrayAccess
         return $this->cssLink;
     }
 
-    public function setCssLink(string $cssLink): self
+    public function setCssLink(?string $cssLink): self
     {
         $this->cssLink = $cssLink;
 
@@ -100,7 +100,7 @@ class Template implements ArrayAccess
         return $this->scriptLink;
     }
 
-    public function setScriptLink(string $scriptLink): self
+    public function setScriptLink(?string $scriptLink): self
     {
         $this->scriptLink = $scriptLink;
 

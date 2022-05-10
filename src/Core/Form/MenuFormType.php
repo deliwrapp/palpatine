@@ -30,8 +30,9 @@ class MenuFormType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('position', ChoiceType::class, [
-                'choices'  => $menuPositionsOpts,
-                'required'   => false
+                'choices'  => array_flip($menuPositionsOpts),
+                'required'   => false,
+                'empty_data' => ''
             ])
             ->add('isMainMenu', CheckboxType::class, [
                 'required'   => false

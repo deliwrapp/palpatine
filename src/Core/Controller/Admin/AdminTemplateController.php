@@ -6,8 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Doctrine\Persistence\ManagerRegistry;
+use Twig\Environment;
 use App\Core\Entity\Template;
 use App\Core\Repository\TemplateRepository;
 use App\Core\Form\TemplateFormType;
@@ -18,10 +17,12 @@ use App\Core\Form\TemplateFormType;
 class AdminTemplateController extends AbstractController
 {
     public function __construct(
-        TemplateRepository $templateRepo
+        TemplateRepository $templateRepo,
+        Environment $twig
     )
     {
         $this->templateRepo = $templateRepo;
+        $this->tplLoader = $twig->getLoader();
     }
 
     /**
@@ -57,12 +58,20 @@ class AdminTemplateController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $template = $form->getData();
-                $this->templateRepo->add($template);
-                $this->addFlash(
-                    'info',
-                    'Saved new Template with id '.$template->getId()
-                );
+                $tplPath = $form->get('templatePath')->getData();
+                if ($this->tplLoader->exists($tplPath)) {
+                    $template = $form->getData();
+                    $this->templateRepo->add($template);
+                    $this->addFlash(
+                        'info',
+                        'Saved new Template with id '.$template->getId()
+                    );
+                } else {
+                    $this->addFlash(
+                        'danger',
+                        'The defined path for the template does not exists'
+                    );
+                }
                 return $this->redirect($this->generateUrl('admin_template_edit', [
                     'id' => $template->getId()
                 ]));
@@ -100,12 +109,20 @@ class AdminTemplateController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $template = $form->getData();
-                $this->templateRepo->flush();
-                $this->addFlash(
-                    'info',
-                    'Template updated'
-                );
+                $tplPath = $form->get('templatePath')->getData();
+                if ($this->tplLoader->exists($tplPath)) {
+                    $template = $form->getData();
+                    $this->templateRepo->flush();
+                    $this->addFlash(
+                        'info',
+                        'Template updated'
+                    );
+                } else {
+                    $this->addFlash(
+                        'danger',
+                        'The defined path for the template does not exists'
+                    );
+                }
                 return $this->redirect($this->generateUrl('admin_template_edit', [
                     'id' => $template->getId()
                 ]));
@@ -161,8 +178,7 @@ class AdminTemplateController extends AbstractController
     public function delete(int $id, Request $request): Response
     {
         try {
-            $submittedToken = $request->request->get('token');
-            
+            $submittedToken = $request->request->get('token'); 
             if ($this->isCsrfTokenValid('delete-template', $submittedToken)) {
                 $template = $this->templateRepo->find($id);
                 if (!$template) {

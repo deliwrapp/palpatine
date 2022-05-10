@@ -1,15 +1,16 @@
 {#
 // Variables
-- class : custom classes {string}
+- customNavItemClass : custom classes {string}
 - color : classes de modification de la classe principale {string}
 - path : lien {string}
 - text : Texte de l'élément {string}
-- icon : Icon de l'élément {string}
+- icon : Icon de l'élément {string},
+- target: Target
 #}
 
 {% if path is not defined or path == null or path == '#' %}
   {% set path = "#" %}
-{% elseif '/' in path %}
+{% elseif '/' in path or '#' in path %}
 
 {% elseif path is iterable %}
   {% set values = {} %}
@@ -50,12 +51,12 @@
   {% endfor %}
   {% set path = path(path[0], values)  %}
 {% else %}
-  {% set path = path(path)  %}
+  {% set path = path(path) %}
 {% endif %}
-
 <a
-    class="{% if color is defined %}-{{ color }}{% endif %} {% if class is defined %}{{ class }}{% else %} btn btn-link {% endif %}"
+    class="{% if color is defined and color is not null %}-{{ color }}{% endif %}  {% if customNavItemClass is defined and customNavItemClass is not null %}{{ customNavItemClass }}{% else %} btn btn-link {% endif %}"
     href="{{ path }}"
+    {% if target is defined and target is not null %}target="{{target}}"{% endif %}
 >
   {% if icon is defined and icon is not null %}
     <i class="{{icon}}"></i>

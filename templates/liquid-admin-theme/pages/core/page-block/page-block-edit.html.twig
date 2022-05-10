@@ -114,12 +114,13 @@
   <script>
     ClassicEditor
         .create( document.querySelector( '.editor' ), {
-            licenseKey: '',            
+            removePlugins: ['Title'],
+            title: {
+                placeholder: ' '
+            },           
         } )
         .then( editor => {
-            window.editor = editor;
-            editor.plugins.get( 'Heading' ).isEnabled = false;
-            
+            window.editor = editor;          
         } )
         .catch( error => {
             console.error( 'Oops, something went wrong!' );

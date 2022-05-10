@@ -1,0 +1,62 @@
+{#
+// Variables
+- customNavClass : custom classes
+- color : classes de modification de la classe principale
+- text : Texte de l'élément,
+- menuItems: Nav Items to include in center part,
+- fixed: position fixed
+#}
+
+<nav 
+    class="bar {% if fixed is defined and fixed %}-fixed -top{% endif %} {% if color is defined %}{{ color }}{% endif %} {% if customNavClass is defined and customNavClass is not null %}{{ customNavClass }}{% else %} -bg-light -shad-12{% endif %}"
+>
+    <section class="-bar-section-start">
+        
+    </section>
+    <section class="-bar-center">
+        {% if menuItems is defined %}
+            {% for item in menuItems %}
+                {% if item.roleAccess %}
+                    {% if is_granted(item.roleAccess) %}
+                        {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                            'customNavItemClass': item.customClass,
+                            'color': '',
+                            'path': item.path,
+                            'text': item.name,
+                            'target': item.target
+                        } %}
+                    {% endif %}
+                {% else %}
+                    {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                        'customNavItemClass': item.customClass,
+                        'color': '',
+                        'path': item.path,
+                        'text': item.name,
+                        'target': item.target
+                    } %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </section>
+    <section class="-bar-section-end">
+        {% block nav_section_end %}
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {% include 'liquid-ui/components/layout/nav/nav-user.html.twig'%}
+            {% else %}
+                <div class="btn -light -hover">
+                    <i class="fa-solid fa-door-open"></i>
+                    <a href="{{path('app_register')}}">
+                        Register
+                    </a>
+                </div>
+                <div class="btn -light -hover">
+                    <i class="fa-solid fa-lock-open"></i>
+                    <a href="{{path('app_login')}}">
+                        Login
+                    </a>
+                </div>
+            {% endif %}
+            {% include 'liquid-ui/components/layout/nav/nav-lang.html.twig'%}
+        {% endblock %} 
+    </section>
+</nav>

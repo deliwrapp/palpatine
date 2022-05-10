@@ -1,6 +1,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    homepage_path: '/%kernel.default_locale%'
     locale: fr
     appLocales: 'fr|en|es|pt|it|de|nl|pl|cs'
     appLocalesList: 
@@ -13,19 +14,27 @@ parameters:
         nl: 'dutch'
         pl: 'polskie'
         cd: 'čeština'
+    userRoles:
+        User: 'ROLE_USER'
+        Moderator: 'ROLE_MODERATOR'
+        Editor: 'ROLE_EDITOR'
+        Admin: 'ROLE_ADMIN'
+        SuperAdmin: 'ROLE_SUPER_ADMIN'
     base_theme: liquid-theme
     admin_theme: liquid-admin-theme
     menuPositionsOpts: 
         top: 'Top Bar'
         top_fixed: 'Top Bar Fixed'
-        bottom: 'Bottom Bar'
-        bottom_fixed: 'Bottom Bar Fixed'
         sidebar_left: 'Sidebar Left'
         sidebar_right: 'Sidebar Right'
-        footer: 'Footer'
+        footer_center: 'Footer Center'
+        footer_left: 'Footer Left'
+        footer_right: 'Footer Right'
+        bottom_start: 'Bottom Bar Start'
+        bottom_center: 'Bottom Bar Center'
+        bottom_end: 'Bottom Bar End'
+        bottom_fixed: 'Bottom Bar Fixed'
     defaultBlockTpl: 'blocks/default/default.html.twig'
     data_folder: Data
-    homepage_path: '/%kernel.default_locale%'
-    gmap_api: AIzaSyAadz2owJTc8CJnIkvzps2jgzQpnsnxdgA
     posts_templates:
       blocks/post/oldway_show_post.html.twig: oldway

@@ -161,7 +161,7 @@ class AdminPageController extends AbstractController
      */
     public function edit(int $id, Request $request): Response
     {
-        try {
+        
             $page = $this->pageVerificator($id);
             $form = $this->createForm(PageFormType::class, $page, [
                 'submitBtn' => 'Edit'
@@ -219,15 +219,7 @@ class AdminPageController extends AbstractController
                     'page' => $page,
                     'blocks' => $blocks
                 ]
-            );
-        } catch (\Exception $e) {
-            $this->addFlash(
-                'danger',
-                $e->getMessage()
-            );
-            return $this->redirect($this->generateUrl('admin_page_list'));
-        }
-        
+            ); 
     }
 
     // Page Edit Url

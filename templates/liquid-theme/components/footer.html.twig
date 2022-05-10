@@ -1,0 +1,98 @@
+{#
+// Variables
+- customFooterClass : custom classes
+- color : classes de modification de la classe principale
+- footerLeftMenu: Menu to include in the left part,
+- footerCenterMenu: Menu to include in the center part,
+- footerRightMenu: Menu to include in the right part
+#}
+
+<section class="liquid-container liquid-grid {% if color is defined %}{{ color }}{% else %} -bg-light {% endif %} {% if customFooterClass is defined and customFooterClass is not null %}{{ customFooterClass }}{% else %}-shad-12{% endif %}">
+    {% if footerLeftMenu is defined and footerLeftMenu is not null and footerLeftMenu.menuItems is defined and footerLeftMenu.menuItems is not empty %}
+        <section class="col -col-4 -md4 -sm12 -xs12">
+            <ul class="-t-tiny -t-bld -line-h-1">
+                {% for item in footerLeftMenu.menuItems %}
+                    <li class="-t-tiny -t-bld -line-h-1">
+                        {% if item.roleAccess %}
+                            {% if is_granted(item.roleAccess) %}
+                                {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                                    'customNavItemClass': item.customClass,
+                                    'color': '',
+                                    'path': item.type == 'page'? path('page_show', {'pageUrl': item.path}) : item.path,
+                                    'text': item.name,
+                                    'target': item.target
+                                } %}
+                            {% endif %}
+                        {% else %}
+                            {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                                'customNavItemClass': item.customClass,
+                                'color': '',
+                                'path': item.type == 'page'? path('page_show', {'pageUrl': item.path}) : item.path,
+                                'text': item.name,
+                                'target': item.target
+                            } %}
+                        {% endif %}
+                    </li>    
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+    {% if footerCenterMenu is defined and footerCenterMenu is not null and footerCenterMenu.menuItems is defined and footerCenterMenu.menuItems is not empty %}
+        <section class="col -col-4 -md4 -sm12 -xs12">
+            <ul class="-t-tiny -t-bld -line-h-1">
+                {% for item in footerCenterMenu.menuItems %}
+                    <li class="-t-tiny -t-bld -line-h-1">
+                        {% if item.roleAccess %}
+                            {% if is_granted(item.roleAccess) %}
+                                {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                                    'customNavItemClass': item.customClass,
+                                    'color': '',
+                                    'path': item.type == 'page'? path('page_show', {'pageUrl': item.path}) : item.path,
+                                    'text': item.name,
+                                    'target': item.target
+                                } %}
+                            {% endif %}
+                        {% else %}
+                            {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                                'customNavItemClass': item.customClass,
+                                'color': '',
+                                'path': item.type == 'page'? path('page_show', {'pageUrl': item.path}) : item.path,
+                                'text': item.name,
+                                'target': item.target
+                            } %}
+                        {% endif %}
+                    </li>    
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+    {% if footerRightMenu is defined and footerRightMenu is not null and footerRightMenu.menuItems is defined and footerRightMenu.menuItems is not empty %}
+        <section class="col -col-4 -md4 -sm12 -xs12">
+            <ul class="-t-tiny -t-bld -line-h-1">
+                {% for item in footerRightMenu.menuItems %}
+                    <li class="-t-tiny -t-bld -line-h-1">
+                        {% if item.roleAccess %}
+                            {% if is_granted(item.roleAccess) %}
+                                {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                                    'customNavItemClass': item.customClass,
+                                    'color': '',
+                                    'path': item.type == 'page'? path('page_show', {'pageUrl': item.path}) : item.path,
+                                    'text': item.name,
+                                    'target': item.target
+                                } %}
+                            {% endif %}
+                        {% else %}
+                            {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                                'customNavItemClass': item.customClass,
+                                'color': '',
+                                'path': item.type == 'page'? path('page_show', {'pageUrl': item.path}) : item.path,
+                                'text': item.name,
+                                'target': item.target
+                            } %}
+                        {% endif %}
+                    </li>    
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+</section>

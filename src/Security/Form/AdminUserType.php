@@ -26,6 +26,7 @@ class AdminUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $localesList = $this->params->get('appLocalesList');
+        $userRoles = $this->params->get('userRoles');
         $builder
             ->add('email')
             ->add('username')
@@ -33,13 +34,7 @@ class AdminUserType extends AbstractType
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
-                'choices'  => [
-                  'User' => 'ROLE_USER',
-                  'Moderator' => 'ROLE_MODERATOR',
-                  'Editor' => 'ROLE_EDITOR',
-                  'Admin' => 'ROLE_ADMIN',
-                  'Super Admin' => 'ROLE_SUPER_ADMIN',
-                ],
+                'choices'  => $userRoles,
             ])
             ->add('locale', ChoiceType::class, [
                 'choices'  => array_flip($localesList)

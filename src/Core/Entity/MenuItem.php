@@ -17,6 +17,9 @@ class MenuItem implements ArrayAccess
 {
     public function __construct()
     {
+        $this->name = 'Menu Item';
+        $this->type = 'page';
+        $this->path = '';
         $this->externalLink = false;
     }
 
@@ -35,9 +38,9 @@ class MenuItem implements ArrayAccess
     private $name;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string")
      */
-    private $externalLink;
+    private $type;
 
     /**
      * @ORM\Column(type="string")
@@ -53,6 +56,16 @@ class MenuItem implements ArrayAccess
      * @ORM\Column(type="string", nullable=true)
      */
     private $customClass;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $target;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $roleAccess;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Core\Entity\Menu", inversedBy="menuItems")
@@ -81,20 +94,20 @@ class MenuItem implements ArrayAccess
         return $this;
     }
 
-    public function getExternalLink(): ?bool
+    public function getType(): ?string
     {
-        return $this->externalLink;
+        return $this->type;
     }
-    public function setExternalLink(?bool $externalLink): self
+    public function setType(string $type): self
     {
-        $this->externalLink = $externalLink;
+        $this->type = $type;
 
         return $this;
     }
 
     public function getPath(): ?string
     {
-        return $this->name;
+        return $this->path;
     }
     public function setPath(string $path): self
     {
@@ -107,7 +120,7 @@ class MenuItem implements ArrayAccess
     {
         return $this->customId;
     }
-    public function setCustomId(string $customId): self
+    public function setCustomId(?string $customId): self
     {
         $this->customId = $customId;
 
@@ -118,9 +131,31 @@ class MenuItem implements ArrayAccess
     {
         return $this->customClass;
     }
-    public function setCustomClass(string $customClass): self
+    public function setCustomClass(?string $customClass): self
     {
         $this->customClass = $customClass;
+
+        return $this;
+    }
+
+    public function getTarget(): ?string
+    {
+        return $this->target;
+    }
+    public function setTarget(?string $target): self
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    public function getRoleAccess(): ?string
+    {
+        return $this->roleAccess;
+    }
+    public function setRoleAccess(?string $roleAccess): self
+    {
+        $this->roleAccess = $roleAccess;
 
         return $this;
     }

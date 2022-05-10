@@ -53,15 +53,19 @@
                         <td 
                             {% if loop.first %} scope="row" {% endif %}
                             data-label="{{td.text|trans|upper}}"
-                        >
-                                {% if item[td.attr] is same as(false) or item[td.attr] is same as(true) %}
-                                    {% if item[td.attr] == 1 %}
-                                        {{"core.word.yes"|trans }}
+                        >       
+                                {% if item[td.attr] is defined and item[td.attr] is not null %}
+                                    {% if item[td.attr] is same as(false) or item[td.attr] is same as(true) %}
+                                        {% if item[td.attr] == 1 %}
+                                            {{"core.word.yes"|trans }}
+                                        {% else %}
+                                            {{"core.word.no"|trans }}
+                                        {% endif %}
                                     {% else %}
-                                        {{"core.word.no"|trans }}
+                                        {{ item[td.attr]|trans|slice(0, 20)|raw }}
                                     {% endif %}
                                 {% else %}
-                                    {{ item[td.attr]|trans|slice(0, 20)|raw }}
+                                <span>    -       -       -</span>
                                 {% endif %}
                         </td>
                     {% endfor %}

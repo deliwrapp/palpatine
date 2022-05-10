@@ -24,43 +24,70 @@
   <section class="liquid-app">
     <section id="top-page" class="liquid-page-container">
       <header {% block headerAttr %}  {% endblock %} >
-        {% block header %}
-          {% include 'liquid-ui/components/layout/nav/nav.html.twig' with {
-            'class': '-shad-12',
+        {% set mainMenu = menuLoader.getPublishedMainMenu %}
+        {% set fixedMenu = false %}
+        {% if mainMenu %}
+            {% if mainMenu.position == 'top_fixed' or mainMenu.position == 'bottom_fixed' %}
+              {% set fixedMenu = true %}
+            {% endif %}
+            {% include 'liquid-theme/components/nav.html.twig' with {
+            'customNavClass': '-shad-12',
             'color': '-bg-light',
-            'navItemsCenter' : [
-                {
-                    'class': 'btn btn-link ',
-                    'color': '',
-                    'path' : 'MemberPostsList',
-                    'text' : 'blog'
-                },
-            ]
+            'menuItems' : mainMenu.menuItems,
+            'fixed': fixedMenu
           } %}
-        {% endblock %}
-        {% include 'liquid-ui/components/ui/toasts.html.twig' %}
+        {% endif %}
+        {% block header %} {% endblock %}
       </header>
-      <main  {% block mainAttr %}  {% endblock %} class="{% if wrapperContent is defined %}-wrapper {% endif %} {% block mainClass %} -top-4rm  {% endblock %}">
+
+      <main
+        {% block mainAttr %} {% endblock %}
+        class="{{fixedMenu ? '-mt10 -pt10' : ''}} {% if wrapperContent is defined %}-wrapper {% endif %} {% block mainClass %}{% endblock %}"
+      >
+        
+        {% include 'liquid-ui/components/ui/toasts.html.twig' %}
         {% block main %}
-          {% block leftSide %} 
-          
-          {% endblock %}
+          {% block leftSide %}  {% endblock %}
           {% block rightSide %} {% endblock %}
-          {% block modal %} {% endblock %}
+          {% block modal %}     {% endblock %}
           <section 
-            {% block mainContentAttr %} {% endblock %} class="{% if wrapperContent is defined %}main-content{% endif %} {% block mainContentClass %} liquid-container liquid-grid -z1 -overflow-x-hidden {% endblock %}"
+            {% block mainContentAttr %} {% endblock %} 
+            class="{% if wrapperContent is defined %}main-content{% endif %} {% block mainContentClass %} liquid-container liquid-grid -z1 -overflow-x-hidden {% endblock %}"
           >
-            {% block mainContent %}
-            
-            {% endblock %}  
+            {% block mainContent %} {% endblock %}  
           </section>
         {% endblock %}
       </main>
+
       <footer {% block footerAttr %}  {% endblock %}>
         {% block footer %}
-          
+          {% set footerLeftMenu = menuLoader.getPublishedMenuWithPosition('footer_left') %}
+          {% set footerCenterMenu = menuLoader.getPublishedMenuWithPosition('footer_center') %}
+          {% set footerRightMenu = menuLoader.getPublishedMenuWithPosition('footer_right') %}
+          {% if footerLeftMenu or footerCenterMenu or footerRightMenu %}
+              {% include 'liquid-theme/components/footer.html.twig' with {
+              'customNavClass': '-shad-12',
+              'color': '-bg-light',
+              'footerLeftMenu': footerLeftMenu,
+              'footerCenterMenu': footerCenterMenu,
+              'footerRightMenu': footerRightMenu
+            } %}
+          {% endif %}
+          {% set bottomBarStartMenu = menuLoader.getPublishedMenuWithPosition('bottom_start') %}
+          {% set bottomBarCenterMenu = menuLoader.getPublishedMenuWithPosition('bottom_center') %}
+          {% set bottomBarEndMenu = menuLoader.getPublishedMenuWithPosition('bottom_end') %}
+          {% if bottomBarStartMenu or bottomBarCenterMenu or bottomBarEndMenu %}
+              {% include 'liquid-theme/components/bottom-bar.html.twig' with {
+              'customNavClass': '-shad-12',
+              'color': '-bg-light',
+              'bottomBarStartMenu': bottomBarStartMenu,
+              'bottomBarCenterMenu': bottomBarStartMenu,
+              'bottomBarEndMenu': bottomBarStartMenu,
+            } %}
+          {% endif %}
         {% endblock %}
       </footer>
+
     </section>
   </section>
 {% endblock %}

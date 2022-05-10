@@ -3,13 +3,57 @@
 {% block title %}ADMIN-DASHBORD{% endblock %}
 
 {% block mainContent %}
-<section class="col -col-11" id="post-list">
-    <div class="-text-center">
-        <div class="h5 mt-10">ADMIN DASHBOARD</div>
+<section class="col -col-12" id="post-list">
+    <div class="-shad-12 -w-f">
+        <h2 class="-text-center h4 -tertiary -pt2 -pb2">ADMIN DASHBOARD</h2>
+        <section class="-flex -justify-space-around">
+            <p class="-t-bld -color-tertiary -ml2">Welcome on board {{ app.user.username }} !</p>
+            <p class="-t-bld -color-tertiary -ml2">Today we are the : {{ "now"|date("m/d/Y") }}</p>
+        </section>
+    </div>
+</section>
+<section class="col -col-4 -md4 -sm12 -xs12" id="user-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                App Manager
+            </div>
+            <div class="-tile-subtitle">
+                Configure your Website
+                <a class="-t-u btn -sm -light -hover" href="#">Settings Access</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Configure your WebSite"> 
+                <a class="-success" href="#">
+                    <i class="fa-solid fa-cogs fa-2x"></i> 
+                </a>
+            </button>
+        </div>
     </div>
 </section>
 
-<section class="col -col-12 -md12 -sm12 -xs12" id="user-manager">
+<section class="col -col-4 -md4 -sm12 -xs12" id="files-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Files Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx files.
+                <a class="-t-u btn -sm -light -hover" href="#">Gallery Access</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Add Files"> 
+                <a class="-success" href="#">
+                    <i class="fa-solid fa-plus fa-2x"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="col -col-4 -md4 -sm12 -xs12" id="user-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
@@ -23,7 +67,7 @@
         <div class="-tile-action">
             <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create User"> 
                 <a class="-success" href="{{ path('admin_user_create') }}">
-                    <i class="fa-solid fa-plus"></i> 
+                    <i class="fa-solid fa-plus fa-2x"></i> 
                 </a>
             </button>
         </div>

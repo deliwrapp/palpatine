@@ -172,7 +172,9 @@ class AdminBlockController extends AbstractController
                 );
                 return $this->redirect($this->generateUrl('admin_block_list'));
             }
-            $data = $this->blockRepo->getBlockData($blockContainer->getQuery(), $blockContainer->getSingleResult());
+            $data = $blockContainer->getQuery() ?
+                $this->blockRepo->getBlockData($blockContainer->getQuery(), $blockContainer->getSingleResult()) :
+                null;
             $blockContainer->setData($data);
         
             return $this->render('@core-admin/block/block-show.html.twig', [
