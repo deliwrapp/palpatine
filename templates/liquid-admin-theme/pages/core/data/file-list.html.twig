@@ -7,24 +7,25 @@
     <div class="tile -tile-compact -w-f -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
-                ADMIN DATA FILE LIST
+                ADMIN DATA MANAGER
             </div>
             <div class="-tile-subtitle">
-                Add a file
+                Add Files
             </div>
         </div>
         <div class="-tile-action">
-            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Add Fille"> 
-                <a class="-tertiary" href="#">
-                    <i class="fa-solid fa-plus"></i> 
-                </a>
-            </button>
+            <a 
+                class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left"
+                data-tooltip="Add File"
+                href="{{ path('admin_data_manager') }}"
+            >
+                <i class="fa-solid fa-plus"></i>
+            </a>
         </div>
     </div>
 </section>  
     {% if files is defined and files is not empty %}
         {% for file in files %}
-            
             <section class="col -col-2 -md4 -sm6 -xs6 -justify-center -items-center -wrap -shad-12 " id="file-{{file.id}}">
                 <p class="-m0 -t-i -t-tiny">
                     {{ file.private ? 'private':'public' }}

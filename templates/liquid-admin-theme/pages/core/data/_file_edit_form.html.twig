@@ -1,0 +1,43 @@
+{{ form_start(form, {'attr': {'class': '-w-f'}}) }}
+    <section class="-panel-body -flex -wrap -shad-2">
+        <div class="col -col-3 -md3 -sm12 -xs12">
+            <small>{{ form_help(form.roleAccess) }}</small>
+            {{ form_errors(form.roleAccess) }}
+            <div class="form-element">
+                <div class="-sm9 -mb5">
+                    {{ form_widget(form.roleAccess, {'attr': {'class': 'form-field form-select -shad-12'}}) }}
+                </div>
+                {{ form_label(form.roleAccess, null, {
+                    'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                }) }}
+            </div>
+        </div>
+        <div class="col -col-3 -md3 -sm6 -xs6">
+            <div class="form-element">
+                <label class="switch">
+                    {{ form_widget(form.isPublished) }}
+                    <i class="form-icon -shad-12"></i>
+                    <span class="form-field-msg -t-c -t-bld -color-dark">Published</span>
+                </label>
+            </div>
+            <small>{{ form_help(form.isPublished) }}</small>
+            {{ form_errors(form.isPublished) }} 
+        </div>
+        <div class="col -col-6 -md6 -sm12 -xs12">
+            <small>{{ form_help(form.description) }}</small>
+            {{ form_errors(form.description) }}
+            <div class="form-element">
+                {{ form_label(form.description, null, {
+                    'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                }) }}
+                <div class="-sm9">
+                    {{ form_widget(form.description, {'attr': {'class': '-w-f -shad-12'}}) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="-panel-footer -text-center ">
+        {{ form_widget(form.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+    </section>
+{{ form_end(form) }}

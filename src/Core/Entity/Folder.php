@@ -2,23 +2,33 @@
 
 namespace App\Core\Entity;
 
-use App\Core\Repository\FileRepository;
+use App\Core\Repository\FolderRepository;
 use App\Core\Entity\SoftEditionTrackingTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use ArrayAccess;
 
 /**
- * @ORM\Entity(repositoryClass=FileRepository::class) 
+ * @ORM\Entity(repositoryClass=FolderRepository::class) 
  * @HasLifecycleCallbacks
  */
-class File implements ArrayAccess
+class Folder implements ArrayAccess
 {
-    public function __construct()
+    /**
+     * Construct Folder
+     *
+     * @param bool $isPublished = false
+     * @param bool $private = true
+     * @return Folder
+     */
+    public function __construct(bool $isPublished = false, bool $private = true)
     {
-        
-        $this->isPublished = false;
-        $this->private = true;
+        $this->isPublished = $isPublished;
+        $this->private = $private;
+        $this->subFolders = new ArrayCollection();
+        $this->files = new ArrayCollection();
     }
 
     use SoftEditionTrackingTrait;
@@ -39,16 +49,6 @@ class File implements ArrayAccess
      * @ORM\Column(type="string")
      */
     private $originalFilename;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $ext;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $path;
     
     /**
      * @ORM\Column(type="boolean")
@@ -71,9 +71,19 @@ class File implements ArrayAccess
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Core\Entity\Folder", inversedBy="files")
+     * @ORM\ManyToOne(targetEntity="App\Core\Entity\Folder", inversedBy="subFolders")
      */
     private $folder;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Core\Entity\Folder", mappedBy="folder", cascade={"persist", "remove"})
+     */
+    private $subFolders;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Core\Entity\File", mappedBy="folder", cascade={"persist"})
+     */
+    private $files;
 
     public function getId(): ?int
     {
@@ -98,28 +108,6 @@ class File implements ArrayAccess
     public function setOriginalFilename(string $originalFilename): self
     {
         $this->originalFilename = $originalFilename;
-
-        return $this;
-    }
-
-    public function getExt(): ?string
-    {
-        return $this->ext;
-    }
-    public function setExt(string $ext): self
-    {
-        $this->ext = $ext;
-
-        return $this;
-    }
-    
-    public function getPath(): ?string
-    {
-        return $this->path;
-    }
-    public function setPath(string $path): self
-    {
-        $this->path = $path;
 
         return $this;
     }
@@ -168,7 +156,7 @@ class File implements ArrayAccess
         return $this;
     }
 
-    public function getFolder(): ?string
+    public function getFolder(): ?Folder
     {
         return $this->folder;
     }
@@ -179,22 +167,90 @@ class File implements ArrayAccess
         return $this;
     }
 
-    public function getFilePath()
+    
+    /**
+     * @return Collection|Folder[]
+     */
+    public function getSubFolders(): Collection
     {
-        return $this->getPath().'/'.$this->getOriginalFilename().'.'.$this->getExt();
+        return $this->subFolders;
+    }
+    /**
+     * @return ArrayCollection|Folder[]
+     */
+    public function getSubFoldersArray()
+    {
+        return $this->subFolders;
+    }
+    /**
+     * @param Folder $subFolder
+     */
+    public function addSubFolder(File $subFolder): void
+    {
+        if (!$this->subFolders->contains($subFolder)) {
+            $this->subFolders[] = $subFolder;
+            $subFolder->setFolder($this);
+        }
+    }
+    /**
+     * @param Folder $subFolder
+     */
+    public function removeSubFolder(Folder $subFolder)
+    {
+        if (!$this->subFolders->contains($subFolder)) {
+            return;
+        }
+        $this->subFolders->removeElement($subFolder);
+    }
+
+    /**
+     * @return Collection|File[]
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+    /**
+     * @return ArrayCollection|File[]
+     */
+    public function getFilesArray()
+    {
+        return $this->files;
+    }
+    /**
+     * @param File $file
+     */
+    public function addFile(File $file): void
+    {
+        if (!$this->files->contains($file)) {
+            $this->files[] = $file;
+            $file->setFolder($this);
+        }
+    }
+    /**
+     * @param Files $file
+     */
+    public function removeFile(File $file)
+    {
+        if (!$this->files->contains($file)) {
+            return;
+        }
+        $this->files->removeElement($file);
+    }
+    
+    public function getFolderPath()
+    {
+        return $this->getOriginalFilename();
     }
 
     public function duplicate(File $file): File
     {
         $file->setName($this->name);
         $file->setOriginalFilename($this->originalFilename);
-        $file->setExt($this->ext);
-        $file->setPath($this->path);
         $file->setPrivate($this->private);
         $file->setIsPublished($this->isPublished);
         $file->setRoleAccess($this->roleAccess);
         $file->setDescription($this->description);
-        $file->setFolder($this->folder);
         return $file;
     }
 

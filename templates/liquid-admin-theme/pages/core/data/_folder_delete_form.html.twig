@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('admin_folder_delete', {'id': folder.id}) }}" onsubmit="return confirm('Are you sure you want to delete this folder ?');">
+    <input type="hidden" name="token" value="{{ csrf_token('delete-folder') }}">
+    <button class="btn -danger">Delete</button>
+</form>

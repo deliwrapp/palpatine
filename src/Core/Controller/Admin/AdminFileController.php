@@ -15,11 +15,11 @@ use App\Core\Services\FileManager;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
- * Class AdminDataController - To Handle File Upload and File Management
+ * Class AdminFileController - To Handle File Upload and File Management
  * @package App\Core\Controller\Admin
- * @Route("/admin/data")
+ * @Route("/admin/file")
  */
-class AdminDataController extends AbstractController
+class AdminFileController extends AbstractController
 {
     /** @var FileUploader */
     private $fileUploader;
@@ -41,41 +41,13 @@ class AdminDataController extends AbstractController
         $this->fileRepo = $fileRepo;
     }
 
-    /**     
-     * Data Manager Dashboard
-     * 
-     * @Route("/", name="admin_data_manager") 
-     * @return Response
-     */
-    public function index(): Response
-    {
-        try {
-            $file = new File();
-            $uploadFileform = $this->createForm(FileUploadFormType::class, $file, [
-                'mode' => 'upload',
-                'file_type' => 'default',
-                'action' => $this->generateUrl('admin_file_upload'),
-                'method' => 'POST',
-            ]);
-            return $this->render('@core-admin/data/data-manager.html.twig', [
-                'uploadFileform' => $uploadFileform->createView(),
-            ]);
-        } catch (\Exception $e) {
-            $this->addFlash(
-                'danger',
-                $e->getMessage()
-            );
-            return $this->redirect($this->generateUrl('AdminDashboard'));
-        } 
-    }
-
     /**      
      * Files List Index
      * 
-     * @Route("/files", name="admin_file_list")  
+     * @Route("/", name="admin_file_list")  
      * @return Response
      */
-    public function filesList(): Response
+    public function index(): Response
     {
         try {
             $files = $this->fileRepo->findAll();

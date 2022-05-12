@@ -1,0 +1,18 @@
+{{ form_start(folderNameForm) }}
+    <section class="-panel-body -flex -wrap -shad-2">
+        <div class="col -col-8 -md8 -sm12 -xs12">
+            <small>{{ form_help(folderNameForm.name) }}</small>
+            {{ form_errors(folderNameForm.name) }}
+            <div class="form-element has-icon-right">
+                {{ form_widget(folderNameForm.name, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                <i class="form-icon fa-solid fa-heading"></i>
+            </div>
+            {{ form_label(folderNameForm.name, null, {
+                'label_attr': {'class': '-t-c -t-bld -color-dark'}
+            }) }}
+        </div>
+        <div class="col -col-4 -md4 -sm12 -xs12">
+            {{ form_widget(folderNameForm.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+        </div>
+    </section>
+{{ form_end(folderNameForm) }}

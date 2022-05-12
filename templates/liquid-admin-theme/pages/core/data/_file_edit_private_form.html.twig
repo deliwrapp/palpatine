@@ -1,0 +1,18 @@
+{{ form_start(filePrivateForm) }}
+    <section class="-panel-body -flex -wrap -shad-2">
+        <div class="col -col-8 -md8 -sm6 -xs6">
+            <div class="form-element">
+                <label class="switch">
+                    {{ form_widget(filePrivateForm.private) }}
+                    <i class="form-icon -shad-12"></i>
+                    <span class="form-field-msg -t-c -t-bld -color-dark">Private</span>
+                </label>
+            </div>
+            <small>{{ form_help(filePrivateForm.private) }}</small>
+            {{ form_errors(filePrivateForm.private) }} 
+        </div>
+        <div class="col -col-4 -md4 -sm12 -xs12">
+            {{ form_widget(filePrivateForm.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+        </div>
+    </section>
+{{ form_end(filePrivateForm) }}
