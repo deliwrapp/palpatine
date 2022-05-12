@@ -5,6 +5,7 @@ namespace App\Core\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 use App\Core\Entity\Template;
@@ -12,10 +13,18 @@ use App\Core\Repository\TemplateRepository;
 use App\Core\Form\TemplateFormType;
 
 /**
+ * Class AdminTemplateController
+ * @package App\Core\Controller\Admin
  * @Route("/admin/template")
  */
 class AdminTemplateController extends AbstractController
 {
+    /** @var TemplateRepository */
+    private $templateRepo;
+
+    /** @var MenuFactory */
+    private $twig;
+
     public function __construct(
         TemplateRepository $templateRepo,
         Environment $twig
@@ -26,7 +35,9 @@ class AdminTemplateController extends AbstractController
     }
 
     /**
+     * Template List Index
      * @Route("/", name="admin_template_list")
+     * @return Response
      */
     public function index(): Response
     {
@@ -45,7 +56,12 @@ class AdminTemplateController extends AbstractController
     }
 
     /**
+     * Create Template
+     * 
+     * @param Request $request
      * @Route("/create", name="admin_template_create")
+     * @return Response
+     * @return RedirectResponse
     */
     public function create(Request $request): Response
     {
@@ -90,19 +106,17 @@ class AdminTemplateController extends AbstractController
     }
 
     /**
+     * Edit Template
+     * 
+     * @param int $id
+     * @param Request $request
      * @Route("/update/{id}", name="admin_template_edit")
+     * @return Response
+     * @return RedirectResponse
      */
     public function edit(int $id, Request $request): Response
     {
         try {
-            $template = $this->templateRepo->find($id);
-            if (!$template) {
-                $this->addFlash(
-                    'warning',
-                    'There is no template  with id ' . $id
-                );
-                return $this->redirect($this->generateUrl('admin_template_list'));
-            }
             $form = $this->createForm(TemplateFormType::class, $template, [
                 'submitBtn' => 'Edit'
             ]);
@@ -145,21 +159,17 @@ class AdminTemplateController extends AbstractController
     }
 
     /**
+     * Show Template
+     * 
+     * @param int $id
      * @Route("/show/{id}", name="admin_template_show")
+     * @return Response
+     * @return RedirectResponse
      */
     public function show(int $id): Response
     {
         try {
-            $template = $this->templateRepo->find($id);
-
-            if (!$template) {
-                $this->addFlash(
-                    'warning',
-                    'There is no template  with id ' . $id
-                );
-                return $this->redirect($this->generateUrl('admin_template_list'));
-            }
-        
+            $template = $this->templateVerificator($id);
             return $this->render('@core-admin/template/template-show.html.twig', [
                 'template' => $template
             ]);
@@ -173,26 +183,27 @@ class AdminTemplateController extends AbstractController
     }
 
     /**
+     
+     */
+    /**
+     * Delete Template
+     * 
+     * @param int $id
+     * @param Request $request
      * @Route("/delete/{id}", name="admin_template_delete")
+     * @return RedirectResponse
      */
     public function delete(int $id, Request $request): Response
     {
         try {
             $submittedToken = $request->request->get('token'); 
             if ($this->isCsrfTokenValid('delete-template', $submittedToken)) {
-                $template = $this->templateRepo->find($id);
-                if (!$template) {
-                    $this->addFlash(
-                        'warning',
-                        'There is no template  with id ' . $id
-                    );
-                } else {                
-                    $this->templateRepo->remove($template);
-                    $this->addFlash(
-                        'success',
-                        'The Template with ' . $id . ' have been deleted '
-                    );
-                } 
+                $template = $this->templateVerificator($id);
+                $this->templateRepo->remove($template);
+                $this->addFlash(
+                    'success',
+                    'The Template with ' . $id . ' have been deleted '
+                ); 
             } else {
                 $this->addFlash(
                     'warning',
@@ -206,6 +217,27 @@ class AdminTemplateController extends AbstractController
             );
         }
         return $this->redirect($this->generateUrl('admin_template_list'));
+    }
+
+    
+    /**
+     * Test if template exists and return it, or redirect to template list index with an error message
+     * 
+     * @param int $templateId
+     * @return Template
+     * @return RedirectResponse
+     */
+    public function templateVerificator(int $templateId)
+    {
+        $template = $this->templateRepo->find($templateId);
+        if (!$template) {
+            $this->addFlash(
+                'warning',
+                'There is no Template  with id ' . $templateId
+            );
+            return $this->redirect($this->generateUrl('admin_template_list'));
+        }
+        return $template;
     }
 
 }

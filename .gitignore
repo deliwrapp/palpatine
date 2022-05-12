@@ -19,3 +19,8 @@ symfony.lock
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> data ###
+/public/uploads/
+/private/
+/private/uploads/

@@ -5,6 +5,7 @@ namespace App\Core\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Core\Entity\Menu;
 use App\Core\Entity\MenuItem;
@@ -16,10 +17,24 @@ use App\Core\Services\MenuFactory;
 use App\Core\Services\MenuVerificator;
 
 /**
+ * Class AdminMenuController
+ * @package App\Core\Controller\Admin
  * @Route("/admin/menu")
  */
 class AdminMenuController extends AbstractController
 {
+    /** @var MenuRepository */
+    private $menuRepo;
+
+    /** @var MenuItemRepository */
+    private $menuItemRepo;
+
+    /** @var MenuFactory */
+    private $menuFactory;
+
+    /** @var MenuVerificator */
+    private $menuVerif;
+
     public function __construct(
         MenuRepository $menuRepo,
         MenuItemRepository $menuItemRepo,
@@ -34,7 +49,10 @@ class AdminMenuController extends AbstractController
     }
 
     /**
+     * Menu List Index
+     * 
      * @Route("/", name="admin_menu_list")
+     * @return RedirectResponse
      */
     public function index(): Response
     {
@@ -53,9 +71,13 @@ class AdminMenuController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="admin_menu_create")
+     * Menu Create
+     * 
+     * @param Request $request
+     * @Route("/create", name="admin_menu_create") 
+     * @return RedirectResponse
     */
-    public function create(Request $request): Response
+    public function create(Request $request): RedirectResponse
     {
         try {
             $menu = new Menu();
@@ -79,7 +101,14 @@ class AdminMenuController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}/{opt}", name="admin_menu_edit")
+     * Menu Edit
+     * 
+     * @param int $id
+     * @param string $opt
+     * @param Request $request
+     * @Route("/update/{id}/{opt}", name="admin_menu_edit") 
+     * @return Response 
+     * @return RedirectResponse
      */
     public function edit(int $id, string $opt = null, Request $request): Response
     {
@@ -151,10 +180,15 @@ class AdminMenuController extends AbstractController
         }
     }
 
-        /**
+    /**
+     * Menu Duplicate
+     * 
+     * @param int $id
+     * @param Request $request
      * @Route("/duplicate/{id}", name="admin_menu_duplicate")
+     * @return RedirectResponse
      */
-    public function duplicate(int $id, Request $request): Response
+    public function duplicate(int $id, Request $request): RedirectResponse
     {
         try {
             $menu = $this->menuVerificator($id);
@@ -171,7 +205,11 @@ class AdminMenuController extends AbstractController
     }
 
     /**
+     * Menu Show
+     * 
+     * @param int $id
      * @Route("/show/{id}", name="admin_menu_show")
+     * @return Response
      */
     public function show(int $id): Response
     {
@@ -190,9 +228,14 @@ class AdminMenuController extends AbstractController
     }
 
     /**
+     * Menu Delete
+     * 
+     * @param int $id
+     * @param Request $request
      * @Route("/delete/{id}", name="admin_menu_delete")
+     * @return RedirectResponse
      */
-    public function delete(int $id, Request $request): Response
+    public function delete(int $id, Request $request): RedirectResponse
     {
         try {
             $submittedToken = $request->request->get('token'); 
@@ -219,9 +262,15 @@ class AdminMenuController extends AbstractController
     }
 
     /**
+     * Menu Add MenuItem
+     * 
+     * @param Request $request
+     * @param int $menuId
+     * @param string $type = "page"
      * @Route("/add-menu-item-to/{menuId}/{type}", name="admin_menu_item_create")
+     * @return RedirectResponse
      */
-    public function addMenuItem(Request $request, int $menuId, string $type = "page"): Response
+    public function addMenuItem(Request $request, int $menuId, string $type = "page"): RedirectResponse
     {
         try {
             $menu = $this->menuVerificator($menuId);
@@ -248,7 +297,15 @@ class AdminMenuController extends AbstractController
     }
 
     /**
+     * Menu Edit MenuItem
+     * 
+     * @param Request $request
+     * @param int $menuItemId
+     * @param int $menuId
+     * @param string $type = "page"
      * @Route("/edit-menu-item/{menuItemId}/from/{menuId}/{type}", name="admin_menu_item_edit")
+     * @return Response
+     * @return RedirectResponse
      */
     public function editMenuItem(Request $request, int $menuItemId, int $menuId, string $type = "page"): Response
     {
@@ -299,9 +356,15 @@ class AdminMenuController extends AbstractController
     }
 
     /**
+     * Menu Delete MenuItem
+     * 
+     * @param Request $request
+     * @param int $menuItemId
+     * @param int $menuId
      * @Route("/delete-menu-item/{menuItemId}/from/{menuId}", name="admin_menu_item_delete")
+     * @return RedirectResponse
      */
-    public function deleteMenuItem(Request $request, int $menuItemId, int $menuId): Response
+    public function deleteMenuItem(Request $request, int $menuItemId, int $menuId): RedirectResponse
     {
         try {
             $submittedToken = $request->request->get('token'); 
@@ -340,6 +403,13 @@ class AdminMenuController extends AbstractController
         }
     }
     
+    /**
+     * Test if menu exists and return it, or redirect to menu list index with an error message
+     * 
+     * @param int $menuId
+     * @return Menu $menu
+     * @return RedirectResponse
+     */
     public function menuVerificator(int $menuId)
     {
         $menu = $this->menuRepo->find($menuId);

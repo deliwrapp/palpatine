@@ -5,18 +5,23 @@ namespace App\Core\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use App\Core\Entity\Block;
 use App\Core\Repository\BlockRepository;
 use App\Core\Form\BlockFormType;
 
 /**
+ * Class AdminBlockController
+ * @package App\Core\Controller\Admin
  * @Route("/admin/block")
  */
 class AdminBlockController extends AbstractController
 {
+ 
+    /** @var BlockRepository */
+    private $blockRepo;
+
     public function __construct(
         BlockRepository $blockRepo
     )
@@ -25,19 +30,26 @@ class AdminBlockController extends AbstractController
     }
 
     /**
+     * Block Lists Index
+     * 
      * @Route("/", name="admin_block_list")
+     * @return Response
      */
     public function index(): Response
     {
         $blocks = $this->blockRepo->findAll();
-
         return $this->render('@core-admin/block/block-list.html.twig', [
             'blocks' => $blocks
         ]);
     }
 
     /**
-     * @Route("/create", name="admin_block_create")
+     * Block Create
+     * 
+     * @param Request $request 
+     * @Route("/create", name="admin_block_create") 
+     * @return Response 
+     * @return RedirectResponse
     */
     public function create(Request $request): Response
     {
@@ -46,9 +58,7 @@ class AdminBlockController extends AbstractController
             $form = $this->createForm(BlockFormType::class, $block, [
                 'submitBtn' => 'Create'
             ]);
-
             $form->handleRequest($request);
-
             if ($form->isSubmitted() && $form->isValid()) {
                 $block = $form->getData();
                 $this->blockRepo->add($block);
@@ -59,8 +69,7 @@ class AdminBlockController extends AbstractController
                 return $this->redirect($this->generateUrl('admin_block_show', [
                     'id' => $block->getId()
                 ]));
-            }
-            
+            } 
             return $this->render('@core-admin/block/block-edit.html.twig', [
                 'form' => $form->createView()
             ]);
@@ -73,22 +82,17 @@ class AdminBlockController extends AbstractController
         }
     }
 
-        // Block Duplicate
     /**
-     * @Route("/duplicate/{id}", name="admin_block_duplicate")
+     * Block Duplicate
+     * 
+     * @param int $id 
+     * @Route("/duplicate/{id}", name="admin_block_duplicate") 
+     * @return RedirectResponse
     */
-    public function duplicate(int $id): Response
+    public function duplicate(int $id): RedirectResponse
     {
         try {
-            $block = $this->blockRepo->find($id);
-
-            if (!$block) {
-                $this->addFlash(
-                    'warning',
-                    'There is no Block  with id ' . $id
-                );
-                return $this->redirect($this->generateUrl('admin_block_list'));
-            }
+            $block = $this->blockVerificator($id);
             $newBlock = new Block;
             $newBlock = $block->duplicate($newBlock);
             $this->blockRepo->add($newBlock);
@@ -109,24 +113,21 @@ class AdminBlockController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="admin_block_edit")
+     * Block Edit
+     * 
+     * @param int $id
+     * @param Request $request 
+     * @Route("/update/{id}", name="admin_block_edit") 
+     * @return Response 
+     * @return RedirectResponse
      */
     public function edit(int $id, Request $request): Response
     {
         try {
-            $block = $this->blockRepo->find($id);
+            $block = $this->blockVerificator($id);
             $form = $this->createForm(BlockFormType::class, $block, [
                 'submitBtn' => 'Edit'
-            ]);
-
-            if (!$block) {
-                $this->addFlash(
-                    'warning',
-                    'There is no Block  with id ' . $id
-                );
-                return $this->redirect($this->generateUrl('admin_block_list'));
-            }
-            
+            ]);            
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -140,7 +141,6 @@ class AdminBlockController extends AbstractController
                     'id' => $block->getId()
                 ]));
             }
-
             return $this->render(
                 '@core-admin/block/block-edit.html.twig',
                 [
@@ -158,20 +158,16 @@ class AdminBlockController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="admin_block_show")
+     * Block Show
+     * 
+     * @param int $id
+     * @Route("/show/{id}", name="admin_block_show") 
+     * @return Response
      */
-    public function show(int $id, ManagerRegistry $doctrine): Response
+    public function show(int $id): Response
     {
         try {
-            $blockContainer = $this->blockRepo->find($id);
-
-            if (!$blockContainer) {
-                $this->addFlash(
-                    'warning',
-                    'There is no block  with id ' . $id
-                );
-                return $this->redirect($this->generateUrl('admin_block_list'));
-            }
+            $blockContainer = $this->blockVerificator($id);
             $data = $blockContainer->getQuery() ?
                 $this->blockRepo->getBlockData($blockContainer->getQuery(), $blockContainer->getSingleResult()) :
                 null;
@@ -191,29 +187,25 @@ class AdminBlockController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="admin_block_delete")
+     * Block Delete
+     * 
+     * @param int $id
+     * @param Request $request 
+     * @Route("/delete/{id}", name="admin_block_delete") 
+     * @return RedirectResponse
      */
-    public function delete(int $id, ManagerRegistry $doctrine, Request $request): Response
+    public function delete(int $id, Request $request): RedirectResponse
     {
         try {
             $submittedToken = $request->request->get('token');
             if ($this->isCsrfTokenValid('delete-block', $submittedToken)) {
-                $em = $doctrine->getManager();
-                $block = $doctrine->getRepository(Block::class);
-                $block = $block->find($id);
-                if (!$block) {
-                    $this->addFlash(
-                        'warning',
-                        'There is no block  with id ' . $id
-                    );
-                } else {
-                    $em->remove($block);
-                    $em->flush();
-                    $this->addFlash(
-                        'success',
-                        'The Block with ' . $id . ' have been deleted '
-                    );
-                } 
+                $block = $this->blockVerificator($id);
+                $this->blockRepo->remove($block);
+                $this->blockRepo->flush();
+                $this->addFlash(
+                    'success',
+                    'The Block with ' . $id . ' have been deleted '
+                );
             } else {
                 $this->addFlash(
                     'warning',
@@ -227,6 +219,26 @@ class AdminBlockController extends AbstractController
             );
         }  
         return $this->redirect($this->generateUrl('admin_block_list'));
+    }
+
+    /**
+     * Test if block exists and return it, or redirect to menu list index with an error message
+     * 
+     * @param int $blockId
+     * @return Block
+     * @return RedirectResponse
+     */
+    public function blockVerificator(int $blockId)
+    {
+        $block = $this->blockRepo->find($blockId);
+        if (!$block) {
+            $this->addFlash(
+                'warning',
+                'There is no Block  with id ' . $blockId
+            );
+            return $this->redirect($this->generateUrl('admin_block_list'));
+        }
+        return $block;
     }
 
 }

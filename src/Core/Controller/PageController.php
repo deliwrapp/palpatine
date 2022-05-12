@@ -5,12 +5,24 @@ namespace App\Core\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Core\Repository\PageRepository;
 use App\Core\Repository\BlockRepository;
 
+/**
+ * Class PageController
+ * @package App\Core\Controller
+ */
 class PageController extends AbstractController
 {
+
+    /** @var PageRepository */
+    private $pageRepo;
+
+    /** @var BlockRepository */
+    private $blockRepo;
+    
     public function __construct(
         PageRepository $pageRepo,
         BlockRepository $blockRepo
@@ -19,9 +31,15 @@ class PageController extends AbstractController
         $this->pageRepo = $pageRepo;
         $this->blockRepo = $blockRepo;
     }
-
+    
     /**
+     * Page Controller
+     * 
+     * @param Request $request
+     * @param string $pageUrl
      * @Route("/{pageUrl}", priority=-1, name="page_show")
+     * @return Response
+     * @return RedirectResponse
      */
     public function show(Request $request, string $pageUrl): Response
     {

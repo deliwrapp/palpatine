@@ -1,4 +1,8 @@
 services:
+    _defaults:
+        bind:               
+            $publicPath: '%public_directory%' # makes $publicPath available to all services              
+            $privatePath: '%private_directory%' # makes $privatePath available to all services
     App\Core\:
         resource: '../Core/*'
         exclude: '../Core/{DependencyInjection,Entity,Migrations,Templates,Tests,DataFixtures}'

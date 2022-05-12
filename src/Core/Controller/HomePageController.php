@@ -9,9 +9,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Core\Repository\PageRepository;
 use App\Core\Repository\BlockRepository;
 
-
+/**
+ * Class HomePageController
+ * @package App\Core\Controller
+ */
 class HomePageController extends AbstractController
 {
+    /** @var PageRepository */
+    private $pageRepo;
+
+    /** @var BlockRepository */
+    private $blockRepo;
+
     public function __construct(
         PageRepository $pageRepo,
         BlockRepository $blockRepo
@@ -20,8 +29,13 @@ class HomePageController extends AbstractController
         $this->pageRepo = $pageRepo;
         $this->blockRepo = $blockRepo;
     }
+
     /**
+     * Public Homepage
+     * 
+     * @param Request $request
      * @Route("/", name="homepage")
+     * @return Response
      */
     public function show(Request $request): Response
     {
@@ -37,11 +51,11 @@ class HomePageController extends AbstractController
                     }
                 }
             }
-            return $this->render('@core/basic-page.html.twig', [
+            return $this->render('@base-theme/basic-page.html.twig', [
                 'page' => $page
             ]);
         }
         
-        return $this->render('@core/homepage.html.twig');
+        return $this->render('@base-theme/homepage.html.twig');
     }
 }

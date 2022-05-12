@@ -23,6 +23,14 @@ class EmailVerifier
         $this->entityManager = $manager;
     }
 
+    /**
+     * Send Email Confirmation
+     * 
+     * @param string $verifyEmailRouteName
+     * @param UserInterface $user
+     * @param TemplatedEmail $email
+     * @return void
+     */
     public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
     {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
@@ -42,7 +50,12 @@ class EmailVerifier
     }
 
     /**
+     * Handle Email Confirmation
+     * 
+     * @param Request $request
+     * @param UserInterface $user
      * @throws VerifyEmailExceptionInterface
+     * @return void
      */
     public function handleEmailConfirmation(Request $request, UserInterface $user): void
     {

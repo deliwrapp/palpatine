@@ -19,8 +19,13 @@ use App\Core\Form\PageFormType;
  */
 class ApiAdminPageController extends AbstractController
 {
+
     /**
+     * Api Admin Page List Index
+     * 
+     * @param PageRepository $pageRepo
      * @Route("/", name="ApiAdminPageList")
+     * @return Response
      */
     public function index(PageRepository $pageRepo): Response
     {

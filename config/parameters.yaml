@@ -35,6 +35,16 @@ parameters:
         bottom_end: 'Bottom Bar End'
         bottom_fixed: 'Bottom Bar Fixed'
     defaultBlockTpl: 'blocks/default/default.html.twig'
-    data_folder: Data
     posts_templates:
-      blocks/post/oldway_show_post.html.twig: oldway
+        blocks/post/oldway_show_post.html.twig: oldway
+    public_directory: 'public'
+    private_directory: 'private'
+    public_uploads_directory: 'uploads'
+    private_uploads_directory: 'uploads'
+    absolute_public_directory: '%kernel.project_dir%/%public_directory%'
+    absolute_private_directory: '%kernel.project_dir%/%private_directory%'
+    absolute_public_uploads_directory: '%public_directory%/%public_uploads_directory%'
+    absolute_private_uploads_directory: '%absolute_private_directory%/%private_uploads_directory%'
+    block_uploads_directory: '%kernel.project_dir%/templates/blocks'
+    page_theme_uploads_directory: '%kernel.project_dir%/templates/%base_theme%/pages'
+    page_admin_theme_uploads_directory: '%kernel.project_dir%/templates/%admin_theme%/pages'

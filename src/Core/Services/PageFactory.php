@@ -43,9 +43,16 @@ class PageFactory
         $this->em = $em->getManager();
     }
 
+    /**
+     * Init a new page
+     * 
+     * @param Page $page
+     * @param bool $record = false
+     * @return Page $page
+     */
     public function initPage(Page $page, $record = false): Page {
         if ($page->getIsHomepage()) {
-            $testHomepage = $this->pageVerif->checkIfIsHomepageAndLocaleExists(true, $page->getLocale());
+            $testHomepage = $this->pageVerif->checkIfIsHomepageAndLocaleExists($page->getLocale());
             if ($testHomepage) {
                 return 'ERROR :  - Duplicate Homepage with same Locale - ';
             }
@@ -59,12 +66,22 @@ class PageFactory
         return $page;
     }
 
+    /**
+     * Duplicate a page
+     * 
+     * @param Page $page
+     * @param string $name
+     * @param string $locale,
+     * @param bool $record = false
+     * @return Page $page
+     * @return string $page (to handle error with a message)
+     */
     public function duplicatePage(Page $page, string $name, string $locale, $record = false) {
         $newPage = false;
         $testHomepage = false;
         $testGroupAndLocale = $this->pageVerif->checkIfPageGroupAndLocaleExists($page->getPageGroupId(), $locale);
         if ($page->getIsHomepage()) {
-            $testHomepage = $this->pageVerif->checkIfIsHomepageAndLocaleExists(true, $locale);
+            $testHomepage = $this->pageVerif->checkIfIsHomepageAndLocaleExists($locale);
         }
         
         if (!$testGroupAndLocale && !$testHomepage) {
@@ -93,10 +110,22 @@ class PageFactory
         return $newPage;
     }
 
+    /**
+     * Record a page in database
+     * 
+     * @param Page $page
+     * @return void
+     */
     public function recordPage(Page $page):void {
         $this->pageRepo->add($page);
     }
 
+    /**
+     * Url converter for clean url page
+     * 
+     * @param string $string
+     * @return string $string
+     */
     public function urlConverter(string $string): string {
         $string = htmlentities($string, ENT_NOQUOTES, 'utf-8');
         $string = trim($string);
@@ -108,17 +137,35 @@ class PageFactory
         return $string;
     }
 
+    /**
+     * Page Group Id for localization page group
+     * 
+     * @param string $string
+     * @return string $string
+     */
     public function pageGroupeInit(): string {
         $randomNbr = random_int(12346, 9876543);
         return uniqid('page_group_'.$randomNbr.'_', true);
     }
 
+    /**
+     * Full Path Manager for page path
+     * 
+     * @param Page $page
+     * @return Page $page
+     */
     public function createFullPath(Page $page): Page {
         $fullPath = $page->getPrefix().'/'.$page->getUrl();
         $page->setFullPath($fullPath);
         return $page;
     }
 
+    /**
+     * Page re-order position handler
+     * 
+     * @param Page $page
+     * @return Page $page
+     */
     public function reOrderPageBlock(Page $page): Page {
         $blocks = $page->getBlocks();
         $blocks = $blocks->toArray();

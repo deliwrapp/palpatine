@@ -5,6 +5,7 @@ namespace App\Core\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Core\Entity\Page;
 use App\Core\FormObject\PageDuplication;
@@ -15,6 +16,8 @@ use App\Core\Services\PageFactory;
 use App\Core\Repository\BlockRepository;
 
 /**
+ * Class AdminPageController -- Manage Page
+ * @package App\Core\Controller\Admin
  * @Route("/admin/page")
  */
 class AdminPageController extends AbstractController
@@ -39,9 +42,11 @@ class AdminPageController extends AbstractController
         $this->pageFactory = $pageFactory;
     }
 
-    // Page List
     /**
+     * Page List Index
+     * 
      * @Route("/", name="admin_page_list")
+     * @return Response
      */
     public function index(): Response
     {
@@ -51,10 +56,14 @@ class AdminPageController extends AbstractController
         ]);
     }
 
-    // Page Create
     /**
+     * Page Create
+     * 
+     * @param Request $request
      * @Route("/create", name="admin_page_create")
-    */
+     * @return Response
+     * @return RedirectResponse
+     */
     public function create(Request $request): Response
     {
         try {
@@ -95,9 +104,15 @@ class AdminPageController extends AbstractController
         
     }
 
-    // Page Duplicate
     /**
+     * Page Duplicate
+     * 
+     * @param Request $request
+     * @param int $id
+     * @param string $name = null
      * @Route("/duplicate/{id}/{name}", name="admin_page_duplicate")
+     * @return Response
+     * @return RedirectResponse
     */
     public function duplicate(Request $request, int $id, string $name = null): Response
     {
@@ -155,13 +170,18 @@ class AdminPageController extends AbstractController
         
     }
 
-    // Page Edit 
     /**
+     * Page Edit 
+     * 
+     * @param int $id
+     * @param Request $request
      * @Route("/update/{id}",  name="admin_page_edit")
+     * @return Response
+     * @return RedirectResponse
      */
     public function edit(int $id, Request $request): Response
     {
-        
+        try {
             $page = $this->pageVerificator($id);
             $form = $this->createForm(PageFormType::class, $page, [
                 'submitBtn' => 'Edit'
@@ -219,14 +239,25 @@ class AdminPageController extends AbstractController
                     'page' => $page,
                     'blocks' => $blocks
                 ]
-            ); 
+            );
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('admin_page_list'));
+        }
     }
 
-    // Page Edit Url
     /**
+     * Page Edit Url
+     * 
+     * @param int $id
+     * @param Request $request
      * @Route("/update/url/{id}", name="admin_page_edit_url")
+     * @return RedirectResponse
      */
-    public function editUrl(int $id, Request $request): Response
+    public function editUrl(int $id, Request $request): RedirectResponse
     {
         try {
             $page = $this->pageVerificator($id);
@@ -260,11 +291,15 @@ class AdminPageController extends AbstractController
         }
     }
  
-    // Page Change Locale
     /**
+     * Page Change Locale
+     * 
+     * @param int $id
+     * @param Request $request
      * @Route("/update/locale/{id}", name="admin_page_edit_locale")
+     * @return RedirectResponse
      */
-    public function editLocale(int $id, Request $request): Response
+    public function editLocale(int $id, Request $request): RedirectResponse
     {
         try {
             $page = $this->pageVerificator($id);
@@ -306,11 +341,15 @@ class AdminPageController extends AbstractController
         }
     }
 
-    // Page Add other page to page pageGroup
     /**
+     * Page Add other page to page pageGroup
+     * 
+     * @param int $id
+     * @param Request $request
      * @Route("/update/page-group/{id}", name="admin_page_add_to_page_group")
+     * @return RedirectResponse
      */
-    public function addPageToPageGroup(int $id, Request $request): Response
+    public function addPageToPageGroup(int $id, Request $request): RedirectResponse
     {
         try {
             $page = $this->pageVerificator($id);
@@ -344,7 +383,11 @@ class AdminPageController extends AbstractController
     }
 
     /**
+     * Page Show
+     * 
+     * @param int $id
      * @Route("/show/{id}", name="admin_page_show")
+     * @return Response
      */
     public function show(int $id): Response
     {
@@ -372,9 +415,14 @@ class AdminPageController extends AbstractController
     }
 
     /**
+     * Page Delete
+     * 
+     * @param int $id
+     * @param Request $request
      * @Route("/delete/{id}", name="admin_page_delete")
+     * @return RedirectResponse
      */
-    public function delete(int $id, Request $request): Response
+    public function delete(int $id, Request $request): RedirectResponse
     {
         try {
             $submittedToken = $request->request->get('token'); 
@@ -400,6 +448,13 @@ class AdminPageController extends AbstractController
         return $this->redirect($this->generateUrl('admin_page_list'));
     }
 
+    /**
+     * Test if page exists and return it, or redirect to page list index with an error message
+     * 
+     * @param int $pageId
+     * @return Page $page
+     * @return RedirectResponse
+     */
     public function pageVerificator(int $pageId)
     {
         $page = $this->pageRepo->find($pageId);

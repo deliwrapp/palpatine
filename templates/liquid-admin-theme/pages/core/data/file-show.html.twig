@@ -1,0 +1,24 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}FILE SHOW{% endblock %}
+
+{% block mainContent %}
+
+    {% if file is defined %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+            <section class="-shad-12 col -col-12 -row">
+                <button class="tooltip -tooltip-bottom -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="edit file" type="submit">   
+                    <a class="-light -hover" href="{{ path('admin_file_edit', { 'id': file.id }) }}">
+                        <i class="fa-solid fa-pen fa-2x"></i>        
+                    </a>
+                </button>
+            </section>
+        {% endif %}
+        <section class="-w-f">   
+        
+        </section>
+    {% else %}
+        <p> There is no file !!! </p>
+    {% endif %}
+
+{% endblock %}

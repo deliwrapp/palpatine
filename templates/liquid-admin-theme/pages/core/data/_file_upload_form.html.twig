@@ -1,0 +1,79 @@
+{{ form_start(uploadFileform, {'attr': {'class': '-w-f'}}) }}
+    <section class="-flex -wrap -shad-2">
+        <div class="col -col-3 -md3 -sm12 -xs12">
+            <small>{{ form_help(uploadFileform.name) }}</small>
+            {{ form_errors(uploadFileform.name) }}
+            <div class="form-element has-icon-right">
+                {{ form_widget(uploadFileform.name, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                <i class="form-icon fa-solid fa-heading"></i>
+            </div>
+            {{ form_label(uploadFileform.name, null, {
+                'label_attr': {'class': '-t-c -t-bld -color-dark'}
+            }) }}
+        </div>
+        <div class="col -col-3 -md3 -sm12 -xs12">
+            <small>{{ form_help(uploadFileform.roleAccess) }}</small>
+            {{ form_errors(uploadFileform.roleAccess) }}
+            <div class="form-element">
+                <div class="-sm9 -mb5">
+                    {{ form_widget(uploadFileform.roleAccess, {'attr': {'class': 'form-field form-select -shad-12'}}) }}
+                </div>
+                {{ form_label(uploadFileform.roleAccess, null, {
+                    'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                }) }}
+            </div>
+        </div>
+        <div class="col -col-2 -md2 -sm12 -xs12">
+            <small>{{ form_help(uploadFileform.upload_file) }}</small>
+            {{ form_errors(uploadFileform.upload_file) }}
+            {{ form_label(uploadFileform.upload_file, null, {
+                    'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                }) }}
+            <div class="form-element">
+                <div class="form-file-field">
+                    <span class="file-btn">Choose file</span>
+                    <span class="file-msg">or drop files here</span>
+                    {{ form_widget(uploadFileform.upload_file, {'attr': {'class': ' -shad-12'}}) }}
+                </div>
+            </div>
+        </div>
+        <div class="col -col-2 -md2 -sm6 -xs6">
+            <div class="form-element">
+                <label class="switch">
+                    {{ form_widget(uploadFileform.private) }}
+                    <i class="form-icon -shad-12"></i>
+                    <span class="form-field-msg -t-c -t-bld -color-dark">Private</span>
+                </label>
+            </div>
+            <small>{{ form_help(uploadFileform.private) }}</small>
+            {{ form_errors(uploadFileform.private) }} 
+        </div>
+        <div class="col -col-2 -md2 -sm6 -xs6">
+            <div class="form-element">
+                <label class="switch">
+                    {{ form_widget(uploadFileform.isPublished) }}
+                    <i class="form-icon -shad-12"></i>
+                    <span class="form-field-msg -t-c -t-bld -color-dark">Published</span>
+                </label>
+            </div>
+            <small>{{ form_help(uploadFileform.isPublished) }}</small>
+            {{ form_errors(uploadFileform.isPublished) }} 
+        </div>
+        <div class="col -col-12">
+            <small>{{ form_help(uploadFileform.description) }}</small>
+            {{ form_errors(uploadFileform.description) }}
+            <div class="form-element">
+                {{ form_label(uploadFileform.description, null, {
+                    'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                }) }}
+                <div class="-sm9">
+                    {{ form_widget(uploadFileform.description, {'attr': {'class': '-w-f -shad-12'}}) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="-panel-footer -text-center ">
+        {{ form_widget(uploadFileform.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+    </section>
+{{ form_end(uploadFileform) }}

@@ -16,10 +16,20 @@ class TemplateFactory
         $this->tplRepo = $tplRepo;
     }
 
+    /**
+     * Create template
+     * 
+     * @return Template $tpl
+     */
     public function createTemplate() {
         return $tpl = new Template;
     }
 
+    /**
+     * Create Default template
+     * 
+     * @return Template $tpl
+     */
     public function createDefaultTemplate() {
         $tpl = new Template;
         $tpl->setName('default-block');
@@ -31,6 +41,12 @@ class TemplateFactory
         return $tpl;
     }
 
+    /**
+     * Create template
+     * 
+     * @param string $defaultName = 'default-block'
+     * @return Template $tpl
+     */
     public function checkIfDefaultTemplateExists($defaultName = 'default-block') {
         $tpl = $this->tplRepo->findOneBy(['name' => $defaultName]);
         return $tpl;

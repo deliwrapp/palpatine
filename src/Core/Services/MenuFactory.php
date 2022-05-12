@@ -16,10 +16,20 @@ class MenuFactory
         $this->menuRepo = $menuRepo;
     }
 
+    /**
+     * Create a new Menu
+     *
+     * @return Menu $menu
+     */
     public function createMenu() {
         return $menu = new Menu;
     }
 
+    /**
+     * Create a default Menu
+     *
+     * @return Menu $menu
+     */
     public function createDefaultMenu() {
         $menu = new Menu;
         $menu->setName('default-menu');

@@ -1,0 +1,33 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}DATA MANAGER{% endblock %}
+
+{% block mainContent %}
+    <section class="col -col-4 -md4 -sm12 -xs12" id="file-manager">
+        <div class="tile -tile-compact -w-f -m0 -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    File Manager
+                </div>
+                <div class="-tile-subtitle">
+                    Access to you Files
+                    <a class="-t-u btn -sm -light -hover" href="{{ path('admin_file_list') }}">See</a>
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Add File"> 
+                    <a class="-success" href="#">
+                        <i class="fa-solid fa-cogs fa-2x"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="col -col-12" id="file-uploader">
+        {% if uploadFileform is defined %}
+            {% include "liquid-admin-theme/pages/core/data/_file_upload_form.html.twig" %}
+        {% endif %}
+    </section>
+    
+{% endblock %}

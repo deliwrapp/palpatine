@@ -9,12 +9,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Class MemberUserController
+ * @package App\Security\Controller
  * @Route("/member/user")
  */
 class MemberUserController extends AbstractController
 {
+    
     /**
+     * User List Index
+     * 
      * @Route("/", name="MemberUsersList")
+     * @return Response
      */
     public function index(): Response
     {

@@ -5,6 +5,7 @@ namespace App\Core\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Core\Entity\Page;
 use App\Core\Entity\PageBlock;
@@ -16,6 +17,8 @@ use App\Core\Services\TemplateFactory;
 use App\Core\Form\PageBlockFormType;
 
 /**
+ * Class AdminPageBlockController
+ * @package App\Core\Controller\Admin
  * @Route("/admin/page")
  */
 class AdminPageBlockController  extends AbstractController
@@ -50,14 +53,19 @@ class AdminPageBlockController  extends AbstractController
         $this->tplFactory = $tplFactory;
     }
 
-    // Page Add Block to Page
     /**
+     * Page Add Block to Page
+     * 
+     * @param int $pageId
+     * @param string $option = 'new'
+     * @param int $blockId = null
      * @Route("/add-block-to-page/{pageId}/{option}/{blockId}", 
-     * name="admin_page_block_add",
-     * defaults = {"option" = "new", "blockId" = null}
+     *         name="admin_page_block_add",
+     *         defaults = {"option" = "new", "blockId" = null}
      * )
+     * @return RedirectResponse
      */
-    public function addBlockToPage(int $pageId, string $option = 'new', int $blockId = null): Response
+    public function addBlockToPage(int $pageId, string $option = 'new', int $blockId = null): RedirectResponse
     {
         try {
             $page =$this->pageVerificator($pageId);
@@ -101,11 +109,15 @@ class AdminPageBlockController  extends AbstractController
         ]));
     }
 
-    // Page Duplicate PageBlock from Page
     /**
+     * Page Duplicate PageBlock from Page
+     * 
+     * @param int $pageBlockId
+     * @param int $pageId
      * @Route("/duplicate-block/{pageBlockId}/from/{pageId}", name="admin_page_block_duplicate")
+     * @return RedirectResponse
      */
-    public function duplicateBlockFromPage(int $pageBlockId, int $pageId): Response
+    public function duplicateBlockFromPage(int $pageBlockId, int $pageId): RedirectResponse
     {
         try {
             $page =$this->pageVerificator($pageId);
@@ -132,11 +144,15 @@ class AdminPageBlockController  extends AbstractController
         ]));
     }
 
-    // Page Remove Block from Page
     /**
+     * Page Remove Block from Page
+     * 
+     * @param int $pageBlockId
+     * @param int $pageId
      * @Route("/remove-block/{pageBlockId}/from/{pageId}", name="admin_page_block_remove")
+     * @return RedirectResponse
      */
-    public function removeBlockFromPage(int $pageBlockId, int $pageId): Response
+    public function removeBlockFromPage(int $pageBlockId, int $pageId): RedirectResponse
     {
         try {
             $page =$this->pageVerificator($pageId);
@@ -158,11 +174,16 @@ class AdminPageBlockController  extends AbstractController
         ]));
     }
 
-    // PageBlock change position
     /**
+     * PageBlock change position
+     * 
+     * @param int $pageBlockId
+     * @param int $pageId
+     * @param int $position
      * @Route("/block/{pageBlockId}/page/{pageId}/move-to/{position}", name="admin_page_block_position")
+     * @return RedirectResponse
      */
-    public function moveBlockTo(int $pageBlockId, int $pageId, int $position): Response
+    public function moveBlockTo(int $pageBlockId, int $pageId, int $position): RedirectResponse
     {
         try {
             $page = $this->pageVerificator($pageId);
@@ -199,16 +220,18 @@ class AdminPageBlockController  extends AbstractController
         ]));
     }
 
-    // Page Reorder Blocks on the Page
     /**
+     * Page Reorder Blocks on the Page
+     * 
+     * @param int $pageId
      * @Route("/block/re-order/{pageId}", name="admin_page_block_reorder")
+     * @return RedirectResponse
      */
-    public function reOrderBlocksOnPage(int $pageId): Response
+    public function reOrderBlocksOnPage(int $pageId): RedirectResponse
     {
         try {
             $page =$this->pageVerificator($pageId);
-            $page = $this->pageFactory->reOrderPageBlock($page);
-            
+            $page = $this->pageFactory->reOrderPageBlock($page);  
             $this->addFlash(
                 'success',
                 'The Page Blocks have been reordered'
@@ -224,9 +247,15 @@ class AdminPageBlockController  extends AbstractController
         ]));
     }
 
-        // Page Block Edit 
     /**
+     * Page Block Edit 
+     * 
+     * @param int $pageBlockId
+     * @param int $pageId
+     * @param Request $request
      * @Route("/page-block/editor/{pageBlockId}/page/{pageId}", name="admin_page_block_edit")
+     * @return Response
+     * @return RedirectResponse
      */
     public function edit(int $pageBlockId, int $pageId, Request $request): Response
     {
@@ -267,6 +296,13 @@ class AdminPageBlockController  extends AbstractController
         
     }
 
+    /**
+     * Test if page exists and return it, or redirect to menu list index with an error message
+     * 
+     * @param int $pageId
+     * @return Page $page
+     * @return RedirectResponse
+     */
     public function pageVerificator(int $pageId)
     {
         $page = $this->pageRepo->find($pageId);
@@ -279,7 +315,15 @@ class AdminPageBlockController  extends AbstractController
         }
         return $page;
     }
-    
+
+    /**
+     * Test if pageBlock exists and return it, or redirect to menu list index with an error message
+     * 
+     * @param int $pageBlockId
+     * @param int $pageId
+     * @return PageBlock $pageBlock
+     * @return RedirectResponse
+     */
     public function pageBlockVerificator(int $pageBlockId, int $pageId)
     {
         $pageBlock = $this->pageBlockRepo->find($pageBlockId);
@@ -295,6 +339,14 @@ class AdminPageBlockController  extends AbstractController
         return $pageBlock;
     }
 
+    /**
+     * Test if pageBlock exists and page are linked, return true or redirect to menu list index with an error message
+     * 
+     * @param PageBlock $pageBlock
+     * @param Page $pageId
+     * @return bool
+     * @return RedirectResponse
+     */
     public function pageBlockLinkVerificator(PageBlock $pageBlock, Page $page)
     {
         if ($page !== $pageBlock->getPage()) {

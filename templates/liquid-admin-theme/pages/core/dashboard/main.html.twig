@@ -33,20 +33,20 @@
     </div>
 </section>
 
-<section class="col -col-4 -md4 -sm12 -xs12" id="files-manager">
+<section class="col -col-4 -md4 -sm12 -xs12" id="data-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
-                Files Manager
+                Data Manager
             </div>
             <div class="-tile-subtitle">
                 You have xx files.
-                <a class="-t-u btn -sm -light -hover" href="#">Gallery Access</a>
+                <a class="-t-u btn -sm -light -hover" href="{{ path('admin_data_manager') }}">Access</a>
             </div>
         </div>
         <div class="-tile-action">
             <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Add Files"> 
-                <a class="-success" href="#">
+                <a class="-success" href="{{ path('admin_file_list') }}">
                     <i class="fa-solid fa-plus fa-2x"></i> 
                 </a>
             </button>

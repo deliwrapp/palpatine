@@ -7,12 +7,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * Class AdminDashboardController
+ * @package App\Core\Controller\Admin
  * @Route("/admin")
  */
 class AdminDashboardController extends AbstractController
 {
     /**
-     * @Route("/", name="AdminDashboard")
+     * Admin Dashboard Home
+     * 
+     * @Route("/", name="AdminDashboard") 
+     * @return Response
      */
     public function index(): Response
     {
