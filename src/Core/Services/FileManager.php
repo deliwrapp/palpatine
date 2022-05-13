@@ -1,6 +1,6 @@
 <?php
 
-// src/Core/Services/FileUploader.php
+// src/Core/Services/FileManager.php
 namespace App\Core\Services;
 
 use Symfony\Component\Filesystem\Filesystem;
@@ -153,6 +153,7 @@ class FileManager
     {
         try {
             $file->setPrivate($private);
+            $this->fileRepo->add($file, false);
             return $this->rename($file, $file->getName());
         } catch (\Exception $e) {
             return $e;

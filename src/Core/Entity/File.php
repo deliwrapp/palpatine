@@ -168,7 +168,7 @@ class File implements ArrayAccess
         return $this;
     }
 
-    public function getFolder(): ?string
+    public function getFolder(): ?Folder
     {
         return $this->folder;
     }

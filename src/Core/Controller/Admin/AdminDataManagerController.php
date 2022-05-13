@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Core\Entity\File;
+use App\Core\Repository\FolderRepository;
 use App\Core\Repository\FileRepository;
 use App\Core\Form\FileUploadFormType;
 use App\Core\Services\FileUploader;
@@ -18,7 +19,7 @@ use App\Core\Services\FileManager;
  * @package App\Core\Controller\Admin
  * @Route("/admin/data")
  */
-class AdminFileController extends AbstractController
+class AdminDataManagerController extends AbstractController
 {
     /** @var FileUploader */
     private $fileUploader;
@@ -26,17 +27,22 @@ class AdminFileController extends AbstractController
     /** @var FileManager */
     private $fileManager;
 
+    /** @var FolderRepository */
+    private $folderRepo;
+
     /** @var FileRepository */
     private $fileRepo;
 
     public function __construct(
         FileUploader $fileUploader,
         FileManager $fileManager,
+        FolderRepository $folderRepo,
         FileRepository $fileRepo
     )
     {
         $this->fileUploader = $fileUploader;
         $this->fileManager = $fileManager;
+        $this->folderRepo = $folderRepo;
         $this->fileRepo = $fileRepo;
     }
 
@@ -49,6 +55,8 @@ class AdminFileController extends AbstractController
     public function index(): Response
     {
         try {
+            $files = $this->fileRepo->findBy(['folder' => null]);
+            $folders = $this->folderRepo->findBy(['folder' => null]);
             $file = new File();
             $uploadFileform = $this->createForm(FileUploadFormType::class, $file, [
                 'mode' => 'upload',
@@ -58,6 +66,8 @@ class AdminFileController extends AbstractController
             ]);
             return $this->render('@core-admin/data/data-manager.html.twig', [
                 'uploadFileform' => $uploadFileform->createView(),
+                'files' => $files,
+                'folders' => $folders
             ]);
         } catch (\Exception $e) {
             $this->addFlash(

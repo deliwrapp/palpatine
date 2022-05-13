@@ -142,23 +142,6 @@ class FileUploadFormType extends AbstractType
                         'constraints' => [
                             new FileValidator([
                                 'maxSize' => '4096k',
-                                'mimeTypes' => [ // We want to let upload only txt, csv or Excel files
-                                    'text/x-comma-separated-values', 
-                                    'text/comma-separated-values', 
-                                    'text/x-csv', 
-                                    'text/csv', 
-                                    'text/plain',
-                                    'application/octet-stream', 
-                                    'application/vnd.ms-excel', 
-                                    'application/x-csv', 
-                                    'application/csv', 
-                                    'application/excel',
-                                    'application/vnd.msexcel', 
-                                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                                    'application/pdf',
-                                    'application/x-pdf',
-                                ],
-                                'mimeTypesMessage' => "This document isn't valid.",
                             ])
                         ],
                     ]);

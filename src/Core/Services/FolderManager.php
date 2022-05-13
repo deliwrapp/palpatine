@@ -1,6 +1,6 @@
 <?php
 
-// src/Core/Services/FileUploader.php
+// src/Core/Services/FolderUploader.php
 namespace App\Core\Services;
 
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -90,7 +90,7 @@ class FolderManager
      * @return Folder $folder
      * @return Exception $e
      */
-    public function rename(File $folder, string $name)
+    public function rename(Folder $folder, string $name)
     {
         try {
             $newSafeFilename = $this->slugger->slug($name).'-'.uniqid();
@@ -160,11 +160,15 @@ class FolderManager
      * @return bool
      * @return \Exception $e
      */
-    public function switchPrivateToPublic(File $folder, $private = false)
+    public function switchPrivateToPublic(Folder $folder, $private = false)
     {
         try {
             $this->switchPrivateToPublicFolderContent($folder, $private);
-            $this->folderRepo->flush();
+            if ($folder->getFolder()) {
+                $folder->getFolder()->removeSubFolder($folder);
+                $folder->setFolder(null);
+            }
+            $this->folderRepo->add($folder);
             return true;
         } catch (\Exception $e) {
             return $e;
@@ -175,10 +179,11 @@ class FolderManager
      * Switch Private To Public / Public To Private - Folder Files Content
      *
      * @param Folder $folder
+     * @param bool $private
      * @return bool
      * @return Exception $e
      */
-    public function switchPrivateToPublicFolderContent(Folder $folder, $private = false)
+    public function switchPrivateToPublicFolderContent(Folder $folder, ?bool $private)
     {
         try {
             if ($folder->getFiles()) {

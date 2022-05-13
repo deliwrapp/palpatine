@@ -25,6 +25,8 @@ class Folder implements ArrayAccess
      */
     public function __construct(bool $isPublished = false, bool $private = true)
     {
+        $this->name = 'New Folder';
+        $this->originalFilename = 'new-folder-'.uniqid();
         $this->isPublished = $isPublished;
         $this->private = $private;
         $this->subFolders = new ArrayCollection();
@@ -185,7 +187,7 @@ class Folder implements ArrayAccess
     /**
      * @param Folder $subFolder
      */
-    public function addSubFolder(File $subFolder): void
+    public function addSubFolder(Folder $subFolder): void
     {
         if (!$this->subFolders->contains($subFolder)) {
             $this->subFolders[] = $subFolder;

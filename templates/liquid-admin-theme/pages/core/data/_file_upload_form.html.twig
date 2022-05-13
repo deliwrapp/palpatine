@@ -37,7 +37,9 @@
                 </div>
             </div>
         </div>
-        <div class="col -col-2 -md2 -sm6 -xs6">
+        
+        
+        <div class="{% if folder is defined %}-d-none{% endif %} col -col-2 -md2 -sm6 -xs6">
             <div class="form-element">
                 <label class="switch">
                     {{ form_widget(uploadFileform.private) }}
@@ -59,7 +61,7 @@
             <small>{{ form_help(uploadFileform.isPublished) }}</small>
             {{ form_errors(uploadFileform.isPublished) }} 
         </div>
-        <div class="col -col-12">
+        <div class="col -col-8 -md8 -sm12 -xs12 -m0">
             <small>{{ form_help(uploadFileform.description) }}</small>
             {{ form_errors(uploadFileform.description) }}
             <div class="form-element">
@@ -71,9 +73,9 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <section class="-panel-footer -text-center ">
-        {{ form_widget(uploadFileform.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+        
+        <div class="col -col-4 -md4 -sm12 -xs12 -m0">
+            {{ form_widget(uploadFileform.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+        </div>
     </section>
 {{ form_end(uploadFileform) }}

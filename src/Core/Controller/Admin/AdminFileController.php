@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Core\Entity\File;
 use App\Core\Repository\FileRepository;
+use App\Core\Repository\FolderRepository;
 use App\Core\Form\FileUploadFormType;
 use App\Core\Services\FileUploader;
 use App\Core\Services\FileManager;
@@ -30,15 +31,20 @@ class AdminFileController extends AbstractController
     /** @var FileRepository */
     private $fileRepo;
 
+    /** @var FolderRepository */
+    private $folderRepo;
+
     public function __construct(
         FileUploader $fileUploader,
         FileManager $fileManager,
-        FileRepository $fileRepo
+        FileRepository $fileRepo,
+        FolderRepository $folderRepo
     )
     {
         $this->fileUploader = $fileUploader;
         $this->fileManager = $fileManager;
         $this->fileRepo = $fileRepo;
+        $this->folderRepo = $folderRepo;
     }
 
     /**      
@@ -59,37 +65,46 @@ class AdminFileController extends AbstractController
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('AdminDashboard'));
+            return $this->redirect($this->generateUrl('admin_data_manager'));
         } 
     }
 
     /**     
      * Upload File Handler
      * 
+     * @param int|null $folderId
      * @param Request $request
-     * @Route("/upload-file", name="admin_file_upload")   
+     * @Route("/upload-file/{folderId}", name="admin_file_upload",
+     * defaults={"folderId": null}
+     * )   
      * @return RedirectResponse
     */
-    public function uploadFile(Request $request): RedirectResponse
+    public function uploadFile(Request $request, int $folderId = null): RedirectResponse
     {
         try {
+            if ($folderId) {                
+                $folder = $this->folderVerificator($folderId);
+            }
             $file = new File();
             $uploadFileform = $this->createForm(FileUploadFormType::class, $file, [
                 'mode' => 'upload',
                 'file_type' => 'default',
-                'action' => $this->generateUrl('admin_file_upload'),
+                'action' => $this->generateUrl('admin_file_upload', ['folderId' => $folderId]),
                 'method' => 'POST',
             ]);
             $uploadFileform->handleRequest($request);
             
-            /* dd($uploadFileform); */
             if ($uploadFileform->isSubmitted()) 
             {
                 $fileToUpload = $uploadFileform->get('upload_file')->getData();
                 if ($fileToUpload) 
                 {
                     $fileName = $uploadFileform['name']->getData();
-                    $private = $uploadFileform['private']->getData();
+                    if ($folderId) {
+                        $private = $folder->getPrivate();
+                    } else {
+                        $private = $uploadFileform['private']->getData();
+                    }
                     // upload the file and save it
                     $file = $this->fileUploader->upload($fileToUpload, $file, $private, $fileName);
                     if ($file instanceof File)
@@ -98,6 +113,10 @@ class AdminFileController extends AbstractController
                         $file->setRoleAccess($uploadFileform['roleAccess']->getData());
                         $file->setDescription($uploadFileform['description']->getData());
                         $file->setIsPublished($uploadFileform['isPublished']->getData());
+                        if ($folderId) {
+                            $folder->addFile($file);
+                            $this->folderRepo->add($folder);
+                        }
                         $this->fileRepo->add($file);
                         $this->addFlash(
                             'info',
@@ -131,14 +150,17 @@ class AdminFileController extends AbstractController
                     'Oups, There is no file to upload!!!'
                 );
             }
-            return $this->redirect($this->generateUrl('admin_file_list'));
+            if ($folderId) {                
+                return $this->redirect($this->generateUrl('admin_folder_show', ['id' => $folderId]));
+            }
+            return $this->redirect($this->generateUrl('admin_data_manager'));
     
         }  catch (\Exception $e) {
             $this->addFlash(
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('admin_file_list'));
+            return $this->redirect($this->generateUrl('admin_data_manager'));
         }
     }
 
@@ -159,7 +181,93 @@ class AdminFileController extends AbstractController
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('admin_file_list'));
+            return $this->redirect($this->generateUrl('admin_data_manager'));
+        }
+    }
+
+    /**
+     * Edit a file
+     * 
+     * @param int $id
+     * @param Request $request
+     * @Route("/update/name/{id}", name="admin_file_name_edit")    
+     * @return RedirectResponse
+     */
+    public function editFileName(int $id, Request $request): RedirectResponse
+    {
+        try {
+            
+        }  catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('admin_data_manager'));
+        }
+    }
+
+    /**
+     * Edit a file
+     * 
+     * @param int $id
+     * @param Request $request
+     * @Route("/update/private/{id}", name="admin_file_private_edit")    
+     * @return RedirectResponse
+     */
+    public function editFilePrivate(int $id, Request $request): RedirectResponse
+    {
+        try {
+            
+        }  catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('admin_data_manager'));
+        }
+    }
+
+    /**
+     * Move a file to a folder
+     * 
+     * @param int $id
+     * @param int $folderId
+     * @Route("/move/{id}/to-folder/{folderId}", name="admin_move_file")    
+     * @return Response
+     */
+    public function moveFileTo(int $id, int $folderId): Response
+    {
+        try {
+            $file = $this->fileVerificator($id);
+            $folder = $this->folderVerificator($folderId);
+            if ($folder->getPrivate() != $file->getPrivate()) {
+                $file = $this->fileManager->switchPrivateToPublic($file, $folder->getPrivate());
+                if (!$file) {
+                    $this->addFlash(
+                        'danger',
+                        'Error during process'
+                    );
+                    return $this->redirect($this->generateUrl('admin_file_list'));
+                }
+                if ($file instanceof \Exception) {
+                    $this->addFlash(
+                        'danger',
+                        $file->getMessage()
+                    );
+                    return $this->redirect($this->generateUrl('admin_file_list'));
+                }
+            }
+            $folder->add($file);
+            $this->folderRepo->flush();
+            return $this->redirect($this->generateUrl('admin_folder_show', [
+                'id' => $folder->getId()
+            ]));
+        }  catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('admin_data_manager'));
         }
     }
 
@@ -182,7 +290,7 @@ class AdminFileController extends AbstractController
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('admin_file_list'));
+            return $this->redirect($this->generateUrl('admin_data_manager'));
         }
     }
 
@@ -224,7 +332,7 @@ class AdminFileController extends AbstractController
                 $e->getMessage()
             );
         }
-        return $this->redirect($this->generateUrl('admin_file_list'));
+        return $this->redirect($this->generateUrl('admin_data_manager'));
     }
 
     /**
@@ -242,9 +350,29 @@ class AdminFileController extends AbstractController
                 'warning',
                 'There is no File  with id ' . $fileId
             );
-            return $this->redirect($this->generateUrl('admin_file_list'));
+            return $this->redirect($this->generateUrl('admin_data_manager'));
         }
         return $file;
+    }
+
+    /**
+     * Test if folder exist and return it or redirect to admin file list with and error message
+     * 
+     * @param int $folderId   
+     * @return Folder     
+     * @return RedirectResponse
+     */
+    public function folderVerificator(int $folderId)
+    {
+        $folder = $this->folderRepo->find($folderId);
+        if (!$folder) {
+            $this->addFlash(
+                'warning',
+                'There is no Folder with id ' . $folderId
+            );
+            return $this->redirect($this->generateUrl('admin_data_manager'));
+        }
+        return $folder;
     }
 
 }
