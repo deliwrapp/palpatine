@@ -2,8 +2,6 @@
 
 namespace App\Core\Form;
 
-use App\Core\Entity\File;
-use App\Core\Repository\FileRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,21 +13,17 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Validator\Constraints\File as FileValidator;
+use App\Core\Entity\File;
 
 class FileUploadFormType extends AbstractType
 {
-    /** @var PageRepository */
-    private $fileRepo;
-
     /** @var ParameterBagInterface */
     private $params;
     
     public function __construct(
-        FileRepository $fileRepo,
         ParameterBagInterface $params
     )
     {
-        $this->fileRepo = $fileRepo;
         $this->params = $params;
     }
     
@@ -99,6 +93,21 @@ class FileUploadFormType extends AbstractType
         }
         
         switch ($options['file_type']) {
+            case 'custom':
+                $builder
+                    ->add('upload_file', FileType::class, [
+                        'label' => false,
+                        'mapped' => false, // Tell that there is no Entity to link
+                        'required' => true,
+                        'constraints' => [
+                            new FileValidator([
+                                'maxSize' => '4096k', 
+                                'mimeTypes' => $options['mime_types'],
+                                'mimeTypesMessage' => $options['mime_types_message'],
+                            ])
+                        ],
+                    ]);
+                break;
             case 'img':
                 $builder
                     ->add('upload_file', FileType::class, [
@@ -156,6 +165,8 @@ class FileUploadFormType extends AbstractType
             'submitBtn' => 'Validate',
             'mode' => 'edition',
             'file_type' => 'default',
+            'mime_types' => [],
+            'mime_types_message' => 'This image isn\'t valid.',
             // enable/disable CSRF protection for this form
             'csrf_protection' => true,
             // the name of the hidden HTML field that stores the token

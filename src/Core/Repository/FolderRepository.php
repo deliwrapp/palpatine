@@ -53,4 +53,31 @@ class FolderRepository extends ServiceEntityRepository
     {
         $this->_em->flush();
     }
+
+    /**
+     * findFilesByRoleAndFolder()
+     * @param string|array $roles
+     * @param bool $folderId = null
+     * @return Folder[] Returns an array of Page objects
+     */
+    public function findFoldersByRoleAndFolder($roles, int $folderId = null)
+    {
+        if (is_array($roles)) 
+        {
+            $roles[] = null;
+        }
+        if (is_string($roles)) {
+            $roles = [$roles, null];
+        }
+        if (!is_array($roles) && !is_string($roles)) {
+            $roles = [null];
+        }
+        $qb = $this->createQueryBuilder('f');
+        $qb->andWhere('f.roleAccess IN(:roles)')
+            ->setParameter('roles', $roles)
+            ->getQuery()
+            ->getResult();
+        
+        return $qb;
+    }
 }

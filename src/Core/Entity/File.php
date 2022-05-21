@@ -2,8 +2,8 @@
 
 namespace App\Core\Entity;
 
+use App\Core\Traits\SoftEditionTrackingTrait;
 use App\Core\Repository\FileRepository;
-use App\Core\Entity\SoftEditionTrackingTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use ArrayAccess;

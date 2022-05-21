@@ -8,6 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 /**
+ * class PageRepository extends ServiceEntityRepository
  * @method Page|null find($id, $lockMode = null, $lockVersion = null)
  * @method Page|null findOneBy(array $criteria, array $orderBy = null)
  * @method Page[]    findAll()
@@ -15,12 +16,17 @@ use Doctrine\ORM\ORMException;
  */
 class PageRepository extends ServiceEntityRepository
 {
+    /**
+     * _contruct()
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Page::class);
     }
 
     /**
+     * add()
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -33,6 +39,7 @@ class PageRepository extends ServiceEntityRepository
     }
 
     /**
+     * remove()
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -45,6 +52,7 @@ class PageRepository extends ServiceEntityRepository
     }
 
     /**
+     * flush()
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -54,9 +62,11 @@ class PageRepository extends ServiceEntityRepository
     }
     
     /**
+     * findByPageGroup()
+     * @param string $value
      * @return Page[] Returns an array of Page objects
      */
-    public function findByPageGroup($value)
+    public function findByPageGroup(string $value)
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.pageGroupId = :val')
@@ -67,6 +77,7 @@ class PageRepository extends ServiceEntityRepository
         ;
     }
     /**
+     * findByPageGroup()
      * @return Page[] Returns an array of Page objects
      */
     public function getPages()
@@ -78,6 +89,8 @@ class PageRepository extends ServiceEntityRepository
         ;
     }
     /**
+     * findByLocale()
+     * @param string $locale
      * @return Page[] Returns an array of Page objects
      */
     public function findByLocale($locale)
@@ -92,6 +105,9 @@ class PageRepository extends ServiceEntityRepository
     }
 
     /**
+     * findOneByPageGroupAndLocale()
+     * @param string $group
+     * @param string $locale
      * @return Page[] Returns an array of Page objects
      */
     public function findOneByPageGroupAndLocale($group, $locale)
@@ -107,6 +123,9 @@ class PageRepository extends ServiceEntityRepository
     }
 
     /**
+     * findOneByPageGroupAndLocale()
+     * @param bool $isHomepage
+     * @param string $locale
      * @return Page[] Returns an array of Page objects
      */
     public function findOneByIsHomepageAndLocale($isHomepage, $locale)

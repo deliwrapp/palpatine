@@ -1,0 +1,80 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}ADMIN DATA FILE EDIT{% endblock %}
+
+{% block mainContent %}
+{% if file is defined and file.folder is defined and file.folder is not null %}
+    <section class="col -col-6 -md6 -sm12 -xs12">
+        <a 
+            class="btn -block" 
+            href="{{ path('editor_data_manager') }}"
+        >
+            back to Data Manager
+        </a>
+    </section>
+    <section class="col -col-6 -md6 -sm12 -xs12">
+        <a 
+            class="btn -block -dark"
+            href="{{ path('editor_folder_show', {'id': file.folder.id }) }}"
+        >
+            back to parent : {{file.folder.name}}
+        </a>
+    </section>
+{% else %}  
+    <section class="col -col-12">
+        <a 
+            class="btn -block" 
+            href="{{ path('editor_data_manager') }}"
+        >
+            back to Data Manager
+        </a>
+    </section>
+{% endif %}
+<section class="col -col-6 -md6 -sm6 -xs6">
+    <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+        <div class="-panel-header -text-center -flex -justify-space-evenly">
+            {% if file.folder is defined and file.folder is not null %}
+                <a 
+                    class="tooltip -tooltip-bottom -tertiary btn btn-action s-circle -primary -hover -shad-12 -shad-14-h"
+                    data-tooltip="folder access"
+                    href="{{ path( 'editor_folder_show', {'id': file.folder.id }) }}"
+                >   
+                    <i class="fas fa-folder fa-2x"></i>   
+                </a>
+            {% endif %}
+            {% if file is defined and file is not null %}
+                <a 
+                    class="tooltip -tooltip-bottom -tertiary btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
+                    data-tooltip="show"
+                    href="{{ path('editor_file_show', {'id': file.id }) }}"
+        
+                >   
+                    <i class="fa-solid fa-eye fa-2x"></i>   
+                </a>
+            {% endif %}
+        </div>
+        {% if fileNameForm is defined %}
+            {{ include('liquid-admin-theme/pages/core/data/_file_edit_name_form.html.twig') }}
+        {% endif %}
+    </div>
+</section>
+<section class="col -col-6 -md6 -sm6 -xs6">
+    <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+        {% if filePrivateForm is defined %}
+            {{ include('liquid-admin-theme/pages/core/data/_file_edit_private_form.html.twig') }}
+        {% endif %}
+    </div>
+</section>
+<section class="col -col-12">
+    <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+        <div class="-panel-header -text-center -flex -justify-space-evenly">
+        </div>
+        {% if form is defined %}
+            {{ include('liquid-admin-theme/pages/core/data/_file_edit_form.html.twig') }}
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+
+

@@ -2,8 +2,8 @@
 
 namespace App\Security\Entity;
 
+use App\Core\Traits\SoftEditionTrackingTrait;
 use App\Security\Repository\ControlAccessRepository;
-use App\Core\Entity\SoftEditionTrackingTrait;
 use App\Security\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;

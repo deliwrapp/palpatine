@@ -34,7 +34,7 @@
                         'cardHeader' : post.author.username,
                         'cardTitle' : post.title,
                         'cardText' : post.content,
-                        'cardLinkPath' : path('MemberPostShow', { 'id': post.id }),
+                        'cardLinkPath' : path('member_post_show', { 'id': post.id }),
                         'cardLinkText' : 'Read More'
                     }
                 %}    
@@ -56,7 +56,7 @@
             <div class="-tile-action">
             {% if is_granted('ROLE_ADMIN') %}
                 <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
-                    <a class="-tertiary" href="{{ path('AdminPostCreate') }}">
+                    <a class="-tertiary" href="{{ path('admin_post_create') }}">
                         <i class="fas fa-plus fa-2x"></i> 
                     </a>
                 </button>

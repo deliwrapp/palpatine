@@ -4,14 +4,14 @@
 			<a 
 				 class="btn tooltip -tooltip-bottom -tertiary btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
 				 data-tooltip="show" 
-				href="{{ path('admin_page_show', { 'id': page.id }) }}"
+				href="{{ path('editor_page_show', { 'id': page.id }) }}"
 			>
 				<i class="fa-solid fa-eye fa-2x"></i>
 			</a>
 			<a 
 				class="btn tooltip -tooltip-bottom -warning btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
 				data-tooltip="refresh blocks"
-				href="{{ path('admin_page_block_reorder', { 'pageId': page.id}) }}"
+				href="{{ path('editor_page_block_reorder', { 'pageId': page.id}) }}"
 			>
 				<i class="fas fa-refresh"></i>
 			</a>

@@ -1,0 +1,139 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}EDITOR-DASHBOARD{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-12" id="post-list">
+    <div class="-shad-12 -w-f">
+        <h2 class="-text-center h4 -tertiary -pt2 -pb2">EDITOR DASHBOARD</h2>
+        <section class="-flex -justify-space-around">
+            <p class="-t-bld -color-tertiary -ml2">Welcome on board {{ app.user.username }} !</p>
+            <p class="-t-bld -color-tertiary -ml2">Today we are the : {{ "now"|date("d/m/Y") }}</p>
+        </section>
+    </div>
+</section>
+
+<section class="col -col-6 -md6 -sm12 -xs12" id="user-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Account Manager
+            </div>
+            <div class="-tile-subtitle">
+                Configure your Profile
+                <a class="-t-u btn -sm -light -hover" href="#">Settings Access</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Configure your Profile"> 
+                <a class="-success" href="#">
+                    <i class="fa-solid fa-user fa-2x"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="col -col-6 -md6 -sm12 -xs12" id="data-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Data Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx files.
+                <a class="-t-u btn -sm -light -hover" href="{{ path('editor_data_manager') }}">Access</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="See Files"> 
+                <a class="-success" href="{{ path('editor_file_list') }}">
+                    <i class="fa-solid fa-plus fa-2x"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<hr>
+<section class="col -col-4 -md4 -sm12 -xs12" id="menu-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Menu Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx Menu.
+                <a class="-t-u btn -sm -light -hover" href="{{path('editor_menu_list')}}"> See List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Menu"> 
+                <a class="-tertiary" href="{{ path('editor_menu_create') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="col -col-4 -md4 -sm12 -xs12" id="page-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Page Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx Pages.
+                <a class="-t-u btn -sm -light -hover" href="{{path('editor_page_list')}}"> See List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Page"> 
+                <a class="-tertiary" href="{{ path('editor_page_create') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="col -col-4 -md4 -sm12 -xs12" id="block-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Block Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx blocks.
+                <a class="-t-u btn -sm -light -hover" href="{{path('editor_block_list')}}"> See List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Block"> 
+                <a class="-tertiary" href="{{ path('editor_block_create') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<hr>
+
+<section class="col -col-4 -md4 -sm12 -xs12" id="post-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                Post Manager
+            </div>
+            <div class="-tile-subtitle">
+                You have xx posts.
+                <a class="-t-u btn -sm -light -hover" href="{{path('editor_post_list')}}"> See List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
+                <a class="-tertiary" href="{{ path('editor_post_create') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+{% endblock %}

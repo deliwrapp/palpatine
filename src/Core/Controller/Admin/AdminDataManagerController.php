@@ -7,16 +7,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Core\Entity\File;
 use App\Core\Repository\FolderRepository;
 use App\Core\Repository\FileRepository;
 use App\Core\Form\FileUploadFormType;
 use App\Core\Services\FileUploader;
-use App\Core\Services\FileManager;
+use App\Core\Manager\FileManager;
 
 /**
  * Class AdminDataManagerController - To Handle Data Management
  * @package App\Core\Controller\Admin
+ * @IsGranted("ROLE_ADMIN",statusCode=401, message="No access! Get out!")
  * @Route("/admin/data")
  */
 class AdminDataManagerController extends AbstractController
@@ -24,7 +26,7 @@ class AdminDataManagerController extends AbstractController
     /** @var FileUploader */
     private $fileUploader;
 
-    /** @var FileManager */
+    /** @var FileManager $fileManager */
     private $fileManager;
 
     /** @var FolderRepository */
@@ -47,7 +49,7 @@ class AdminDataManagerController extends AbstractController
     }
 
     /**     
-     * Data Manager Dashboard
+     * Admin Data Manager Dashboard
      * 
      * @Route("/", name="admin_data_manager") 
      * @return Response
@@ -64,7 +66,7 @@ class AdminDataManagerController extends AbstractController
                 'action' => $this->generateUrl('admin_file_upload'),
                 'method' => 'POST',
             ]);
-            return $this->render('@core-admin/data/data-manager.html.twig', [
+            return $this->render('@core-admin/data/admin/data-manager.html.twig', [
                 'uploadFileform' => $uploadFileform->createView(),
                 'files' => $files,
                 'folders' => $folders
@@ -74,7 +76,7 @@ class AdminDataManagerController extends AbstractController
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('AdminDashboard'));
+            return $this->redirect($this->generateUrl('admin_dashboard'));
         } 
     }
 

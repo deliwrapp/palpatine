@@ -24,3 +24,20 @@ yarn-error.log
 /public/uploads/
 /private/
 /private/uploads/
+###< data ###
+
+###> php documentor ###
+/.phpdoc
+.phpdoc
+/.phpdoc/
+.phpdoc/
+/tools/
+tools/
+###< php documentor ###
+
+###> other ###
+/.phive
+.phive
+/.phive/
+.phive/
+###< other ###

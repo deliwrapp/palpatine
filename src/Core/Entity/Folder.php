@@ -2,8 +2,8 @@
 
 namespace App\Core\Entity;
 
+use App\Core\Traits\SoftEditionTrackingTrait;
 use App\Core\Repository\FolderRepository;
-use App\Core\Entity\SoftEditionTrackingTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

@@ -18,7 +18,7 @@ use App\Blog\Form\CommentFormType;
 class MemberCommentController extends AbstractController
 {
     /**
-     * @Route("/", name="MemberCommentsList")
+     * @Route("/", name="member_comment_list")
      */
     public function index(CommentRepository $commentRepo): Response
     {
@@ -30,7 +30,7 @@ class MemberCommentController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}/update/{commentId}", name="MemberCommentUpdate")
+     * @Route("/post/{id}/update/{commentId}", name="member_comment_update")
      */
     public function update(int $id, int $commentId = null, ManagerRegistry $doctrine, Request $request): Response
     {
@@ -42,7 +42,7 @@ class MemberCommentController extends AbstractController
                 'warning',
                 'There is no post  with id ' . $id
             );
-            return $this->redirect($this->generateUrl('MemberPostsList'));
+            return $this->redirect($this->generateUrl('member_post_list'));
         }
 
         if ($commentId) {
@@ -55,7 +55,7 @@ class MemberCommentController extends AbstractController
                     'warning',
                     'There is no comment  with id ' . $id
                 );
-                return $this->redirect($this->generateUrl('MemberPostShow', [
+                return $this->redirect($this->generateUrl('member_post_show', [
                     'id' => $id
                 ]));
             }
@@ -69,7 +69,7 @@ class MemberCommentController extends AbstractController
             $comment,
             [
                 'submitBtn' => $submitBtn,
-                'action' => $this->generateUrl('MemberCommentUpdate', [
+                'action' => $this->generateUrl('member_comment_update', [
                     'id' => $post->getId(),
                     'commentId' => $commentId
                 ]),
@@ -96,13 +96,13 @@ class MemberCommentController extends AbstractController
                 'Comment update with id '.$comment->getId()
             );
         }
-        return $this->redirect($this->generateUrl('MemberPostShow', [
+        return $this->redirect($this->generateUrl('member_post_show', [
             'id' => $id
         ]));
     }
 
      /**
-     * @Route("/delete/{id}/post/{postId}", name="MemberCommentDelete")
+     * @Route("/delete/{id}/post/{postId}", name="member_comment_delete")
      */
     public function delete(int $id, int $postId, ManagerRegistry $doctrine, Request $request): Response
     {
@@ -114,7 +114,7 @@ class MemberCommentController extends AbstractController
                 'warning',
                 'There is no post  with id ' . $id
             );
-            return $this->redirect($this->generateUrl('MemberPostsList'));
+            return $this->redirect($this->generateUrl('member_post_list'));
         }
 
         $submittedToken = $request->request->get('token');
@@ -144,7 +144,7 @@ class MemberCommentController extends AbstractController
             );
         }
         
-        return $this->redirect($this->generateUrl('MemberPostShow', [
+        return $this->redirect($this->generateUrl('member_post_show', [
             'id' => $postId
         ]));
     }

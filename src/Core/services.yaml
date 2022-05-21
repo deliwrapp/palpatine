@@ -73,3 +73,15 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Core/Entity'
                 prefix: 'App\Core\Entity'
                 alias: Template
+            File:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Core/Entity'
+                prefix: 'App\Core\Entity'
+                alias: File
+            Folder:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Core/Entity'
+                prefix: 'App\Core\Entity'
+                alias: Folder

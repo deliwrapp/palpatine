@@ -21,21 +21,21 @@
                             <a 
                                 class="btn tooltip -tooltip-top -danger btn btn-action s-circle -light -hover -shad-12 -shad-14-h" 
                                 data-tooltip="remove"
-                                href="{{ path('admin_page_block_remove', { 'pageBlockId': pageBlock.id, 'pageId': page.id}) }}"
+                                href="{{ path('editor_page_block_remove', { 'pageBlockId': pageBlock.id, 'pageId': page.id}) }}"
                             >   
                                 <i class="fas fa-trash"></i> 
                             </a>
                             <a 
                                 class="btn tooltip -tooltip-top -primary btn btn-action s-circle -light -hover -shad-12 -shad-14-h" 
                                 data-tooltip="edit" 
-                                href="{{ path('admin_page_block_edit', { 'pageBlockId': pageBlock.id, 'pageId': page.id}) }}"
+                                href="{{ path('editor_page_block_edit', { 'pageBlockId': pageBlock.id, 'pageId': page.id}) }}"
                             >   
                                 <i class="fas fa-pen"></i> 
                             </a>
                             <a 
                                 class="tooltip -tooltip-top -light btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
                                 data-tooltip="duplicate"
-                                href="{{ path('admin_page_block_duplicate', { 'pageBlockId': pageBlock.id, 'pageId': page.id}) }}"
+                                href="{{ path('editor_page_block_duplicate', { 'pageBlockId': pageBlock.id, 'pageId': page.id}) }}"
                             >   
                                 <i class="fas fa-copy"></i> 
                             </a>
@@ -43,7 +43,7 @@
                                 <a 
                                     class="btn tooltip -tooltip-top -success btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
                                     data-tooltip="up"
-                                    href="{{ path('admin_page_block_position', { 'pageBlockId': pageBlock.id, 'pageId': page.id, 'position': pageBlock.position - 1}) }}"
+                                    href="{{ path('editor_page_block_position', { 'pageBlockId': pageBlock.id, 'pageId': page.id, 'position': pageBlock.position - 1}) }}"
                                 >   
                                     <i class="fas fa-arrow-up"></i> 
                                 </a>
@@ -52,7 +52,7 @@
                                 <a 
                                     class="btn tooltip -tooltip-top -success btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
                                     data-tooltip="down"
-                                    href="{{ path('admin_page_block_position', { 'pageBlockId': pageBlock.id, 'pageId': page.id, 'position': pageBlock.position + 1}) }}"
+                                    href="{{ path('editor_page_block_position', { 'pageBlockId': pageBlock.id, 'pageId': page.id, 'position': pageBlock.position + 1}) }}"
                                 >   
                                     <i class="fas fa-arrow-down"></i>  
                                 </a>

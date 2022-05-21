@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Twig\Environment;
 use App\Core\Entity\Template;
 use App\Core\Repository\TemplateRepository;
@@ -15,6 +16,7 @@ use App\Core\Form\TemplateFormType;
 /**
  * Class AdminTemplateController
  * @package App\Core\Controller\Admin
+ * @IsGranted("ROLE_ADMIN",statusCode=401, message="No access! Get out!")
  * @Route("/admin/template")
  */
 class AdminTemplateController extends AbstractController
@@ -22,7 +24,7 @@ class AdminTemplateController extends AbstractController
     /** @var TemplateRepository */
     private $templateRepo;
 
-    /** @var MenuFactory */
+    /** @var Environment */
     private $twig;
 
     public function __construct(
@@ -43,7 +45,7 @@ class AdminTemplateController extends AbstractController
     {
         try {
             $templates = $this->templateRepo->findAll();
-            return $this->render('@core-admin/template/template-list.html.twig', [
+            return $this->render('@core-admin/template/admin/template-list.html.twig', [
                 'templates' => $templates
             ]);
         } catch (\Exception $e) {
@@ -93,7 +95,7 @@ class AdminTemplateController extends AbstractController
                 ]));
             }
             
-            return $this->render('@core-admin/template/template-edit.html.twig', [
+            return $this->render('@core-admin/template/admin/template-edit.html.twig', [
                 'form' => $form->createView()
             ]);
         }  catch (\Exception $e) {
@@ -143,7 +145,7 @@ class AdminTemplateController extends AbstractController
             }
 
             return $this->render(
-                '@core-admin/template/template-edit.html.twig',
+                '@core-admin/template/admin/template-edit.html.twig',
                 [
                     'form' => $form->createView(),
                     'template' => $template
@@ -170,7 +172,7 @@ class AdminTemplateController extends AbstractController
     {
         try {
             $template = $this->templateVerificator($id);
-            return $this->render('@core-admin/template/template-show.html.twig', [
+            return $this->render('@core-admin/template/admin/template-show.html.twig', [
                 'template' => $template
             ]);
         }  catch (\Exception $e) {

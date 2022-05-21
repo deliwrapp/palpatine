@@ -3,11 +3,7 @@
 {% block title %}POSTS LIST{% endblock %}
 
 {% block mainContent %}
-<section class="col -col-11" id="post-list">
-    <div class="-text-center">
-        <div class="h5 mt-10">ADMIN POSTS LIST</div>
-    </div>
-    
+<section class="col -col-12" id="post-list">
     {% if posts is defined and posts is not empty %}
         {% include 'liquid-ui/components/layout/table/table.html.twig' with {
                 'tableHeadItems' : [
@@ -26,9 +22,9 @@
                 ],
                 'tableItems': posts,
                 'actions' :  {
-                    'show': {'path': 'MemberPostShow', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
-                    'edit': {'path': 'AdminPostEdit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
-                    'delete': {'path': 'AdminPostDelete', 'token': 'delete-post', 'message': 'Are you sure you want to delete this Post ?'}
+                    'show': {'path': 'member_post_show', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
+                    'edit': {'path': 'editor_post_edit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
+                    'delete': {'path': 'editor_post_delete', 'token': 'delete-post', 'message': 'Are you sure you want to delete this Post ?'}
                 }
             }
         %}   
@@ -44,12 +40,40 @@
             </div>
             <div class="-tile-action">
                 <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
-                    <a class="-tertiary" href="{{ path('AdminPostCreate') }}">
+                    <a class="-tertiary" href="{{ path('editor_post_create') }}">
                         <i class="fa-solid fa-plus"></i> 
                     </a>
                 </button>
             </div>
         </div>
     {% endif %}
+</section>
+<section class="bar bar-mini -fixed -bottom-1rm -white" id="folder-list">
+    <div class="tile -tile-compact -w-f -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                POST MANAGER
+            </div>
+            <div class="-tile-subtitle">
+                
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a 
+                class="btn -success btn-link btn-block -btn-lg tooltip -tooltip-top  -shad-12 -shad-14-h"
+                data-tooltip="post Settings"
+                href="#"
+            >
+                <i class="fa-solid fa-cogs"></i>
+            </a>
+            <a 
+                class="btn -tertiary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+                data-tooltip="Add a Post"
+                href="{{ path('editor_post_create') }}"
+            > 
+                <i class="fa-solid fa-plus fa-2x"></i>
+            </a>
+        </div>
+    </div>
 </section>
 {% endblock %}

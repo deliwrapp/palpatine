@@ -46,9 +46,9 @@
       <div class="-content">
         {% if modalContent is defined %}
             {% if modalContentData is not defined %}
-                {% include modalContent with modalContentData %}
+                {% include modalContent  %}
             {% else %}
-                {% include modalContent %}
+                {% include modalContent with modalContentData %}
             {% endif %}
         {% endif %}
       </div>

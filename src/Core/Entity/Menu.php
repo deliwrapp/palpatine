@@ -2,7 +2,7 @@
 
 namespace App\Core\Entity;
 
-use App\Core\Entity\SoftEditionTrackingTrait;
+use App\Core\Traits\SoftEditionTrackingTrait;
 use App\Core\Repository\MenuRepository;
 use App\Core\Entity\MenuItem;
 use Doctrine\ORM\Mapping as ORM;

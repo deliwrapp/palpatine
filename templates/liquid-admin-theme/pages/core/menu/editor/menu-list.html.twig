@@ -1,0 +1,88 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}MENU LIST{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-12" id="menu-list">    
+    {% if menus is defined and menus is not empty %}
+        {% include 'liquid-ui/components/layout/table/table.html.twig' with {
+                'tableHeadItems' : [
+                    {
+                        'text': 'id',
+                        'attr': 'id'
+                    },
+                    {
+                        'text': 'name',
+                        'attr': 'name'
+                    },
+                    {
+                        'text': 'position',
+                        'attr': 'position'
+                    },
+                    {
+                        'text': 'main menu',
+                        'attr': 'isMainMenu'
+                    },
+                    {
+                        'text': 'published',
+                        'attr': 'isPublished'
+                    },
+                ],
+                'tableItems': menus,
+                'actions' :  {
+                    'duplicate': {'path': 'editor_menu_duplicate', 'tooltip': 'duplicate', 'icon': 'fas fa-copy'},
+                    'show': {'path': 'editor_menu_show', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
+                    'edit': {'path': 'editor_menu_edit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
+                    'delete': {'path': 'editor_menu_delete', 'token': 'delete-menu', 'message': 'Are you sure you want to delete this Menu ?'}
+                }
+            }
+        %}   
+    {% else %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    There is no menus !!!
+                </div>
+                <div class="-tile-subtitle">
+                    You can create a new Menu
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Menu"> 
+                    <a class="-tertiary" href="{{ path('editor_menu_create') }}">
+                        <i class="fa-solid fa-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+</section>
+<section class="bar bar-mini -fixed -bottom-1rm -white" id="folder-list">
+    <div class="tile -tile-compact -w-f -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                MENU MANAGER
+            </div>
+            <div class="-tile-subtitle">
+                
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a 
+                class="btn -success btn-link btn-block -btn-lg tooltip -tooltip-top  -shad-12 -shad-14-h"
+                data-tooltip="Menu Settings"
+                href="#"
+            >
+                <i class="fa-solid fa-cogs"></i>
+            </a>
+            <a 
+                class="btn -tertiary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+                data-tooltip="Add a Menu"
+                href="{{ path('editor_menu_create') }}"
+            > 
+                <i class="fa-solid fa-plus fa-2x"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

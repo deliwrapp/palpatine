@@ -2,9 +2,9 @@
 
 namespace App\Blog\Entity;
 
+use App\Core\Traits\SoftEditionTrackingTrait;
 use App\Blog\Repository\PostRepository;
 use App\Security\Entity\User;
-use App\Core\Entity\SoftEditionTrackingTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use ArrayAccess;

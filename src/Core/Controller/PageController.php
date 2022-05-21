@@ -75,7 +75,7 @@ class PageController extends AbstractController
                     'pageUrl' => $pageUrl
                 ]));
             }
-            return $this->render('@core/basic-page.html.twig', [
+            return $this->render('@base-theme/basic-page.html.twig', [
                 'page' => $page
             ]);
         }  catch (\Exception $e) {

@@ -42,9 +42,13 @@ class ServePrivateFileController extends AbstractController
             if (!$file) {
                 return $this->errorHandler(404, 'There is no file  with filename ' . $filename);
             }
-            $name = $file->getName().'.'.$file->getExt();
-            return $this->fileDownload($file->getFilePath(), $name);
-
+            if ($file->getRoleAccess()) {
+                if ($this->isGranted('ROLE_ADMIN') || $this->isGranted($file->getRoleAccess())) {
+                    $name = $file->getName().'.'.$file->getExt();
+                    return $this->fileDownload($file->getFilePath(), $name);
+                }
+            }
+            return $this->errorHandler(503, $e->getMessage());
         }  catch (\Exception $e) {
             return $this->errorHandler(503, $e->getMessage());
         }
@@ -64,8 +68,14 @@ class ServePrivateFileController extends AbstractController
             if (!$file) {
                 return $this->errorHandler(404, 'There is no file  with filename ' . $filename);
             }
-            return $this->fileServe($file->getFilePath());
-
+            if ($file->getRoleAccess()) {
+                if ($this->isGranted('ROLE_ADMIN') || $this->isGranted($file->getRoleAccess())) {
+                    $name = $file->getName().'.'.$file->getExt();
+                    return $this->fileServe($file->getFilePath());
+                }
+            } else {
+                return $this->fileServe($file->getFilePath());
+            }
         }  catch (\Exception $e) {
             return $this->errorHandler(503, $e->getMessage());
         }

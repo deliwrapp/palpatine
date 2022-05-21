@@ -1,0 +1,65 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}PAGES LIST{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-12" id="page-list">    
+    {% if pages is defined and pages is not empty %}
+        {% include 'liquid-ui/components/layout/table/table.html.twig' with {
+                'tableHeadItems' : [
+                    {
+                        'text': 'id',
+                        'attr': 'id'
+                    },
+                    {
+                        'text': 'locale',
+                        'attr': 'locale'
+                    },
+                    {
+                        'text': 'name',
+                        'attr': 'name'
+                    },
+                    {
+                        'text': 'published',
+                        'attr': 'isPublished'
+                    },
+                ],
+                'tableItems': pages,
+                'actions' :  {
+                    'publish': {'path': 'moderator_page_publish', 'tooltip': 'publish', 'icon': 'fas fa-clipboard-check'},
+                    'unpublish': {'path': 'moderator_page_unpublish', 'tooltip': 'unpublish', 'icon': 'fas fa-circle-exclamation'},
+                    }
+            }
+        %}   
+    {% else %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    There is no page !!!
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</section>
+<section class="bar bar-mini -fixed -bottom-1rm -white" id="folder-list">
+    <div class="tile -tile-compact -w-f -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                PAGE MANAGER
+            </div>
+            <div class="-tile-subtitle">
+                
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a 
+                class="btn -success btn-link btn-block -btn-lg tooltip -tooltip-top  -shad-12 -shad-14-h"
+                data-tooltip="Page Settings"
+                href="#"
+            >
+                <i class="fa-solid fa-cogs"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

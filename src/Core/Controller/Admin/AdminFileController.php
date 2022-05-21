@@ -7,22 +7,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Core\Entity\File;
 use App\Core\Repository\FileRepository;
 use App\Core\Repository\FolderRepository;
 use App\Core\Form\FileUploadFormType;
 use App\Core\Services\FileUploader;
-use App\Core\Services\FileManager;
+use App\Core\Manager\FileManager;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
  * Class AdminFileController - To Handle File Upload and File Management
  * @package App\Core\Controller\Admin
+ * @IsGranted("ROLE_ADMIN",statusCode=401, message="No access! Get out!")
  * @Route("/admin/file")
  */
 class AdminFileController extends AbstractController
 {
-    /** @var FileUploader */
+    /** @var FileUploader  $fileUploader */
     private $fileUploader;
 
     /** @var FileManager */
@@ -57,8 +59,16 @@ class AdminFileController extends AbstractController
     {
         try {
             $files = $this->fileRepo->findAll();
-            return $this->render('@core-admin/data/file-list.html.twig', [
-                'files' => $files
+            $file = new File();
+            $uploadFileform = $this->createForm(FileUploadFormType::class, $file, [
+                'mode' => 'upload',
+                'file_type' => 'default',
+                'action' => $this->generateUrl('admin_file_upload'),
+                'method' => 'POST',
+            ]);
+            return $this->render('@core-admin/data/admin/file-list.html.twig', [
+                'files' => $files,
+                'uploadFileform' => $uploadFileform->createView(),
             ]);
         } catch (\Exception $e) {
             $this->addFlash(
@@ -282,7 +292,7 @@ class AdminFileController extends AbstractController
     {
         try {
             $file = $this->fileVerificator($id);
-            return $this->render('@core-admin/data/file-show.html.twig', [
+            return $this->render('@core-admin/data/common/file-show.html.twig', [
                 'file' => $file
             ]);
         }  catch (\Exception $e) {

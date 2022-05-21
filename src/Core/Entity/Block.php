@@ -2,10 +2,10 @@
 
 namespace App\Core\Entity;
 
+use App\Core\Traits\SoftEditionTrackingTrait;
 use App\Core\Repository\BlockRepository;
 use App\Core\Entity\PageBlock;
 use App\Core\Entity\Template;
-use App\Core\Entity\SoftEditionTrackingTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use ArrayAccess;

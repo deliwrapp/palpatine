@@ -25,10 +25,10 @@
                     Account
                 </a>
             </li>
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') or is_granted('ROLE_MODERATOR') %}
                 <li class="-light -hover">
                     <i class="fa-solid fa-lock"></i>
-                    <a href="{{path('AdminDashboard')}}">
+                    <a href="{{path('admin_dashboard_redirect')}}">
                         Admin
                     </a>
                 </li>

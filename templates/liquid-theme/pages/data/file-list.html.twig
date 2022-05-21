@@ -1,0 +1,70 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}PUBLIC FILES LIST{% endblock %}
+
+{% block mainContent %}
+    <section class="col -col-12">
+        <a 
+            class="btn -block" 
+            href="{{ path('public_data_manager') }}"
+        >
+            back to Data Manager
+        </a>
+    </section>
+    
+    {% if files is defined and files is not empty %}
+        {% for file in files %}
+            <section class=" col -col-2 -md4 -sm6 -xs6 -justify-center -items-center -wrap -shad-12-h" id="file-{{file.id}}">
+                <div class="card -shad-4">
+                    {% set mediaImgList = ['png', 'jpg', 'jpeg', 'gif', 'bmp'] %}
+                    <div class="-card-image -flex -justify-space-evenly -items-center">
+                        {% if file.ext in mediaImgList %}
+                            {% set mediaPath = file.private ? path('serve_private_file', {'filename': file.originalFilename}) : asset(file.filePath) %}
+                            <img class="img-responsive" src="{{mediaPath}}" alt="{{file.name}}"> 
+                        {% else %}
+                            <div class="file-icon file-icon-xl -m2" data-type="{{file.ext}}"></div>
+                        {% endif %}
+                        </div>
+                    <div class="card-header -pl3 -flex -flex-column -justify-space-evenly -items-center -wrap ">
+                        <a
+                            href="{{ path( 'public_file_show', {'id': file.id }) }}"
+                            class="-m0 -t-bld -t-tiny"
+                        >
+                            {{ file.name ~ '.' ~ file.ext}}  
+                        </a>
+                        <div class="-subtitle text-gray -m0 -t-i -t-tiny">
+                            {{ file.private ? 'private':'public' }}
+                        </div>
+                    </div>
+                    <div class="-card-footer">
+                        <div class="-flex -justify-space-evenly -items-center -wrap -shad-12 -pr2 -pl2 -w-f">
+                            {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
+                                'path': file.private ? path('download_private_file', {'filename': file.originalFilename}) : asset(file.filePath),
+                                'action': 'download',
+                                'tooltip': 'download file',
+                                'icon': 'fas fa-download'
+                            } %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endfor %}  
+    {% else %}
+        <section class="col -col-12">
+            <h2>There is no file !!!</h2>  
+        </section>
+    {% endif %}
+    <p class="-p10 -m10 -w-f -text-center">Bloogy Data Manager</p>
+    <section class="bar bar-mini -fixed -bottom-1rm -white" id="file-list">
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    PUBLIC DATA MANAGER
+                </div>
+                <div class="-tile-subtitle">
+                    All File List
+                </div>
+            </div>
+        </div>
+    </section> 
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% if page.blocks is defined and page.blocks is not empty  %}
+        {% for pageBlock in page.blocks %}
+            {% if pageBlock.blockTemplate and pageBlock.blockTemplate.cssLink is defined and pageBlock.blockTemplate.cssLink is not null %}
+                {{ encore_entry_link_tags(pageBlock.blockTemplate.cssLink) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block title %}ADMIN PAGE SHOW{% endblock %}
+
+{% block mainContent %}
+
+    {% if page is defined %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+            <section class="-shad-12 col -col-12 -row -fixed -bottom -z100">
+                <button class="tooltip -tooltip-top -light btn btn-action -xl s-circle -hover -shad-12 -shad-14-h" data-tooltip="edit page" type="submit">   
+                    <a href="{{ path('editor_page_edit', { 'id': page.id }) }}">
+                        <i class="fa-solid fa-pen fa-2x"></i>        
+                    </a>
+                </button>
+                <button class="tooltip -tooltip-top -dark btn btn-action -xl s-circle -hover -shad-12 -shad-14-h" data-tooltip="duplicate page" type="submit">   
+                    <a href="{{ path('editor_page_duplicate', { 'id': page.id }) }}">
+                        <i class="fa-solid fa-copy fa-2x -dark"></i>        
+                    </a>
+                </button>
+            </section>
+        {% endif %}
+        {% if page.blocks is defined and page.blocks is not empty  %}
+            <section class="-w-f"> 
+                {% for pageBlock in page.blocks|sort((a, b) => a.position <=> b.position) %}   
+                    {% if pageBlock.blockTemplate is defined and pageBlock.blockTemplate is not null %}
+                        {% include pageBlock.blockTemplate.templatePath with {data: pageBlock.data, content: pageBlock.content} %}
+                    {% endif %}
+                {% endfor %}
+            </section>
+        {% endif %}
+    {% else %}
+        <p> There is no page !!! </p>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if page.blocks is defined and page.blocks is not empty  %}
+        {% for pageBlock in page.blocks %}
+            {% if pageBlock.blockTemplate and pageBlock.blockTemplate.scriptLink is defined and pageBlock.blockTemplate.scriptLink is not null %}
+                {{ encore_entry_script_tags(pageBlock.blockTemplate.scriptLink) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

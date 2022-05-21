@@ -1,4 +1,17 @@
 {% extends 'app.html.twig' %}
+{% set pathPrefixBasedOnRole = '' %}
+{% if app.user %}
+  {% if is_granted('ROLE_MODERATOR') %}
+    {% set pathPrefixBasedOnRole = 'moderator' %}
+  {% endif %}
+  {% if is_granted('ROLE_EDITOR') %}
+    {% set pathPrefixBasedOnRole = 'editor' %}
+  {% endif %}
+  {% if is_granted('ROLE_ADMIN') %}
+    {% set pathPrefixBasedOnRole = 'admin' %}
+  {% endif %}
+{% endif %}
+
 
 {% block head %}
   {{ parent() }}
@@ -39,7 +52,7 @@
                 {
                     'class': 'btn btn-link -tertiary ',
                     'color': '',
-                    'path' : 'AdminDashboard',
+                    'path' : 'admin_dashboard_redirect',
                     'text' : 'Dashboard'
                 },
             ]

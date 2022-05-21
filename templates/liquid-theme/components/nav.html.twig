@@ -21,7 +21,7 @@
                         {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
                             'customNavItemClass': item.customClass,
                             'color': '',
-                            'path': item.path,
+                            'path': item.type == 'page' ? path('page_show', {'pageUrl' : item.path}) : item.path,
                             'text': item.name,
                             'target': item.target
                         } %}
@@ -30,7 +30,7 @@
                     {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
                         'customNavItemClass': item.customClass,
                         'color': '',
-                        'path': item.path,
+                        'path': item.type == 'page' ? path('page_show', {'pageUrl' : item.path}) : item.path,
                         'text': item.name,
                         'target': item.target
                     } %}

@@ -7,16 +7,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Core\Entity\Folder;
 use App\Core\Entity\File;
 use App\Core\Repository\FolderRepository;
 use App\Core\Form\FolderFormType;
-use App\Core\Services\FolderManager;
 use App\Core\Form\FileUploadFormType;
+use App\Core\Manager\FolderManager;
 
 /**
  * Class AdminFolderController - To Handle Folder Management
  * @package App\Core\Controller\Admin
+ * @IsGranted("ROLE_ADMIN",statusCode=401, message="No access! Get out!")
  * @Route("/admin/folder")
  */
 class AdminFolderController extends AbstractController
@@ -46,7 +48,7 @@ class AdminFolderController extends AbstractController
     {
         try {
             $folders = $this->folderRepo->findAll();
-            return $this->render('@core-admin/data/folder-list.html.twig', [
+            return $this->render('@core-admin/data/admin/folder-list.html.twig', [
                 'folders' => $folders
             ]);
         } catch (\Exception $e) {
@@ -58,7 +60,6 @@ class AdminFolderController extends AbstractController
         } 
     }
 
-    
     /**
      * Create Folder
      * 
@@ -138,7 +139,7 @@ class AdminFolderController extends AbstractController
                     'id' => $folder->getId()
                 ]));
             }
-            return $this->render('@core-admin/data/folder-edit.html.twig', [
+            return $this->render('@core-admin/data/admin/folder-edit.html.twig', [
                 'folder' => $folder,
                 'form' => $form->createView(),
                 'folderNameForm' =>$folderNameForm->createView()
@@ -153,7 +154,7 @@ class AdminFolderController extends AbstractController
     }
 
     /**
-     * Edit a file
+     * Edit a Folder Name
      * 
      * @param int $id
      * @param Request $request
@@ -201,7 +202,7 @@ class AdminFolderController extends AbstractController
     }
 
     /**
-     * Edit a file
+     * Edit a Folder Privacy
      * 
      * @param int $id
      * @param Request $request
@@ -256,7 +257,7 @@ class AdminFolderController extends AbstractController
     }
 
     /**
-     * Move a file to a folder
+     * Move a Folder to a folder
      * 
      * @param int $id
      * @param int $toFolderId
@@ -285,7 +286,8 @@ class AdminFolderController extends AbstractController
                     return $this->redirect($this->generateUrl('admin_folder_list'));
                 }
             }
-            $toFolder->add($folderToMove);
+            $folderToMove->setRoleAccess($toFolder->getRoleAccess());
+            $toFolder->addSubFolder($folderToMove);
             $this->folderRepo->flush();
             return $this->redirect($this->generateUrl('admin_folder_show', [
                 'id' => $toFolder->getId()
@@ -317,7 +319,7 @@ class AdminFolderController extends AbstractController
                 'action' => $this->generateUrl('admin_file_upload', ['folderId' => $folder->getId()]),
                 'method' => 'POST',
             ]);
-            return $this->render('@core-admin/data/folder-show.html.twig', [
+            return $this->render('@core-admin/data/admin/folder-show.html.twig', [
                 'folder' => $folder,
                 'uploadFileform' => $uploadFileform->createView(),
             ]);
@@ -380,7 +382,7 @@ class AdminFolderController extends AbstractController
      * Test if folder exist and return it or redirect to admin folder list with and error message
      * 
      * @param int $folderId   
-     * @return Folder     
+     * @return Folder $folder    
      * @return RedirectResponse
      */
     public function folderVerificator(int $folderId)

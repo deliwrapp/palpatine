@@ -41,7 +41,7 @@
             <div class="post__container">
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                     <button style="margin-top:-0rem;" class="tooltip -tooltip-top -light btn btn-action s-circle -hover -shad-12 -shad-14-h -z100 -relative -top -left" data-tooltip="edit post" type="submit">   
-                        <a class="-light" target="_blank" href="{{ path('AdminPostEdit', { 'id': post.id }) }}">
+                        <a class="-light" target="_blank" href="{{ path('editor_post_edit', { 'id': post.id }) }}">
                             <i class="fa-solid fa-pen"></i>        
                         </a>
                     </button>

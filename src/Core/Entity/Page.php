@@ -2,8 +2,8 @@
 
 namespace App\Core\Entity;
 
+use App\Core\Traits\SoftEditionTrackingTrait;
 use App\Core\Repository\PageRepository;
-use App\Core\Entity\SoftEditionTrackingTrait;
 use App\Core\Entity\PageBlock;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;

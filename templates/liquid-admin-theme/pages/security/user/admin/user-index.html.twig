@@ -1,0 +1,103 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}USER MANAGER{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-12" id="user-list">
+    {% if users is defined and users is not empty %}
+        {% include 'liquid-ui/components/layout/table/table.html.twig' with {
+                'tableHeadItems' : [
+                    {
+                        'text': 'id',
+                        'attr': 'id'
+                    },
+                    {
+                        'text': 'email',
+                        'attr': 'email'
+                    },
+                    {
+                        'text': 'username',
+                        'attr': 'username'
+                    },
+                    {
+                        'text': 'roles',
+                        'attr': 'roles'
+                    },
+                    {
+                        'text': 'verified',
+                        'attr': 'isVerified'
+                    },
+                ],
+                'tableItems': users,
+                'actions' :  {
+                    'show': {'path': 'admin_user_show', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
+                    'edit': {'path': 'admin_user_edit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
+                    'edit-password': {'path': 'admin_user_password_edit', 'tooltip': 'edit password', 'icon': 'fas fa-lock'},
+                    'delete': {'path': 'admin_user_delete', 'token': 'delete-post', 'message': 'Are you sure you want to delete this User ?'}
+                }
+            }
+        %}   
+    {% else %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    There is no user caralhoooo !!!
+                </div>
+                <div class="-tile-subtitle">
+                    You can create a new user
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create User"> 
+                    <a class="-tertiary" href="{{ path('admin_user_create') }}">
+                        <i class="fa-solid fa-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% if form is defined %}
+    <section class="col -col-12 -top">
+        {% include 'liquid-ui/components/layout/modal/modal.html.twig' with {
+            'modalId': 'user-add',
+            'modalHeight': 'lg',
+            'modalWidth': 'lg',
+            'modalContent': 'liquid-admin-theme/pages/security/user/_form.html.twig',
+            'modalContentData': {
+                'form': form
+            }
+        }
+        %} 
+    </section>
+{% endif %}
+<section class="bar bar-mini -fixed -bottom-1rm -white" id="folder-list">
+    <div class="tile -tile-compact -w-f -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                USER MANAGER
+            </div>
+            <div class="-tile-subtitle">
+                
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a 
+                class="btn -success btn-link btn-block -btn-lg tooltip -tooltip-top  -shad-12 -shad-14-h"
+                data-tooltip="User Settings"
+                href="#"
+            >
+                <i class="fa-solid fa-cogs"></i>
+            </a>
+            <a 
+                class="-modal-open -modal-close btn -tertiary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+                data-tooltip="Add a User"
+                data-modal-id="user-add"
+                href="#"
+            > 
+                <i class="fa-solid fa-user-plus fa-2x"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

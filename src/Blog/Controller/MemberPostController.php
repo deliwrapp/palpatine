@@ -17,7 +17,7 @@ use App\Blog\Form\CommentFormType;
 class MemberPostController extends AbstractController
 {
     /**
-     * @Route("/", name="MemberPostsList")
+     * @Route("/", name="member_post_list")
      */
     public function index(PostRepository $postRepo): Response
     {
@@ -29,7 +29,7 @@ class MemberPostController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}/{commentId}", name="MemberPostShow", defaults={"commentId"=null})
+     * @Route("/show/{id}/{commentId}", name="member_post_show", defaults={"commentId"=null})
      */
     public function show(int $id, int $commentId = null, ManagerRegistry $doctrine): Response
     {
@@ -41,7 +41,7 @@ class MemberPostController extends AbstractController
                 'warning',
                 'There is no post  with id ' . $id
             );
-            return $this->redirect($this->generateUrl('AdminPostList'));
+            return $this->redirect($this->generateUrl('member_post_list'));
         }
 
         if ($commentId) {
@@ -54,7 +54,7 @@ class MemberPostController extends AbstractController
                     'warning',
                     'There is no comment  with id ' . $id
                 );
-                return $this->redirect($this->generateUrl('MemberPostShow', [
+                return $this->redirect($this->generateUrl('member_post_show', [
                     'id' => $id
                 ]));
             }
@@ -69,7 +69,7 @@ class MemberPostController extends AbstractController
             $comment,
             [
                 'submitBtn' => $submitBtn,
-                'action' => $this->generateUrl('MemberCommentUpdate', [
+                'action' => $this->generateUrl('member_comment_update', [
                     'id' => $post->getId(),
                     'commentId' => $commentId
                 ]),

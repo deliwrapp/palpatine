@@ -1,0 +1,53 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% if page.blocks is defined and page.blocks is not empty  %}
+        {% for pageBlock in page.blocks %}
+            {% if pageBlock.blockTemplate and pageBlock.blockTemplate.cssLink is defined and pageBlock.blockTemplate.cssLink is not null %}
+                {{ encore_entry_link_tags(pageBlock.blockTemplate.cssLink) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block title %}ADMIN PAGE EDIT{% endblock %}
+
+{% block mainContent %}
+    <section class="col -col-4 -md12 -sm12 -xs12">
+        <a class="btn -block" href="{{ path('editor_page_list') }}">back to list</a> 
+        {% include 'liquid-admin-theme/pages/core/page/_page-form.html.twig' %} 
+    </section>
+    {% if page is defined and blocks is defined %}
+        <section class="col -col-8 -md12 -sm12 -xs12">
+            {% include 'liquid-admin-theme/pages/core/page/_blocks-editor.html.twig' %} 
+        </section>
+    {% endif %}
+    
+    {% if page is defined and blocks is defined %}
+        <section class="col -col-12 -top">
+            {% include 'liquid-ui/components/layout/modal/modal.html.twig' with {
+                'modalId': 'blocks-list',
+                'modalWidth': 'xs',
+                'modalContent': 'liquid-admin-theme/pages/core/page/_blocks-to-add-list.html.twig',
+                'modalContentData': {
+                    'blocks': blocks,
+                    'page' : page
+                }
+            }
+            %} 
+        </section>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if page.blocks is defined and page.blocks is not empty  %}
+        {% for pageBlock in page.blocks %}
+            {% if pageBlock.blockTemplate and pageBlock.blockTemplate.scriptLink is defined and pageBlock.blockTemplate.scriptLink is not null %}
+                {{ encore_entry_script_tags(pageBlock.blockTemplate.scriptLink) }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+

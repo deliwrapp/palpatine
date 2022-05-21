@@ -1,0 +1,145 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}PUBLIC DATA MANAGER{% endblock %}
+
+{% block mainContent %}
+    <section class="col -col-6 -md6 -sm12 -xs12">
+        <div class="tile -tile-compact -w-f -m0 -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    Folder Manager
+                </div>
+                <div class="-tile-subtitle">
+                    Access to all Folder
+                    <a class="-t-u btn -sm -light -hover" href="{{ path('public_folder_list') }}">See</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="col -col-6 -md6 -sm12 -xs12">
+        <div class="tile -tile-compact -w-f -m0 -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    File Manager
+                </div>
+                <div class="-tile-subtitle">
+                    Access to all Files
+                    <a class="-t-u btn -sm -light -hover" href="{{ path('public_file_list') }}">See</a>
+                </div>
+            </div>
+            <div class="-tile-action">
+                <a 
+                    class="-modal-open -modal-close btn -tertiary btn-link btn-block -btn-lg tooltip -tooltip-bottom"
+                    data-tooltip="Add File"
+                    data-modal-id="file-uploader"
+                    href="#"
+                > 
+                    <i class="fa-solid fa-file-arrow-down fa-2x"></i> 
+                </a>
+            </div>
+        </div>
+    </section>
+    {% if uploadFileform is defined %}
+        <section class="col -col-12 -top">
+            {% include 'liquid-ui/components/layout/modal/modal.html.twig' with {
+                'modalId': 'file-uploader',
+                'modalHeight': 'lg',
+                'modalWidth': 'lg',
+                'modalContent': 'liquid-admin-theme/pages/core/data/_file_upload_form.html.twig',
+                'modalContentData': {
+                    'uploadFileform': uploadFileform
+                }
+            }
+            %} 
+        </section>
+    {% endif %}
+    <section class="col -col-12 -row -wrap">
+        {% if folders is defined and folders is not empty %}
+            {% for folder in folders %}
+                <section class="col -col-2 -md3 -sm6 -xs6 " id="folder-{{folder.id}}">
+                    <article class="-shad-12-h" id="folder-manager-{{folder.id}}">
+                        <div class="tile -tile-compact -w-f"> 
+                            <div class="-tile-content -flex -flex-column -justify-center -items-center -wrap">
+                                <div class="chip {{ folder.private ? '-secondary':'-warning' }} -shad-13">
+                                    <span class="avatar avatar-sm -shad-18 -flex -justify-center -items-center">
+                                        <i class="fas {{ folder.private ? 'fa-lock':'fa-lock-open' }}"></i>
+                                    </span>
+                                    <p class="-m0 -t-i -t-tiny">
+                                        {{ folder.private ? 'private':'public' }}
+                                    </p>
+                                </div>
+                                <a  class="-flex -flex-column -justify-center -items-center -wrap"  href="{{ path('public_folder_show', {'id': folder.id})   }}">
+                                    <i class="fas fa-folder fa-2x -m2 -p4"></i>
+                                    <p class="-tile-title -m0 -t-bld -t-tiny">
+                                        {{ folder.name}}  
+                                    </p>
+                                    <p class="-m0 -t-i -t-tiny">
+                                        {{ folder.isPublished ? 'published':'not published' }}
+                                    </p>
+                                    <div class="-tile-subtitle">
+                                        <div class="-t-u btn -sm -light -hover">See</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    <aside class="-flex -justify-space-evenly -items-center -wrap -sha -pr2 -pl2 -w-f ">
+                        
+                    </aside>
+                </section>
+            {% endfor %}
+        {% endif %}
+        <hr>
+        {% if files is defined and files is not empty %}
+            {% for file in files %}
+                <section class="col -col-2 -md4 -sm6 -xs6 -justify-center -items-center -wrap" id="file-{{file.id}}">
+                    <div class="card -shad-4 -shad-12-h">
+                        {% set mediaImgList = ['png', 'jpg', 'jpeg', 'gif', 'bmp'] %}
+                        <div class="-card-image  -flex -justify-space-evenly -items-center">
+                            {% if file.ext in mediaImgList %}
+                                {% set mediaPath = file.private ? path('serve_private_file', {'filename': file.originalFilename}) : asset(file.filePath) %}
+                                <img class="img-responsive" src="{{mediaPath}}" alt="{{file.name}}"> 
+                            {% else %}
+                                <div class="file-icon file-icon-xl -m2" data-type="{{file.ext}}"></div>
+                            {% endif %}
+                        </div>
+                        <div class="card-header -pl3 -flex -flex-column -justify-space-evenly -items-center -wrap ">
+                            <a                                
+                                href="{{ path('public_file_show', {'id': file.id }) }}"
+                                class="-m0 -t-bld -t-tiny"
+                            >
+                                {{ file.name ~ '.' ~ file.ext}}  
+                            </a>
+                            <div class="-subtitle text-gray -m0 -t-i -t-tiny">
+                                {{ file.private ? 'private':'public' }}
+                            </div>
+                        </div>
+                        <div class="-card-footer">
+                            <div class="-flex -justify-space-evenly -items-center -wrap -shad-12 -pr2 -pl2 -w-f">
+                                {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
+                                    'path': file.private ? path('download_private_file', {'filename': file.originalFilename}) : asset(file.filePath),
+                                    'action': 'download',
+                                    'tooltip': 'download file',
+                                    'icon': 'fas fa-download'
+                                } %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endfor %} 
+        {% endif %}
+    </section>
+    <p class="-p10 -m10 -w-f -text-center">Bloogy Data Manager</p>
+    <section class="bar bar-mini -fixed -bottom-1rm -white" id="folder-list">
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    DATA MANAGER
+                </div>
+                <div class="-tile-subtitle">
+                    
+                </div>
+            </div>
+        </div>
+    </section> 
+{% endblock %}

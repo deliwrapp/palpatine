@@ -8,7 +8,7 @@
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
             <section class="-shad-12 col -col-12 -row -fixed -bottom -z100">
                 <button class="tooltip -tooltip-top -light btn btn-action -xl s-circle -hover -shad-12 -shad-14-h" data-tooltip="edit post" type="submit">   
-                    <a href="{{ path('AdminPostEdit', { 'id': post.id }) }}">
+                    <a href="{{ path('admin_post_edit', { 'id': post.id }) }}">
                         <i class="fa-solid fa-pen fa-2x"></i>        
                     </a>
                 </button>
@@ -69,16 +69,18 @@
                                 </div>
                                 <div class="-tile-action">
                                     {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
-                                        'path': path('MemberPostShow', { 'id': post.id, 'commentId': comment.id}),
+                                        'path': path('member_post_show', { 'id': post.id, 'commentId': comment.id}),
                                         'action': 'Edit',
                                         'tooltip': 'Edit',
                                         'icon': 'fa-regular fa-pen-to-square'
                                     } %}
-                                    {% include 'liquid-ui/components/ui/buttons/btn-delete.html.twig' with {
-                                        'path': path('MemberCommentDelete', { 'id': comment.id, 'postId': post.id }),
-                                        'message': 'Are you sure to delete this comment ?' ,
-                                        'token': 'delete-comment'
-                                    } %}
+                                    {% if app.user and comment.author.id == app.user.id %}
+                                        {% include 'liquid-ui/components/ui/buttons/btn-delete.html.twig' with {
+                                            'path': path('member_comment_delete', { 'id': comment.id, 'postId': post.id }),
+                                            'message': 'Are you sure to delete this comment ?' ,
+                                            'token': 'delete-comment'
+                                        } %}
+                                    {% endif %}
                                 </div>
                             </li>
                         {% endfor %}

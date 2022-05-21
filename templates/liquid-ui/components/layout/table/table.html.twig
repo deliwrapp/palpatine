@@ -61,6 +61,8 @@
                                         {% else %}
                                             {{"core.word.no"|trans }}
                                         {% endif %}
+                                    {% elseif item[td.attr] is iterable %}
+                                        {{ item[td.attr]|json_encode(constant('JSON_PRETTY_PRINT')) }}
                                     {% else %}
                                         {{ item[td.attr]|trans|slice(0, 60) }}
                                     {% endif %}

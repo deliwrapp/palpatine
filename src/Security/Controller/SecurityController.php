@@ -4,6 +4,7 @@ namespace App\Security\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -33,6 +34,21 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('@security/user/anonymous/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+
+    /**
+     * loginRedirect
+     * Redirect to admin or homepage depending of the role
+     * 
+     * @Route("/login-redirect", name="login_redirect")
+     * @return RedirectResponse
+     */
+    public function loginRedirect(): RedirectResponse
+    {
+        if ($this->isGranted('ROLE_ADMIN') || $this->isGranted('ROLE_EDITOR') || $this->isGranted('ROLE_MODERATOR')) {
+            return $this->redirectToRoute('admin_dashboard_redirect');
+        }
+        return $this->redirectToRoute('homepage');         
     }
     
     /**

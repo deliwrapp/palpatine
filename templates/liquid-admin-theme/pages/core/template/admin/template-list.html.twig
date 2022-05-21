@@ -1,0 +1,84 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}TEMPLATES LIST{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-12" id="template-list">
+    {% if templates is defined and templates is not empty %}
+        {% include 'liquid-ui/components/layout/table/table.html.twig' with {
+                'tableHeadItems' : [
+                    {
+                        'text': 'id',
+                        'attr': 'id'
+                    },
+                    {
+                        'text': 'name',
+                        'attr': 'name'
+                    },
+                    {
+                        'text': 'path',
+                        'attr': 'templatePath'
+                    },
+                    {
+                        'text': 'published',
+                        'attr': 'isPublished'
+                    },
+                ],
+                'tableItems': templates,
+                'actions' :  {
+                    'show': {'path': 'admin_template_show', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
+                    'edit': {'path': 'admin_template_edit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
+                    'delete': {'path': 'admin_template_delete', 'token': 'delete-template', 'message': 'Are you sure you want to delete this Template ?'}
+                }
+            }
+        %}   
+    {% else %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    There is no template !!!
+                </div>
+                <div class="-tile-subtitle">
+                    You can create a new template
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Template"> 
+                    <a class="-tertiary" href="{{ path('admin_template_create') }}">
+                        <i class="fa-solid fa-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+</section>
+
+<section class="bar bar-mini -fixed -bottom-1rm -white" id="folder-list">
+    <div class="tile -tile-compact -w-f -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                TEMPLATE MANAGER
+            </div>
+            <div class="-tile-subtitle">
+                
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a 
+                class="btn -success btn-link btn-block -btn-lg tooltip -tooltip-top  -shad-12 -shad-14-h"
+                data-tooltip="Template Settings"
+                href="#"
+            >
+                <i class="fa-solid fa-cogs"></i>
+            </a>
+            <a 
+                class="btn -tertiary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+                data-tooltip="Add a Template"
+                href="{{ path('admin_template_create') }}"
+            > 
+                <i class="fa-solid fa-plus fa-2x"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

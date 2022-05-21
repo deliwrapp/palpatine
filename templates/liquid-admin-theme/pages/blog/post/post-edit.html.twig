@@ -1,15 +1,15 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}ADMIN POSTS EDIT{% endblock %}
+{% block title %}EDITOR POSTS EDIT{% endblock %}
 
 {% block mainContent %}
 <section class="col -col-12">
-    <a class="btn -block" href="{{ path('AdminPostsList') }}">back to list</a> 
+    <a class="btn -block" href="{{ path('editor_post_list') }}">back to list</a> 
     <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
         <div class="-panel-header -text-center">
             {% if post is defined and post is not null %}
                 <button class="tooltip tooltip-left -tertiary btn btn-action -xl s-circle -light -hover -shad-12 -shad-14-h" data-tooltip="show" type="submit">   
-                    <a class="-light -hover" href="{{ path('MemberPostShow', { 'id': post.id }) }}">
+                    <a class="-light -hover" href="{{ path('member_post_show', { 'id': post.id }) }}">
                         <i class="fa-solid fa-eye fa-2x"></i>        
                     </a>
                 </button>
