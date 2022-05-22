@@ -119,6 +119,7 @@ class AdminTemplateController extends AbstractController
     public function edit(int $id, Request $request): Response
     {
         try {
+            $template = $this->templateVerificator($id);
             $form = $this->createForm(TemplateFormType::class, $template, [
                 'submitBtn' => 'Edit'
             ]);

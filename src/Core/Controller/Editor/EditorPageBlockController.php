@@ -13,6 +13,7 @@ use App\Core\Entity\PageBlock;
 use App\Core\Repository\PageRepository;
 use App\Core\Repository\BlockRepository;
 use App\Core\Repository\PageBlockRepository;
+use App\Core\Repository\FileRepository;
 use App\Core\Form\PageBlockFormType;
 use App\Core\Factory\PageFactory;
 use App\Core\Factory\TemplateFactory;
@@ -31,6 +32,9 @@ class EditorPageBlockController  extends AbstractController
     /** @var BlockRepository */
     private $blockRepo;
 
+    /** @var FileRepository */
+    private $fileRepo;
+
     /** @var PageBlockRepository */
     private $pageBlockRepo;
     
@@ -44,6 +48,7 @@ class EditorPageBlockController  extends AbstractController
         PageRepository $pageRepo,
         BlockRepository $blockRepo,
         PageBlockRepository $pageBlockRepo,
+        FileRepository $fileRepo,
         PageFactory $pageFactory,
         TemplateFactory $tplFactory
     )
@@ -51,6 +56,7 @@ class EditorPageBlockController  extends AbstractController
         $this->pageRepo = $pageRepo;
         $this->blockRepo = $blockRepo;
         $this->pageBlockRepo = $pageBlockRepo;
+        $this->fileRepo = $fileRepo;
         $this->pageFactory = $pageFactory;
         $this->tplFactory = $tplFactory;
     }
@@ -61,7 +67,7 @@ class EditorPageBlockController  extends AbstractController
      * @param int $pageId
      * @param string $option = 'new'
      * @param int $blockId = null
-     * @Route("/add-block-to-page/{pageId}/{option}/{blockId}", 
+     * @Route("/{pageId}/add-block-to-page/{option}/{blockId}", 
      *         name="editor_page_block_add",
      *         defaults = {"option" = "new", "blockId" = null}
      * )
@@ -116,10 +122,10 @@ class EditorPageBlockController  extends AbstractController
      * 
      * @param int $pageBlockId
      * @param int $pageId
-     * @Route("/duplicate-block/{pageBlockId}/from/{pageId}", name="editor_page_block_duplicate")
+     * @Route("/{pageId}/duplicate-page-block/{pageBlockId}", name="editor_page_block_duplicate")
      * @return RedirectResponse
      */
-    public function duplicateBlockFromPage(int $pageBlockId, int $pageId): RedirectResponse
+    public function duplicateBlockFromPage(int $pageId, int $pageBlockId): RedirectResponse
     {
         try {
             $page =$this->pageVerificator($pageId);
@@ -151,10 +157,10 @@ class EditorPageBlockController  extends AbstractController
      * 
      * @param int $pageBlockId
      * @param int $pageId
-     * @Route("/remove-block/{pageBlockId}/from/{pageId}", name="editor_page_block_remove")
+     * @Route("/{pageId}/remove-block/{pageBlockId}", name="editor_page_block_remove")
      * @return RedirectResponse
      */
-    public function removeBlockFromPage(int $pageBlockId, int $pageId): RedirectResponse
+    public function removeBlockFromPage(int $pageId, int $pageBlockId): RedirectResponse
     {
         try {
             $page =$this->pageVerificator($pageId);
@@ -182,10 +188,10 @@ class EditorPageBlockController  extends AbstractController
      * @param int $pageBlockId
      * @param int $pageId
      * @param int $position
-     * @Route("/block/{pageBlockId}/page/{pageId}/move-to/{position}", name="editor_page_block_position")
+     * @Route("{pageId}/block/{pageBlockId}/move-to-position/{position}", name="editor_page_block_position")
      * @return RedirectResponse
      */
-    public function moveBlockTo(int $pageBlockId, int $pageId, int $position): RedirectResponse
+    public function moveBlockTo(int $pageId, int $pageBlockId, int $position): RedirectResponse
     {
         try {
             $page = $this->pageVerificator($pageId);
@@ -226,7 +232,7 @@ class EditorPageBlockController  extends AbstractController
      * Page Reorder Blocks on the Page
      * 
      * @param int $pageId
-     * @Route("/block/re-order/{pageId}", name="editor_page_block_reorder")
+     * @Route("/{pageId}/block/re-order", name="editor_page_block_reorder")
      * @return RedirectResponse
      */
     public function reOrderBlocksOnPage(int $pageId): RedirectResponse
@@ -255,11 +261,11 @@ class EditorPageBlockController  extends AbstractController
      * @param int $pageBlockId
      * @param int $pageId
      * @param Request $request
-     * @Route("/page-block/editor/{pageBlockId}/page/{pageId}", name="editor_page_block_edit")
+     * @Route("/{pageId}/page-block-editor/{pageBlockId}", name="editor_page_block_edit")
      * @return Response
      * @return RedirectResponse
      */
-    public function edit(int $pageBlockId, int $pageId, Request $request): Response
+    public function edit(Request $request, int $pageId, int $pageBlockId): Response
     {
         try {
             $page =$this->pageVerificator($pageId);
@@ -296,6 +302,95 @@ class EditorPageBlockController  extends AbstractController
             return $this->redirect($this->generateUrl('editor_page_list'));
         }
         
+    }
+
+    /**
+     * PageBlock Add media to block
+     * 
+     * @param int $pageBlockId
+     * @param int $pageId
+     * @param string $type
+     * @param int $mediaId
+     * @Route("/{pageId}/page-block-editor/{pageBlockId}/add-media/{type}/{mediaId}",
+     * name="editor_page_block_add_media",
+     * defaults = {"type" = "image", "mediaId" = null}
+     * )
+     * @return Response
+     * @return RedirectResponse
+     */
+    public function addMediaToBlock(int $pageId, int $pageBlockId, string $type = 'image', int $mediaId = null): Response
+    {
+        try {
+            $page = $this->pageVerificator($pageId);
+            $pageBlock = $this->pageBlockVerificator($pageBlockId, $pageId);
+            $this->pageBlockLinkVerificator($pageBlock, $page);
+            
+            if ($mediaId) {
+                $media = $this->mediaVerificator($mediaId);
+                $pageBlock->setMedia($media);
+                $this->pageBlockRepo->flush();
+                $this->addFlash(
+                    'success',
+                    'Media Added !'
+                );
+                return $this->redirect($this->generateUrl('editor_page_block_edit', [
+                    'pageBlockId' => $pageBlockId,
+                    'pageId' => $pageId
+                ]));
+            } 
+
+            $medias = $this->fileRepo->findBy(['ext' => ['jpg', 'jpeg', 'png' ], 'private' => false]);
+            return $this->render(
+                '@core-admin/page-block/editor/page-block-media-editor.html.twig',
+                [
+                    'pageBlock' => $pageBlock,
+                    'medias' => $medias
+                ]
+            );
+
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+        }
+    }
+
+        /**
+     * PageBlock Remove Media From Block
+     * 
+     * @param int $pageBlockId
+     * @param int $pageId
+     * @param string $type
+     * @param int $mediaId
+     * @Route("/{pageId}/page-block-editor/{pageBlockId}/remove-media",
+     * name="editor_page_block_remove_media"
+     * )
+     * @return RedirectResponse
+     */
+    public function removeMediaFromBlock(int $pageId, int $pageBlockId): RedirectResponse
+    {
+        try {
+            $page = $this->pageVerificator($pageId);
+            $pageBlock = $this->pageBlockVerificator($pageBlockId, $pageId);
+            $this->pageBlockLinkVerificator($pageBlock, $page);
+            $pageBlock->setMedia(null);
+            $this->pageBlockRepo->flush();
+            $this->addFlash(
+                'success',
+                'Media Added !'
+            );
+            return $this->redirect($this->generateUrl('editor_page_block_edit', [
+                'pageBlockId' => $pageBlockId,
+                'pageId' => $pageId
+            ]));
+
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+        }
     }
 
     /**
@@ -361,5 +456,25 @@ class EditorPageBlockController  extends AbstractController
             ]));
         }
         return true;
+    }
+
+        /**
+     * Test if media exists and return it, or redirect to menu list index with an error message
+     * 
+     * @param int $mediaId
+     * @return File $media
+     * @return RedirectResponse
+     */
+    public function mediaVerificator(int $mediaId)
+    {
+        $media = $this->fileRepo->find($mediaId);
+        if (!$media) {
+            $this->addFlash(
+                'warning',
+                'There is no Media  with id ' . $mediaId
+            );
+            return $this->redirect($this->generateUrl('editor_page_list'));
+        }
+        return $media;
     }
 }

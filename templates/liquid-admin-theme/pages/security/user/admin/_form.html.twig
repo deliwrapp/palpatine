@@ -5,9 +5,9 @@
                 class="avatar avatar-xl -secondary -cursor-pointer -shad-12"
                 data-initial="{% if user is defined and user.username is defined  %}{{user.username|slice(0, 1)}}{% else %}{{'user'|upper|trans}}{% endif %}"
             >
-                {% if user is defined and user.avatar is defined and user.avatar is not null %}
+                {# {% if user is defined and user.avatar is defined and user.avatar is not null %}
                     <img src="#" alt="Avatar">
-                {% endif %}
+                {% endif %} #}
             </figure>
             <div class="-panel-title h5 mt-10 -t-u">{{'user form'|trans}}</div>
             {% for flashError in app.flashes('verify_email_error') %}

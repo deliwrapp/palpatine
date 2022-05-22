@@ -61,7 +61,7 @@
                                             {{ folder.private ? 'private':'public' }}
                                         </p>
                                     </div>
-                                    <a  class="-flex -flex-column -justify-center -items-center -wrap"  href="{{ pathPrefixBasedOnRole ? path(pathPrefixBasedOnRole ~ '_folder_show', {'id': folder.id}) :  path('moderator_folder_show', {'id': folder.id}) }}">
+                                    <a  class="-flex -flex-column -justify-center -items-center -wrap"  href="{{ path('admin_folder_show', {'id': folder.id}) }}">
                                         <i class="fas fa-folder fa-2x -m2 -p4"></i>
                                         <p class="-tile-title -m0 -t-bld -t-tiny">
                                             {{ folder.name}}  
@@ -192,7 +192,7 @@
                         'icon': folder.private ? 'fas fa-lock' : 'fas fa-lock-open'
                     } %}
                     {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
-                        'path': path( urlPrefix ~ '_folder_edit', { 'id': folder.id }),
+                        'path': path( 'admin_folder_edit', { 'id': folder.id }),
                         'action': 'edit',
                         'tooltip': 'edit folder',
                         'icon': 'fa-regular fa-pen-to-square'

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Security\Controller\Admin;
+namespace App\Security\Controller;
 
 use App\Security\Entity\User;
 use App\Security\Repository\UserRepository;
@@ -15,12 +15,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * Class AdminUserController  - Admin User Manager
+ * Class AdminUsersController  - Admin User Manager
  * @package App\Security\Controller
  * @IsGranted("ROLE_ADMIN",statusCode=401, message="No access! Get out!")
  * @Route("/admin/user")
  */
-class AdminUserController extends AbstractController
+class AdminUsersController extends AbstractController
 {
     
     /** @var UserPasswordHasherInterface */
@@ -104,7 +104,7 @@ class AdminUserController extends AbstractController
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('admin_user_list'));
+            return $this->redirect($this->generateUrl('admin_user_index'));
         }
     }
 
@@ -145,7 +145,7 @@ class AdminUserController extends AbstractController
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('AdminDashboard'));
+            return $this->redirect($this->generateUrl('admin_user_index'));
         }
     }
 
@@ -191,7 +191,7 @@ class AdminUserController extends AbstractController
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('AdminDashboard'));
+            return $this->redirect($this->generateUrl('admin_user_index'));
         }
     }
 
@@ -214,7 +214,7 @@ class AdminUserController extends AbstractController
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('AdminDashboard'));
+            return $this->redirect($this->generateUrl('admin_user_index'));
         }
     }
 
@@ -243,7 +243,7 @@ class AdminUserController extends AbstractController
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('AdminDashboard'));
+            return $this->redirect($this->generateUrl('admin_user_index'));
         }
     }
 }

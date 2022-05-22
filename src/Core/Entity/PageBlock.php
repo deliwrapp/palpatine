@@ -6,6 +6,7 @@ use App\Core\Repository\PageBlockRepository;
 use App\Core\Entity\Page;
 use App\Core\Entity\Block;
 use App\Core\Entity\Template;
+use App\Core\Entity\File;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,6 +51,11 @@ class PageBlock
      * @ORM\ManyToOne(targetEntity="App\Core\Entity\Template")
      */
     private $blockTemplate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Core\Entity\File")
+     */
+    private $media;
     
     /**
      * @ORM\Column(type="boolean")
@@ -128,6 +134,18 @@ class PageBlock
     public function setBlockTemplate(?Template $blockTemplate): self
     {
         $this->blockTemplate = $blockTemplate;
+
+        return $this;
+    }
+
+    public function getMedia(): ?File
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?File $media): self
+    {
+        $this->media = $media;
 
         return $this;
     }
