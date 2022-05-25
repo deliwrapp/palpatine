@@ -39,7 +39,7 @@ class ConfigLoader
     }
 
     /**
-     * Get yaml file converted in php object depending of an Index
+     * getConfigFile() Get yaml file converted in php object depending of an Index
      *
      * @var string $fileToConvert
      * @return Object|null $convertedYaml
@@ -93,8 +93,10 @@ class ConfigLoader
     }
 
     /**
+     * configFileUpdate() - Update config {$data} yaml file in ./datamodel/{$command}.yaml
+     * 
      * @param string $command
-     * @param $data
+     * @param array|null $data
      */
     public function configFileUpdate(
         string $command,
@@ -205,6 +207,148 @@ class ConfigLoader
             case 'menus':
                 try {
                     file_put_contents($this->rootDirectory.'/datamodel/menus.yaml', $yaml);
+                    return true;
+                }
+                catch (ParseException $e)
+                {
+                    printf('Unable to parse the YAML string: %s', $e->getMessage());
+                    return false;
+                }
+                break;
+            default:
+                printf('Unable to find command');
+                return false;
+                break;
+        }
+    }
+
+      /**
+     * getConfigFile() Get yaml file converted in php object depending of an Index
+     *
+     * @var string $fileToConvert
+     * @var string $filename
+     * @return Object|null $convertedYaml
+     */
+    public function getDatamodelFile(string $fileToConvert, string $filename) {
+        switch ($fileToConvert) {
+            case 'users':
+                $convertedYaml = $this->getConfigFileConvertedInObject($this->rootDirectory.'/datamodel/users/'.$filename.'.yaml');
+                return $convertedYaml;
+                break;
+            case 'templates':
+                $convertedYaml = $this->getConfigFileConvertedInObject($this->rootDirectory.'/datamodel/templates/'.$filename.'.yaml');
+                return $convertedYaml;
+                break;
+            case 'files':
+                $convertedYaml = $this->getConfigFileConvertedInObject($this->rootDirectory.'/datamodel/files/'.$filename.'.yaml');
+                return $convertedYaml;
+                break;
+            case 'forms':
+                $convertedYaml = $this->getConfigFileConvertedInObject($this->rootDirectory.'/datamodel/forms/'.$filename.'.yaml');
+                return $convertedYaml;
+                break;
+            case 'blocks':
+                $convertedYaml = $this->getConfigFileConvertedInObject($this->rootDirectory.'/datamodel/blocks/'.$filename.'.yaml');
+                return $convertedYaml;
+                break;
+            case 'pages':
+                $convertedYaml = $this->getConfigFileConvertedInObject($this->rootDirectory.'/datamodel/pages/'.$filename.'.yaml');
+                return $convertedYaml;
+                break;
+            case 'menus':
+                $convertedYaml = $this->getConfigFileConvertedInObject($this->rootDirectory.'/datamodel/menus/'.$filename.'.yaml');
+                return $convertedYaml;
+                break;
+            default:
+                return null;
+                break;
+        }        
+    }
+
+    /**
+     * dataModelUpdate() - Update data {$data} model yaml file in ./datamodel/{$command}/{$filename}
+     * 
+     * @param string $command
+     * @param array|null $data
+     * @param string $filename
+     */
+    public function dataModelUpdate(
+        string $command,
+        $data,
+        string $filename
+    )
+    {
+        $yaml = Yaml::dump($data);
+        switch ($command) {
+            case 'users':
+                try {
+                    file_put_contents($this->rootDirectory.'/datamodel/users/'.$filename.'.yaml', $yaml);
+                    return true;
+                }
+                catch (ParseException $e)
+                {
+                    printf('Unable to parse the YAML string: %s', $e->getMessage());
+                    return false;
+                }
+                break;
+            case 'templates':
+                try {
+                    file_put_contents($this->rootDirectory.'/datamodel/templates/'.$filename.'.yaml', $yaml);
+                    return true;
+                }
+                catch (ParseException $e)
+                {
+                    printf('Unable to parse the YAML string: %s', $e->getMessage());
+                    return false;
+                }
+                break;
+            case 'files':
+                try {
+                    file_put_contents($this->rootDirectory.'/datamodel/files/'.$filename.'.yaml', $yaml);
+                    return true;
+                }
+                catch (ParseException $e)
+                {
+                    printf('Unable to parse the YAML string: %s', $e->getMessage());
+                    return false;
+                }
+                break;
+            case 'forms':
+                try {
+                    file_put_contents($this->rootDirectory.'/datamodel/forms/'.$filename.'.yaml', $yaml);
+                    return true;
+                }
+                catch (ParseException $e)
+                {
+                    printf('Unable to parse the YAML string: %s', $e->getMessage());
+                    return false;
+                }
+                break;
+            case 'blocks':
+                try {
+                    file_put_contents($this->rootDirectory.'/datamodel/blocks/'.$filename.'.yaml', $yaml);
+                    return true;
+                }
+                catch (ParseException $e)
+                {
+                    printf('Unable to parse the YAML string: %s', $e->getMessage());
+                    return false;
+                }
+                break;
+            case 'pages':
+                try {
+                    file_put_contents($this->rootDirectory.'/datamodel/pages/'.$filename.'.yaml', $yaml);
+                    return true;
+                }
+                catch (ParseException $e)
+                {
+                    printf('Unable to parse the YAML string: %s', $e->getMessage());
+                    return false;
+                }
+                break;
+            case 'menus':
+                try {
+                    file_put_contents($this->rootDirectory.'/datamodel/menus/'.$filename.'.yaml', $yaml);
                     return true;
                 }
                 catch (ParseException $e)
