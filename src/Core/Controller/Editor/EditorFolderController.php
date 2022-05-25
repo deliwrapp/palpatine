@@ -118,7 +118,7 @@ class EditorFolderController extends AbstractController
         try {
             $folder = $this->folderVerificator($id);
             $form = $this->createForm(FolderFormType::class, $folder, [
-                'submitBtn' => 'creation',
+                'submitBtn' => 'edit',
                 'mode' => 'edition'
             ]);
             $form->handleRequest($request);
@@ -135,7 +135,7 @@ class EditorFolderController extends AbstractController
                 $this->folderRepo->flush();
                 $this->addFlash(
                     'info',
-                    'Saved new Folder with id '.$folder->getId()
+                    'Saved folder with new name : '.$folder->getName()
                 );
                 return $this->redirect($this->generateUrl('editor_folder_show', [
                     'id' => $folder->getId()

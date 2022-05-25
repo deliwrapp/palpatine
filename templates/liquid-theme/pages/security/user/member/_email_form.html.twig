@@ -1,0 +1,41 @@
+<section class="col -col-12">
+    <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+        <div class="-panel-header -text-center">
+            <figure 
+                class="avatar avatar-xl -secondary -cursor-pointer -shad-12"
+                data-initial="{% if user is defined and user.username is defined  %}{{user.username|slice(0, 1)}}{% else %}{{'user'|upper|trans}}{% endif %}"
+            >
+                {# {% if user is defined and user.avatar is defined and user.avatar is not null %}
+                    <img src="#" alt="Avatar">
+                {% endif %} #}
+            </figure>
+            <div class="-panel-title h5 mt-10 -t-u">
+                {{app.user.email}}
+            </div>
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="toast -warning -shad-12 -shad-10-h" role="alert">
+                    <p>{{ flashError }}</p>
+                    <button class="btn btn-clear"></button>
+                </div>
+            {% endfor %}
+        </div>
+        {{ form_start(form, {'attr': {'class': '-w-f'}}) }}
+            <section class="-panel-body -flex -wrap">                
+                <div class="col -col-12">
+                    {{ form_label(form.email, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.email) }}</small>
+                    {{ form_errors(form.email) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(form.email, {'attr': {'class': 'form-field -shad-12-h', 'autocomplete': 'email'}}) }}
+                        <i class="form-icon fa-solid fa-at"></i>
+                    </div>
+                </div>
+            </section>
+            <section class="-panel-footer -text-center ">
+                {{ form_widget(form.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+            </section>
+        {{ form_end(form) }}
+    </div>
+</section>

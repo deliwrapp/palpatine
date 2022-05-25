@@ -30,6 +30,13 @@
         </a>
     </section>
 {% endif %}
+{% if filePrivateForm is defined %}
+    <section class="col -col-12">
+        <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+            {{ include('liquid-admin-theme/pages/core/data/_file_edit_private_form.html.twig') }}
+        </div>
+    </section>
+{% endif %}
 <section class="col -col-6 -md6 -sm6 -xs6">
     <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
         <div class="-panel-header -text-center -flex -justify-space-evenly">
@@ -55,13 +62,6 @@
         </div>
         {% if fileNameForm is defined %}
             {{ include('liquid-admin-theme/pages/core/data/_file_edit_name_form.html.twig') }}
-        {% endif %}
-    </div>
-</section>
-<section class="col -col-6 -md6 -sm6 -xs6">
-    <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
-        {% if filePrivateForm is defined %}
-            {{ include('liquid-admin-theme/pages/core/data/_file_edit_private_form.html.twig') }}
         {% endif %}
     </div>
 </section>

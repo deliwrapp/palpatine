@@ -19,6 +19,13 @@
                     >
                         <i class="fa-solid fa-eye fa-2x"></i>        
                     </a>
+                    <a  
+                        class="tooltip tooltip-left -tertiary btn -secondary -hover -shad-12 -shad-14-h"
+                        data-tooltip="define as block model" 
+                        href="{{ path('editor_page_block_create_block_model', { 'pageId': pageBlock.page.id, 'pageBlockId': pageBlock.id }) }}"
+                    >
+                        Define as block Model       
+                    </a>
                     {{ include('liquid-admin-theme/pages/core/page-block/editor/_delete_form.html.twig') }}
                 {% endif %}
             </div>
@@ -119,7 +126,7 @@
                         data-tooltip="remove media" 
                         href="{{ path('editor_page_block_remove_media', { 'pageId': pageBlock.page.id, 'pageBlockId': pageBlock.id}) }}"
                     >
-                        Remove Media <i class="fas fa-trash fa-2x"></i>        
+                        Remove Media <i class="fas fa-trash"></i>        
                     </a>
                     <section class="-w-f">   
                         <div class="card -shad-4 -shad-12-h">

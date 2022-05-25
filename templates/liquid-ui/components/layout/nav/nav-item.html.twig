@@ -4,8 +4,9 @@
 - color : classes de modification de la classe principale {string}
 - path : lien {string}
 - text : Texte de l'élément {string}
-- icon : Icon de l'élément {string},
+- icon : Icon de l'élément {string}
 - target: Target
+- customTextClass : custom text classes {string}
 #}
 
 {% if path is not defined or path == null or path == '#' %}
@@ -61,5 +62,13 @@
   {% if icon is defined and icon is not null %}
     <i class="{{icon}}"></i>
   {% endif %}
-    {{ text |trans }}
+    {% if customTextClass is defined and customTextClass is not null %}
+      <span class="{{customTextClass}}">
+        {{ text |trans }}
+      </span>
+    {% else %}
+      {{ text |trans }}
+    {% endif %}
+    
+    
 </a>

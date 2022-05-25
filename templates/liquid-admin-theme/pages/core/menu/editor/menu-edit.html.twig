@@ -15,7 +15,7 @@
                     >
                         <i class="fa-solid fa-eye fa-2x"></i>
                     </a>
-                    {{ include('liquid-admin-theme/pages/core/menu/_delete_form.html.twig') }}
+                    {{ include('liquid-admin-theme/pages/core/menu/editor/_delete_form.html.twig') }}
                 {% endif %}
             </div>
             {{ form_start(form, {'attr': {'class': '-w-f'}}) }}
@@ -41,6 +41,18 @@
                             }) }}
                             <div class="-sm9">
                                 {{ form_widget(form.position, {'attr': {'class': 'form-select -shad-12'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col -col-12">
+                        <small>{{ form_help(form.locale) }}</small>
+                        {{ form_errors(form.locale) }}
+                        <div class="form-element">
+                            {{ form_label(form.locale, null, {
+                                'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                            }) }}
+                            <div class="-sm9">
+                                {{ form_widget(form.locale, {'attr': {'class': 'form-select -shad-12'}}) }}
                             </div>
                         </div>
                     </div>

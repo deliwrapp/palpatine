@@ -16,42 +16,59 @@ class MenuLoader
     }
 
     /**
-     * Get the Main Menu
+     * Get the Main Menu and locale
      *
+     * @var string $locale
      * @return Menu|null $menu
      */
-    public function getMainMenu() {
-        $menu = $this->menuRepo->findOneBy(['isMainMenu' => true]);
+    public function getMainMenuLocalized(string $locale) {
+        $menu = $this->menuRepo->findOneBy(['isMainMenu' => true, 'locale' => $locale]);
         return $menu;
     }
 
     /**
-     * Get the Published Main Menu
+     * Get the Published Main Menu and locale
      *
+     * @var string $locale
      * @return Menu|null $menu
      */
-    public function getPublishedMainMenu() {
-        $menu = $this->menuRepo->findOneBy(['isMainMenu' => true, 'isPublished' => true]);
+    public function getPublishedMainMenuLocalized(string $locale) {
+        $menu = $this->menuRepo->findOneBy([
+            'isMainMenu' => true,
+            'isPublished' => true,
+            'locale' => $locale
+        ]);
         return $menu;
     }
 
     /**
-     * Get a Menu defined by position
+     * Get a Menu defined by position and locale
      *
+     * @var string $position
+     * @var string $locale
      * @return Menu|null $menu
      */
-    public function getMenuWithPosition($position) {
-        $menu = $this->menuRepo->findOneBy(['position' => $position]);
+    public function getMenuWithPositionAndLocale(string $position, string $locale) {
+        $menu = $this->menuRepo->findOneBy([
+            'position' => $position,
+            'locale' => $locale
+        ]);
         return $menu;
     }
 
     /**
-     * Get a Published Menu defined by position
+     * Get a Published Menu defined by position and locale
      *
+     * @var string $position
+     * @var string $locale
      * @return Menu|null $menu
      */
-    public function getPublishedMenuWithPosition($position) {
-        $menu = $this->menuRepo->findOneBy(['position' => $position, 'isPublished' => true]);
+    public function getPublishedMenuWithPositionAndLocale($position, string $locale) {
+        $menu = $this->menuRepo->findOneBy([
+            'position' => $position,
+            'locale' => $locale,
+            'isPublished' => true
+        ]);
         return $menu;
     }
 

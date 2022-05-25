@@ -54,6 +54,7 @@ security:
         - { path: '^/[a-z]{2}/editor', roles: ROLE_EDITOR }
         - { path: '^/[a-z]{2}/moderator', roles: ROLE_MODERATOR }
         - { path: '^/[a-z]{2}/member', roles: ROLE_USER }
+        - { path: '^/[a-z]{2}/account', roles: ROLE_USER }
 
 when@test:
     security:

@@ -1,92 +1,111 @@
-<section id="menu-left-panel" class="-fixed -left -top-4rm swipe-menu sidebar sidebar-mini -bg-light -z2 -shad-12 -m0">
-    <nav class="-w-f">
-        <section class="slide-dropdown -open -transparent">
-            <label for="side-menu-1">
-                <span class="slide-dropdown--title -transparent -shad-12">
-                    <span class="swipe-m-trigger -z5" data-panel="menu-left-panel"
-                        data-open-panel="-open" data-close-panel="sidebar-mini">
-                        <div class="bar1"></div>
-                        <div class="bar2"></div>
-                        <div class="bar3"></div>
-                    </span>
-                    <span class="-sidebar-mini-hidden">
-                        dashboard
-                    </span>
-                </span>
-            </label>
-            <input class="slide-dropdown--touch" type="checkbox" id="side-menu-1">
-            <ul class="slide-dropdown--slide">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Global Stat</a></li>
-                <li><a href="#">Settings</a></li>
-            </ul>
-        </section>
-        <section class="slide-dropdown -w-f">
-            <label for="side-menu-2">
-                <span data-css-ico="+" class="slide-dropdown--title -shad-14">
-                    <i class="icon icon-mail"></i>
-                    <span class="-sidebar-mini-hidden">
-                        messages
-                    </span>
-                </span>
-            </label>
-            <input class="slide-dropdown--touch" type="checkbox" id="side-menu-2">
-            <ul class="slide-dropdown--slide">
-                <li class="-shad-10-h"><a href="#">New Message</a></li>
-                <li><a href="#">Messages</a></li>
-                <li><a href="#">Contacts</a></li>
-                <li><a href="#">Messages Settings</a></li>
-            </ul>
-        </section>
-        <section class="slide-dropdown -w-f">
-            <label for="side-menu-3">
-                <span data-css-ico="+" class="slide-dropdown--title">
-                    <i class="icon icon-people"></i>
-                    <span class="-sidebar-mini-hidden">
-                        users
-                    </span>
-                </span>
-            </label>
-            <input class="slide-dropdown--touch" type="checkbox" id="side-menu-3">
-            <ul class="slide-dropdown--slide">
-                <li><a href="#">Add User</a></li>
-                <li><a href="#">User List</a></li>
-            </ul>
-        </section>
-        <section class="slide-dropdown -w-f">
-            <label for="side-menu-4">
-                <span data-css-ico="+" class="slide-dropdown--title">
-                    <i class="icon icon-bookmark"></i>
-                    <span class="-sidebar-mini-hidden">
-                        posts
-                    </span>
-                </span>
-            </label>
-            <input class="slide-dropdown--touch" type="checkbox" id="side-menu-4">
-            <ul class="slide-dropdown--slide">
-                <li><a href="#">Add Post</a></li>
-                <li><a href="#">Posts List</a></li>
-                <li><a href="#">Posts Statistics</a></li>
-                <li><a href="#">Posts Settings</a></li>
-            </ul>
-        </section>
-        <section class="slide-dropdown -w-f -mb10 -pb10">
-            <label for="side-menu-5">
-                <span data-css-ico="+" class="slide-dropdown--title">
-                    <i class="icon icon-message"></i>
-                    <span class="-sidebar-mini-hidden">
-                        comments
-                    </span>
-                </span>
-            </label>
-            <input class="slide-dropdown--touch" type="checkbox" id="side-menu-5">
-            <ul class="slide-dropdown--slide">
-                <li><a href="#">Comments Moderation</a></li>
-                <li><a href="#">Comments List</a></li>
-                <li><a href="#">Comments Statistics</a></li>
-                <li class="-mb10"><a href="#">Comments Settings</a></li>
-            </ul>
-        </section>
-    </nav>
+{#
+// Variables
+- panelId : Panel Sidebar Container Id
+- customLeftBarClass : custom classes
+- color : classes de modification de la classe principale
+- sidebarRightnavItems: Nav Items menu -> array
+- - item['text'] -> string
+- - item['path'] -> string
+- - item['icon'] -> string
+- - item['subitems'] -> array
+- - - subitem['text'] -> string
+- - - subitem['path'] -> string
+- - - subitem['icon'] -> string
+- - - subitem['customClass'] -> string
+- - - subitem['customColor'] -> string
+- - - subitem['customId'] -> string
+#}
+<section 
+    {% if panelId is defined and panelId is not null %} 
+        id="{{panelId}}"
+    {% endif %}
+        class="-z100 {% if color is defined and color is not null %}-{{ color }}{% endif %} 
+        {% if customLeftBarClass is defined and customLeftBarClass is not null %}{{ customLeftBarClass }}
+            {% else %} -fixed -left -top-4rm swipe-menu sidebar sidebar-mini -bg-light -shad-12 -m0
+        {% endif %}"
+    >
+	<nav class="-w-f -m0 -p0">
+        {% block sidebar_right_menu %}
+            {% if sidebarRightnavItems is defined %}
+                {% for item in sidebarRightnavItems %}
+                    <section 
+                        class="slide-dropdown 
+                        {% if loop.last %}-mb10 -pb10{% endif %} 
+                        {% if item['open'] is defined and item['open'] %}-open {% endif %}  
+                        {% if item['transparent'] is defined and item['transparent'] %}-transparent {% endif %}"
+                    >
+                        <label for="left-side-submenu-{{loop.index}}">
+                            {% if item['path'] is defined and item['path'] is not null %}
+                                <span 
+                                    {% if item['icoPlus'] is defined and item['icoPlus'] %} data-css-ico="+" {% endif %}
+                                    class="{% if item['transparent'] is defined and item['transparent'] %}-transparent {% endif %}"
+                                >
+                                    {% if item['icon'] is defined and item['icon'] is not null %}
+                                        {% set customIcon = item['icon'] %}
+                                    {% endif %}
+                                    {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                                        'path': item['path'],
+                                        'text': item['text'],
+                                        'icon': customIcon,
+                                        'color': null,
+                                        'customNavItemClass': 'slide-dropdown--title -transparent -shad-12',
+                                        'customTextClass': '-sidebar-mini-hidden'
+                                    } %}
+                                </span>
+                            {% else %}
+                                <span 
+                                    {% if item['icoPlus'] is defined and item['icoPlus'] %} data-css-ico="+" {% endif %}
+                                    class="slide-dropdown--title {% if item['transparent'] is defined and item['transparent'] %}-transparent {% endif %} -shad-12"
+                                >
+                                    {% if item['icon'] is defined and item['icon'] is not null %}
+                                        {% set customIcon = item['icon'] %}
+                                    {% endif %}
+                                    {% if item['icon'] is defined and item['icon'] is not null %}
+                                        <i class="{{item['icon']}}"></i>
+                                    {% endif %}
+                                    <span class="-sidebar-mini-hidden">
+                                        {% if item['text'] is defined and item['text'] is not null %} {{item['text']|trans}}{% endif %}
+                                    </span>
+                                </span>
+                            {% endif %}
+                        </label>
+                        <input class="slide-dropdown--touch" type="checkbox" id="left-side-submenu-{{loop.index}}">
+                            {% if item['subitems'] is defined and item['subitems'] is not null %}
+                                <ul class="slide-dropdown--slide -m0 -p0">
+                                    {% for subitem in item['subitems'] %}
+                                        <li 
+                                            {% if subitem['customId'] is defined and subitem['customId'] is not null %} 
+                                                id="{{subitem['customId']}}"
+                                            {% endif %}
+                                            {% if subitem['customClass'] is defined and subitem['customClass'] is not null %} 
+                                                class="{{subitem['customClass']}}"
+                                            {% endif %}
+                                        >
+                                            {% if subitem['customColor'] is defined and subitem['customColor'] is not null %}
+                                                {% set customColor = subitem['customColor'] %}
+                                            {% else %}
+                                                {% set customColor = null %}
+                                            {% endif %}
+                                            {% if subitem['icon'] is defined and subitem['icon'] is not null %}
+                                                {% set customIcon = subitem['icon'] %}
+                                            {% else %}
+                                                {% set customIcon = null %}
+                                            {% endif %}
+                                            
+                                            {% include 'liquid-ui/components/layout/nav/nav-item.html.twig' with {
+                                                'path': subitem['path'],
+                                                'text': subitem['text']|trans,
+                                                'icon': customIcon,
+                                                'color': customColor,
+                                                'customNavItemClass': ' '
+                                            } %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                    </section> 
+                {% endfor %}
+            {% endif %}
+        {% endblock %}
+	</nav>
 </section>
-            

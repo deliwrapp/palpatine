@@ -1,39 +1,42 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}ADMIN USER SHOW{% endblock %}
+{% block title %}ADMIN USER SHOW
+{% endblock %}
 
 {% block mainContent %}
-    <a class="btn -block" href="{{ path('admin_user_index') }}">back to list</a>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>Encrypted</td>
-            </tr>
-            <tr>
-                <th>Is Verified</th>
-                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<a class="btn -block" href="{{ path('admin_user_index') }}">{{'menu.back_list'|trans}}</a>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>{{'core.form.id'|trans}}</th>
+				<td>{{ user.id }}</td>
+			</tr>
+			<tr>
+				<th>{{'core.form.email'|trans}}</th>
+				<td>{{ user.email }}</td>
+			</tr>
+			<tr>
+				<th>{{'core.form.username'|trans}}</th>
+				<td>{{ user.username }}</td>
+			</tr>
+			<tr>
+				<th>{{'core.form.roles'|trans}}</th>
+				<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+			</tr>
+			<tr>
+				<th>{{'core.form.password'|trans}}</th>
+				<td>
+				    <td>{{'core.form.encrypted'|trans}}</td>
+				</td>
+			</tr>
+			<tr>
+				<th>{{'core.form.validate'|trans}}</th>
+				<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a class="btn -info" href="{{ path('admin_user_edit', {'id': user.id}) }}">edit</a>
+	<a class="btn -info" href="{{ path('admin_user_edit', {'id': user.id}) }}">{{'menu.edit'|trans}}</a>
 
-    {{ include('liquid-admin-theme/pages/security/user/admin/_delete_form.html.twig') }}
+	{{ include('liquid-admin-theme/pages/security/user/admin/_delete_form.html.twig') }}
 {% endblock %}

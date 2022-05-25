@@ -1,0 +1,44 @@
+{% extends 'liquid-theme/layout.html.twig' %}
+
+{% block title %}
+    {{ 'Error'|trans }} - 
+    {% if status_text is defined and status_text is not null %}
+        {{ status_text|trans  }}
+    {% endif %}
+{% endblock %}
+
+{% block mainContent %}
+    <section class="col -col-12 -middle"> 
+        {% if error_code is defined and error_code == 401 %} 
+            <h1 class="h3">{{ "core.error.401"|trans }}</h1>
+            <h2 class="h4">{{ 'core.error.forbiden'|trans }}</h2>
+        {% elseif error_code is defined and error_code == 404 %} 
+            <h1 class="h3">{{ "core.error.404"|trans }}</h1>
+            <h2 class="h4">{{ 'core.error.not_found'|trans }}</h2>
+        {% elseif error_code is defined and error_code == 403 %} 
+            <h1 class="h3">{{ "core.error.403"|trans }}</h1>
+            <h2 class="h4">{{ 'core.error.not_authorized'|trans }}</h2>
+        {% elseif error_code is defined and error_code == 501 %} 
+            <h1 class="h3">{{ "core.error.501"|trans }}</h1>
+            <h2 class="h4">{{ 'core.error.server_failled'|trans }}</h2>
+        {% elseif error_code is defined and error_code == 503 %} 
+            <h1 class="h3">{{ "core.error.503"|trans }}</h1>
+            <h2 class="h4">{{ 'core.error.not_access'|trans }}</h2>
+        {% else %}
+            <h1 class="h3">{{ "core.error.error"|trans }}</h1>
+        {% endif %}
+        <p>
+            {{ 'core.error.help'|trans }}.
+        </p>
+        <p>
+            <a class="btn -block -btn-bordered" href="{{ path('homepage') }}">
+                {{ 'menu.homepage'| trans }}
+            </a>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') == false %}
+                <a class="btn -block -btn-bordered" href="{{ path('app_login') }}">
+                    {{ 'menu.back_login'| trans }}
+                </a>
+            {% endif %}
+        </p>
+    </section>
+{% endblock %}

@@ -1,6 +1,6 @@
 {{ form_start(filePrivateForm) }}
-    <section class="-panel-body -flex -wrap -shad-2">
-        <div class="col -col-8 -md8 -sm6 -xs6">
+    <section class="-panel-body -flex -wrap -shad-2 -w-f">
+        <div class="col -col-6 -md6 -sm6 -xs6">
             <div class="form-element">
                 <label class="switch">
                     {{ form_widget(filePrivateForm.private) }}
@@ -11,7 +11,7 @@
             <small>{{ form_help(filePrivateForm.private) }}</small>
             {{ form_errors(filePrivateForm.private) }} 
         </div>
-        <div class="col -col-4 -md4 -sm12 -xs12">
+        <div class="col -col-6 -md6 -sm6 -xs6">
             {{ form_widget(filePrivateForm.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
         </div>
     </section>

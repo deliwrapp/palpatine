@@ -12,6 +12,7 @@ use App\Core\Entity\File;
 use App\Core\Repository\FileRepository;
 use App\Core\Repository\FolderRepository;
 use App\Core\Form\FileUploadFormType;
+use App\Core\Form\FileFormType;
 use App\Core\Services\FileUploader;
 use App\Core\Manager\FileManager;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -186,7 +187,45 @@ class EditorFileController extends AbstractController
     public function editFile(int $id, Request $request): Response
     {
         try {
-            
+            $file = $this->fileVerificator($id);
+            $form = $this->createForm(FileFormType::class, $file, [
+                'submitBtn' => 'edit',
+                'mode' => 'edition'
+            ]);
+            $form->handleRequest($request);
+            $fileNameForm = $this->createForm(FileFormType::class, $file, [
+                'submitBtn' => 'creation',
+                'mode' => 'edit-name',
+                'action' => $this->generateUrl('editor_file_name_edit', [
+                    'id' => $file->getId()
+                ]),
+                'method' => 'POST',
+            ]);
+            $filePrivateForm = $this->createForm(FileFormType::class, $file, [
+                'submitBtn' => 'edit',
+                'mode' => 'edit-private',
+                'action' => $this->generateUrl('editor_file_private_edit', [
+                    'id' => $file->getId()
+                ]),
+                'method' => 'POST',
+            ]); 
+            if ($form->isSubmitted() && $form->isValid()) {
+                $file = $form->getData();
+                $this->filerRepo->flush();
+                $this->addFlash(
+                    'info',
+                    'Saved File with new name : '.$file->getName()
+                );
+                return $this->redirect($this->generateUrl('editor_file_edit', [
+                    'id' => $file->getId()
+                ]));
+            }
+            return $this->render('@core-admin/data/editor/file-edit.html.twig', [
+                'file' => $file,
+                'form' => $form->createView(),
+                'fileNameForm' =>$fileNameForm->createView(),
+                'filePrivateForm' =>$filePrivateForm->createView()
+            ]);  
         }  catch (\Exception $e) {
             $this->addFlash(
                 'danger',
@@ -197,7 +236,7 @@ class EditorFileController extends AbstractController
     }
 
     /**
-     * Edit a file
+     * Edit a file name
      * 
      * @param int $id
      * @param Request $request
@@ -207,7 +246,27 @@ class EditorFileController extends AbstractController
     public function editFileName(int $id, Request $request): RedirectResponse
     {
         try {
-            
+            $file = $this->fileVerificator($id);
+            $fileNameForm = $this->createForm(FileFormType::class, $file, [
+                'submitBtn' => 'creation',
+                'mode' => 'edit-name',
+                'action' => $this->generateUrl('editor_file_name_edit', [
+                    'id' => $file->getId()
+                ]),
+                'method' => 'POST',
+            ]);   
+            $fileNameForm->handleRequest($request);
+            if ($fileNameForm->isSubmitted() && $fileNameForm->isValid()) {
+                $newName = $fileNameForm->get('name')->getData();
+                $this->fileManager->rename($file, $newName);
+                $this->addFlash(
+                    'info',
+                    'Saved File with new name : '.$file->getName()
+                );
+            }
+            return $this->redirect($this->generateUrl('editor_file_edit', [
+                'id' => $file->getId()
+            ]));
         }  catch (\Exception $e) {
             $this->addFlash(
                 'danger',
@@ -228,7 +287,39 @@ class EditorFileController extends AbstractController
     public function editFilePrivate(int $id, Request $request): RedirectResponse
     {
         try {
-            
+            $file = $this->fileVerificator($id);
+            $filePrivateForm = $this->createForm(FileFormType::class, $file, [
+                'submitBtn' => 'edit',
+                'mode' => 'edit-private',
+                'action' => $this->generateUrl('editor_file_private_edit', [
+                    'id' => $file->getId()
+                ]),
+                'method' => 'POST',
+            ]);   
+            $filePrivateForm->handleRequest($request);
+            if ($filePrivateForm->isSubmitted() && $filePrivateForm->isValid()) {
+                $newPrivateValue = $filePrivateForm->get('private')->getData();
+                $testSwitchPrivate = $this->fileManager->switchPrivateToPublic($file, $newPrivateValue);
+                if ($testSwitchPrivate instanceof \Exception) {
+                    $this->addFlash(
+                        'danger',
+                        'Error : '.$testSwitchPrivate->getMessage()
+                    );
+                } elseif(!$testSwitchPrivate) {
+                    $this->addFlash(
+                        'warning',
+                        'File not updated : '
+                    );
+                } else {
+                    $this->addFlash(
+                        'success',
+                        'File  updated : '
+                    );
+                }
+            }
+            return $this->redirect($this->generateUrl('editor_file_edit', [
+                'id' => $file->getId()
+            ]));
         }  catch (\Exception $e) {
             $this->addFlash(
                 'danger',

@@ -34,11 +34,11 @@ class AdminDashboardRedirectController extends AbstractController
         }
         $this->addFlash(
             'warning',
-            'Unauthorised Access '
+            'Unauthorized Access'
         );
-        return $this->redirectToRoute('homepage');
-        
-        
+        return $this->redirect($this->generateUrl('page_error_handler', [
+            'error_code' => 401
+        ]));
     }
 
 }

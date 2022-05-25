@@ -5,6 +5,7 @@
 - path : controller link to act {string}
 - text : Optional Button text {string}
 - icon: Optional icon {boolean}
+- target: Target
 #}
 
 {% if message is not defined %}  
@@ -27,6 +28,7 @@
             data-tooltip="{{ tooltip|trans }}"
         {% endif %}
         href="{{ path }}"
+        {% if target is defined and target is not null %}target="{{target}}"{% endif %}
     >
         {% if text is defined and text is not null %}
             {{ text|trans }} 

@@ -3,7 +3,10 @@ import Utils from "./Utils";
 class Sidebar {
   constructor(el) {
     this.el = el;
-    this.navbar = document.getElementsByClassName("navbars__area")[0];
+    this.navbar = document.getElementById(this.el.getAttribute('data-panel'));
+    console.log(this.el.getAttribute('data-panel'))
+    this.openPanelClass = this.el.getAttribute('data-open-panel');
+    this.closePanelClass = this.el.getAttribute('data-close-panel');
     this.window = window;
 
     this.initEvents();
@@ -16,15 +19,18 @@ class Sidebar {
   }
 
   onEvent(){
-    if (this.window.innerWidth < 1200 && !this.navbar.classList.contains("nav--reduce")) {
-      Utils.toggleClass(this.el, "nav-side-btn__active");
-      Utils.toggleClass(this.navbar, "nav--reduce");
+    if (this.window.innerWidth < 1200 && !this.navbar.classList.contains(this.closePanelClass)) {
+      Utils.toggleClass(this.el, "-active");
+      Utils.toggleClass(this.el, "clicked");
+      Utils.toggleClass(this.navbar, this.closePanelClass);
     }
   }
 
   onClick() {
-    Utils.toggleClass(this.el, "nav-side-btn__active");
-    Utils.toggleClass(this.navbar, "nav--reduce");
+    Utils.toggleClass(this.el, "-active");
+    Utils.toggleClass(this.el, "clicked");
+    Utils.toggleClass(this.navbar, this.closePanelClass);
+    Utils.toggleClass(this.navbar, this.openPanelClass);
   }
 }
 

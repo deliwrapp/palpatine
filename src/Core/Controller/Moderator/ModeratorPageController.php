@@ -68,7 +68,7 @@ class ModeratorPageController extends AbstractController
             $this->pageRepo->add($page);
             $this->addFlash(
                 'info',
-                'Page Unpublished'
+                'Page Published'
             );
             return $this->redirect($this->generateUrl('moderator_page_list'));
         } catch (\Exception $e) {

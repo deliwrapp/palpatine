@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Core\Entity\Page;
 use App\Core\Entity\PageBlock;
+use App\Core\Entity\Block;
 use App\Core\Repository\PageRepository;
 use App\Core\Repository\BlockRepository;
 use App\Core\Repository\PageBlockRepository;
@@ -393,6 +394,39 @@ class EditorPageBlockController  extends AbstractController
         }
     }
 
+        /**
+     * Page Duplicate PageBlock from Page
+     * 
+     * @param int $pageBlockId
+     * @param int $pageId
+     * @Route("/{pageId}/create-block-model-from-block/{pageBlockId}", name="editor_page_block_create_block_model")
+     * @return RedirectResponse
+     */
+    public function createBlockModelFromPageBlock(int $pageId, int $pageBlockId): RedirectResponse
+    {
+        try {
+            $page =$this->pageVerificator($pageId);
+            $pageBlock = $this->pageBlockVerificator($pageBlockId, $pageId);
+            $this->pageBlockLinkVerificator($pageBlock, $page);
+
+            $newBlockModel = new Block;
+            $newBlockModel = $pageBlock->generateBlockModel($newBlockModel);
+            $newBlockModel->setLocale($page->getLocale());
+            $this->blockRepo->add($newBlockModel);
+            $this->addFlash(
+                'success',
+                'The Block Model have been generated'
+            );
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+        }
+        return $this->redirect($this->generateUrl('editor_block_edit', [
+            'id' => $newBlockModel->getId()
+        ]));
+    }
     /**
      * Test if page exists and return it, or redirect to menu list index with an error message
      * 

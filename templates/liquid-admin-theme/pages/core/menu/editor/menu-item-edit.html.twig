@@ -10,7 +10,7 @@
     <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
         <div class="-panel-header -text-center -flex -justify-space-evenly">
             {% if menuItem is defined and menuItem is not null %}
-                {{ include('liquid-admin-theme/pages/core/menu/_menu_item_delete_form.html.twig') }}
+                {{ include('liquid-admin-theme/pages/core/menu/editor/_menu_item_delete_form.html.twig') }}
             {% endif %}
         </div>
         {{ form_start(form, {'attr': {'class': '-w-f'}}) }}

@@ -1,11 +1,11 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}ADMIN-DASHBORD{% endblock %}
+{% block title %}ADMIN-{{'menu.dashboard'|trans}}{% endblock %}
 
 {% block mainContent %}
 <section class="col -col-12" id="post-list">
     <div class="-shad-12 -w-f">
-        <h2 class="-text-center h4 -tertiary -pt2 -pb2">ADMIN DASHBOARD</h2>
+        <h2 class="-text-center h4 -tertiary -pt2 -pb2">ADMIN {{'menu.dashboard'|trans}}</h2>
         <section class="-flex -justify-space-around">
             <p class="-t-bld -color-tertiary -ml2">Welcome on board {{ app.user.username }} !</p>
             <p class="-t-bld -color-tertiary -ml2">Today we are the : {{ "now"|date("d/m/Y") }}</p>

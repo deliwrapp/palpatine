@@ -1,11 +1,11 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}EDITOR-DASHBOARD{% endblock %}
+{% block title %}EDITOR-{{'menu.dashboard'|trans}}{% endblock %}
 
 {% block mainContent %}
 <section class="col -col-12" id="post-list">
     <div class="-shad-12 -w-f">
-        <h2 class="-text-center h4 -tertiary -pt2 -pb2">EDITOR DASHBOARD</h2>
+        <h2 class="-text-center h4 -tertiary -pt2 -pb2">EDITOR {{'menu.dashboard'|trans}}</h2>
         <section class="-flex -justify-space-around">
             <p class="-t-bld -color-tertiary -ml2">Welcome on board {{ app.user.username }} !</p>
             <p class="-t-bld -color-tertiary -ml2">Today we are the : {{ "now"|date("d/m/Y") }}</p>
@@ -17,19 +17,22 @@
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
-                Account Manager
+                {{'core.menu.my_account'|trans}}
             </div>
             <div class="-tile-subtitle">
-                Configure your Profile
-                <a class="-t-u btn -sm -light -hover" href="#">Settings Access</a>
+                {{'core.profile.about_account'|trans}}...
+                <a class="-t-u btn -sm -light -hover" href="{{ path('member_edit_my_account') }}">
+                    {{'core.menu.my_settings'|trans}}
+                </a>
             </div>
         </div>
         <div class="-tile-action">
-            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Configure your Profile"> 
-                <a class="-success" href="#">
-                    <i class="fa-solid fa-user fa-2x"></i> 
-                </a>
-            </button>
+            <a
+                data-tooltip="{{'core.menu.my_account'|trans}}"
+                class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left"
+                href="{{ path('member_my_account') }}">
+                <i class="fa-solid fa-user fa-2x"></i> 
+            </a>
         </div>
     </div>
 </section>

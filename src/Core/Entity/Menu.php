@@ -15,7 +15,6 @@ use ArrayAccess;
 /**
  * @ORM\Entity(repositoryClass=MenuRepository::class)
  * @UniqueEntity(fields="name", message="Name is already taken.")
- * @UniqueEntity(fields="position", message="Position is already taken.")
  * @HasLifecycleCallbacks
  */
 class Menu implements ArrayAccess
@@ -41,6 +40,11 @@ class Menu implements ArrayAccess
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=8)
+     */
+    private $locale;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -97,6 +101,18 @@ class Menu implements ArrayAccess
         return $this;
     }
 
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+   
     /**
      * @return Collection|MenuItem[]
      */
@@ -160,6 +176,7 @@ class Menu implements ArrayAccess
     public function duplicate(Menu $menu): Menu
     {
         $menu->setName($this->name);
+        $menu->setLocale($this->locale);
         return $menu;
     }
   

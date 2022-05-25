@@ -50,14 +50,18 @@ class PageController extends AbstractController
                     'warning',
                     'There is no page  with url ' . $pageUrl
                 );
-                return $this->redirect($this->generateUrl('homepage'));
+                return $this->redirect($this->generateUrl('page_error_handler', [
+                    'error_code' => 404
+                ]));
             }
             if ($page->getRoleAccess() && !$this->isGranted($page->getRoleAccess())) {
                 $this->addFlash(
                     'warning',
                     'Unauthorised Access '
                 );
-                return $this->redirect($this->generateUrl('homepage'));
+                return $this->redirect($this->generateUrl('page_error_handler', [
+                    'error_code' => 403
+                ]));
             }
             if ($page->getBlocks()) {
                 $pageBlocks = $page->getBlocks();
@@ -83,7 +87,9 @@ class PageController extends AbstractController
                 'danger',
                 $e->getMessage()
             );
-            return $this->redirect($this->generateUrl('homepage'));
+            return $this->redirect($this->generateUrl('page_error_handler', [
+                'error_code' => 501
+            ]));
         }
     }
 }

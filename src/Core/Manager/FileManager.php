@@ -82,26 +82,35 @@ class FileManager
      *
      * @param File $file
      * @param string $name
+     * @param bool $switchPrivate = false
      * @return File $file
      * @return IOExceptionInterface $e
      */
-    public function rename(File $file, string $name)
+    public function rename(File $file, string $name, $switchPrivate = false)
     {
         try {
             $filesystem = new Filesystem();
-            $absoluteFilePath = $this->projectDirectory.'/'. $file->getFilePath();
+            if ($file->getPrivate() && !$switchPrivate  || !$file->getPrivate() && $switchPrivate) {
+                $absoluteFilePath = $this->projectDirectory.'/'.$file->getFilePath();
+            } elseif ($file->getPrivate() && $switchPrivate || !$file->getPrivate() && !$switchPrivate) {
+                $absoluteFilePath = $this->projectDirectory.'/'.$this->publicDirectory.'/'.$file->getFilePath();
+            } else {
+                $absoluteFilePath = $this->projectDirectory.'/'.$this->publicDirectory.'/'.$file->getFilePath();
+            }
+            //dd($filesystem->exists($absoluteFilePath));
             if ($filesystem->exists($absoluteFilePath)) {
                 $newSafeFilename = $this->slugger->slug($name).'-'.uniqid();
                 $file->setName($name);
                 $file->setOriginalFilename($newSafeFilename);
                 if ($file->getPrivate()) {
                     $file->setPath($this->privateDirectory.'/'.$this->privateUploadPath);
+                    $newAbsoluteFilePath = $this->projectDirectory.'/'. $file->getFilePath();
                 } else {
                     $file->setPath($this->publicUploadPath);
+                    $newAbsoluteFilePath = $this->projectDirectory.'/'.$this->publicDirectory.'/'.$file->getFilePath();
                 }
-                $newAbsoluteFilePath = $this->projectDirectory.'/'. $file->getFilePath();
                 $filesystem->rename($absoluteFilePath, $newAbsoluteFilePath);
-                $this->fileRepo->flush();
+                $this->fileRepo->add($file);
                 return $file;
             } else {
                 return false;
@@ -152,12 +161,10 @@ class FileManager
     {
         try {
             $file->setPrivate($private);
-            $this->fileRepo->add($file, false);
-            return $this->rename($file, $file->getName());
+            return $this->rename($file, $file->getName(), true);
         } catch (\Exception $e) {
             return $e;
         }
-        return $name;
     }
 
     public function getProjectDirectory()

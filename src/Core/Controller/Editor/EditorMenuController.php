@@ -120,18 +120,18 @@ class EditorMenuController extends AbstractController
                 'submitBtn' => 'Edit'
             ]);
             $form->handleRequest($request);
-
             if ($form->isSubmitted() && $form->isValid()) {
                 $isMainMenu = $form->get('isMainMenu')->getData();
+                $locale = $form->get('locale')->getData();
                 if ($isMainMenu) {
-                    $testMainMenu = $this->menuVerif->checkIfMainMenuExists();
+                    $testMainMenu = $this->menuVerif->checkIfMainMenuWithLocaleExists($locale);
                     if ($testMainMenu && $testMainMenu->getId() != $menu->getId()) {
                         if ($opt == 'force') {
                             $testMainMenu->setIsMainMenu(false);
                         } else {
                             $this->addFlash(
                                 'warning',
-                                'Main Menu is already defined'
+                                'Main Menu with '.$locale.' locale is already defined'
                             );
                             return $this->redirect($this->generateUrl('editor_menu_edit', [
                                 'id' => $menu->getId()
@@ -141,14 +141,14 @@ class EditorMenuController extends AbstractController
                 }
                 $position = $form->get('position')->getData();
                 if ($position) {
-                   $testMenuPos = $this->menuVerif->checkIfMenuWithPositionExists($position);
+                   $testMenuPos = $this->menuVerif->checkIfMenuWithPositionAndLocaleExists($position, $locale);
                    if ($testMenuPos && $testMenuPos->getId() != $menu->getId()) {
                         if ($opt == 'force') {
                             $testMenuPos->setPosition(null);
                         } else {
                             $this->addFlash(
                                 'warning',
-                                'Position already taken'
+                                'Position with '.$locale.' locale is already taken'
                             );
                             return $this->redirect($this->generateUrl('editor_menu_edit', [
                                 'id' => $menu->getId()

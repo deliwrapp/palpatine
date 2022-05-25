@@ -11,7 +11,7 @@
     {% set pathPrefixBasedOnRole = 'admin' %}
   {% endif %}
 {% endif %}
-
+{% set adminConfig = configLoader.getConfigFile('admin_config') %}
 
 {% block head %}
   {{ parent() }}
@@ -39,36 +39,52 @@
     <section id="top-page" class="liquid-page-container">
       <header {% block headerAttr %}  {% endblock %} >
         {% block header %}
-          {% include 'liquid-ui/components/layout/nav/nav.html.twig' with {
-            'class': '-shad-12',
-            'color': '-bg-light',
-            'navItemsCenter' : [
-                {
-                    'class': 'btn btn-link ',
-                    'color': '',
-                    'path' : '/',
-                    'text' : 'Go to website'
-                },
-                {
-                    'class': 'btn btn-link -tertiary ',
-                    'color': '',
-                    'path' : 'admin_dashboard_redirect',
-                    'text' : 'Dashboard'
-                },
-            ]
-          } %}
+          <span 
+            class=" -fixed -left-1rm -top-1rm nav-side-btn swipe-m-trigger -z5" 
+            data-panel="menu-left-panel" 
+            data-open-panel="-open"
+            data-close-panel="-close"
+          >
+              <div class="bar1"></div>
+              <div class="bar2"></div>
+              <div class="bar3"></div>
+          </span>
+          {% if adminConfig is defined and adminConfig is not null %}
+            {% if adminConfig["main_menu"] is defined and adminConfig["main_menu"] is not null %}
+              {% if adminConfig["main_menu"][pathPrefixBasedOnRole ~ "_menu"] is defined and adminConfig["main_menu"][pathPrefixBasedOnRole ~ "_menu"] is not null %}
+                {% include 'liquid-ui/components/layout/nav/nav.html.twig' with {
+                  'class': '-shad-12 -fixed -top -light',
+                  'color': '-bg-light',
+                  'navItemsCenter' : adminConfig["main_menu"][pathPrefixBasedOnRole ~ "_menu"]['items']
+                } %} 
+              {% endif %}
+            {% endif %}           
+          {% endif %}
         {% endblock %}
         {% include 'liquid-ui/components/ui/toasts.html.twig' %}
       </header>
-      <main  {% block mainAttr %} class="{% if wrapperContent is defined %}-wrapper {% endif %} -top-4rm" {% endblock %}>
+      <main  {% block mainAttr %} class="{% if wrapperContent is defined %}-wrapper {% endif %} -relative -top-5rm" {% endblock %}>
         {% block main %}
-          {% block leftSide %} 
-          
+          {% block leftSide %}
+            {% if adminConfig is defined and adminConfig is not null %}
+              {% if adminConfig["secondary_menu"] is defined and adminConfig["secondary_menu"] is not null %}
+                {% if adminConfig["secondary_menu"][pathPrefixBasedOnRole ~ "_menu"] is defined and adminConfig["secondary_menu"][pathPrefixBasedOnRole ~ "_menu"] is not null %}
+                  {% include 'liquid-ui/components/layout/sidebar/left-side-bar.html.twig' with {
+                    'panelId': 'menu-left-panel',
+                    'customLeftBarClass': '-fixed -left -top-4rm swipe-menu sidebar -close -bg-light -shad-12 -m0',
+                    'color': null,
+                    'sidebarRightnavItems' : adminConfig["secondary_menu"][pathPrefixBasedOnRole ~ "_menu"]['items']
+                  } %} 
+                {% endif %}
+              {% endif %}           
+            {% endif %}
           {% endblock %}
           {% block rightSide %} {% endblock %}
           {% block modal %} {% endblock %}
           <section 
-            {% block mainContentAttr %} class="{% if wrapperContent is defined %}main-content{% endif %}liquid-container liquid-grid -top -start -z1 -overflow-x-hidden" {% endblock %}
+            {% block mainContentAttr %} 
+              class="{% if wrapperContent is defined %}main-content{% endif %} {% block mainContentClass %} liquid-container liquid-grid -top -start -z1 -overflow-x-hidden{% endblock %}" 
+            {% endblock %}
           >
             {% block mainContent %}
             

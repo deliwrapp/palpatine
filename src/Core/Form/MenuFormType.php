@@ -27,6 +27,7 @@ class MenuFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $menuPositionsOpts = $this->params->get('menuPositionsOpts');
+        $localesList = $this->params->get('appLocalesList');
         $builder
             ->add('name', TextType::class)
             ->add('position', ChoiceType::class, [
@@ -39,9 +40,13 @@ class MenuFormType extends AbstractType
             ])
             ->add('isPublished', CheckboxType::class, [
                 'required'   => false
-            ]);
+            ])
+            ->add('locale', ChoiceType::class, [
+                'choices'  => array_flip($localesList)
+            ])
+            ;
             
-        if ($options) {
+        if ($options['submitBtn']) {
             $builder
                 ->add('submit', SubmitType::class, [
                     'label' => $options['submitBtn'],

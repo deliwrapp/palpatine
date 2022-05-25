@@ -4,8 +4,11 @@ namespace App\Security\Form;
 
 use App\Security\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\CallbackTransformer;
@@ -28,8 +31,8 @@ class AdminUserType extends AbstractType
         $localesList = $this->params->get('appLocalesList');
         $userRoles = $this->params->get('userRoles');
         $builder
-            ->add('email')
-            ->add('username')
+            ->add('email', EmailType::class)
+            ->add('username', TextType::class)
             ->add('roles', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,
@@ -39,8 +42,8 @@ class AdminUserType extends AbstractType
             ->add('locale', ChoiceType::class, [
                 'choices'  => array_flip($localesList)
             ])
-            ->add('isVerified')
-            ->add('isRestricted')
+            ->add('isVerified', CheckboxType ::class)
+            ->add('isRestricted', CheckboxType ::class)
         ;
 
         if ($options['mode'] == "create") {

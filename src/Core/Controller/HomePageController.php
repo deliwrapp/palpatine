@@ -34,7 +34,7 @@ class HomePageController extends AbstractController
      * Public Homepage
      * 
      * @param Request $request
-     * @Route("/", name="homepage")
+     * @Route("/",priority=0,  name="homepage")
      * @return Response
      */
     public function show(Request $request): Response

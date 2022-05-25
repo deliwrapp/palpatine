@@ -1,0 +1,133 @@
+# Put administration back office configuration parameters 
+main_menu:
+    admin_menu: 
+        name: 'menu_main_admin'
+        items:
+            -
+                text: null
+                path : '/'
+                icon: 'fas fa-home fa-2x'
+                color: ''
+                class: 'btn btn-link '
+            -
+                text: null
+                path : 'admin_dashboard_redirect'
+                icon: 'fas fa-dashboard fa-2x'
+                color: ''
+                class: 'btn btn-link '
+    editor_menu:
+        name: 'menu_main_editor'
+        items:
+            -
+                text: null
+                path : '/'
+                icon: 'fas fa-home fa-2x'
+                color: ''
+                class: 'btn btn-link '
+            -
+                text: null
+                path : 'admin_dashboard_redirect'
+                icon: 'fas fa-dashboard fa-2x'
+                color: ''
+                class: 'btn btn-link '
+    moderator_menu:
+        name: 'menu_main_moderator'
+        items:
+            -
+                text: null
+                path : '/'
+                icon: 'fas fa-home fa-2x'
+                color: ''
+                class: 'btn btn-link '
+            -
+                text: null
+                path : 'admin_dashboard_redirect'
+                icon: 'fas fa-dashboard fa-2x'
+                color: ''
+                class: 'btn btn-link '
+secondary_menu:
+    admin_menu: 
+        name: 'menu_secondary_admin'
+        items:
+            -
+                text: 'menu.dashboard'
+                path : 'admin_dashboard_redirect'
+                icon: 'fas fa-dashboard'
+                transparent: true
+            -
+                text: 'menu.users'
+                path : null
+                icon: 'fas fa-users'
+                transparent: true
+                subitems:
+                    - { text: 'menu.users_list', path: 'admin_user_index', icon: 'fas fa-list'}
+                    - { text: 'menu.add_user', path: 'admin_user_create', icon: 'fas fa-user-plus'}
+            -
+                text: 'menu.content_manager'
+                path : null
+                icon: 'fas fa-folder-tree'
+                transparent: true
+                subitems:
+                    - { text: 'menu.page_manager', path: 'editor_page_list', icon: 'fas fa-file-pen'}
+                    - { text: 'menu.block_manager', path: 'editor_block_list', icon: 'fas fa-pager'} 
+                    - { text: 'menu.menu_manager', path: 'editor_menu_list', icon: 'fas fa-sitemap'} 
+                    - { text: 'menu.template_manager', path: 'admin_template_list', icon: 'fas fa-image'}
+            -
+                text: 'menu.data_manager'
+                path : null
+                icon: 'fas fa-database'
+                transparent: true
+                subitems:
+                    - { text: 'menu.data_manager', path: 'admin_data_manager', icon: 'fas fa-image'}
+                    - { text: 'menu.files_list', path: 'admin_file_list', icon: 'fas fa-file'}
+                    - { text: 'menu.folders_list', path: 'admin_folder_list', icon: 'fas fa-folder'}                 
+    editor_menu:
+        name: 'menu_secondary_editor'
+        items:
+            -
+                text: 'menu.dashboard'
+                path : 'admin_dashboard_redirect'
+                icon: 'fas fa-dashboard'
+                transparent: true
+            -
+                text: 'menu.content_manager'
+                path : null
+                icon: 'fas fa-folder-tree'
+                transparent: true
+                subitems:
+                    - { text: 'menu.page_manager', path: 'editor_page_list', icon: 'fas fa-file-pen'}
+                    - { text: 'menu.block_manager', path: 'editor_block_list', icon: 'fas fa-pager'} 
+                    - { text: 'menu.menu_manager', path: 'editor_menu_list', icon: 'fas fa-sitemap'}
+            -
+                text: 'menu.data_manager'
+                path : null
+                icon: 'fas fa-database'
+                transparent: true
+                subitems:
+                    - { text: 'menu.data_manager', path: 'editor_data_manager', icon: 'fas fa-image'}
+                    - { text: 'menu.files_list', path: 'editor_file_list', icon: 'fas fa-file'}
+                    - { text: 'menu.folders_list', path: 'editor_folder_list', icon: 'fas fa-folder'}
+    moderator_menu:
+        name: 'menu_secondary_moderator'
+        items:
+            -
+                text: 'menu.dashboard'
+                path : 'admin_dashboard_redirect'
+                icon: 'fas fa-dashboard'
+                transparent: true
+            -
+                text: 'menu.content_manager'
+                path : null
+                icon: 'fas fa-folder-tree'
+                transparent: true
+                subitems:
+                    - { text: 'menu.page_manager', path: 'moderator_page_list', icon: 'fas fa-file-pen'}
+            -
+                text: 'menu.data_manager'
+                path : null
+                icon: 'fas fa-database'
+                transparent: true
+                subitems:
+                    - { text: 'menu.data_manager', path: 'moderator_data_manager', icon: 'fas fa-image'}
+                    - { text: 'menu.files_list', path: 'moderator_file_list', icon: 'fas fa-file'}
+                    - { text: 'menu.folders_list', path: 'moderator_folder_list', icon: 'fas fa-folder'}

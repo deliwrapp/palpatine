@@ -21,6 +21,7 @@ twig:
     globals:
         appLocales: '%appLocales%' # locales list
         menuLoader: '@App\Core\Services\MenuLoader' # menu loader
+        configLoader: '@App\Core\Services\ConfigLoader' # config loader
     paths:
         '%kernel.project_dir%/templates/%base_theme%/pages/': base-theme
         '%kernel.project_dir%/templates/%admin_theme%/pages/': admin-theme
