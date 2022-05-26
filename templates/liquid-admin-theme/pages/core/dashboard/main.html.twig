@@ -20,12 +20,12 @@
             </div>
             <div class="-tile-subtitle">
                 Configure your Website
-                <a class="-t-u btn -sm -light -hover" href="#">Settings Access</a>
+                <a class="-t-u btn -sm -light -hover" href="{{ path('admin_app_configuration_dashboard') }}">{{'core.menu.admin_app_configuration'|trans}}</a>
             </div>
         </div>
         <div class="-tile-action">
-            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Configure your WebSite"> 
-                <a class="-success" href="#">
+            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="{{'core.menu.system_access'|trans}}"> 
+                <a class="-success" href="{{ path('admin_command_system_dashboard') }}">
                     <i class="fa-solid fa-cogs fa-2x"></i> 
                 </a>
             </button>

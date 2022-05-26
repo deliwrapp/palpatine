@@ -1,0 +1,35 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}ADMIN-{{'menu.dashboard'|trans}}{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-12" id="post-list">
+    <div class="-shad-12 -w-f">
+        <h2 class="-text-center h4 -tertiary -pt2 -pb2">ADMIN {{'menu.dashboard'|trans}}</h2>
+        <section class="-flex -justify-space-around">
+            <p class="-t-bld -color-tertiary -ml2">Welcome on board {{ app.user.username }} !</p>
+            <p class="-t-bld -color-tertiary -ml2">Today we are the : {{ "now"|date("d/m/Y") }}</p>
+        </section>
+    </div>
+</section>
+<section class="col -col-3 -md4 -sm12 -xs12" id="clear-cache-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                {{'core.cmd.cache_clear'|trans}}
+            </div>
+            <div class="-tile-subtitle">
+                {{'core.cmd.system_cmd'|trans}}
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="{{'core.cmd.cache_clear'|trans}}"> 
+                <a class="-success" href="{{ path('admin_system_command_cache_warmup') }}">
+                    <i class="fa-solid fa-cogs fa-2x"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

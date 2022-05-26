@@ -24,6 +24,9 @@ core:
     first: "premier"
     see_more: "Voir plus"
     cancel: "Annuler"
+    system_cmd: 'Commande Systeme'
+    cache_clear: "Vider le cache"
+    cache_warmup: "Précharger le cache"
   error:
     404: "Ooups! La page n'a pas été trouvée"
     401: "Accès interdit"
@@ -62,6 +65,7 @@ core:
     admin_dashboard: "Tableau de bord admin"
     app: "Applications"
     admin_app: "Gestion des apps"
+    admin_app_configuration: "Configuration de l'Application"
     current: "Page courante"
     dashboard: "Tableau de bord"
     disabled_apps: "Apps Désactivées"
@@ -82,6 +86,7 @@ core:
     groups: "Groupes"
     my_profile: "Mon profil"
     my_settings: "Mes options"
+    system_access: "Accès Systeme"
   info:
     created_at: "Créé le"
     updated_at: "Mis à jour le"

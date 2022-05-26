@@ -24,6 +24,9 @@ core:
     first: "fisrt"
     see_more: "See more"
     cancel: "Cancel"
+    system_cmd: 'System Command'
+    cache_clear: "Cache clear"
+    cache_warmup: "Cache warmup"
   error:
     404: "Oops! This page wasn't found"
     401: "Forbiden access"
@@ -62,6 +65,7 @@ core:
     admin_dashboard: "Admin dashboard"
     app: "Applications"
     admin_app: "Manage apps"
+    admin_app_configuration: "Application Configuration"
     current: "Current page"
     dashboard: "Dashboard"
     disabled_apps: "Disabled Apps"
@@ -82,6 +86,7 @@ core:
     groups: "Groups"
     my_profile: "My profile"
     my_settings: "My settings"
+    system_access: "System Access"
   info:
     created_at: "Created at"
     updated_at: "Updated at"
