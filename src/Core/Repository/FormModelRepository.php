@@ -2,7 +2,7 @@
 
 namespace App\Core\Repository;
 
-use App\Formulario\Entity\FormModel;
+use App\Core\Entity\FormModel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\OptimisticLockException;
