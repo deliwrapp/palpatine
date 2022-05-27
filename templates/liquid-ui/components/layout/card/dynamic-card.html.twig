@@ -38,7 +38,7 @@
                         <li>
                             <a href="{{item.path}}" class="{{item.icon}}"></a>
                             {% if item.info is defined %}
-                                <span>{{item.info}}</span>
+                                <span>{{item.info|trans}}</span>
                             {% endif %}
                         </li>
                     {% endfor %}
@@ -52,7 +52,7 @@
                 {% endif %}
                 {% if cardTitle is defined %}
                     <h2 class="-title">
-                        <a href="#">{{cardTitle}}</a>
+                        <a href="#">{{cardTitle|trans}}</a>
                     </h2>
                 {% endif %}
                 {% if cardText is defined %}
@@ -61,7 +61,7 @@
                 {% if cardLinkPath is defined %}
                     <a href="{{cardLinkPath}}" class="-button">
                         {% if cardLinkText is defined %}
-                           {{cardLinkText}} 
+                           {{cardLinkText|trans}} 
                         {% else %}
                             +
                         {% endif %}

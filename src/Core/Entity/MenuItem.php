@@ -19,7 +19,7 @@ class MenuItem implements ArrayAccess
     {
         $this->name = 'Menu Item';
         $this->type = 'page';
-        $this->path = '';
+        $this->path = 'homepage-fr';
         $this->externalLink = false;
     }
 

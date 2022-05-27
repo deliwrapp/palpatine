@@ -1,17 +1,19 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}PUBLIC DATA MANAGER{% endblock %}
+{% block title %}{{'menu.public_data_manager'|trans}}{% endblock %}
 
 {% block mainContent %}
     <section class="col -col-6 -md6 -sm12 -xs12">
         <div class="tile -tile-compact -w-f -m0 -shad-12">
             <div class="-tile-content">
                 <div class="-tile-title -t-bld">
-                    Folder Manager
+                    {{ 'menu.public_folder_manager'|trans }}
                 </div>
                 <div class="-tile-subtitle">
-                    Access to all Folder
-                    <a class="-t-u btn -sm -light -hover" href="{{ path('public_folder_list') }}">See</a>
+                    {{ 'cmd.see_all'|trans }}
+                    <a class="-t-u btn -sm -light -hover" href="{{ path('public_folder_list') }}">
+                        {{ 'cmd.see'|trans }}
+                    </a>
                 </div>
             </div>
         </div>
@@ -20,39 +22,17 @@
         <div class="tile -tile-compact -w-f -m0 -shad-12">
             <div class="-tile-content">
                 <div class="-tile-title -t-bld">
-                    File Manager
+                    {{ 'menu.public_file_manager'|trans }}
                 </div>
                 <div class="-tile-subtitle">
-                    Access to all Files
-                    <a class="-t-u btn -sm -light -hover" href="{{ path('public_file_list') }}">See</a>
+                    {{ 'cmd.see_all'|trans }}
+                    <a class="-t-u btn -sm -light -hover" href="{{ path('public_file_list') }}">
+                        {{ 'cmd.see'|trans }}
+                    </a>
                 </div>
-            </div>
-            <div class="-tile-action">
-                <a 
-                    class="-modal-open -modal-close btn -tertiary btn-link btn-block -btn-lg tooltip -tooltip-bottom"
-                    data-tooltip="Add File"
-                    data-modal-id="file-uploader"
-                    href="#"
-                > 
-                    <i class="fa-solid fa-file-arrow-down fa-2x"></i> 
-                </a>
             </div>
         </div>
     </section>
-    {% if uploadFileform is defined %}
-        <section class="col -col-12 -top">
-            {% include 'liquid-ui/components/layout/modal/modal.html.twig' with {
-                'modalId': 'file-uploader',
-                'modalHeight': 'lg',
-                'modalWidth': 'lg',
-                'modalContent': 'liquid-admin-theme/pages/core/data/_file_upload_form.html.twig',
-                'modalContentData': {
-                    'uploadFileform': uploadFileform
-                }
-            }
-            %} 
-        </section>
-    {% endif %}
     <section class="col -col-12 -row -wrap">
         {% if folders is defined and folders is not empty %}
             {% for folder in folders %}
@@ -65,19 +45,19 @@
                                         <i class="fas {{ folder.private ? 'fa-lock':'fa-lock-open' }}"></i>
                                     </span>
                                     <p class="-m0 -t-i -t-tiny">
-                                        {{ folder.private ? 'private':'public' }}
+                                        {{ folder.private ? 'info.private'|trans :'info.public'|trans }}
                                     </p>
                                 </div>
                                 <a  class="-flex -flex-column -justify-center -items-center -wrap"  href="{{ path('public_folder_show', {'id': folder.id})   }}">
                                     <i class="fas fa-folder fa-2x -m2 -p4"></i>
                                     <p class="-tile-title -m0 -t-bld -t-tiny">
-                                        {{ folder.name}}  
+                                        {{ folder.name }}  
                                     </p>
                                     <p class="-m0 -t-i -t-tiny">
-                                        {{ folder.isPublished ? 'published':'not published' }}
+                                        {{ folder.isPublished ? 'info.published'|trans :'info.not_published'|trans }}
                                     </p>
                                     <div class="-tile-subtitle">
-                                        <div class="-t-u btn -sm -light -hover">See</div>
+                                        <div class="-t-u btn -sm -light -hover">{{ 'cmd.see'|trans }}</div>
                                     </div>
                                 </a>
                             </div>
@@ -111,7 +91,7 @@
                                 {{ file.name ~ '.' ~ file.ext}}  
                             </a>
                             <div class="-subtitle text-gray -m0 -t-i -t-tiny">
-                                {{ file.private ? 'private':'public' }}
+                                {{ file.private ? 'info.private'|trans :'info.public'|trans }}
                             </div>
                         </div>
                         <div class="-card-footer">
@@ -134,7 +114,7 @@
         <div class="tile -tile-compact -w-f -shad-12">
             <div class="-tile-content">
                 <div class="-tile-title -t-bld">
-                    DATA MANAGER
+                    {{ 'menu.public_data_manager'|trans }}
                 </div>
                 <div class="-tile-subtitle">
                     

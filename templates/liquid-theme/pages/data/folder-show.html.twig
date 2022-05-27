@@ -1,6 +1,6 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}PUBLIC DATA FOLDER SHOW{% endblock %}
+{% block title %}{{ 'menu.public_folder_show'|trans }}{% endblock %}
 
 {% block mainContent %}
     {% if folder is defined and folder.folder is defined and folder.folder is not null %}
@@ -9,7 +9,7 @@
                 class="btn -block" 
                 href="{{ path('public_data_manager') }}"
             >
-                back to Data Manager
+                {{ 'cmd.back'|trans }} {{ 'menu.data_manager'|trans }}
             </a>
         </section>
         <section class="col -col-6 -md6 -sm12 -xs12">
@@ -17,7 +17,7 @@
                 class="btn -block -dark"
                 href="{{ path('public_folder_show', {'id': folder.folder.id }) }}"
             >
-                back to parent : {{folder.folder.name}}
+                {{ 'cmd.back'|trans }} {{ 'menu.parent_folder'|trans }} : {{folder.folder.name}}
             </a>
         </section>
     {% else %}  
@@ -26,7 +26,7 @@
                 class="btn -block" 
                 href="{{ path('public_data_manager') }}"
             >
-                back to Data Manager
+                {{ 'cmd.back'|trans }} {{ 'menu.public_data_manager'|trans }}
             </a>
         </section>
     {% endif %}
@@ -58,7 +58,7 @@
                                             <i class="fas {{ folder.private ? 'fa-lock':'fa-lock-open' }}"></i>
                                         </span>
                                         <p class="-m0 -t-i -t-tiny">
-                                            {{ folder.private ? 'private':'public' }}
+                                            {{ folder.private ? 'info.private'|trans :'info.public'|trans }}
                                         </p>
                                     </div>
                                     <a  class="-flex -flex-column -justify-center -items-center -wrap"  href="{{ path('public_folder_show', {'id': folder.id}) }}">
@@ -67,10 +67,10 @@
                                             {{ folder.name}}  
                                         </p>
                                         <p class="-m0 -t-i -t-tiny">
-                                            {{ folder.isPublished ? 'published':'not published' }}
+                                            {{ folder.isPublished ? 'info.published'|trans :'info.not_published'|trans }}
                                         </p>
                                         <div class="-tile-subtitle">
-                                            <div class="-t-u btn -sm -light -hover">See</div>
+                                            <div class="-t-u btn -sm -light -hover">{{ 'cmd.see'|trans }}</div>
                                         </div>
                                     </a>
                                 </div>
@@ -104,7 +104,7 @@
                                     {{ file.name ~ '.' ~ file.ext}}  
                                 </a>
                                 <div class="-subtitle text-gray -m0 -t-i -t-tiny">
-                                    {{ file.private ? 'private':'public' }}
+                                    {{ file.private ? 'info.private'|trans :'info.public'|trans }}
                                 </div>
                             </div>
                             <div class="-card-footer">
@@ -131,7 +131,7 @@
                     {{folder.name|upper}}
                 </div>
                 <div class="-tile-subtitle">
-                    {{folder.private ? 'private' : 'public'}}
+                    {{ folder.private ? 'info.private'|trans :'info.public'|trans }}
                 </div>
             </div>
             <div class="-tile-action">

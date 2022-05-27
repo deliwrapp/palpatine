@@ -10,7 +10,12 @@ class ModalHandler {
   initEvents() {
     this.modalOpenTriggers.forEach(el => {
         el.addEventListener('click', (e) => {
-            e.preventDefault()
+            let defaultMode = el.getAttribute('data-modal-default')
+            console.log(defaultMode)
+            if (defaultMode != "true" || null == defaultMode || !defaultMode || defaultMode == "false" ) { 
+              e.preventDefault()
+              console.log('preventDefault')
+            }
             let modalId = el.getAttribute('data-modal-id')
             let modal = document.getElementById(modalId)
             if (modal) {

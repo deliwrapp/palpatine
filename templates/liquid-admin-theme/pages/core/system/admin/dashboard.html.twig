@@ -5,14 +5,35 @@
 {% block mainContent %}
 <section class="col -col-12" id="post-list">
     <div class="-shad-12 -w-f">
-        <h2 class="-text-center h4 -tertiary -pt2 -pb2">ADMIN {{'menu.dashboard'|trans}}</h2>
+        <h2 class="-text-center h4 -tertiary -pt2 -pb2">{{'core.menu.system_access'|trans}}</h2>
         <section class="-flex -justify-space-around">
             <p class="-t-bld -color-tertiary -ml2">Welcome on board {{ app.user.username }} !</p>
             <p class="-t-bld -color-tertiary -ml2">Today we are the : {{ "now"|date("d/m/Y") }}</p>
         </section>
     </div>
 </section>
-<section class="col -col-3 -md4 -sm12 -xs12" id="clear-cache-manager">
+<section class="col -col-4 -md6 -sm12 -xs12" id="user-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                {{'core.cmd.back'|trans}} {{'core.menu.app_manager'|trans}}
+            </div>
+            <div class="-tile-subtitle">
+                {{'core.menu.admin'|trans}}
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a
+                class="btn -secondary btn-link btn-block -btn-lg tooltip tooltip-left"
+                href="{{ path('admin_app_configuration_dashboard') }}"
+                data-tooltip="{{'core.menu.admin_app_configuration'|trans}}"
+            >
+                <i class="fa-solid fa-arrow-left fa-2x"></i> 
+            </a>
+        </div>
+    </div>
+</section>
+<section class="col -col-4 -md6 -sm12 -xs12" id="clear-cache-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
@@ -20,16 +41,117 @@
             </div>
             <div class="-tile-subtitle">
                 {{'core.cmd.system_cmd'|trans}}
+                {% if appEnvironment is defined and appEnvironment is not null %}
+                    {% if appEnvironment == 'dev' %}
+                        {% set envValue = 'prod' %}
+                    {% else %}
+                        {% set envValue = 'dev' %}
+                    {% endif %}
+                    <a 
+                        class="-modal-open -t-u btn -sm -light -hover" 
+                        href="{{ path('admin_system_command_cache_clear', {'env': envValue}) }}"
+                        data-modal-id="command-execution-info"
+                        data-modal-default="true"
+                    >
+                        {{envValue}} mode
+                    </a>
+                {% endif %}
             </div>
         </div>
         <div class="-tile-action">
-            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="{{'core.cmd.cache_clear'|trans}}"> 
-                <a class="-success" href="{{ path('admin_system_command_cache_warmup') }}">
-                    <i class="fa-solid fa-cogs fa-2x"></i> 
-                </a>
-            </button>
+            <a 
+                class="-modal-open btn -success btn-link btn-block -btn-lg tooltip -tooltip-top" 
+                href="{{ path('admin_system_command_cache_clear') }}" 
+                data-tooltip="{{'core.cmd.cache_clear'|trans}}"
+                data-modal-id="command-execution-info"
+                data-modal-default="true"
+            >
+                <i class="fas fa-terminal fa-2x"></i> 
+            </a>
         </div>
     </div>
 </section>
 
+<section class="col -col-4 -md -sm12 -xs12" id="warmup-cache-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                {{'core.cmd.cache_warmup'|trans}}
+            </div>
+            <div class="-tile-subtitle">
+                {{'core.cmd.system_cmd'|trans}}
+                {% if appEnvironment is defined and appEnvironment is not null %}
+                    {% if appEnvironment == 'dev' %}
+                        {% set envValue = 'prod' %}
+                    {% else %}
+                        {% set envValue = 'dev' %}
+                    {% endif %}
+                    <a 
+                        class="-modal-open -t-u btn -sm -light -hover" 
+                        href="{{ path('admin_system_command_cache_warmup', {'env': envValue}) }}"
+                        data-modal-id="command-execution-info"
+                        data-modal-default="true"
+                    >
+                        {{envValue}} mode
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a 
+                class="-modal-open btn -success btn-link btn-block -btn-lg tooltip -tooltip-top" 
+                href="{{ path('admin_system_command_cache_warmup') }}" 
+                data-tooltip="{{'core.cmd.cache_warmup'|trans}}"
+                data-modal-id="command-execution-info"
+                data-modal-default="true"
+            >
+                <i class="fas fa-terminal fa-2x"></i> 
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="col -col-4 -md -sm12 -xs12" id="warmup-cache-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                {{'core.cmd.database_update'|trans}}
+            </div>
+            <div class="-tile-subtitle">
+                {{'core.cmd.system_cmd'|trans}}
+                <a 
+                    class="-modal-open -t-u btn -sm -light -hover" 
+                    href="{{ path('admin_system_command_database_update', {'opt': 'force'}) }}"
+                    data-modal-id="command-execution-info"
+                    data-modal-default="true"
+                >
+                    {{'core.cmd.database_update_force'|trans}}
+                </a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a 
+                class="-modal-open btn -success btn-link btn-block -btn-lg tooltip -tooltip-top" 
+                href="{{ path('admin_system_command_database_update') }}" 
+                data-tooltip="{{'core.cmd.database_update_dump'|trans}}"
+                data-modal-id="command-execution-info"
+                data-modal-default="true"
+            >
+                <i class="fas fa-terminal fa-2x"></i> 
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="col -col-12 -top">
+    {% include 'liquid-ui/components/layout/modal/modal.html.twig' with {
+        'modalId': 'command-execution-info',
+        'modalWidth': 'fullwidth',
+        'modalHeight': 'fullheight',
+        'modalContent': 'liquid-admin-theme/pages/core/system/_command_execute_info.html.twig',
+        'modalContentData': null,
+        'modalCloseHandler': false
+    }
+    %} 
+</section>
 {% endblock %}

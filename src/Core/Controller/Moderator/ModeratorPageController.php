@@ -70,6 +70,9 @@ class ModeratorPageController extends AbstractController
                 'info',
                 'Page Published'
             );
+            if ($this->isGranted('ROLE_EDITOR')) {
+                return $this->redirect($this->generateUrl('editor_page_list'));
+            }
             return $this->redirect($this->generateUrl('moderator_page_list'));
         } catch (\Exception $e) {
             $this->addFlash(

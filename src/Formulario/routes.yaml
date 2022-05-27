@@ -1,3 +1,0 @@
-formulario_routes:
-    resource: './Controller/'
-    type:     annotation

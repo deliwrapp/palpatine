@@ -39,7 +39,7 @@
                 {% endfor %}
                 {% if actions is defined %}
                     <th>
-                        {{'action'|trans}}
+                        {{'menu.actions'|trans}}
                     </th>
                 {% endif %}
             </tr>
@@ -57,9 +57,9 @@
                                 {% if item[td.attr] is defined and item[td.attr] is not null %}
                                     {% if item[td.attr] is same as(false) or item[td.attr] is same as(true) %}
                                         {% if item[td.attr] == 1 %}
-                                            {{"core.word.yes"|trans }}
+                                            {{"word.yes"|trans }}
                                         {% else %}
-                                            {{"core.word.no"|trans }}
+                                            {{"word.no"|trans }}
                                         {% endif %}
                                     {% elseif item[td.attr] is iterable %}
                                         {{ item[td.attr]|json_encode(constant('JSON_PRETTY_PRINT')) }}

@@ -1,0 +1,6 @@
+# Alphabetic order - by modules & sections - lowercase names
+installer:
+  name: Installer
+  default_config: "Standardkonfiguration"
+  custom_config: "Benutzerdefinierte Konfiguration"
+  install: "Installieren"

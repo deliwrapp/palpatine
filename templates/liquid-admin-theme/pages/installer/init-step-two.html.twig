@@ -1,0 +1,96 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}{{'installer'|trans}}{% endblock %}
+{% block header %}{% endblock %}
+{% block leftSide %}{% endblock %}
+{% block mainContentClass %}-top liquid-container liquid-grid  -center -middle -z1 -overflow-x-hidden  {% endblock %}
+
+{% block mainContent %}
+<section class="col -col-4 -md8 -sm12 -xs12" id="installer-first-step">
+    <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+        <section class="-panel-header -text-center">
+            <figure class="avatar avatar-xl -shad-12">
+                <img src="../assets/img/avatar/beaver/beaver-avatar-128.png" alt="Avatar">
+            </figure>
+            <div class="-panel-title h5 mt-10 -t-u">Bloogy</div>
+            <div class="-panel-subtitle -t-u">Installer page</div>
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="toast -warning -shad-12 -shad-10-h" role="alert">
+                    <p>{{ flashError }}</p>
+                    <button class="btn btn-clear"></button>
+                </div>
+            {% endfor %}
+        </section>
+        {% if registrationForm is defined and registrationForm is not null%}
+            {{ form_start(registrationForm) }}
+                <section class="-panel-body">
+
+                    {{ form_label(registrationForm.username, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(registrationForm.username) }}</small>
+                    {{ form_errors(registrationForm.username) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(registrationForm.username, {'attr': {'class': 'form-field -shad-12-h', 'autocomplete': 'email'}}) }}
+                        <i class="form-icon fa-solid fa-user"></i>
+                    </div>
+
+                    {{ form_label(registrationForm.email, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(registrationForm.email) }}</small>
+                    {{ form_errors(registrationForm.email) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-field -shad-12-h', 'autocomplete': 'email'}}) }}
+                        <i class="form-icon fa-solid fa-at"></i>
+                    </div>
+                    
+                    {{ form_label(registrationForm.plainPassword, 'Password', {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(registrationForm.plainPassword) }}</small>
+                    {{ form_errors(registrationForm.plainPassword) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-field -shad-12-h', 'autocomplete': 'email'}}) }}
+                        <i class="form-icon fa-solid fa-lock"></i>
+                    </div>
+
+                    <div class="form-element">
+                        <label class="switch">
+                            {{ form_widget(registrationForm.agreeTerms) }}
+                            <i class="form-icon -shad-12"></i>
+                            <span class="form-field-msg -t-c -t-bld -color-dark">I Agree</span>
+                        </label>
+                    </div>
+                    <small>{{ form_help(registrationForm.agreeTerms) }}</small>
+                    {{ form_errors(registrationForm.agreeTerms) }}
+                </section>
+                <section class="-panel-footer -text-center ">
+                    <button 
+                        type="submit" 
+                        class="-modal-open -t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl"
+                        data-modal-id="command-execution-info"
+                        data-modal-default="true"
+                    >
+                        {{'menu.register'|trans}}
+                    </button>
+                </section>
+            {{ form_end(registrationForm) }}
+        {% endif %}
+    </div>
+</section>
+
+<hr>
+
+<section class="col -col-12 -top">
+    {% include 'liquid-ui/components/layout/modal/modal.html.twig' with {
+        'modalId': 'command-execution-info',
+        'modalWidth': 'fullwidth',
+        'modalHeight': 'fullheight',
+        'modalContent': 'liquid-admin-theme/pages/core/system/_command_execute_info.html.twig',
+        'modalContentData': null,
+        'modalCloseHandler': false
+    }
+    %} 
+</section>
+{% endblock %}

@@ -9,8 +9,8 @@
             <figure class="avatar avatar-xl -shad-12">
                <img src="../assets/img/avatar/beaver/beaver-avatar-128.png" alt="Avatar">
             </figure>
-            <div class="-panel-title h5 mt-10 -t-u">Bloogy</div>
-            <div class="-panel-subtitle -t-u">login page</div>
+            <div class="-panel-title h5 mt-10 -t-u">{{'author.app'|trans}}</div>
+            <div class="-panel-subtitle -t-u">{{'login.login'|trans}}</div>
             {% if error %}
                 <div class="toast -warning -shad-12 -shad-10-h" role="alert">
                     <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
@@ -21,16 +21,16 @@
         <form class="-w-f" method="post">
             {% if app.user %}
                 <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    {{'login.info'|trans}}{{ app.user.username }}, <a href="{{ path('app_logout') }}">{{'login.logout'|trans}}</a>
                 </div>
             {% else %}
                 <section class="-panel-body">
-                    <label for="inputEmail" class="-t-c -t-bld -color-dark">Email</label>
+                    <label for="inputEmail" class="-t-c -t-bld -color-dark">{{'form.email'|trans}}</label>
                     <div class="form-element has-icon-right">
                         <input type="text" value="{{ last_username }}" name="email" id="inputEmail" class="form-field -shad-12-h" autocomplete="email" required autofocus>
                         <i class="form-icon icon icon-people"></i>
                     </div>
-                    <label for="inputPassword" class="-t-c -t-bld -color-dark">password</label>
+                    <label for="inputPassword" class="-t-c -t-bld -color-dark">{{'form.password'|trans}}</label>
                     <div class="form-element">
                         <div class="password has-icon-right ">
                             <input type="password" name="password" id="inputPassword" class="form-field -shad-12-h" autocomplete="current-password" required>
@@ -42,17 +42,17 @@
                         <label class="switch">
                             <input type="checkbox" name="_remember_me">
                             <i class="form-icon -shad-12"></i>
-                            <span class="form-field-msg -t-c -t-bld -color-dark">Remember me</span>
+                            <span class="form-field-msg -t-c -t-bld -color-dark">{{'login.remember'|trans}}</span>
                         </label>
                     </div>
                 </section>
                 <section class="-panel-footer -text-center ">
                     <button  type="submit" class="-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl">
-                        Log In
+                        {{'login.login'|trans}}
                     </button>
                     <div class=" -m2 -mt5 -p1">
                         <a href="#" class="-t-bld">
-                            Forgot password...
+                            {{'login.forgot_password'|trans}}
                         </a>
                     </div>
                 </section>

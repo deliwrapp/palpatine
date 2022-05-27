@@ -1,8 +1,8 @@
 {% extends 'liquid-theme/layout.html.twig' %}
 
-{% block title %}{{'core.profile.about_account'|trans}}{% endblock %}
+{% block title %}{{'profile.about_account'|trans}}{% endblock %}
 
 {% block mainContent %}
-    <a class="btn -block" href="{{ path('member_my_account') }}">{{'core.menu.my_account'|trans}}</a>    
+    <a class="btn -block" href="{{ path('member_my_account') }}">{{'menu.my_account'|trans}}</a>    
     {{ include('liquid-theme/pages/security/user/member/_email_form.html.twig') }}
 {% endblock %}

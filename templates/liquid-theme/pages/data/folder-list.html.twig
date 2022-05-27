@@ -1,6 +1,6 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}PUBLIC FOLDERS LIST{% endblock %}
+{% block title %}{{ 'menu.public_folder_list'|trans }}{% endblock %}
 
 {% block mainContent %}
     <section class="col -col-12">
@@ -8,7 +8,7 @@
             class="btn -block" 
             href="{{ path('public_data_manager') }}"
         >
-            back to Data Manager
+            {{ 'cmd.back'|trans }} {{ 'menu.public_data_manager'|trans }}
         </a>
     </section>  
     {% if folders is defined and folders is not empty %}
@@ -22,7 +22,7 @@
                                     <i class="fas {{ folder.private ? 'fa-lock':'fa-lock-open' }}"></i>
                                 </span>
                                 <p class="-m0 -t-i -t-tiny">
-                                    {{ folder.private ? 'private':'public' }}
+                                    {{ folder.private ? 'info.private'|trans :'info.public'|trans }}
                                 </p>
                             </div>
                             <a  class="-flex -flex-column -justify-center -items-center -wrap"  href="{{ path('public_folder_show', {'id': folder.id}) }}">
@@ -31,10 +31,10 @@
                                     {{ folder.name}}  
                                 </p>
                                 <p class="-m0 -t-i -t-tiny">
-                                    {{ folder.isPublished ? 'published':'not published' }}
+                                    {{ folder.isPublished ? 'info.published'|trans :'info.not_published'|trans }}
                                 </p>
                                 <div class="-tile-subtitle">
-                                    <div class="-t-u btn -sm -light -hover">See</div>
+                                    <div class="-t-u btn -sm -light -hover">{{ 'cmd.see'|trans }}</div>
                                 </div>
                             </a>
                         </div>
@@ -47,7 +47,7 @@
         {% endfor %} 
     {% else %}
         <section class="col -col-12">
-            <h2>There is no folder !!!</h2>  
+            <h2>{{ 'help.no_folder'|trans }}</h2>  
         </section>
     {% endif %}
     <p class="-p10 -m10 -w-f -text-center">Bloogy Data Manager</p>
@@ -55,10 +55,10 @@
         <div class="tile -tile-compact -w-f -shad-12">
             <div class="-tile-content">
                 <div class="-tile-title -t-bld">
-                    ADMIN DATA MANAGER
+                    {{ 'menu.public_data_manager'|trans }}
                 </div>
                 <div class="-tile-subtitle">
-                    All Folder List
+                    {{ 'menu.public_folder_list'|trans }}
                 </div>
             </div>
         </div>

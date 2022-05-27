@@ -61,7 +61,9 @@
             {% endif %}           
           {% endif %}
         {% endblock %}
-        {% include 'liquid-ui/components/ui/toasts.html.twig' %}
+        <div class="-relative -top-5rm">
+          {% include 'liquid-ui/components/ui/toasts.html.twig' %}
+        </div>
       </header>
       <main  {% block mainAttr %} class="{% if wrapperContent is defined %}-wrapper {% endif %} -relative -top-5rm" {% endblock %}>
         {% block main %}

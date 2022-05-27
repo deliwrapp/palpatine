@@ -36,21 +36,21 @@ class UserAccountFormType extends AbstractType
                         'choices'  => array_flip($localesList)
                     ])
                     ->add('submit', SubmitType::class, [
-                        'label' => 'menu.edit',
+                        'label' => 'cmd.edit',
                     ]);
                 break;
             case 'edit-email':
                 $builder
                     ->add('email', EmailType::class)
                     ->add('submit', SubmitType::class, [
-                        'label' => 'menu.edit',
+                        'label' => 'cmd.edit',
                     ]);
                 break;
             case 'edit-password':
                 $builder
-                    ->add('password', PasswordType::class, ['label' => 'Password'])
+                    ->add('password', PasswordType::class, ['label' => 'form.password'])
                     ->add('submit', SubmitType::class, [
-                        'label' => 'menu.edit',
+                        'label' => 'cmd.edit',
                     ]);
                 break;
         } 

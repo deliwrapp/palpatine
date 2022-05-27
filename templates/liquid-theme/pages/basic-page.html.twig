@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block title %}
-    {% if page is defined and page is not null %}{{page.name}}{% else %}Basic Page{% endif %}
+    {% if page is defined and page is not null %}{{page.name|trans}}{% else %}{{ 'content.page'|trans }}{% endif %}
 {% endblock %}
 
 {% block mainContent %}
@@ -28,7 +28,7 @@
                 </section>
             {% endif %}
         {% else %}
-            <p> There is no Page !!! </p>
+            <p>{{ 'help.no_page'|trans }}</p>
         {% endif %}
     </section>
 {% endblock %}

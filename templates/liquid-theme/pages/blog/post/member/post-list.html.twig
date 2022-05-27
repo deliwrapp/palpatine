@@ -1,10 +1,10 @@
 {% extends 'liquid-theme/layout.html.twig' %}
 
-{% block title %}POSTS LIST {% endblock %}
+{% block title %}{{ 'post.post_list'|trans }}{% endblock %}
 
 {% block mainContent %}
     <div class="col -col-12 -text-center" id="post-list">
-        <div class="h5 mt-10">POSTS LIST</div>
+        <div class="h5 mt-10">{{ 'post.post_list'|trans }}</div>
     </div>
     
     {% if posts is defined and posts is not empty %}
@@ -45,17 +45,17 @@
         <div class="tile -tile-compact -w-f -shad-12">
             <div class="-tile-content">
                 <div class="-tile-title -t-bld">
-                    There is no data !!!
+                    {{ 'post.help.no_post'|trans }}
                 </div>
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="-tile-subtitle">
-                        You can create a new post
+                        {{ 'post.help.create_post'|trans }}
                     </div>
                 {% endif %}
             </div>
             <div class="-tile-action">
             {% if is_granted('ROLE_ADMIN') %}
-                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Post"> 
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="{{ 'post.menu.create_post'|trans }}"> 
                     <a class="-tertiary" href="{{ path('admin_post_create') }}">
                         <i class="fas fa-plus fa-2x"></i> 
                     </a>

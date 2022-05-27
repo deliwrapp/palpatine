@@ -1,6 +1,6 @@
 {% extends 'liquid-theme/layout.html.twig' %}
 
-{% block title %}{{'core.profile.about_account'|trans}}{% endblock %}
+{% block title %}{{'profile.about_account'|trans}}{% endblock %}
 
 {% block mainContent %}
     <section class="col -col-12 -middle -pt5">
@@ -20,11 +20,11 @@
         <a class="btn -block" href="{{ path('homepage') }}">{{'menu.homepage'|trans}}</a>
     </section>
     <section class="col -col-6">
-        <a class="btn -secondary -block" href="{{ path('member_edit_my_account') }}">{{'menu.edit'|trans}}</a>
+        <a class="btn -secondary -block" href="{{ path('member_edit_my_account') }}">{{'cmd.edit'|trans}}</a>
     </section>
     <section class="col -col-12">
         <h2 class="h4 -text-center">
-            {{'core.profile.about_account'|trans}}
+            {{'profile.about_account'|trans}}
         <h2>
     </section>
     
@@ -32,28 +32,28 @@
         <table class="table -overflow-auto">
             <tbody>
                 <tr>
-                    <th>{{'core.form.id'|trans}}</th>
+                    <th>{{'form.id'|trans}}</th>
                     <td class="-overflow-auto">{{ user.id }}</td>
                 </tr>
                 <tr>
-                    <th>{{'core.form.email'|trans}}</th>
-                    <td class="-overflow-auto">{{ user.email }} <a class="btn -sm -info" href="{{ path('member_edit_my_email') }}">{{'core.profile.change_mail'|trans}}</a></td>
+                    <th>{{'form.email'|trans}}</th>
+                    <td class="-overflow-auto">{{ user.email }} <a class="btn -sm -info" href="{{ path('member_edit_my_email') }}">{{'profile.change_mail'|trans}}</a></td>
                 </tr>
                 <tr>
-                    <th>{{'core.form.username'|trans}}</th>
+                    <th>{{'form.username'|trans}}</th>
                     <td class="-overflow-auto">{{ user.username }}</td>
                 </tr>
                 <tr>
-                    <th>{{'core.form.roles'|trans}}</th>
+                    <th>{{'form.roles'|trans}}</th>
                     <td class="-overflow-auto">{{ user.roles ? user.roles|json_encode : '' }}</td>
                 </tr>
                 <tr>
-                    <th>{{'core.form.password'|trans}}</th>
-                    <td class="-overflow-auto"><a class="btn -sm -info" href="{{ path('member_edit_my_password') }}">{{'core.profile.change_pass'|trans}}</a></td>
+                    <th>{{'form.password'|trans}}</th>
+                    <td class="-overflow-auto"><a class="btn -sm -info" href="{{ path('member_edit_my_password') }}">{{'profile.change_pass'|trans}}</a></td>
                 </tr>
                 <tr>
-                    <th>{{'core.form.validate'|trans}}</th>
-                    <td class="-overflow-auto">{{ user.isVerified ? 'core.word.yes'|trans : 'core.word.no'|trans }}</td>
+                    <th>{{'form.validate'|trans}}</th>
+                    <td class="-overflow-auto">{{ user.isVerified ? 'word.yes'|trans : 'word.no'|trans }}</td>
                 </tr>
             </tbody>
         </table>

@@ -19,6 +19,7 @@ services:
             - '../src/Kernel.php'
 twig:
     globals:
+        appEnvironment: '%env(APP_ENV)%'
         appLocales: '%appLocales%' # locales list
         menuLoader: '@App\Core\Services\MenuLoader' # menu loader
         configLoader: '@App\Core\Services\ConfigLoader' # config loader

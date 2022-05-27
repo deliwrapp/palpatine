@@ -10,6 +10,7 @@
 - modalContentData: Modal content Data
 - modalFooter: Modal Footer include path
 - modalFooterData: Modal Footer Data
+- modalCloseHandler: Show close button, default = true
 #}
 
 {% if modalClass is not defined %}
@@ -27,6 +28,9 @@
 {% if modalTitle is not defined %}
     {% set modalTitle = null %}
 {% endif %}
+{% if modalCloseHandler is not defined %}
+    {% set modalCloseHandler = true %}
+{% endif %}
 
 <div 
     class="modal  {{ modalWidth ? '-modal-' ~ modalWidth : null }} {{ modalHeight ? '-modal-' ~ modalHeight : null }} {{modalAnim}} {{modalClass}}"
@@ -36,26 +40,28 @@
                               
   <div class="-modal-container -shad-8">
     <div class="-modal-header">
-        {% if modalTitle %}
+        {% if modalTitle is defined and modalTitle is not null %}
             <div class="-modal-title h5">{{modalTitle}}</div>
-        {% endif %}                           
-      <a href="#close" class="btn btn-clear -modal-close" aria-label="Close"></a>
+        {% endif %}
+        {% if modalCloseHandler %}
+            <a href="#close" class="btn btn-clear -modal-close" aria-label="Close"></a>
+        {% endif %}
     </div>
                                 
     <div class="-modal-body">
       <div class="-content">
-        {% if modalContent is defined %}
-            {% if modalContentData is not defined %}
-                {% include modalContent  %}
+        {% if modalContent is defined and modalContent is not null %}
+            {% if modalContentData is defined and modalContentData is not null %}
+                {% include modalContent  with modalContentData %}
             {% else %}
-                {% include modalContent with modalContentData %}
+                {% include modalContent %}
             {% endif %}
         {% endif %}
       </div>
     </div>
-    {% if modalFooter is defined %}
+    {% if modalFooter is defined and modalFooter is not null %}
         <div class="-modal-footer">
-            {% if modalFooterData is not defined %}
+            {% if modalFooterData is defined and modalFooterData is not null %}
                 {% include modalFooter with modalFooterData %}
             {% else %}
                 {% include modalFooter %}

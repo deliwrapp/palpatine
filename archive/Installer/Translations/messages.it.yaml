@@ -1,0 +1,6 @@
+# Alphabetic order - by modules & sections - lowercase names
+installer:
+  name: Installer
+  default_config: "Configurazione Predefinita"
+  custom_config: "Configurazione Personalizzata"
+  install: "Installare"

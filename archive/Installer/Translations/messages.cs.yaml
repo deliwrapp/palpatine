@@ -1,0 +1,6 @@
+# Alphabetic order - by modules & sections - lowercase names
+installer:
+  name: Installer
+  default_config: "Výchozí konfigurace"
+  custom_config: "Vlastní konfigurace"
+  install: "Nainstalujte"

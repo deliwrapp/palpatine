@@ -7,6 +7,7 @@
 .\-w-rm { width: 1rem!important;}
 .\-w-vp { width: 100vw!important;}
 .\-w-a { width: auto!important;}
+.\-w-fit-c { width: fit-content!important;}
 
 .\-h-0 { height: 0!important;}
 .\-h-f { height: 100%!important;}
@@ -14,6 +15,7 @@
 .\-h-rm { height: 1rem!important;}
 .\-h-vp { height: 100vh!important;}
 .\-h-a { height: auto!important;}
+.\-h-fit-c { height: fit-content!important;}
 
 .\-max-n { max-width: none; max-height: none!important;}
 .\-max-0 { max-width: 0; max-height: 0!important;}

@@ -11,26 +11,26 @@
         </span>
     </label>
     <input class="dropdown--touch" type="checkbox" id="dropdown--touch">
-    <div class="dropdown-content -pos-left">
+    <div class="dropdown-content -pos-left -w-fit-c">
         <ul>
             <li class="-light -hover">
                 <i class="fa-solid fa-user-gear"></i>
                 <a href="{{path('member_my_account')}}">
-                    Account
+                    {{ 'menu.account'|trans }}
                 </a>
             </li>
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') or is_granted('ROLE_MODERATOR') %}
                 <li class="-light -hover">
                     <i class="fa-solid fa-lock"></i>
                     <a href="{{path('admin_dashboard_redirect')}}">
-                        Admin
+                        {{ 'menu.admin'|trans }}
                     </a>
                 </li>
             {% endif %}
             <li class="-light -hover">
                 <i class="fa-solid fa-door-open"></i>
                 <a href="{{path('app_logout')}}">
-                    Logout
+                    {{ 'login.logout'|trans }}
                 </a>
             </li>
         </ul>

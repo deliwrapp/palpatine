@@ -4,10 +4,9 @@ namespace App\Core\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
-use Symfony\Component\HttpKernel\KernelInterface;
 use App\Core\Command\SystemCommandHandler;
 
 /**
@@ -43,23 +42,25 @@ class AdminCommandSystemController extends AbstractController
     }
 
     /**
-     * command_cache_clear ->clear cache
+     * commandCacheClear ->clear cache
      * 
      * @param string $env = null (options = dev/prod)
      * @Route("/command/cache/clear/{env}",
      * name="admin_system_command_cache_clear",
      * defaults={"env": null}
      * )
+     * 
+     * @return RedirectResponse
      */
-    public function commandCacheClear(string $env = null)
+    public function commandCacheClear(string $env = null) :RedirectResponse
     {
         try {
             $commandResponse = $this->systemCommand->doCommand('cache:clear', $env);
             $this->addFlash(
                 'success',
-                'Cache Clear Command Executed'
+                $commandResponse
             );
-            return new Response($commandResponse);
+            return $this->redirect($this->generateUrl('admin_command_system_dashboard'));
         } catch (\Exception $e) {
             $this->addFlash(
                 'danger',
@@ -70,13 +71,15 @@ class AdminCommandSystemController extends AbstractController
     }
 
     /**
-     * command_cache_warmup -> cache warmup
+     * commandCacheWarmup -> cache warmup
      * 
      * @param string $env = null (options = dev/prod)
      * @Route("/command/cache/warmup/{env}",
      * name="admin_system_command_cache_warmup",
      * defaults={"env": null}
      * )
+     * 
+     * @return RedirectResponse
      */
     public function commandCacheWarmup(string $env = null)
     {
@@ -84,9 +87,49 @@ class AdminCommandSystemController extends AbstractController
             $commandResponse = $this->systemCommand->doCommand('cache:warmup', $env);
             $this->addFlash(
                 'success',
-                'Cache Warmup Command Executed'
+                $commandResponse
             );
-            return new Response($commandResponse);
+            return $this->redirect($this->generateUrl('admin_command_system_dashboard'));
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('admin_command_system_dashboard'));
+        }
+    }
+
+    /**
+     * commandDatabaseUpdateDump -> cache warmup
+     * 
+     * @param string $opt = dump (options = dump/force)
+     * @Route("/command/database/update/{opt}",
+     * name="admin_system_command_database_update",
+     * defaults={"opt": "dump"}
+     * )
+     * 
+     * @return RedirectResponse
+     */
+    public function commandDatabaseUpdate(string $opt = "dump")
+    {
+        try {
+            if ($opt == 'dump') {
+                $commandResponse = $this->systemCommand->doCommand('doctrine:schema:update', 'dev', ['--dump-sql' => true]);
+            }
+            elseif ($opt == 'force') {
+                $commandResponse = $this->systemCommand->doCommand('doctrine:schema:update', 'dev', ['--force' => true]);
+            } else {
+                $this->addFlash(
+                    'warning',
+                    'unknown command'
+                );
+                return $this->redirect($this->generateUrl('admin_command_system_dashboard'));
+            }
+            $this->addFlash(
+                'success',
+                $commandResponse
+            );
+            return $this->redirect($this->generateUrl('admin_command_system_dashboard'));
         } catch (\Exception $e) {
             $this->addFlash(
                 'danger',

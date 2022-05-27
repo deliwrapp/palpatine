@@ -230,12 +230,17 @@ class AdminUsersController extends AbstractController
     public function delete(Request $request, User $user, UserRepository $userRepository): RedirectResponse
     {
         try {
-            if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete-user', $request->request->get('token'))) {
                 $userRepository->remove($user);
                 $this->addFlash(
                     'info',
-                    'User have been deleted id '
+                    'User have been deleted'
                 );
+            } else {
+                $this->addFlash(
+                    'warning',
+                    'ERROR : User have not been deleted'
+                ); 
             }
             return $this->redirectToRoute('admin_user_index', [], Response::HTTP_SEE_OTHER);
         } catch (\Exception $e) {

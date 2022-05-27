@@ -1,0 +1,89 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}Bloogy - {{'installer'|trans}} - {{'installer.install'|trans}} {% endblock %}
+{% block header %}{% endblock %}
+{% block leftSide %}{% endblock %}
+
+{% block mainContent %}
+
+<section class="col -col-12 -text-center">
+   <h1 class="h3"> Bloogy - {{'installer'|trans}} - {{'installer.install'|trans}}</h1> 
+</section>
+<hr>
+<section class="col -col-6 -md6 -sm12 -xs12" id="installer-default-config">
+    <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+        <section class="-panel-body">
+            <section class="-w-f" id="basic-config-manager">
+                <div class="tile -tile-compact -w-f -m0 -shad-12">
+                    <div class="-tile-content">
+                        <div class="-tile-title -t-bld">
+                            {{'installer.install'|trans}}
+                        </div>
+                        <div class="-tile-subtitle">
+                            {{'installer.default_config'|trans}}
+                            
+                        </div>
+                    </div>
+                    <div class="-tile-action">
+                        <a 
+                            class="-modal-open btn -secondary btn-link btn-block -btn-lg tooltip -tooltip-left"
+                            href="{{ path('init_app', {'init': 'basic-config'}) }}" 
+                            data-tooltip="{{'installer.install'|trans}}"
+                            data-modal-id="command-execution-info"
+                            data-modal-default="true"
+                            >
+                            <i class="fa-solid fa-download fa-2x"></i> 
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+</section>
+
+<section class="col -col-6 -md6 -sm12 -xs12" id="installer-custom-config">
+    <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
+        <section class="-panel-body">
+            <section class="-w-f" id="basic-config-manager">
+                <div class="tile -tile-compact -w-f -m0 -shad-12">
+                    <div class="-tile-content">
+                        <div class="-tile-title -t-bld">
+                            {{'installer.install'|trans}}
+                        </div>
+                        <div class="-tile-subtitle">
+                            {{'installer.custom_config'|trans}}
+                            
+                        </div>
+                    </div>
+                    <div class="-tile-action">
+                        <a 
+                            class="-modal-open btn -tertiary btn-link btn-block -btn-lg tooltip -tooltip-left"
+                            href="{{ path('init_app', {'init': 'custom-config'}) }}"
+                            data-tooltip="{{'installer.install'|trans}}"
+                            data-modal-id="command-execution-info"
+                            data-modal-default="true"
+                            >
+                            <i class="fa-solid fa-download fa-2x"></i> 
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+</section>
+
+<hr>
+
+<section class="col -col-12 -top">
+    {% include 'liquid-ui/components/layout/modal/modal.html.twig' with {
+        'modalId': 'command-execution-info',
+        'modalWidth': 'fullwidth',
+        'modalHeight': 'fullheight',
+        'modalContent': 'liquid-admin-theme/pages/core/system/_command_execute_info.html.twig',
+        'modalContentData': null,
+        'modalCloseHandler': false
+    }
+    %} 
+</section>
+
+{% endblock %}

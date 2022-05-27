@@ -155,15 +155,19 @@
                                     <td data-label="{{'type'|trans|upper}}">       
                                         {{item.type}}
                                     </td>
-                                    <td data-label="{{'path'|trans|upper}}"> 
-                                        {% if item.type == 'page' %}
-                                            {% set itemPath = path('page_show', {'pageUrl': item.path}) %}
-                                        {% endif %}
-                                        {% if item.type == 'internal' %}
-                                            {% set itemPath = path(item.path) %}
-                                        {% endif %}
-                                        {% if item.type == 'external' %}
-                                            {% set itemPath = item.path %}
+                                    <td data-label="{{'path'|trans|upper}}">
+                                        {% if item.path  is defined and item.path is not null and item.path != ""%}
+                                            {% if item.type == 'page' %}
+                                                {% set itemPath = path('page_show', {'pageUrl': item.path}) %}
+                                            {% endif %}
+                                            {% if item.type == 'internal' %}
+                                                {% set itemPath = path(item.path) %}
+                                            {% endif %}
+                                            {% if item.type == 'external' %}
+                                                {% set itemPath = item.path %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% set itemPath = "#" %}
                                         {% endif %}
                                         <a 
                                             target="_blanck"

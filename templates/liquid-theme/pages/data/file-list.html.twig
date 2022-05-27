@@ -1,6 +1,6 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}PUBLIC FILES LIST{% endblock %}
+{% block title %}{{ 'content.public_file_list'|trans }}{% endblock %}
 
 {% block mainContent %}
     <section class="col -col-12">
@@ -8,7 +8,7 @@
             class="btn -block" 
             href="{{ path('public_data_manager') }}"
         >
-            back to Data Manager
+            {{ 'cmd.back'|trans }} {{ 'menu.public_data_manager'|trans }}
         </a>
     </section>
     
@@ -33,7 +33,7 @@
                             {{ file.name ~ '.' ~ file.ext}}  
                         </a>
                         <div class="-subtitle text-gray -m0 -t-i -t-tiny">
-                            {{ file.private ? 'private':'public' }}
+                            {{ file.private ? 'info.private'|trans :'info.public'|trans }}
                         </div>
                     </div>
                     <div class="-card-footer">
@@ -51,7 +51,7 @@
         {% endfor %}  
     {% else %}
         <section class="col -col-12">
-            <h2>There is no file !!!</h2>  
+            <h2>{{ 'help.no_file'|trans }}</h2>  
         </section>
     {% endif %}
     <p class="-p10 -m10 -w-f -text-center">Bloogy Data Manager</p>
@@ -59,10 +59,10 @@
         <div class="tile -tile-compact -w-f -shad-12">
             <div class="-tile-content">
                 <div class="-tile-title -t-bld">
-                    PUBLIC DATA MANAGER
+                    {{ 'menu.public_data_manager'|trans }}
                 </div>
                 <div class="-tile-subtitle">
-                    All File List
+                    {{ 'menu.file_list'|trans }}
                 </div>
             </div>
         </div>

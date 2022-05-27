@@ -1,34 +1,58 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}ADMIN-{{'menu.dashboard'|trans}}{% endblock %}
+{% block title %}ADMIN-{{'core.menu.admin_app_configuration'|trans}}{% endblock %}
 
 {% block mainContent %}
 <section class="col -col-12" id="post-list">
     <div class="-shad-12 -w-f">
-        <h2 class="-text-center h4 -tertiary -pt2 -pb2">ADMIN {{'menu.dashboard'|trans}}</h2>
+        <h2 class="-text-center h4 -tertiary -pt2 -pb2">{{'core.menu.admin_app_configuration'|trans}}</h2>
         <section class="-flex -justify-space-around">
             <p class="-t-bld -color-tertiary -ml2">Welcome on board {{ app.user.username }} !</p>
             <p class="-t-bld -color-tertiary -ml2">Today we are the : {{ "now"|date("d/m/Y") }}</p>
         </section>
     </div>
 </section>
-<section class="col -col-4 -md4 -sm12 -xs12" id="user-manager">
+
+<section class="col -col-3 -md4 -sm12 -xs12" id="user-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
-                App Manager
+                {{'core.cmd.back'|trans}} {{'core.menu.dashboard'|trans}}
             </div>
             <div class="-tile-subtitle">
-                Configure your Website
-                <a class="-t-u btn -sm -light -hover" href="{{ path('admin_data_manager') }}">Settings Access</a>
+                {{'core.menu.admin'|trans}}
             </div>
         </div>
         <div class="-tile-action">
-            <button class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Configure your WebSite"> 
-                <a class="-success" href="{{ path('admin_data_manager') }}">
-                    <i class="fa-solid fa-cogs fa-2x"></i> 
-                </a>
-            </button>
+            <a
+                class="btn -secondary btn-link btn-block -btn-lg tooltip tooltip-left"
+                href="{{ path('admin_dashboard') }}"
+                data-tooltip="{{'core.menu.system_access'|trans}}"
+            >
+                <i class="fa-solid fa-arrow-left fa-2x"></i> 
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="col -col-3 -md4 -sm12 -xs12" id="user-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                {{'core.menu.system_access'|trans}}
+            </div>
+            <div class="-tile-subtitle">
+                {{'core.menu.admin_app_configuration'|trans}}
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a 
+                class="btn -success btn-link btn-block -btn-lg tooltip tooltip-left" 
+                href="{{ path('admin_command_system_dashboard') }}"
+                data-tooltip="{{'core.menu.system_access'|trans}}"
+            >
+                <i class="fa-solid fa-terminal fa-2x"></i> 
+            </a>
         </div>
     </div>
 </section>

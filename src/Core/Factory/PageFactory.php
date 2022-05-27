@@ -47,9 +47,9 @@ class PageFactory
      * 
      * @param Page $page
      * @param bool $record = false
-     * @return Page $page
+     * @return Page|string $page
      */
-    public function initPage(Page $page, $record = false): Page {
+    public function initPage(Page $page, $record = false) {
         if ($page->getIsHomepage()) {
             $testHomepage = $this->pageVerif->checkIfIsHomepageAndLocaleExists($page->getLocale());
             if ($testHomepage) {

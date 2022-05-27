@@ -9,11 +9,11 @@
             <figure class="avatar avatar-xl -shad-12">
                <img src="../assets/img/avatar/beaver/beaver-avatar-128.png" alt="Avatar">
             </figure>
-            <div class="-panel-title h5 mt-10 -t-u">Bloogy</div>
-            <div class="-panel-subtitle -t-u">Register page</div>
+            <div class="-panel-title h5 mt-10 -t-u">{{'author.app'|trans}}</div>
+            <div class="-panel-subtitle -t-u">{{'menu.register'|trans}} {{'content.page'|trans}}</div>
             {% for flashError in app.flashes('verify_email_error') %}
                 <div class="toast -warning -shad-12 -shad-10-h" role="alert">
-                    <p>{{ flashError }}</p>
+                    <p>{{ flashError|trans }}</p>
                     <button class="btn btn-clear"></button>
                 </div>
             {% endfor %}
@@ -21,7 +21,7 @@
         {{ form_start(registrationForm) }}
             <section class="-panel-body">
 
-                {{ form_label(registrationForm.username, null, {
+                {{ form_label(registrationForm.username, 'form.username'|trans, {
                     'label_attr': {'class': '-t-c -t-bld -color-dark'}
                 }) }}
                 <small>{{ form_help(registrationForm.username) }}</small>
@@ -31,7 +31,7 @@
                     <i class="form-icon fa-solid fa-user"></i>
                 </div>
 
-                {{ form_label(registrationForm.email, null, {
+                {{ form_label(registrationForm.email, 'form.email'|trans, {
                     'label_attr': {'class': '-t-c -t-bld -color-dark'}
                 }) }}
                 <small>{{ form_help(registrationForm.email) }}</small>
@@ -41,7 +41,7 @@
                     <i class="form-icon fa-solid fa-at"></i>
                 </div>
                 
-                {{ form_label(registrationForm.plainPassword, 'Password', {
+                {{ form_label(registrationForm.plainPassword, 'form.password'|trans, {
                     'label_attr': {'class': '-t-c -t-bld -color-dark'}
                 }) }}
                 <small>{{ form_help(registrationForm.plainPassword) }}</small>
@@ -50,12 +50,14 @@
                     {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-field -shad-12-h', 'autocomplete': 'email'}}) }}
                     <i class="form-icon fa-solid fa-lock"></i>
                 </div>
-
+                {{ form_label(registrationForm.plainPassword, 'form.agree_terms'|trans, {
+                    'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                }) }}
                 <div class="form-element">
                     <label class="switch">
                         {{ form_widget(registrationForm.agreeTerms) }}
                         <i class="form-icon -shad-12"></i>
-                        <span class="form-field-msg -t-c -t-bld -color-dark">I Agree</span>
+                        <span class="form-field-msg -t-c -t-bld -color-dark">{{ 'form.i_agree'|trans }}</span>
                     </label>
                 </div>
                 <small>{{ form_help(registrationForm.agreeTerms) }}</small>
@@ -63,7 +65,7 @@
             </section>
             <section class="-panel-footer -text-center ">
                 <button  type="submit" class="-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl">
-                    Register
+                    {{ 'menu.register'|trans }}
                 </button>
             </section>
         {{ form_end(registrationForm) }}

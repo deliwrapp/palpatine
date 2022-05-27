@@ -61,13 +61,13 @@
                 <div class="btn -light -hover">
                     <i class="fa-solid fa-door-open"></i>
                     <a href="{{path('app_register')}}">
-                        Register
+                        {{ 'menu.register'|trans }}
                     </a>
                 </div>
                 <div class="btn -light -hover">
                     <i class="fa-solid fa-lock-open"></i>
                     <a href="{{path('app_login')}}">
-                        Login
+                        {{ 'login.login'|trans }}
                     </a>
                 </div>
             {% endif %}

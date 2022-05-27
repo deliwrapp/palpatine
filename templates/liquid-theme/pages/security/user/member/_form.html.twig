@@ -14,7 +14,7 @@
             </div>
             {% for flashError in app.flashes('verify_email_error') %}
                 <div class="toast -warning -shad-12 -shad-10-h" role="alert">
-                    <p>{{ flashError }}</p>
+                    <p>{{ flashError|trans }}</p>
                     <button class="btn btn-clear"></button>
                 </div>
             {% endfor %}
@@ -22,7 +22,7 @@
         {{ form_start(form, {'attr': {'class': '-w-f'}}) }}
             <section class="-panel-body -flex -wrap">
                 <div class="col -col-6 -md6 -sm12 -xs12">
-                    {{ form_label(form.username, null, {
+                    {{ form_label(form.username, 'form.username'|trans, {
                         'label_attr': {'class': '-t-c -t-bld -color-dark'}
                     }) }}
                     <small>{{ form_help(form.username) }}</small>
@@ -36,7 +36,7 @@
                     <small>{{ form_help(form.locale) }}</small>
                     {{ form_errors(form.locale) }}
                     <div class="form-element">
-                        {{ form_label(form.locale, null, {
+                        {{ form_label(form.locale, 'form.locale'|trans, {
                             'label_attr': {'class': '-t-c -t-bld -color-dark'}
                         }) }}
                         <div class="-sm9">
