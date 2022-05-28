@@ -12,7 +12,7 @@
         </section>
     </div>
 </section>
-<section class="col -col-4 -md4 -sm12 -xs12" id="user-manager">
+<section class="col -col-4 -md4 -sm12 -xs12" id="app-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
@@ -39,7 +39,6 @@
         </div>
     </div>
 </section>
-
 <section class="col -col-4 -md4 -sm12 -xs12" id="data-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
@@ -85,7 +84,7 @@
     </div>
 </section>
 <hr>
-<section class="col -col-3 -md6 -sm12 -xs12" id="menu-manager">
+<section class="col -col-4 -md6 -sm12 -xs12" id="menu-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
@@ -107,7 +106,7 @@
         </div>
     </div>
 </section>
-<section class="col -col-3 -md6 -sm12 -xs12" id="page-manager">
+<section class="col -col-4 -md6 -sm12 -xs12" id="page-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
@@ -129,7 +128,27 @@
         </div>
     </div>
 </section>
-<section class="col -col-3 -md6 -sm12 -xs12" id="block-manager">
+<section class="col -col-4 -md6 -sm12 -xs12" id="form-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                {{'core.menu.form_manager'|trans}}
+            </div>
+            <div class="-tile-subtitle">
+                You have xx forms.
+                <a class="-t-u btn -sm -light -hover" href="{{path('editor_form_list')}}">See List</a>
+            </div>
+        </div>
+        <div class="-tile-action">
+            <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Form"> 
+                <a class="-tertiary" href="{{ path('editor_form_create') }}">
+                    <i class="fa-solid fa-plus"></i> 
+                </a>
+            </button>
+        </div>
+    </div>
+</section>
+<section class="col -col-6 -md6 -sm12 -xs12" id="block-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
@@ -151,7 +170,7 @@
         </div>
     </div>
 </section>
-<section class="col -col-3 -md6 -sm12 -xs12" id="block-manager">
+<section class="col -col-6 -md6 -sm12 -xs12" id="template-manager">
     <div class="tile -tile-compact -w-f -m0 -shad-12">
         <div class="-tile-content">
             <div class="-tile-title -t-bld">
@@ -173,6 +192,7 @@
         </div>
     </div>
 </section>
+
 <hr>
 
 <section class="col -col-3 -md6 -sm12 -xs12" id="post-manager">

@@ -52,6 +52,16 @@ class Block implements ArrayAccess
     private $blockTemplate;
     
     /**
+     * @ORM\ManyToOne(targetEntity="App\Core\Entity\File")
+     */
+    private $media;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Core\Entity\FormModel")
+     */
+    private $formModel;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isPublished;
@@ -120,6 +130,30 @@ class Block implements ArrayAccess
         return $this;
     }
 
+    public function getMedia(): ?File
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?File $media): self
+    {
+        $this->media = $media;
+
+        return $this;
+    }
+
+    public function getFormModel(): ?FormModel
+    {
+        return $this->formModel;
+    }
+
+    public function setFormModel(?FormModel $formModel): self
+    {
+        $this->formModel = $formModel;
+
+        return $this;
+    }
+
     public function getIsPublished(): ?bool
     {
         return $this->isPublished;
@@ -181,6 +215,7 @@ class Block implements ArrayAccess
         $block->setQuery($this->query);
         $block->setSingleResult($this->singleResult);
         $block->setBlockTemplate($this->blockTemplate);
+        $block->setMedia($this->media);
         return $block;
     }
 
@@ -191,6 +226,7 @@ class Block implements ArrayAccess
         $pageBlock->setSingleResult($this->singleResult);
         $pageBlock->setBlockTemplate($this->blockTemplate);
         $pageBlock->setContent($this->content);
+        $pageBlock->setMedia($this->media);
         return $pageBlock;
     }
 

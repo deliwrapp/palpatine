@@ -1,0 +1,85 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}FORM LIST{% endblock %}
+
+{% block mainContent %}
+<section class="col -col-12" id="template-list">
+    {% if templates is defined and templates is not empty %}
+        {% include 'liquid-ui/components/layout/table/table.html.twig' with {
+                'tableHeadItems' : [
+                    {
+                        'text': 'id',
+                        'attr': 'id'
+                    },
+                    {
+                        'text': 'name',
+                        'attr': 'name'
+                    },
+                    {
+                        'text': 'locale',
+                        'attr': 'locale'
+                    },
+                    {
+                        'text': 'published',
+                        'attr': 'isPublished'
+                    },
+                ],
+                'tableItems': formModels,
+                'actions' :  {
+                    'duplicate': {'path': 'editor_form_duplicate', 'tooltip': 'duplicate', 'icon': 'fas fa-copy'},
+                    'show': {'path': 'editor_form_show', 'tooltip': 'show', 'icon': 'fa-regular fa-eye'},
+                    'edit': {'path': 'editor_form_edit', 'tooltip': 'edit', 'icon': 'fa-regular fa-pen-to-square'},
+                    'delete': {'path': 'editor_form_delete', 'token': 'delete-form', 'message': 'Are you sure you want to delete this Form ?'}
+                }
+            }
+        %}   
+    {% else %}
+        <div class="tile -tile-compact -w-f -shad-12">
+            <div class="-tile-content">
+                <div class="-tile-title -t-bld">
+                    There is no form !!!
+                </div>
+                <div class="-tile-subtitle">
+                    You can create a new form
+                </div>
+            </div>
+            <div class="-tile-action">
+                <button class="btn -tertiary btn-link btn-block -btn-lg tooltip tooltip-left" data-tooltip="Create Form"> 
+                    <a class="-tertiary" href="{{ path('editor_form_create') }}">
+                        <i class="fa-solid fa-plus"></i> 
+                    </a>
+                </button>
+            </div>
+        </div>
+    {% endif %}
+</section>
+
+<section class="bar bar-mini -fixed -bottom-1rm -white" id="form-list-bar">
+    <div class="tile -tile-compact -w-f -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                FORM MANAGER
+            </div>
+            <div class="-tile-subtitle">
+                
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a 
+                class="btn -success btn-link btn-block -btn-lg tooltip -tooltip-top  -shad-12 -shad-14-h"
+                data-tooltip="Form Settings"
+                href="#"
+            >
+                <i class="fa-solid fa-cogs"></i>
+            </a>
+            <a 
+                class="btn -tertiary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+                data-tooltip="Add a Form"
+                href="{{ path('editor_form_create') }}"
+            > 
+                <i class="fa-solid fa-plus fa-2x"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

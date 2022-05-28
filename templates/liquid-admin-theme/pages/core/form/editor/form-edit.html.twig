@@ -1,26 +1,26 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
-{% block title %}ADMIN TEMPLATE EDIT{% endblock %}
+{% block title %}ADMIN FORM EDIT{% endblock %}
 
 {% block mainContent %}
 <section class="col -col-12">
     <a class="btn -block" href="{{ path('admin_template_list') }}">back to list</a>
     <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
         <div class="-panel-header -text-center -flex -justify-space-evenly">
-            {% if template is defined and template is not null %}
+            {% if formModel is defined and formModel is not null %}
                 <a 
                     class="tooltip tooltip-left -tertiary btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
                     data-tooltip="show"
-                    href="{{ path('admin_template_show', { 'id': template.id }) }}"
+                    href="{{ path('editor_form_show', { 'id': formModel.id }) }}"
                 >   
                     <i class="fa-solid fa-eye fa-2x"></i>   
                 </a>
-                {{ include('liquid-admin-theme/pages/core/template/admin/_delete_form.html.twig') }}
+                {{ include('liquid-admin-theme/pages/core/form/editor/_delete_form.html.twig') }}
             {% endif %}
         </div>
         {{ form_start(form, {'attr': {'class': '-w-f'}}) }}
             <section class="-panel-body -flex -wrap">
-                <div class="col -col-5 -md4 -sm12 -xs12">
+                <div class="col -col-6 -md6 -sm12 -xs12">
                     {{ form_label(form.name, null, {
                         'label_attr': {'class': '-t-c -t-bld -color-dark'}
                     }) }}
@@ -31,20 +31,19 @@
                         <i class="form-icon fa-solid fa-heading"></i>
                     </div>
                 </div>
-
-                <div class="col -col-5 -md5 -sm12 -xs12">
-                    <small>{{ form_help(form.templatePath) }}</small>
-                    {{ form_errors(form.templatePath) }}
+                <div class="col -col-3 -md3 -sm12 -xs12">
+                    <small>{{ form_help(form.locale) }}</small>
+                    {{ form_errors(form.locale) }}
                     <div class="form-element">
-                        {{ form_label(form.templatePath, null, {
+                        {{ form_label(form.locale, null, {
                             'label_attr': {'class': '-t-c -t-bld -color-dark'}
                         }) }}
                         <div class="-sm9">
-                            {{ form_widget(form.templatePath, {'attr': {'class': 'form-select -shad-12'}}) }}
+                            {{ form_widget(form.locale, {'attr': {'class': 'form-select -shad-12'}}) }}
                         </div>
                     </div>
                 </div>
-                <div class="col -col-2 -md3 -sm6 -xs6">
+                <div class="col -col-3 -md3 -sm6 -xs6">
                     <div class="form-element">
                         <label class="switch">
                             {{ form_widget(form.isPublished) }}
@@ -55,39 +54,12 @@
                     <small>{{ form_help(form.isPublished) }}</small>
                     {{ form_errors(form.isPublished) }} 
                 </div>
-
-                <div class="col -col-6 -md6 -sm12 -xs12">
-                    {{ form_label(form.cssLink, null, {
-                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
-                    }) }}
-                    <small>{{ form_help(form.cssLink) }}</small>
-                    {{ form_errors(form.cssLink) }}
-                    <div class="form-element has-icon-right">
-                        {{ form_widget(form.cssLink, {'attr': {'class': 'form-field -shad-12-h'}}) }}
-                        <i class="form-icon fa-solid fa-link"></i>
-                    </div>
-                </div>
-                <div class="col -col-6 -md6 -sm12 -xs12">
-                    {{ form_label(form.scriptLink, null, {
-                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
-                    }) }}
-                    <small>{{ form_help(form.scriptLink) }}</small>
-                    {{ form_errors(form.scriptLink) }}
-                    <div class="form-element has-icon-right">
-                        {{ form_widget(form.scriptLink, {'attr': {'class': 'form-field -shad-12-h'}}) }}
-                        <i class="form-icon fa-solid fa-code"></i>
-                    </div>
-                </div>
-
             </section>
-
             <section class="-panel-footer -text-center ">
                 {{ form_widget(form.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
             </section>
-        {{ form_end(form) }}
-        
+        {{ form_end(form) }}   
     </div>
-    
 </section>
 {% endblock %}
 

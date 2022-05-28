@@ -9,8 +9,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Core\Entity\Block;
+use App\Core\Entity\File;
 use App\Core\Repository\BlockRepository;
 use App\Core\Form\BlockFormType;
+use App\Core\Repository\FileRepository;
 
 /**
  * Class EditorBlockController
@@ -24,11 +26,16 @@ class EditorBlockController extends AbstractController
     /** @var BlockRepository */
     private $blockRepo;
 
+    /** @var FileRepository */
+    private $fileRepo;
+
     public function __construct(
-        BlockRepository $blockRepo
+        BlockRepository $blockRepo,
+        FileRepository $fileRepo
     )
     {
         $this->blockRepo = $blockRepo;
+        $this->fileRepo = $fileRepo;
     }
 
     /**
@@ -147,7 +154,7 @@ class EditorBlockController extends AbstractController
                 '@core-admin/block/editor/block-edit.html.twig',
                 [
                     'form' => $form->createView(),
-                    'block' => $block
+                    'blockContainer' => $block
                 ]
             ); 
         }  catch (\Exception $e) {
@@ -159,6 +166,86 @@ class EditorBlockController extends AbstractController
         }  
     }
 
+    
+    /**
+     * Block Add media to block
+     * 
+     * @param int $blockId
+     * @param string $type
+     * @param int $mediaId
+     * @Route("/add-media/{blockId}/{type}/{mediaId}",
+     * name="editor_block_add_media",
+     * defaults = {"type" = "image", "mediaId" = null}
+     * )
+     * @return Response
+     * @return RedirectResponse
+     */
+    public function addMediaToBlock(int $blockId, string $type = 'image', int $mediaId = null): Response
+    {
+        try {
+            $block = $this->blockVerificator($blockId);
+            
+            if ($mediaId) {
+                $media = $this->mediaVerificator($mediaId);
+                $block->setMedia($media);
+                $this->blockRepo->flush();
+                $this->addFlash(
+                    'success',
+                    'Media Added !'
+                );
+                return $this->redirect($this->generateUrl('editor_block_edit', [
+                    'id' => $blockId
+                ]));
+            } 
+
+            $medias = $this->fileRepo->findBy(['ext' => ['jpg', 'jpeg', 'png' ], 'private' => false]);
+            return $this->render(
+                '@core-admin/block/editor/block-media-editor.html.twig',
+                [
+                    'blockContainer' => $block,
+                    'medias' => $medias
+                ]
+            );
+
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+        }
+    }
+
+    /**
+     * Block Remove Media From Block
+     * 
+     * @param int $blockId
+     * @Route("/remove-media/{blockId}",
+     * name="editor_block_remove_media"
+     * )
+     * @return RedirectResponse
+     */
+    public function removeMediaFromBlock(int $blockId): RedirectResponse
+    {
+        try {
+            $block = $this->blockVerificator($blockId);
+            $block->setMedia(null);
+            $this->blockRepo->flush();
+            $this->addFlash(
+                'success',
+                'Media Added !'
+            );
+            return $this->redirect($this->generateUrl('editor_block_edit', [
+                'id' => $blockId
+            ]));
+
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+        }
+    }
+    
     /**
      * Block Show
      * 
@@ -243,4 +330,23 @@ class EditorBlockController extends AbstractController
         return $block;
     }
 
+    /**
+     * Test if media exists and return it, or redirect to block list index with an error message
+     * 
+     * @param int $mediaId
+     * @return File $media
+     * @return RedirectResponse
+     */
+    public function mediaVerificator(int $mediaId)
+    {
+        $media = $this->fileRepo->find($mediaId);
+        if (!$media) {
+            $this->addFlash(
+                'warning',
+                'There is no Media  with id ' . $mediaId
+            );
+            return $this->redirect($this->generateUrl('editor_block_list'));
+        }
+        return $media;
+    }
 }

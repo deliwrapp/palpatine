@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Core\Entity\Block;
 use App\Core\Entity\Template;
+use App\Core\Entity\FormModel;
 
 class BlockFormType extends AbstractType
 {
@@ -39,6 +40,11 @@ class BlockFormType extends AbstractType
                 'class' => Template::class,
                 'choice_label' => 'name',
                 //'default_value' => 'block/default/default.html.twig',
+            ])
+            ->add('formModel', EntityType::class, [
+                'required'   => false,
+                'class' => FormModel::class,
+                'choice_label' => 'name'
             ])
             ->add('query', TextType::class, [
                 'required'   => false

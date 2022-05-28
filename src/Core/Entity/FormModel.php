@@ -6,13 +6,13 @@ use App\Core\Traits\SoftEditionTrackingTrait;
 use App\Core\Repository\FormModelRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
-
+use ArrayAccess;
 
 /**
  * @ORM\Entity(repositoryClass=FormModelRepository::class)
  * @HasLifecycleCallbacks
  */
-class FormModel implements \Serializable
+class FormModel implements \Serializable, ArrayAccess
 {
 
         public function __construct()
@@ -39,19 +39,28 @@ class FormModel implements \Serializable
         /**
          * @ORM\Column(type="boolean")
          */
-        private $published = false;
+        private $isPublished;
+
+        /**
+         * @ORM\Column(type="string", length=8)
+         */
+        private $locale;
+
+        /**
+         * @var array The Form model field
+         */
+        private $fields;
         
 
         public function getId(): ?int
         {
-                return $this->id;
+            return $this->id;
         }
 
         public function getName(): ?string
         {
             return $this->name;
         }
-    
         public function setName(?string $name): self
         {
             $this->name = $name;
@@ -59,23 +68,56 @@ class FormModel implements \Serializable
             return $this;
         }
 
-        public function getPublished(): bool
+        public function getIsPublished(): bool
         {
             return $this->published;
         }
-
-        public function isPublished(): bool
+        public function setIsPublished(bool $isPublished): self
         {
-            return $this->published;
-        }
-
-        public function setPublished(bool $published): self
-        {
-            $this->published = $published;
+            $this->isPublished = $isPublished;
 
             return $this;
         }
 
+        public function getLocale(): ?string
+        {
+            return $this->locale;
+        }
+        public function setLocale(string $locale): self
+        {
+            $this->locale = $locale;
+
+            return $this;
+        }
+
+        /**
+         * @return array|null
+         */
+        public function getFields()
+        {
+            return $this->fields;
+        }
+        
+        /**
+         * @param array $field
+         */
+        public function addField(array $field): void
+        {
+            if (!$this->fields->contains($field)) {
+                $this->fields[] = $field;
+            }
+        }
+
+        /**
+         * @param array $field
+         */
+        public function removeField(array $field)
+        {
+            if (!$this->fields->contains($field)) {
+                return;
+            }
+            $this->fields->removeElement($field);
+        }
 
         public function __toString()
         {
@@ -87,7 +129,8 @@ class FormModel implements \Serializable
                 return serialize(array(
                 $this->id,
                 $this->name,
-                $this->published,
+                $this->isPublished,
+                $this->locale,
                 ));
         }
 
@@ -96,8 +139,33 @@ class FormModel implements \Serializable
                 list (
                 $this->id,
                 $this->name,
-                $this->published,
+                $this->isPublished,
+                $this->locale,
                 ) = unserialize($serialized);
+        }
+
+        public function duplicate(FormModel $formModel): Page
+        {
+            $formModel->setName($this->name);
+            $formModel->setLocale($this->locale);
+            return $formModel;
+        }
+    
+        public function offsetExists($offset) {
+            $value = $this->{"get$offset"}();
+            return $value !== null;
+        }
+
+        public function offsetSet($offset, $value) {
+            $this->{"set$offset"}($value);
+        }
+
+        public function offsetGet($offset) {
+            return $this->{"get$offset"}();
+        }
+
+        public function offsetUnset($offset) {
+            $this->{"set$offset"}(null);
         }
 
 }

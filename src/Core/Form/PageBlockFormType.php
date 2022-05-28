@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Core\Entity\PageBlock;
 use App\Core\Entity\Template;
+use App\Core\Entity\FormModel;
 
 class PageBlockFormType extends AbstractType
 {
@@ -29,6 +30,11 @@ class PageBlockFormType extends AbstractType
                 'class' => Template::class,
                 'choice_label' => 'name',
                 //'default_value' => 'block/default/default.html.twig',
+            ])
+            ->add('formModel', EntityType::class, [
+                'required'   => false,
+                'class' => FormModel::class,
+                'choice_label' => 'name'
             ])
             ->add('query', TextType::class, [
                 'required'   => false

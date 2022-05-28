@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Core\Entity\Page;
 use App\Core\Entity\PageBlock;
 use App\Core\Entity\Block;
+use App\Core\Entity\File;
 use App\Core\Repository\PageRepository;
 use App\Core\Repository\BlockRepository;
 use App\Core\Repository\PageBlockRepository;
@@ -25,7 +26,7 @@ use App\Core\Factory\TemplateFactory;
  * @IsGranted("ROLE_EDITOR",statusCode=401, message="No access! Get out!")
  * @Route("/editor/page")
  */
-class EditorPageBlockController  extends AbstractController
+class EditorPageBlockController extends AbstractController
 {
     /** @var PageRepository */
     private $pageRepo;
@@ -308,8 +309,8 @@ class EditorPageBlockController  extends AbstractController
     /**
      * PageBlock Add media to block
      * 
-     * @param int $pageBlockId
      * @param int $pageId
+     * @param int $pageBlockId
      * @param string $type
      * @param int $mediaId
      * @Route("/{pageId}/page-block-editor/{pageBlockId}/add-media/{type}/{mediaId}",
@@ -357,13 +358,11 @@ class EditorPageBlockController  extends AbstractController
         }
     }
 
-        /**
+    /**
      * PageBlock Remove Media From Block
      * 
-     * @param int $pageBlockId
      * @param int $pageId
-     * @param string $type
-     * @param int $mediaId
+     * @param int $pageBlockId
      * @Route("/{pageId}/page-block-editor/{pageBlockId}/remove-media",
      * name="editor_page_block_remove_media"
      * )
@@ -492,8 +491,8 @@ class EditorPageBlockController  extends AbstractController
         return true;
     }
 
-        /**
-     * Test if media exists and return it, or redirect to menu list index with an error message
+    /**
+     * Test if media exists and return it, or redirect to page list index with an error message
      * 
      * @param int $mediaId
      * @return File $media
@@ -511,4 +510,5 @@ class EditorPageBlockController  extends AbstractController
         }
         return $media;
     }
+    
 }

@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('editor_block_delete', {'id': block.id}) }}" onsubmit="return confirm('Are you sure you want to delete this block?');">
+<form method="post" action="{{ path('editor_block_delete', {'id': blockContainer.id}) }}" onsubmit="return confirm('Are you sure you want to delete this block?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete-block') }}">
     <button class="btn -danger">Delete</button>
 </form>

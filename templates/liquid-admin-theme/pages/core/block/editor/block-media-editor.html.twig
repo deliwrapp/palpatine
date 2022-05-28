@@ -1,0 +1,74 @@
+{% extends 'liquid-admin-theme/layout-admin.html.twig' %}
+
+{% block title %}ADMIN BLOCK EDIT{% endblock %}
+
+{% block mainContent %}
+
+<section class="col -col-12">
+    {% if blockContainer is defined %}
+        <section class="col -col-12">
+            <a class="btn -block" href="{{ path('editor_block_edit', { 'id': blockContainer.id }) }}">back to block editor</a>
+        </section>
+        <div class="panel -bg-white -b-rounded-md -shad-8 -w-f -flex -flex-row -wrap -justify-center">
+            {% if medias is defined %}
+                {% for file in medias %}
+                    <section class=" col -col-2 -md4 -sm6 -xs6 -justify-center -items-center -wrap -shad-12-h" id="file-{{file.id}}">
+                        <div class="card -shad-4">
+                            {% set mediaImgList = ['png', 'jpg', 'jpeg', 'gif', 'bmp'] %}
+                            <div class="-card-image -flex -justify-space-evenly -items-center">
+                                {% if file.ext in mediaImgList %}
+                                    {% set mediaPath = file.private ? path('serve_private_file', {'filename': file.originalFilename}) : asset(file.filePath) %}
+                                    <img class="img-responsive" src="{{mediaPath}}" alt="{{file.name}}"> 
+                                {% else %}
+                                    <div class="file-icon file-icon-xl -m2" data-type="{{file.ext}}"></div>
+                                {% endif %}
+                                </div>
+                            <div class="card-header -pl3 -flex -flex-column -justify-space-evenly -items-center -wrap ">
+                                <a
+                                    target="_blank"
+                                    href="{{ path( 'editor_file_show', {'id': file.id }) }}"
+                                    class="-m0 -t-bld -t-tiny"
+                                >
+                                    {{ file.name ~ '.' ~ file.ext}}  
+                                </a>
+                                <div class="-subtitle text-gray -m0 -t-i -t-tiny">
+                                    {{ file.private ? 'private':'public' }}
+                                </div>
+                            </div>
+                            <div class="-card-footer">
+                                <div class="-flex -justify-space-evenly -items-center -wrap -shad-12 -pr2 -pl2 -w-f">
+                                    {% if is_granted('ROLE_EDITOR')%}
+                                        {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
+                                            'path': file.private ? path('download_private_file', {'filename': file.originalFilename}) : asset(file.filePath),
+                                            'action': 'download',
+                                            'tooltip': 'download file',
+                                            'target': 'blank',
+                                            'icon': 'fas fa-download'
+                                        } %}
+                                        {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
+                                            'path': path( 'editor_file_edit', { 'id': file.id }),
+                                            'action': 'edit',
+                                            'tooltip': 'edit file',
+                                            'target': 'blank',
+                                            'icon': 'fa-regular fa-pen-to-square'
+                                        } %}
+                                        {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
+                                            'path': path('editor_block_add_media', { 'blockId': blockContainer.id, 'type': 'image', 'mediaId': file.id}),
+                                            'action': 'add',
+                                            'tooltip': 'add media to block',
+                                            'icon': 'fas fa-plus'
+                                        } %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                {% endfor %} 
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
+
+
+

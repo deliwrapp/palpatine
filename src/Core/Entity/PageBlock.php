@@ -7,6 +7,7 @@ use App\Core\Entity\Page;
 use App\Core\Entity\Block;
 use App\Core\Entity\Template;
 use App\Core\Entity\File;
+use App\Core\Entity\FormModel;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,6 +58,11 @@ class PageBlock
      */
     private $media;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Core\Entity\FormModel")
+     */
+    private $formModel;
+
     /**
      * @ORM\Column(type="boolean")
      */
@@ -150,6 +156,18 @@ class PageBlock
         return $this;
     }
 
+    public function getFormModel(): ?FormModel
+    {
+        return $this->formModel;
+    }
+
+    public function setFormModel(?FormModel $formModel): self
+    {
+        $this->formModel = $formModel;
+
+        return $this;
+    }
+
     public function getIsPublished(): ?bool
     {
         return $this->isPublished;
@@ -210,6 +228,7 @@ class PageBlock
         $pageBlock->setQuery($this->query);
         $pageBlock->setSingleResult($this->singleResult);
         $pageBlock->setBlockTemplate($this->blockTemplate);
+        $pageBlock->setMedia($this->media);
         if ($full) {
             $pageBlock->setPosition($this->position);
         }
@@ -224,6 +243,7 @@ class PageBlock
         $block->setSingleResult($this->singleResult);
         $block->setLocale($this->page->getLocale());
         $block->setBlockTemplate($this->blockTemplate);
+        $block->setMedia($this->media);
         return $block;
     }
 

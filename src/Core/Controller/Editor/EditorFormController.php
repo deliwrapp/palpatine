@@ -98,13 +98,12 @@ class EditorFormController extends AbstractController
      * FormModel Edit
      * 
      * @param int $id
-     * @param string $opt
      * @param Request $request
-     * @Route("/update/{id}/{opt}", name="editor_form_edit") 
+     * @Route("/update/{id}", name="editor_form_edit") 
      * @return Response 
      * @return RedirectResponse
      */
-    public function edit(int $id, string $opt = null, Request $request): Response
+    public function edit(int $id, Request $request): Response
     {
         try {
             $formModel = $this->formVerificator($id);
@@ -125,7 +124,7 @@ class EditorFormController extends AbstractController
                 ]));
             } 
             return $this->render(
-                '@core-admin/menu/editor/form-edit.html.twig',
+                '@core-admin/form/editor/form-edit.html.twig',
                 [
                     'form' => $form->createView(),
                     'formModel' => $formModel
