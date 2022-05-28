@@ -3,7 +3,7 @@
 {% block title %}PAGES LIST{% endblock %}
 
 {% block mainContent %}
-<section class="col -col-12" id="page-list">    
+<section class="col -col-12  -mb10 -pb10" id="page-list">    
     {% if pages is defined and pages is not empty %}
         {% include 'liquid-ui/components/layout/table/table.html.twig' with {
                 'tableHeadItems' : [

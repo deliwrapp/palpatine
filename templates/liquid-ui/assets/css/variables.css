@@ -1249,7 +1249,7 @@
     --bar-wrap: wrap;
     --bar-width: 100%;
     --bar-min-height: 1rem;
-    --bar-index: 4;
+    --bar-index: inherit;
     --bar-padding-v: 0.1rem;
     --bar-padding-h: 0;
     /* ---- BAR-COLLAPSE ---- */

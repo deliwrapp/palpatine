@@ -3,8 +3,8 @@
 {% block title %}FORM LIST{% endblock %}
 
 {% block mainContent %}
-<section class="col -col-12" id="template-list">
-    {% if templates is defined and templates is not empty %}
+<section class="col -col-12  -mb10 -pb10" id="template-list">
+    {% if formModels is defined and formModels is not empty %}
         {% include 'liquid-ui/components/layout/table/table.html.twig' with {
                 'tableHeadItems' : [
                     {
@@ -20,7 +20,7 @@
                         'attr': 'locale'
                     },
                     {
-                        'text': 'published',
+                        'text': 'isPublished',
                         'attr': 'isPublished'
                     },
                 ],

@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Core\Entity\Template;
 
@@ -26,6 +27,16 @@ class TemplateFormType extends AbstractType
             ])
             ->add('isPublished', CheckboxType::class, [
                 'required'   => false
+            ])
+            ->add('type', ChoiceType::class, [
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+                'choices'  => [
+                  'Block' => 'block',
+                  'Email' => 'email',
+                  'Form' => 'form'
+                ],
             ]);
             
         if ($options) {

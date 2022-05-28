@@ -17,6 +17,7 @@ class Template implements ArrayAccess
     public function __construct()
     {
         $this->isPublished = false;
+        $this->type = 'block';
     }
 
     use SoftEditionTrackingTrait;
@@ -52,6 +53,11 @@ class Template implements ArrayAccess
      * @ORM\Column(type="boolean")
      */
     private $isPublished;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $type;
 
     
     public function getId(): ?int
@@ -118,6 +124,18 @@ class Template implements ArrayAccess
         return $this;
     }
 
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
     public function __toString()
     {
         return (string) $this->getTemplatePath();
@@ -129,6 +147,7 @@ class Template implements ArrayAccess
         $template->setTemplatePath($this->templatePath);
         $template->setCssLink($this->cssLink);
         $template->setScriptLink($this->scriptLink);
+        $template->setType($this->type);
         return $template;
     }
 

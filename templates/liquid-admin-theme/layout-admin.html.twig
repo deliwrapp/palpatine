@@ -37,10 +37,10 @@
 {% block body %}
   <section class="liquid-app">
     <section id="top-page" class="liquid-page-container">
-      <header {% block headerAttr %}  {% endblock %} >
+      <header {% block headerAttr %} {% endblock %} >
         {% block header %}
           <span 
-            class=" -fixed -left-1rm -top-1rm nav-side-btn swipe-m-trigger -z5" 
+            class=" -fixed -left-1rm -top-1rm nav-side-btn swipe-m-trigger -z200" 
             data-panel="menu-left-panel" 
             data-open-panel="-open"
             data-close-panel="-close"
@@ -53,7 +53,7 @@
             {% if adminConfig["main_menu"] is defined and adminConfig["main_menu"] is not null %}
               {% if adminConfig["main_menu"][pathPrefixBasedOnRole ~ "_menu"] is defined and adminConfig["main_menu"][pathPrefixBasedOnRole ~ "_menu"] is not null %}
                 {% include 'liquid-ui/components/layout/nav/nav.html.twig' with {
-                  'class': '-shad-12 -fixed -top -light',
+                  'class': '-shad-12 -fixed -top -light -z100',
                   'color': '-bg-light',
                   'navItemsCenter' : adminConfig["main_menu"][pathPrefixBasedOnRole ~ "_menu"]['items']
                 } %} 
@@ -61,7 +61,7 @@
             {% endif %}           
           {% endif %}
         {% endblock %}
-        <div class="-relative -top-5rm">
+        <div class="-relative -top-5rm -z10">
           {% include 'liquid-ui/components/ui/toasts.html.twig' %}
         </div>
       </header>

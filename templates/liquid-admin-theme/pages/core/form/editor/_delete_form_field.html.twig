@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('editor_form_field_delete', {'formId': formModel.id, 'formFieldId': field.id}) }}" onsubmit="return confirm('Are you sure you want to delete this field?');">
+    <input type="hidden" name="token" value="{{ csrf_token('delete-field-form') }}">
+    <button class="btn -danger">Delete</button>
+</form>

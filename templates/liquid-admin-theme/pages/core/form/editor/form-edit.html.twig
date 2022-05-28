@@ -4,7 +4,7 @@
 
 {% block mainContent %}
 <section class="col -col-12">
-    <a class="btn -block" href="{{ path('admin_template_list') }}">back to list</a>
+    <a class="btn -block" href="{{ path('editor_form_list') }}">back to list</a>
     <div class="panel -bg-white -b-rounded-md -shad-8 -w-f">
         <div class="-panel-header -text-center -flex -justify-space-evenly">
             {% if formModel is defined and formModel is not null %}
@@ -20,7 +20,7 @@
         </div>
         {{ form_start(form, {'attr': {'class': '-w-f'}}) }}
             <section class="-panel-body -flex -wrap">
-                <div class="col -col-6 -md6 -sm12 -xs12">
+                <div class="col -col-4 -md6 -sm12 -xs12">
                     {{ form_label(form.name, null, {
                         'label_attr': {'class': '-t-c -t-bld -color-dark'}
                     }) }}
@@ -31,7 +31,20 @@
                         <i class="form-icon fa-solid fa-heading"></i>
                     </div>
                 </div>
-                <div class="col -col-3 -md3 -sm12 -xs12">
+                
+                <div class="col -col-4 -md6 -sm12 -xs12">
+                    <small>{{ form_help(form.mailTemplate) }}</small>
+                    {{ form_errors(form.locale) }}
+                    <div class="form-element">
+                        {{ form_label(form.mailTemplate, null, {
+                            'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                        }) }}
+                        <div class="-sm9">
+                            {{ form_widget(form.mailTemplate, {'attr': {'class': 'form-select -shad-12'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col -col-2 -md6 -sm12 -xs12">
                     <small>{{ form_help(form.locale) }}</small>
                     {{ form_errors(form.locale) }}
                     <div class="form-element">
@@ -43,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col -col-3 -md3 -sm6 -xs6">
+                <div class="col -col-2 -md6 -sm6 -xs6">
                     <div class="form-element">
                         <label class="switch">
                             {{ form_widget(form.isPublished) }}
@@ -61,7 +74,112 @@
         {{ form_end(form) }}   
     </div>
 </section>
-{% endblock %}
+{% if formModel is defined and formModel is not null %}
+    <section class="col -col-12 -z0 bar -shad-12 -justify-space-evenly">
+        <a 
+            class="btn -primary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+            data-tooltip="Add a Text Field"
+            href="{{ path('editor_form_field_create',{'formId': formModel.id, 'type': 'text'}) }}"
+        > 
+            Add Text Field <i class="fas fa-font"></i>
+        </a>
 
+        <a 
+            class="btn -secondary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+            data-tooltip="Add a Text Field"
+            href="{{ path('editor_form_field_create',{'formId': formModel.id, 'type': 'integer'}) }}"
+        > 
+            Add Number Field <i class="fas fa-arrow-down-1-9"></i>
+        </a>
+
+        <a 
+            class="btn -tertiary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+            data-tooltip="Add a Text Field"
+            href="{{ path('editor_form_field_create',{'formId': formModel.id, 'type': 'checkbox'}) }}"
+        > 
+            Add Checkbox Field <i class="fas fa-check-to-slot"></i>
+        </a>
+
+        <a 
+            class="btn -success btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+            data-tooltip="Add a Text Field"
+            href="{{ path('editor_form_field_create',{'formId': formModel.id, 'type': 'radio'}) }}"
+        > 
+            Add Radio Field <i class="fas fa-circle-dot"></i>
+        </a>
+
+        <a 
+            class="btn -warning btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+            data-tooltip="Add a Text Field"
+            href="{{ path('editor_form_field_create',{'formId': formModel.id, 'type': 'select'}) }}"
+        > 
+            Add Select Field <i class="fas fa-list"></i>
+        </a>
+
+        <a 
+            class="btn -light btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+            data-tooltip="Add a Text Area Field"
+            href="{{ path('editor_form_field_create',{'formId': formModel.id, 'type': 'textarea'}) }}"
+        > 
+            Add Text Area Field <i class="fas fa-comment"></i>
+        </a>
+    
+    </section>
+    <section class="col -col-12">
+        {% if formModel.fields is defined and formModel.fields is not empty %}
+            {% for field in formModel.fields %}
+                <section class="-shad-12">
+                    <div class="col -col-12 bar -justify-space-evenly -shad-12">
+                        <p class="-t-u -t-bld">{{field.label}} - type : {{field.type}}</p>
+                        {{ include('liquid-admin-theme/pages/core/form/editor/_delete_form_field.html.twig') }}
+                    </div>
+                    <form name="form_model_field_form" method="post" action="{{ path('editor_form_field_edit', {'formId': formModel.id, 'formFieldId': field.id}) }}" class="-w-f">
+                        <section class="-panel-body -flex -wrap">
+                            <div class="col -col-4 -md4 -sm12 -xs12">
+                                <label class="-t-c -t-bld -color-dark required" for="form_model_field_form_label">Label</label>
+                                <small></small>
+                                <div class="form-element has-icon-right">
+                                    <input type="text" id="form_model_field_form_label" name="form_model_field_form[label]" required="required" class="form-field -shad-12-h" value="{{field.label}}">
+                                    <i class="form-icon fa-solid fa-heading"></i>
+                                </div>
+                            </div>
+                            <div class="col -col-4 -md4 -sm12 -xs12">
+                                <label class="-t-c -t-bld -color-dark" for="form_model_field_form_defaultValue">Default value</label>
+                                <small></small>
+                                <div class="form-element has-icon-right">
+                                    <input type="text" id="form_model_field_form_defaultValue" name="form_model_field_form[defaultValue]" class="form-field -shad-12-h" value="{{field.defaultValue}}">
+                                    <i class="form-icon fa-solid fa-heading"></i>
+                                </div>
+                            </div>
+                            <div class="col -col-4 -md4 -sm12 -xs12">
+                                <label class="-t-c -t-bld -color-dark" for="form_model_field_form_placeholder">Placeholder</label>
+                                <small></small>
+                                <div class="form-element has-icon-right">
+                                    <input type="text" id="form_model_field_form_placeholder" name="form_model_field_form[placeholder]" class="form-field -shad-12-h" value="{{field.placeholder}}">
+                                    <i class="form-icon fa-solid fa-heading"></i>
+                                </div>
+                            </div>
+                            <div class="col -col-8 -md8 -sm12 -xs12">
+                                <label class="-t-c -t-bld -color-dark" for="form_model_field_form_options">Options</label>
+                                <small></small>
+                                <div class="form-element has-icon-right">
+                                    <input type="text" id="form_model_field_form_options" name="form_model_field_form[options]" class="form-field -shad-12-h" value="{{field.options}}">
+                                    <i class="form-icon fa-solid fa-heading"></i>
+                                </div>
+                            </div>
+                            <div class="col -col-4 -md4 -sm12 -xs12">
+                                <button type="submit" id="form_model_field_form_submit" name="form_model_field_form[submit]" class="-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl">Edit</button>
+                            </div>
+                        </section>
+                    <input type="hidden" id="form_model_field_form__token" name="form_model_field_form[_token]" value="c7f9b5a2fa5b991ac79.UhJngtu-1RU939BT0DA2Nbj3ojFnd6dukAvD-VqMWfY.OWc22uvw42AMl-EX6UBMc9Okk3VQQcUf8VixgTXCPttqcTHkgdu8X3Czpw">
+                </form>
+            </section>
+            <hr>
+            {% endfor %}
+        {% endif %}
+    </section>
+{% endif %}
+
+{% endblock %}
 
 

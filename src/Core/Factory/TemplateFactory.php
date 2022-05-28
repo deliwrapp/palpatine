@@ -37,6 +37,7 @@ class TemplateFactory
         $tpl->setCssLink('default-block-css');
         $tpl->setScriptLink('default-block-js');
         $tpl->setIsPublished(true);
+        $tpl->setType('block');
         $this->tplRepo->add($tpl);
         return $tpl;
     }

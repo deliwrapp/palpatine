@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Doctrine\ORM\EntityRepository;
 use App\Core\Entity\PageBlock;
 use App\Core\Entity\Template;
 use App\Core\Entity\FormModel;
@@ -29,12 +30,24 @@ class PageBlockFormType extends AbstractType
             ->add('blockTemplate', EntityType::class, [
                 'class' => Template::class,
                 'choice_label' => 'name',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->where('t.type = :type')
+                        ->setParameter('type', "block")
+                        ->orderBy('t.name', 'ASC');
+                }
                 //'default_value' => 'block/default/default.html.twig',
             ])
             ->add('formModel', EntityType::class, [
                 'required'   => false,
                 'class' => FormModel::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('f')
+                        ->where('f.isPublished = :isPublished')
+                        ->setParameter('isPublished', true)
+                        ->orderBy('f.name', 'ASC');
+                }
             ])
             ->add('query', TextType::class, [
                 'required'   => false

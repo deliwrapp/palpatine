@@ -9,8 +9,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Core\Entity\FormModel;
+use App\Core\Entity\FormModelField;
 use App\Core\Repository\FormModelRepository;
+use App\Core\Repository\FormModelFieldRepository;
 use App\Core\Form\FormModelFormType;
+use App\Core\Form\FormModelFieldFormType;
 use App\Core\Factory\FormModelFactory;
 use App\Core\Verificator\FormModelVerificator;
 
@@ -25,6 +28,9 @@ class EditorFormController extends AbstractController
     /** @var FormModelRepository */
     private $formRepo;
 
+    /** @var FormModelFieldRepository */
+    private $formFieldRepo;
+
     /** @var FormModelFactory */
     private $formFactory;
 
@@ -33,13 +39,15 @@ class EditorFormController extends AbstractController
 
     public function __construct(
         FormModelRepository $formRepo,
+        FormModelFieldRepository $formFieldRepo,
         FormModelFactory $formFactory,
         FormModelVerificator $formVerif
     )
     {
-        $this->menuRepo = $formRepo;      
-        $this->menuFactory = $formFactory;       
-        $this->menuVerif = $formVerif;
+        $this->formRepo = $formRepo; 
+        $this->formFieldRepo = $formFieldRepo;       
+        $this->formFactory = $formFactory;       
+        $this->formVerif = $formVerif;
     }
 
     /**
@@ -52,7 +60,7 @@ class EditorFormController extends AbstractController
     {
         try {
             $formModels = $this->formRepo->findAll();
-            return $this->render('@core-admin/menu/editor/form-list.html.twig', [
+            return $this->render('@core-admin/form/editor/form-list.html.twig', [
                 'formModels' => $formModels
             ]);
         } catch (\Exception $e) {
@@ -80,7 +88,7 @@ class EditorFormController extends AbstractController
             $this->formRepo->flush();
             $this->addFlash(
                 'info',
-                'Saved new Menu with id '.$formModel->getId()
+                'Saved new Form with id '.$formModel->getId()
             );
             return $this->redirect($this->generateUrl('editor_form_edit', [
                 'id' => $formModel->getId()
@@ -105,38 +113,35 @@ class EditorFormController extends AbstractController
      */
     public function edit(int $id, Request $request): Response
     {
-        try {
-            $formModel = $this->formVerificator($id);
-            $form = $this->createForm(FormModelFormType::class, $formModel, [
-                'submitBtn' => 'Edit'
-            ]);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                
-                $formModel = $form->getData();
-                $this->formRepo->flush();
-                $this->addFlash(
-                    'info',
-                    'FormModel updated'
-                );
-                return $this->redirect($this->generateUrl('editor_form_edit', [
-                    'id' => $formModel->getId()
-                ]));
-            } 
-            return $this->render(
-                '@core-admin/form/editor/form-edit.html.twig',
-                [
-                    'form' => $form->createView(),
-                    'formModel' => $formModel
-                ]
-            );
-        }  catch (\Exception $e) {
+       
+        $formModel = $this->formVerificator($id);
+        $formModelField = $this->formFactory->createFormField();
+        $form = $this->createForm(FormModelFormType::class, $formModel, [
+            'submitBtn' => 'Edit'
+        ]);
+        $formField = $this->createForm(FormModelFieldFormType::class, $formModelField);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $formModel = $form->getData();
+            $this->formRepo->flush();
             $this->addFlash(
-                'danger',
-                $e->getMessage()
+                'info',
+                'FormModel updated'
             );
-            return $this->redirect($this->generateUrl('editor_form_list'));
-        }
+            return $this->redirect($this->generateUrl('editor_form_edit', [
+                'id' => $formModel->getId()
+            ]));
+        } 
+        return $this->render(
+            '@core-admin/form/editor/form-edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'formModel' => $formModel,
+                'formField' => $formField->createView()
+            ]
+        );
+     
     }
 
     /**
@@ -174,7 +179,7 @@ class EditorFormController extends AbstractController
     {
         try {
             $formModel = $this->formVerificator($id);
-            return $this->render('@core-admin/menu/editor/form-show.html.twig', [
+            return $this->render('@core-admin/form/editor/form-show.html.twig', [
                 'formModel' => $formModel
             ]);
         }  catch (\Exception $e) {
@@ -200,7 +205,7 @@ class EditorFormController extends AbstractController
             $submittedToken = $request->request->get('token'); 
             if ($this->isCsrfTokenValid('delete-form', $submittedToken)) {
                 $formModel = $this->formVerificator($id);
-                $this->mformRepo->remove($formModel);
+                $this->formRepo->remove($formModel);
                 $this->addFlash(
                     'success',
                     'The FormModel with ' . $id . ' have been deleted '
@@ -229,14 +234,14 @@ class EditorFormController extends AbstractController
      * @Route("/add-field-to/{formId}/{type}", name="editor_form_field_create")
      * @return RedirectResponse
      */
-    public function addField(Request $request, int $formId, string $type = "text"): RedirectResponse
+    public function addFormField(Request $request, int $formId, string $type = "text"): RedirectResponse
     {
         try {
             $formModel = $this->formVerificator($formId);
-            
+            $formModel = $this->formFactory->addField($formModel, $type);
             $this->addFlash(
                 'info',
-                'New Menu Item'
+                'New Form Field'
             );
             return $this->redirect($this->generateUrl('editor_form_edit', [
                 'id' => $formId
@@ -254,25 +259,32 @@ class EditorFormController extends AbstractController
      * FormModel Edit field
      * 
      * @param Request $request
-     * @param int $menuItemId
      * @param int $formId
+     * @param int $formFieldId
      * @param string $type = "page"
-     * @Route("/edit-field/{formId}", name="editor_form_field_edit")
-     * @return Response
+     * @Route("/{formId}/edit-field/{formFieldId}", name="editor_form_field_edit")
      * @return RedirectResponse
      */
-    public function editMenuItem(Request $request, int $formId): Response
+    public function editFormField(Request $request, int $formId, int $formFieldId): RedirectResponse
     {
         try {
-            $formModel = $this->formVerificator($formId);
             
-            return $this->render(
-                '@core-admin/menu/editor/form-field-edit.html.twig',
-                [
-                    
-                    'formModel' => $formModel
-                ]
-            );
+            $formModel = $this->formVerificator($formId);
+            $formField = $this->formFieldVerificator($formFieldId);
+            $this->formFieldLinkVerificator($formModel, $formField);
+            $formField = $this->createForm(FormModelFieldFormType::class, $formField);
+            $formField->handleRequest($request);
+            if ($formField->isSubmitted() && $formField->isValid()) {
+                $formField = $formField->getData();
+                $this->formFieldRepo->flush();
+                $this->addFlash(
+                    'info',
+                    'Form Field updated'
+                );
+            }
+            return $this->redirect($this->generateUrl('editor_form_edit', [
+                'id' => $formModel->getId()
+            ]));
         }  catch (\Exception $e) {
             $this->addFlash(
                 'danger',
@@ -288,19 +300,21 @@ class EditorFormController extends AbstractController
      * 
      * @param Request $request
      * @param int $formId
-     * @Route("/delete-field/{formId}", name="editor_menu_item_delete")
+     * @Route("/{formId}/delete-field/{formFieldId}", name="editor_form_field_delete")
      * @return RedirectResponse
      */
-    public function deleteMenuItem(Request $request, int $formId): RedirectResponse
+    public function deleteFormField(Request $request, int $formId, int $formFieldId): RedirectResponse
     {
         try {
             $submittedToken = $request->request->get('token'); 
             if ($this->isCsrfTokenValid('delete-field-form', $submittedToken)) {
-                $this->formVerificator($formId);
-                
+                $formModel = $this->formVerificator($formId);
+                $formField = $this->formFieldVerificator($formFieldId);
+                $this->formFieldLinkVerificator($formModel, $formField);
+                $this->formFactory->removeField($formModel, $formField);
                 $this->addFlash(
                     'info',
-                    'Menu Item deleted'
+                    'Form Field deleted'
                 );
             } else {
                 $this->addFlash(
@@ -308,7 +322,7 @@ class EditorFormController extends AbstractController
                     'Your CSRF token is not valid ! '
                 );
             }
-            return $this->redirect($this->generateUrl('editor_mform_edit', [
+            return $this->redirect($this->generateUrl('editor_form_edit', [
                 'id' => $formId
             ]));
         }  catch (\Exception $e) {
@@ -324,7 +338,7 @@ class EditorFormController extends AbstractController
      * Test if FormModel exists and return it, or redirect to FormModel list index with an error message
      * 
      * @param int $formId
-     * @return FormIModel $formModel
+     * @return FormModel $formModel
      * @return RedirectResponse
      */
     public function formVerificator(int $formId)
@@ -338,5 +352,46 @@ class EditorFormController extends AbstractController
             return $this->redirect($this->generateUrl('editor_form_list'));
         }
         return $formModel;
+    }
+    /**
+     * Test if FormModelField exists and return it, or redirect to FormModel list index with an error message
+     * 
+     * @param int $formFieldId
+     * @return FormModelField $formField
+     * @return RedirectResponse
+     */
+    public function formFieldVerificator(int $formFieldId)
+    {
+        $formField = $this->formFieldRepo->find($formFieldId);
+        if (!$formField) {
+            $this->addFlash(
+                'warning',
+                'There is no Form Field  with id ' . $formFieldId
+            );
+            return $this->redirect($this->generateUrl('editor_form_list'));
+        }
+        return $formField;
+    }
+
+    /**
+     * Test if FormMode and FormField are linked, return true or redirect to form edit page with an error message
+     * 
+     * @param PageBlock $pageBlock
+     * @param Page $pageId
+     * @return bool
+     * @return RedirectResponse
+     */
+    public function formFieldLinkVerificator(FormModel $formModel, FormModelField $formModelField)
+    {
+        if ($formModel !== $formModelField->getFormModel()) {
+            $this->addFlash(
+                'warning',
+                'The Form and the Field are not linked '
+            );
+            return $this->redirect($this->generateUrl('editor_form_edit', [
+                'id' => $formModel->getId()
+            ]));
+        }
+        return true;
     }
 }

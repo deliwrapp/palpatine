@@ -94,10 +94,10 @@ class MenuLoader
 
     /**
      * Get a Menu defined by id
-     *
+     * @param int $id
      * @return Menu|null $menu
      */
-    public function getMenuById($name) {
+    public function getMenuById($id) {
         $menu = $this->menuRepo->findOneBy(['id' => $id]);
         return $menu;
     }

@@ -20,7 +20,7 @@
         </div>
         {{ form_start(form, {'attr': {'class': '-w-f'}}) }}
             <section class="-panel-body -flex -wrap">
-                <div class="col -col-5 -md4 -sm12 -xs12">
+                <div class="col -col-4 -md4 -sm12 -xs12">
                     {{ form_label(form.name, null, {
                         'label_attr': {'class': '-t-c -t-bld -color-dark'}
                     }) }}
@@ -31,8 +31,7 @@
                         <i class="form-icon fa-solid fa-heading"></i>
                     </div>
                 </div>
-
-                <div class="col -col-5 -md5 -sm12 -xs12">
+                <div class="col -col-4 -md4 -sm12 -xs12">
                     <small>{{ form_help(form.templatePath) }}</small>
                     {{ form_errors(form.templatePath) }}
                     <div class="form-element">
@@ -42,6 +41,41 @@
                         <div class="-sm9">
                             {{ form_widget(form.templatePath, {'attr': {'class': 'form-select -shad-12'}}) }}
                         </div>
+                    </div>
+                </div>
+                <div class="col -col-4 -md4 -sm12 -xs12">
+                    <small>{{ form_help(form.type) }}</small>
+                    {{ form_errors(form.templatePath) }}
+                    <div class="form-element">
+                        {{ form_label(form.type, null, {
+                            'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                        }) }}
+                        <div class="-sm9">
+                            {{ form_widget(form.type, {'attr': {'class': 'form-select -shad-12'}}) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col -col-5 -md5 -sm12 -xs12">
+                    {{ form_label(form.cssLink, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.cssLink) }}</small>
+                    {{ form_errors(form.cssLink) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(form.cssLink, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-link"></i>
+                    </div>
+                </div>
+                <div class="col -col-5 -md4 -sm12 -xs12">
+                    {{ form_label(form.scriptLink, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.scriptLink) }}</small>
+                    {{ form_errors(form.scriptLink) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(form.scriptLink, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-code"></i>
                     </div>
                 </div>
                 <div class="col -col-2 -md3 -sm6 -xs6">
@@ -55,30 +89,6 @@
                     <small>{{ form_help(form.isPublished) }}</small>
                     {{ form_errors(form.isPublished) }} 
                 </div>
-
-                <div class="col -col-6 -md6 -sm12 -xs12">
-                    {{ form_label(form.cssLink, null, {
-                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
-                    }) }}
-                    <small>{{ form_help(form.cssLink) }}</small>
-                    {{ form_errors(form.cssLink) }}
-                    <div class="form-element has-icon-right">
-                        {{ form_widget(form.cssLink, {'attr': {'class': 'form-field -shad-12-h'}}) }}
-                        <i class="form-icon fa-solid fa-link"></i>
-                    </div>
-                </div>
-                <div class="col -col-6 -md6 -sm12 -xs12">
-                    {{ form_label(form.scriptLink, null, {
-                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
-                    }) }}
-                    <small>{{ form_help(form.scriptLink) }}</small>
-                    {{ form_errors(form.scriptLink) }}
-                    <div class="form-element has-icon-right">
-                        {{ form_widget(form.scriptLink, {'attr': {'class': 'form-field -shad-12-h'}}) }}
-                        <i class="form-icon fa-solid fa-code"></i>
-                    </div>
-                </div>
-
             </section>
 
             <section class="-panel-footer -text-center ">

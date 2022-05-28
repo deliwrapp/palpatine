@@ -83,6 +83,7 @@ class PageFormType extends AbstractType
                 break;
             default:   
                 $userRoles = $this->params->get('userRoles');
+                $localesList = $this->params->get('appLocalesList');
                 $builder
                     ->add('name', TextType::class) 
                     ->add('isPublished', CheckboxType::class)
@@ -94,11 +95,7 @@ class PageFormType extends AbstractType
                         'choices'  => $userRoles,
                     ])
                     ->add('locale', ChoiceType::class, [
-                        'choices'  => [
-                            'français' => 'fr',
-                            'english' => 'en',
-                            'portugues' => 'pt'
-                        ]
+                        'choices'  => array_flip($localesList)
                     ])
                     ->add('submit', SubmitType::class, [
                         'label' => 'Validate'

@@ -4,8 +4,7 @@
     flex-direction: var(--bar-direction);
     justify-content: var(--bar-align-content);
     align-items: var(--bar-align-items);
-    flex-wrap: var(--bar-wrap);;
-    z-index: var(--bar-index);
+    flex-wrap: var(--bar-wrap);
     width: var(--bar-width);
     min-height: var(--bar-min-height);
     padding: var(--bar-padding-v) var(--bar-padding-h);
