@@ -1,10 +1,12 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    ## EMAIL CONFIGURATION
     default_form_mail_receiver: 'contact@surikatstudio.com'
     default_mail_from_address: 'provider@deliwrapp.com'
-    default_mail_from_name: 'Bloogy App Mail Test'
+    default_mail_from_name: 'Bloogy Test Mail'
+    ## WEBSITE CONFIGURATION
     homepage_path: '/%kernel.default_locale%'
+    ## LOCALIZATION CONFIGURATION
     locale: fr
     appLocales: 'fr|en|es|pt|it|de|nl|pl|cs'
     appLocalesList: 
@@ -17,12 +19,14 @@ parameters:
         nl: 'dutch'
         pl: 'polskie'
         cd: 'čeština'
+    ## USER CONFIGURATION
     userRoles:
         User: 'ROLE_USER'
         Moderator: 'ROLE_MODERATOR'
         Editor: 'ROLE_EDITOR'
         Admin: 'ROLE_ADMIN'
         SuperAdmin: 'ROLE_SUPER_ADMIN'
+    ## THEMING CONFIGURATION
     base_theme: liquid-theme
     admin_theme: liquid-admin-theme
     menuPositionsOpts: 
@@ -40,6 +44,7 @@ parameters:
     defaultBlockTpl: 'blocks/default/default.html.twig'
     posts_templates:
         blocks/post/oldway_show_post.html.twig: oldway
+    ## UPLOAD AND DIRECTORIES CONFIGURATION
     public_directory: 'public'
     private_directory: 'private'
     public_uploads_directory: 'uploads'

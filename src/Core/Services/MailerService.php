@@ -53,7 +53,7 @@ class MailerService
     public function sendMail(FormModel $formModel, $mailData) {
         try {
             $email = (new TemplatedEmail())
-                ->from(new Address($mailData['mailFromName'], $mailData['$mailFromName']))
+                ->from(new Address($mailData['emailFromAddress'], $mailData['mailFromName']))
                 ->to($mailData['sendTo'])
                 ->replyTo('provider@deliwrapp.com')
                 ->subject($formModel->getName())
