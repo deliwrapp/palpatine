@@ -23,11 +23,11 @@ use Symfony\Component\Mime\Address;
 class RegistrationController extends AbstractController
 {
     /** @var EmailVerifier */
-    private EmailVerifier $emailVerifier;
+    /* private EmailVerifier $emailVerifier; */
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(/* EmailVerifier $emailVerifier */)
     {
-        $this->emailVerifier = $emailVerifier;
+        /* $this->emailVerifier = $emailVerifier; */
     }
 
     /**
@@ -97,7 +97,7 @@ class RegistrationController extends AbstractController
 
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
-            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
+            /* $this->emailVerifier->handleEmailConfirmation($request, $this->getUser()); */
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('danger', $exception->getReason());
 

@@ -15,6 +15,13 @@
                 >   
                     <i class="fa-solid fa-eye fa-2x"></i>   
                 </a>
+                <a 
+                    class="btn tooltip -tooltip-bottom -warning btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
+                    data-tooltip="refresh blocks"
+                    href="{{ path('editor_form_fields_reorder', { 'formId': formModel.id}) }}"
+                >
+                    <i class="fas fa-refresh"></i>
+                </a>
                 {{ include('liquid-admin-theme/pages/core/form/editor/_delete_form.html.twig') }}
             {% endif %}
         </div>
@@ -31,10 +38,32 @@
                         <i class="form-icon fa-solid fa-heading"></i>
                     </div>
                 </div>
-                
+                <div class="col -col-4 -md6 -sm12 -xs12">
+                    {{ form_label(form.sendTo, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.sendTo) }}</small>
+                    {{ form_errors(form.sendTo) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(form.sendTo, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-at"></i>
+                    </div>
+                </div>
+                <div class="col -col-4 -md6 -sm12 -xs12">
+                    <small>{{ form_help(form.formTemplate) }}</small>
+                    {{ form_errors(form.formTemplate) }}
+                    <div class="form-element">
+                        {{ form_label(form.formTemplate, null, {
+                            'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                        }) }}
+                        <div class="-sm9">
+                            {{ form_widget(form.formTemplate, {'attr': {'class': 'form-select -shad-12'}}) }}
+                        </div>
+                    </div>
+                </div>
                 <div class="col -col-4 -md6 -sm12 -xs12">
                     <small>{{ form_help(form.mailTemplate) }}</small>
-                    {{ form_errors(form.locale) }}
+                    {{ form_errors(form.mailTemplate) }}
                     <div class="form-element">
                         {{ form_label(form.mailTemplate, null, {
                             'label_attr': {'class': '-t-c -t-bld -color-dark'}
@@ -44,7 +73,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col -col-2 -md6 -sm12 -xs12">
+                <div class="col -col-4 -md6 -sm12 -xs12">
                     <small>{{ form_help(form.locale) }}</small>
                     {{ form_errors(form.locale) }}
                     <div class="form-element">
@@ -56,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col -col-2 -md6 -sm6 -xs6">
+                <div class="col -col-3 -md6 -sm6 -xs6">
                     <div class="form-element">
                         <label class="switch">
                             {{ form_widget(form.isPublished) }}
@@ -85,9 +114,25 @@
         </a>
 
         <a 
+            class="btn -primary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+            data-tooltip="Add a Tel Field"
+            href="{{ path('editor_form_field_create',{'formId': formModel.id, 'type': 'tel'}) }}"
+        > 
+            Add Tel Field <i class="fas fa-phone"></i>
+        </a>
+
+        <a 
+            class="btn -primary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
+            data-tooltip="Add a Email Field"
+            href="{{ path('editor_form_field_create',{'formId': formModel.id, 'type': 'email'}) }}"
+        > 
+            Add Email Field <i class="fas fa-at"></i>
+        </a>
+
+        <a 
             class="btn -secondary btn-link btn-block -btn-lg tooltip -tooltip-top -shad-12 -shad-14-h" 
             data-tooltip="Add a Text Field"
-            href="{{ path('editor_form_field_create',{'formId': formModel.id, 'type': 'integer'}) }}"
+            href="{{ path('editor_form_field_create',{'formId': formModel.id, 'type': 'number'}) }}"
         > 
             Add Number Field <i class="fas fa-arrow-down-1-9"></i>
         </a>
@@ -125,61 +170,54 @@
         </a>
     
     </section>
-    <section class="col -col-12">
+
+    <section class="col -col-12 -mb10 -pb10">
         {% if formModel.fields is defined and formModel.fields is not empty %}
-            {% for field in formModel.fields %}
-                <section class="-shad-12">
-                    <div class="col -col-12 bar -justify-space-evenly -shad-12">
-                        <p class="-t-u -t-bld">{{field.label}} - type : {{field.type}}</p>
-                        {{ include('liquid-admin-theme/pages/core/form/editor/_delete_form_field.html.twig') }}
-                    </div>
-                    <form name="form_model_field_form" method="post" action="{{ path('editor_form_field_edit', {'formId': formModel.id, 'formFieldId': field.id}) }}" class="-w-f">
-                        <section class="-panel-body -flex -wrap">
-                            <div class="col -col-4 -md4 -sm12 -xs12">
-                                <label class="-t-c -t-bld -color-dark required" for="form_model_field_form_label">Label</label>
-                                <small></small>
-                                <div class="form-element has-icon-right">
-                                    <input type="text" id="form_model_field_form_label" name="form_model_field_form[label]" required="required" class="form-field -shad-12-h" value="{{field.label}}">
-                                    <i class="form-icon fa-solid fa-heading"></i>
-                                </div>
-                            </div>
-                            <div class="col -col-4 -md4 -sm12 -xs12">
-                                <label class="-t-c -t-bld -color-dark" for="form_model_field_form_defaultValue">Default value</label>
-                                <small></small>
-                                <div class="form-element has-icon-right">
-                                    <input type="text" id="form_model_field_form_defaultValue" name="form_model_field_form[defaultValue]" class="form-field -shad-12-h" value="{{field.defaultValue}}">
-                                    <i class="form-icon fa-solid fa-heading"></i>
-                                </div>
-                            </div>
-                            <div class="col -col-4 -md4 -sm12 -xs12">
-                                <label class="-t-c -t-bld -color-dark" for="form_model_field_form_placeholder">Placeholder</label>
-                                <small></small>
-                                <div class="form-element has-icon-right">
-                                    <input type="text" id="form_model_field_form_placeholder" name="form_model_field_form[placeholder]" class="form-field -shad-12-h" value="{{field.placeholder}}">
-                                    <i class="form-icon fa-solid fa-heading"></i>
-                                </div>
-                            </div>
-                            <div class="col -col-8 -md8 -sm12 -xs12">
-                                <label class="-t-c -t-bld -color-dark" for="form_model_field_form_options">Options</label>
-                                <small></small>
-                                <div class="form-element has-icon-right">
-                                    <input type="text" id="form_model_field_form_options" name="form_model_field_form[options]" class="form-field -shad-12-h" value="{{field.options}}">
-                                    <i class="form-icon fa-solid fa-heading"></i>
-                                </div>
-                            </div>
-                            <div class="col -col-4 -md4 -sm12 -xs12">
-                                <button type="submit" id="form_model_field_form_submit" name="form_model_field_form[submit]" class="-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl">Edit</button>
-                            </div>
-                        </section>
-                    <input type="hidden" id="form_model_field_form__token" name="form_model_field_form[_token]" value="c7f9b5a2fa5b991ac79.UhJngtu-1RU939BT0DA2Nbj3ojFnd6dukAvD-VqMWfY.OWc22uvw42AMl-EX6UBMc9Okk3VQQcUf8VixgTXCPttqcTHkgdu8X3Czpw">
-                </form>
-            </section>
-            <hr>
+            {% for field in formModel.fields|sort((a, b) => a.position <=> b.position) %}
+            <div class="accordion -shad-12 -shad-16-h">
+                <input 
+                    type="checkbox" 
+                    id="accordion-field-form-{{field.id}}"
+                    name="accordion-field-form-{{field.id}}"
+                    hidden=""
+                >
+                <label class="-accordion-header" for="accordion-field-form-{{field.id}}">
+                    <section class="">
+                        <div class="-flex col -col-12 bar -justify-space-arround -align-center -shad-14-h -p2">
+                            {{ include('liquid-admin-theme/pages/core/form/editor/_delete_form_field.html.twig') }}
+                            <p class="-t-u -t-bld">{{field.label}} - type : {{field.type}}</p>
+                            <section class="-flex align -justify-space-evenly -items-center -p1 -shad-1">
+                                {% if loop.first != true %}
+                                    <a 
+                                        class=" -m1 btn tooltip -tooltip-top -success btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
+                                        data-tooltip="up"
+                                        href="{{ path('editor_form_field_position', { 'formId': formModel.id, 'formFieldId': field.id, 'position': field.position - 1}) }}"
+                                    >   
+                                        <i class="fas fa-arrow-up"></i> 
+                                    </a>
+                                {% endif %}
+                                {% if loop.last != true %}
+                                    <a 
+                                        class=" -m1 btn tooltip -tooltip-top -success btn btn-action s-circle -light -hover -shad-12 -shad-14-h"
+                                        data-tooltip="down"
+                                        href="{{ path('editor_form_field_position', { 'formId': formModel.id, 'formFieldId': field.id, 'position': field.position + 1}) }}"
+                                    >   
+                                        <i class="fas fa-arrow-down"></i>  
+                                    </a>
+                                {% endif %}
+                            </section>
+                        </div>
+                    </section>
+                </label>
+                <div class="-accordion-body">
+                    {% include "liquid-admin-theme/pages/core/form/editor/_form_field_full_editor.html.twig" %}
+                </div>
+            </div>    
+            <hr class="-p2">
             {% endfor %}
         {% endif %}
     </section>
 {% endif %}
-
 {% endblock %}
 
 

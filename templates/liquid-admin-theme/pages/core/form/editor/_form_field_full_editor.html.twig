@@ -1,0 +1,114 @@
+
+
+{% if field is defined and field is not null %}
+<form 
+    name="form_model_field_form" 
+    action="{{ path('editor_form_field_edit', {'formId': formModel.id, 'formFieldId': field.id}) }}"
+    method="post"
+    class="-w-f"
+    >
+	<section class="-panel-body -flex -wrap">
+		<div class="col -col-3 -md3 -sm12 -xs12">
+			<label class="-t-c -t-bld -color-dark required" for="form_model_field_form_label">Label</label>
+			<small></small>
+			<div class="form-element has-icon-right">
+				<input
+                    type="text"
+                    id="form_model_field_form_label"
+                    name="form_model_field_form[label]"
+                    required="required"
+                    class="form-field -shad-12-h"
+                    value="{{field.label}}"
+                >
+				<i class="form-icon fa-solid fa-heading"></i>
+			</div>
+		</div>
+
+		<div class="col -col-3 -md3 -sm12 -xs12">
+			<label class="-t-c -t-bld -color-dark" for="form_model_field_form_defaultValue">Default value</label>
+			<small></small>
+			<div class="form-element has-icon-right">
+				<input 
+                    type="text" 
+                    id="form_model_field_form_defaultValue"
+                    name="form_model_field_form[defaultValue]"
+                    class="form-field -shad-12-h"
+                    value="{{field.defaultValue}}"
+                >
+				<i class="form-icon fa-solid fa-heading"></i>
+			</div>
+		</div>
+
+		<div class="col -col-3 -md3 -sm12 -xs12">
+			<label class="-t-c -t-bld -color-dark" for="form_model_field_form_placeholder">Placeholder</label>
+			<small></small>
+			<div class="form-element has-icon-right">
+				<input
+                    type="text"
+                    id="form_model_field_form_placeholder"
+                    name="form_model_field_form[placeholder]"
+                    class="form-field -shad-12-h"
+                    value="{{field.placeholder}}"
+                >
+				<i class="form-icon fa-solid fa-heading"></i>
+			</div>
+		</div>
+
+		<div class="col -col-1 -md2 -sm6 -xs12">
+			<label class="-t-c -t-bld -color-dark required" for="form_model_field_form_position">Position</label>
+			<small></small>
+			<div class="form-element has-icon-right">
+				<input 
+                    type="text"
+                    id="form_model_field_form_position"
+                    name="form_model_field_form[position]"
+                    required="required"
+                    class="form-field -shad-12-h"
+                    value="{{field.position}}"
+                >
+				<i class="form-icon fa-solid fa-heading"></i>
+			</div>
+		</div>
+
+		<div class="col -col-2 -md2 -sm12 -xs12">
+			<div class="form-element">
+				<label class="switch">
+					<input 
+                        type="checkbox"
+                        id="form_model_field_form_required"
+                        name="form_model_field_form[required]"
+                        value="{{field.required}}" 
+                        {% if field.required == 1 %} checked="checked" {% endif %}
+                    >
+					<i class="form-icon -shad-12"></i>
+					<span class="form-field-msg -t-c -t-bld -color-dark">{{'form.required'|trans}}</span>
+				</label>
+			</div>
+			<small></small>
+		</div>
+
+		<div class="col -col-10 -md9 -sm12 -xs12">
+			<small></small>
+			<div class="form-element">
+				<label class="-t-c -t-bld -color-dark" for="form_model_field_form_options">Options</label>
+				<div class="-sm9">
+					<input 
+                        type="text" 
+                        id="form_model_field_form_options"
+                        name="form_model_field_form[options]" 
+                        class="form-select -shad-12"
+                        value="{{field.options}}"
+                        placeholder="see options on doc"
+                    >
+				</div>
+			</div>
+		</div>
+
+		<div class="col -col-2 -md3 -sm12 -xs12">
+			<button type="submit" id="form_model_field_form_submit" name="form_model_field_form[submit]" class="-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl">Edit</button>
+		</div>
+	</section>
+	<input type="hidden" id="form_model_field_form__token" name="form_model_field_form[_token]" value="e8dc081b83b3c.TOeJmZ1uL6T2OGwseNuzJo-yitIGYM6EG_d9GOu4hLo.f6yxquwfZfaRVCNDE47FQcCBvJhqEvnmIpIJfYn75_wNlsvR1gRa74F7Aw">
+</form>
+{% endif %}
+

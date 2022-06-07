@@ -83,6 +83,7 @@ class EditorMenuController extends AbstractController
     {
         try {
             $menu = new Menu();
+            $menu->setLocale($request->getLocale());
             $this->menuRepo->add($menu);
             $menu->setName('menu-'.$menu->getId());
             $this->menuRepo->flush();

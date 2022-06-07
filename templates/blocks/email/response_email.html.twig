@@ -1,11 +1,18 @@
-<h1>Hi!</h1>
 
 <p>
     {{ 'mail.basic.intro'|trans }} 
 </p>
 <br>
+{% if mailData is defined and mailData is not null%}
+    {% if formModel is defined and formModel is not null %}
+        {% for field in formModel.fields|sort((a, b) => a.position <=> b.position) %}
+           <p>{{field.label|trans|upper}}</p>
+           <p>{{ 'mail.basic.response'|trans }} : {{mailData['form_model_field_form_' ~ field.type ~ '_' ~ field.id]}}</p>
+           <hr>
+        {% endfor %}
+    {% endif %}
+{% endif %}
 <br>
-
 <p>
     {{ 'mail.basic.outro'|trans }}
 </p>

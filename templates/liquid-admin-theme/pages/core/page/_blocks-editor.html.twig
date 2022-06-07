@@ -14,7 +14,7 @@
                     <section  id="{{pageBlock.id}}" style="min-height: 3rem; {% if pageBlock.data is null and pageBlock.content is null  %} margin-bottom: -3rem;{% endif %}" class="-r">    
                         
                         {% if pageBlock.blockTemplate is defined and pageBlock.blockTemplate is not null %}
-                            {% include pageBlock.blockTemplate.templatePath with {data: pageBlock.data, content: pageBlock.content, media: pageBlock.media} %}
+                            {% include pageBlock.blockTemplate.templatePath with {data: pageBlock.data, content: pageBlock.content, media: pageBlock.media, formModel: pageBlock.formModel} %}
                         {% endif %}
                         
                         <section class="-shad-12 -flex -justify-space-evenly -relative -bottom-3rm">

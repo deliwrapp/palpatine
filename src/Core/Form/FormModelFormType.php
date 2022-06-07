@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -33,6 +34,17 @@ class FormModelFormType extends AbstractType
         $localesList = $this->params->get('appLocalesList');
         $builder
             ->add('name', TextType::class)
+            ->add('sendTo', EmailType::class)
+            ->add('formTemplate', EntityType::class, [
+                'class' => Template::class,
+                'choice_label' => 'name',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->where('t.type = :type')
+                        ->setParameter('type', "form")
+                        ->orderBy('t.name', 'ASC');
+                }
+            ])
             ->add('mailTemplate', EntityType::class, [
                 'class' => Template::class,
                 'choice_label' => 'name',

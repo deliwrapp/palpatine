@@ -1,0 +1,263 @@
+{#
+// Variables
+- formModelClass : Custom Class
+- formModel : Post Content
+#}
+
+{% if formModelClass is not defined %}  
+        {% set formModelClass = '' %}
+{% endif %}
+
+<section style="min-height: 3rem"; class="{{formModelClass}} -w-f -p5 -mb10 ">
+    {% if formModel is defined %}
+        <form 
+            name="{{formModel.name}}"
+            action="{{ path('app_send_email_handler', {'formId': formModel.id}) }}"
+            method="post"
+            class="-w-f -flex -wrap"
+        >
+            {% if formModel.fields is defined %}
+                {% for field in formModel.fields|sort((a, b) => a.position <=> b.position) %}
+
+                    {% if field.type == "text" %}
+                        <div class="col -col-6 -md6 -sm12 -xs12">
+                            <label 
+                                class="-t-c -t-bld -color-dark {% if field.required %} required {% endif %}"
+                                for="form_model_field_form_text_{{field.id}}"
+                            >
+                                {{field.label|trans}}
+                            </label>
+                            <small></small>
+                            <div class="form-element">
+                                <input 
+                                    type="text"
+                                    id="form_model_field_form_text_{{field.id}}"
+                                    name="form_model_field_form_text_{{field.id}}" 
+                                    {% if field.required %} required="required" {% endif %}
+                                    class="form-field -shad-12-h" 
+                                    value="{{field.defaultValue}}"
+                                    placeholder="{{field.placeholder}}"
+                                >
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if field.type == "tel" %}
+                        <div class="col -col-6 -md6 -sm12 -xs12">
+                            <label 
+                                class="-t-c -t-bld -color-dark {% if field.required %} required {% endif %}"
+                                for="form_model_field_form_tel_{{field.id}}"
+                            >
+                                {{field.label|trans}}
+                            </label>
+                            <small></small>
+                            <div class="form-element">
+                                <input 
+                                    type="text"
+                                    id="form_model_field_form_tel_{{field.id}}"
+                                    name="form_model_field_form_tel_{{field.id}}" 
+                                    {% if field.required %} required="required" {% endif %}
+                                    class="form-field -shad-12-h" 
+                                    value="{{field.defaultValue}}"
+                                    placeholder="{{field.placeholder}}"
+                                >
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if field.type == "email" %}
+                        <div class="col -col-6 -md6 -sm12 -xs12">
+                            <label 
+                                class="-t-c -t-bld -color-dark {% if field.required %} required {% endif %}"
+                                for="form_model_field_form_email_{{field.id}}"
+                            >
+                                {{field.label|trans}}
+                            </label>
+                            <small></small>
+                            <div class="form-element">
+                                <input 
+                                    type="email"
+                                    id="form_model_field_form_email_{{field.id}}"
+                                    name="form_model_field_form_email_{{field.id}}" 
+                                    {% if field.required %} required="required" {% endif %}
+                                    class="form-field -shad-12-h" 
+                                    value="{{field.defaultValue}}"
+                                    placeholder="{{field.placeholder}}"
+                                >
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if field.type == "number" %}
+                        <div class="col -col-6 -md6 -sm12 -xs12">
+                            <label 
+                                class="-t-c -t-bld -color-dark {% if field.required %} required {% endif %}"
+                                for="form_model_field_form_number_{{field.id}}"
+                            >
+                                {{field.label|trans}}
+                            </label>
+                            <small></small>
+                            <div class="form-element">
+                                {% set optionsValue = field.options|split(',') %}
+                                <input 
+                                    type="number"
+                                    id="form_model_field_form_number_{{field.id}}"
+                                    name="form_model_field_form_number_{{field.id}}" 
+                                    {% if field.required %} required="required" {% endif %}
+                                    class="form-field -shad-12-h" 
+                                    value="{{field.defaultValue}}"
+                                    placeholder="{{field.placeholder}}"
+                                    {% if optionsValue[0] is defined %} 
+                                        min="{{optionsValue[0]}}"
+                                    {% endif %}
+                                    {% if optionsValue[1] is defined %} 
+                                        max="{{optionsValue[1]}}"
+                                    {% endif %}
+                                >
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if field.type == "select" %}
+                        <div class="col -col-6 -md6 -sm12 -xs12">
+                            <div class="form-element ">
+                                {% set optionsValue = field.options|split(',') %}
+                                <label 
+                                    class="-t-c -t-bld -color-dark {% if field.required %} required {% endif %}"
+                                    for="form_model_field_form_select_{{field.id}}"
+                                >
+                                    {{field.label|trans}}
+                                </label>
+                                <select 
+                                    name="form_model_field_form_select_{{field.id}}"
+                                    id="form_model_field_form_select_{{field.id}}"
+                                    form="form-select -shad-12"
+                                    class="form-select"
+                                    {% if "multiple-opt" in optionsValue %} multiple size="3" {% endif %}
+                                >
+                                    {% if field.required == false %}
+                                            <option
+                                                value
+                                                {% if field.defaultValue is null %} selected {% endif %}
+                                            >
+                                                -- {{"form.select_option"|trans}} --
+                                            </option> {% endif %}
+                                    {% for opt in optionsValue %}
+                                        {% if opt != "multiple-opt" %}
+                                            <option 
+                                                value="{{opt}}"
+                                                {% if opt == field.defaultValue %} selected {% endif %}
+                                            >
+                                                {{opt|trans}}
+                                            </option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if field.type == "checkbox" %}
+                        <div class="col -col-3 -md3 -sm12 -xs12">
+                            <div class="form-element">
+                            <label 
+                                class="-t-c -t-bld -color-dark -ml2"
+                                for="form_model_field_form_checkbox_{{field.id}}"
+                            >
+                                {{field.label|trans}}
+                            </label>
+                                <label class="switch">
+                                    <input 
+                                        type="checkbox"
+                                        id="form_model_field_form_checkbox_{{field.id}}"
+                                        name="form_model_field_form_checkbox_{{field.id}}"
+                                        {% if field.required %} required="required" {% endif %}
+                                        value="{{field.defaultValue}}"
+                                        {% if field.defaultValue == 'checked' %} checked {% endif %}
+                                    >
+                                    <i class="form-icon -shad-12"></i>
+                                    <span class="form-field-msg -t-c -t-bld -color-dark {% if field.required %} required {% endif %}">{{field.label|trans}}</span>
+                                </label>
+                            </div>
+                            <small></small>
+                        </div>
+                    {% endif %}
+
+                    {% if field.type == "radio" %}
+                        <div class="form-element -m0 -p0 -flex -wrap">
+                            <label 
+                                class="-t-c -t-bld -color-dark -ml2 "
+                                for="form_model_field_form_radio_{{field.id}}"
+                            >
+                                {{field.label|trans}}
+                            </label>
+                        </div>
+                        {% set optionsValue = field.options|split(',') %}
+                        {% for opt in optionsValue %}
+                            <div class="col -col-3 -md6 -sm12 -xs12">
+                                <div class="form-element">
+                                    <label 
+                                        class="radio {% if field.required %} required {% endif %}"
+                                        for="form_model_field_form_radio_{{field.id}}_index_{{ loop.index }}"
+                                    >
+                                        <input 
+                                            type="radio"
+                                            id="form_model_field_form_radio_{{field.id}}_index_{{ loop.index }}"
+                                            name="form_model_field_form_radio_{{field.id}}"
+                                            {% if field.required %} required="required" {% endif %}
+                                            {% if opt == field.defaultValue %} checked="checked" {% endif %}
+                                            value="{{opt|trans}}"
+                                        >
+                                        <i class="form-icon -shad-12"></i>
+                                        <span 
+                                            class="form-field-msg -t-c -t-bld -color-dark {% if field.required %} required {% endif %}"
+                                        >
+                                            {{opt|trans}}
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        {% endfor %} 
+                    {% endif %}
+
+                    {% if field.type == "textarea" %}
+                        {% set optionsValue = field.options|split(',') %}
+                        <div class="col -col-12 -md12 -sm12 -xs12">
+                            <label 
+                                class="-t-c -t-bld -color-dark {% if field.required %} required {% endif %}"
+                                for="form_model_field_form_textarea_{{field.id}}"
+                            >
+                                {{field.label|trans}}
+                            </label>
+                            <textarea
+                                id="form_model_field_form_textarea_{{field.id}}"
+                                name="form_model_field_form_textarea_{{field.id}}" 
+                                class="form-field"
+                                {% if field.required %} required="required" {% endif %}
+                                value="{{field.defaultValue}}"
+                                {% if optionsValue[0] is defined %} 
+                                    rows="{{optionsValue[0]}}"
+                                {% endif %}
+                                {% if optionsValue[1] is defined %} 
+                                    cols="{{optionsValue[1]}}"
+                                {% endif %}
+                            ></textarea>
+                        </div>
+                    {% endif %}
+                    
+                {% endfor %}
+            {% endif %}
+
+            <div class="col -col-12">
+                <button 
+                    type="submit"
+                    id="form_model_field_form_submit" 
+                    name="form_model_field_form_submit" 
+                    class="-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl"
+                >
+                    {{"cmd.send"|trans}}
+                </button>
+            </div>
+        </form>
+    {% endif %}
+</section>

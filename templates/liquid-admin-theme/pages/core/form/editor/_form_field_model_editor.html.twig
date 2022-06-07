@@ -1,0 +1,83 @@
+
+{% if formField is defined and formField is not null %}
+    <section>
+        {{ form_start(formField, {'attr': {'class': '-w-f'}}) }}
+            <section class="-panel-body -flex -wrap">
+                <div class="col -col-3 -md3 -sm12 -xs12">
+                    {{ form_label(formField.label, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(formField.label) }}</small>
+                    {{ form_errors(formField.label) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(formField.label, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-heading"></i>
+                    </div>
+                </div>
+
+                <div class="col -col-3 -md3 -sm12 -xs12">
+                    {{ form_label(formField.defaultValue, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(formField.defaultValue) }}</small>
+                    {{ form_errors(formField.defaultValue) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(formField.defaultValue, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-heading"></i>
+                    </div>
+                </div>
+
+                <div class="col -col-3 -md3 -sm12 -xs12">
+                    {{ form_label(formField.placeholder, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(formField.placeholder) }}</small>
+                    {{ form_errors(formField.placeholder) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(formField.placeholder, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-heading"></i>
+                    </div>
+                </div>
+
+                <div class="col -col-1 -md2 -sm6 -xs12">
+                    {{ form_label(formField.position, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(formField.position) }}</small>
+                    {{ form_errors(formField.position) }}
+                    <div class="form-element has-icon-right">
+                        {{ form_widget(formField.position, {'attr': {'class': 'form-field -shad-12-h'}}) }}
+                        <i class="form-icon fa-solid fa-heading"></i>
+                    </div>
+                </div>
+                
+                <div class="col -col-2 -md2 -sm12 -xs12">
+                    <div class="form-element">
+                        <label class="switch">
+                            {{ form_widget(formField.required) }}
+                            <i class="form-icon -shad-12"></i>
+                            <span class="form-field-msg -t-c -t-bld -color-dark">Required</span>
+                        </label>
+                    </div>
+                    <small>{{ form_help(formField.required) }}</small>
+                    {{ form_errors(formField.required) }} 
+                </div>
+                <div class="col -col-10 -md9 -sm12 -xs12">
+                    <small>{{ form_help(formField.options) }}</small>
+                    {{ form_errors(formField.options) }}
+                    <div class="form-element">
+                        {{ form_label(formField.options, null, {
+                            'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                        }) }}
+                        <div class="-sm9">
+                            {{ form_widget(formField.options, {'attr': {'class': 'form-select -shad-12'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col -col-2 -md3 -sm12 -xs12">
+                    {{ form_widget(formField.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
+                </div>
+            </section>
+        {{ form_end(formField) }} 
+    </section>
+{% endif %}

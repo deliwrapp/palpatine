@@ -17,6 +17,7 @@ class FormModelField implements \Serializable, ArrayAccess
     {
             $this->label = 'new-field';
             $this->type = "text";
+            $this->required = false;
     }
 
     /**
@@ -49,6 +50,18 @@ class FormModelField implements \Serializable, ArrayAccess
      * @ORM\Column(type="string", nullable=true)
     */
     private $placeholder;
+
+    /**
+     * @var bool The required option
+     * @ORM\Column(type="boolean")
+     */
+    private $required;
+
+    /**
+     * @var int The position
+     * @ORM\Column(type="integer")
+     */
+    private $position;
 
     /**
      * @var string $options The field options default placeholder
@@ -141,6 +154,48 @@ class FormModelField implements \Serializable, ArrayAccess
     public function setPlaceholder(?string $placeholder): void
     {
         $this->placeholder = $placeholder;
+    }
+
+    /**
+     * Get required option
+     *
+     * @return string $required
+     */
+    public function getRequired(): bool
+    {
+        return $this->required;
+    }
+    /**
+     * Set required option
+     *
+     * @param string $required
+     */
+    public function setRequired(bool $required): self
+    {
+        $this->required = $required;
+
+        return $this;
+    }
+
+    /**
+     * Get Position
+     *
+     * @return string $position
+     */
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+    /**
+     * Set Position
+     *
+     * @param string $position
+     */
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
+
+        return $this;
     }
 
     /**

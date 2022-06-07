@@ -174,11 +174,20 @@ login:
     signin: "Sign in"
     signup: "Sign up"
 mail:
+    basic:
+        intro: "Hello dear friend !"
+        outro: "Best Regards"
+        response: "Response"
     register:
         confirm_mail: "Confirm my Email"
         intro: "Please confirm your email address by clicking the following link : "
         outro: "Cheers"
         link_expiration_info: "This link will expire in "
+    status:
+        in_progress: "Mail sending is in progress "
+        saved: "Your email has been saved "
+        sended: "Your email has been sent "
+        error: "There was an error sending the email "
 menu:
     account: "Account"
     admin: "Admin"

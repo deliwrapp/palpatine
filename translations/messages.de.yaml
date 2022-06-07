@@ -174,11 +174,20 @@ login:
     signin: "Anmelden"
     signup: "Sich einschreiben"
 mail:
+    basic:
+        intro: "Hello dear friend !"
+        outro: "Best Regards"
+        response: "Response"
     register:
         confirm_mail: "Bestätige meine E-Mail"
         intro: "Bitte bestätigen Sie Ihre E-Mail-Adresse, indem Sie auf den folgenden Link klicken : "
         outro: "Prost"
         link_expiration_info: "Dieser Link läuft ab in "
+    status:
+        in_progress: "Mail sending is in progress "
+        saved: "Your email has been saved "
+        sended: "Your email has been sent "
+        error: "There was an error sending the email "
 menu:
     account: "Konto"
     admin: "Admin"

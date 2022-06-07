@@ -3,10 +3,10 @@
 {% block title %}FORM SHOW{% endblock %}
 
 {% block mainContent %}
-
-    {% if formModel is defined %}
-        
-
+    {% if formModel is defined and formModel is not null %}
+        {% if formModel.formTemplate is defined and formModel.formTemplate is not null %}
+            {% include formModel.formTemplate.templatePath with {formModel: formModel} %}
+        {% endif %}
     {% else %}
         <p> There is no Form !!! </p>
     {% endif %}

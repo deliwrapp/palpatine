@@ -18,12 +18,12 @@ use ArrayAccess;
  */
 class FormModel implements \Serializable, ArrayAccess
 {
-
     public function __construct()
     {
         $this->isPublished = false;
         $this->name = 'new-form';
         $this->fields = new ArrayCollection();
+        $this->sendTo = "test@test.test";
     }
 
     use SoftEditionTrackingTrait;
@@ -40,8 +40,13 @@ class FormModel implements \Serializable, ArrayAccess
      * @ORM\Column(type="string")
      */
     private $name;
-    
 
+    /**
+     * @var string The email address to send form
+     * @ORM\Column(type="string")
+     */
+    private $sendTo;
+    
     /**
      * @var bool The Publish status
      * @ORM\Column(type="boolean")
@@ -53,6 +58,12 @@ class FormModel implements \Serializable, ArrayAccess
      * @ORM\Column(type="string", length=8, nullable=true)
      */
     private $locale;
+
+    /**
+     * The form template path reference
+     * @ORM\ManyToOne(targetEntity="App\Core\Entity\Template")
+     */
+    private $formTemplate;
 
     /**
      * The mail template path reference
@@ -82,6 +93,17 @@ class FormModel implements \Serializable, ArrayAccess
         return $this;
     }
 
+    public function getSendTo(): ?string
+    {
+        return $this->sendTo;
+    }
+    public function setSendTo(string $sendTo): self
+    {
+        $this->sendTo = $sendTo;
+
+        return $this;
+    }
+
     public function getIsPublished(): bool
     {
         return $this->isPublished;
@@ -100,6 +122,18 @@ class FormModel implements \Serializable, ArrayAccess
     public function setLocale(string $locale): self
     {
         $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getFormTemplate(): ?Template
+    {
+        return $this->formTemplate;
+    }
+
+    public function setFormTemplate(?Template $formTemplate): self
+    {
+        $this->formTemplate = $formTemplate;
 
         return $this;
     }

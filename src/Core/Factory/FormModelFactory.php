@@ -33,6 +33,7 @@ class FormModelFactory
         $this->formFieldRepo = $formFieldRepo;
         $this->params = $params;
         $this->defaultLocale = $this->params->get('locale');
+        $this->mailReceiver = $this->params->get('default_form_mail_receiver');
     }
 
     /**
@@ -41,7 +42,9 @@ class FormModelFactory
      * @return FormModel $formModel
      */
     public function createFormModel() {
-        return $formModel = new FormModel;
+        $formModel = new FormModel;
+        $formModel->setSendTo($this->mailReceiver);
+        return $formModel;
     }
 
     /**
@@ -67,6 +70,7 @@ class FormModelFactory
         $formModel->setName('default-form');
         $formModel->setIsPublished(true);
         $formModel->setLocale($locale);
+        $formModel->setSendTo($this->mailReceiver);
         return $formModel;
     }
 
@@ -81,6 +85,7 @@ class FormModelFactory
         $formModelField = new FormModelField;
         $formModelField->setLabel('field-'.$type);
         $formModelField->setType($type);
+        $formModelField->setPosition(count($formModel->getFields()) + 1);
         $formModel->addField($formModelField);
         $this->formFieldRepo->add($formModelField);
         $this->formRepo->flush();
@@ -98,7 +103,26 @@ class FormModelFactory
         $formModel->removeField($formModelField);
         $this->formFieldRepo->remove($formModelField);
         $this->formFieldRepo->flush();
+        $formModel = $this->reOrderFormFields($formModel);
         return $formModel;
     }
 
+    /**
+     * FormModel re-order fields position handler
+     * 
+     * @param FormModel $formModel
+     * @return FormModel $formModel
+     */
+    public function reOrderFormFields(FormModel $formModel): FormModel {
+        $fields = $formModel->getFields();
+        $fields = $fields->toArray();
+        $fieldsPosition = 1;
+        usort($fields, function($a, $b) {return strcmp($a->getPosition(), $b->getPosition());});
+        foreach ($fields as $field) {
+            $field->setPosition($fieldsPosition);
+            $fieldsPosition = $fieldsPosition + 1;
+        }
+        $this->formRepo->flush();
+        return $formModel;
+    }
 }

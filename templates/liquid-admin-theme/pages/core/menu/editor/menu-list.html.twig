@@ -3,7 +3,7 @@
 {% block title %}MENU LIST{% endblock %}
 
 {% block mainContent %}
-<section class="col -col-12" id="menu-list">    
+<section class="col -col-12 -mb10 -pb10" id="menu-list">    
     {% if menus is defined and menus is not empty %}
         {% include 'liquid-ui/components/layout/table/table.html.twig' with {
                 'tableHeadItems' : [
@@ -61,6 +61,7 @@
         </div>
     {% endif %}
 </section>
+<hr>
 <section class="bar bar-mini -fixed -bottom-1rm -white" id="folder-list">
     <div class="tile -tile-compact -w-f -shad-12">
         <div class="-tile-content">

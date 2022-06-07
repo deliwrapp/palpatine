@@ -2,12 +2,10 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% if page.blocks is defined and page.blocks is not empty  %}
-        {% for pageBlock in page.blocks %}
-            {% if pageBlock.blockTemplate and pageBlock.blockTemplate.cssLink is defined and pageBlock.blockTemplate.cssLink is not null %}
-                {{ encore_entry_link_tags(pageBlock.blockTemplate.cssLink) }}
-            {% endif %}
-        {% endfor %}
+    {% if blockContainer is defined and blockContainer is not null %}
+        {% if blockContainer.blockTemplate and blockContainer.blockTemplate.cssLink is defined and blockContainer.blockTemplate.cssLink is not null %}
+            {{ encore_entry_link_tags(blockContainer.blockTemplate.cssLink) }}
+        {% endif %}
     {% endif %}
 {% endblock %}
 
@@ -27,11 +25,19 @@
         {% endif %}
         <section class="-w-f"> 
             {% if blockContainer.blockTemplate is defined and blockContainer.blockTemplate is not null %}
-                {% include blockContainer.blockTemplate.templatePath with {data: data, content: blockContainer.content} %}
+                {% include blockContainer.blockTemplate.templatePath with {data: data, content: blockContainer.content, formModel: blockContainer.formModel} %}
             {% endif %}
         </section>
     {% else %}
         <p> There is no block !!! </p>
     {% endif %}
+{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% if blockContainer is defined and blockContainer is not null %}
+        {% if blockContainer.blockTemplate and blockContainer.blockTemplate.scriptLink is defined and blockContainer.blockTemplate.scriptLink is not null %}
+            {{ encore_entry_script_tags(blockContainer.blockTemplate.scriptLink) }}
+        {% endif %}
+    {% endif %}
 {% endblock %}

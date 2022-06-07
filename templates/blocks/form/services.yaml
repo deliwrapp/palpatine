@@ -1,0 +1,3 @@
+framework:
+    translator:
+        paths: ["%kernel.project_dir%/templates/blocks/form/translations"]

@@ -34,7 +34,7 @@
             <section class="-w-f"> 
                 {% for pageBlock in page.blocks|sort((a, b) => a.position <=> b.position) %}   
                     {% if pageBlock.blockTemplate is defined and pageBlock.blockTemplate is not null %}
-                        {% include pageBlock.blockTemplate.templatePath with {data: pageBlock.data, content: pageBlock.content, media: pageBlock.media} %}
+                        {% include pageBlock.blockTemplate.templatePath with {data: pageBlock.data, content: pageBlock.content, media: pageBlock.media, formModel: pageBlock.formModel} %}
                     {% endif %}
                 {% endfor %}
             </section>

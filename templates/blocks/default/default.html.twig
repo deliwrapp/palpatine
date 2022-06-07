@@ -2,6 +2,7 @@
 // Variables
 - content : Content
 - data : Data
+- formModel : FormModel
 #}
 
 <section style="min-height: 3rem";>
@@ -63,6 +64,12 @@
                 </div>
             </div>
         </section>
+    {% endif %}
+
+    {% if formModel is defined and formModel is not null %}
+        {% if formModel.formTemplate is defined and formModel.formTemplate is not null %}
+            {% include formModel.formTemplate.templatePath with {formModel: formModel} %}
+        {% endif %}
     {% endif %}
     
 </section>

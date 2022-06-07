@@ -174,11 +174,20 @@ login:
     signin: "Connectez vous"
     signup: "Inscrivez vous"
 mail:
+    basic:
+        intro: "Bien le bonjour !"
+        outro: "Cordialement"
+        response: "Réponse"
     register:
         confirm_mail: "Confirmer mon Email"
         intro: "S'il vous plait, veuillez confirmer votre adresse mail en cliquant sur le lien suivant : "
         outro: "Cordialement"
         link_expiration_info: "Ce lien expirera dans : "
+    status:
+        in_progress: "Envoi de l'email en cours "
+        saved: "Vote email a été sauvegardé"
+        sended: "Vote email a été envoyé "
+        error: "Il y a eu une erreur durant l'envoi de l'email "
 menu:
     account: "Compte"
     admin: "Admin"

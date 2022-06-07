@@ -83,8 +83,8 @@ class AdminFileController extends AbstractController
     /**     
      * Upload File Handler
      * 
-     * @param int|null $folderId
      * @param Request $request
+     * @param int|null $folderId
      * @Route("/upload-file/{folderId}", name="admin_file_upload",
      * defaults={"folderId": null}
      * )   

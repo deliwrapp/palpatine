@@ -82,7 +82,7 @@ class EditorFormController extends AbstractController
     public function create(Request $request): RedirectResponse
     {
         try {
-            $formModel = new FormModel();
+            $formModel = $this->formFactory->createFormModel();
             $this->formRepo->add($formModel);
             $formModel->setName('form-'.$formModel->getId());
             $this->formRepo->flush();
@@ -113,34 +113,40 @@ class EditorFormController extends AbstractController
      */
     public function edit(int $id, Request $request): Response
     {
-       
-        $formModel = $this->formVerificator($id);
-        $formModelField = $this->formFactory->createFormField();
-        $form = $this->createForm(FormModelFormType::class, $formModel, [
-            'submitBtn' => 'Edit'
-        ]);
-        $formField = $this->createForm(FormModelFieldFormType::class, $formModelField);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            $formModel = $form->getData();
-            $this->formRepo->flush();
-            $this->addFlash(
-                'info',
-                'FormModel updated'
+        try {
+            $formModel = $this->formVerificator($id);
+            $formModelField = $this->formFactory->createFormField();
+            $form = $this->createForm(FormModelFormType::class, $formModel, [
+                'submitBtn' => 'Edit'
+            ]);
+            $formField = $this->createForm(FormModelFieldFormType::class, $formModelField);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $formModel = $form->getData();
+                $this->formRepo->flush();
+                $this->addFlash(
+                    'info',
+                    'FormModel updated'
+                );
+                return $this->redirect($this->generateUrl('editor_form_edit', [
+                    'id' => $formModel->getId()
+                ]));
+            }
+            return $this->render(
+                '@core-admin/form/editor/form-edit.html.twig',
+                [
+                    'form' => $form->createView(),
+                    'formModel' => $formModel,
+                    'formField' => $formField->createView()
+                ]
             );
-            return $this->redirect($this->generateUrl('editor_form_edit', [
-                'id' => $formModel->getId()
-            ]));
-        } 
-        return $this->render(
-            '@core-admin/form/editor/form-edit.html.twig',
-            [
-                'form' => $form->createView(),
-                'formModel' => $formModel,
-                'formField' => $formField->createView()
-            ]
-        );
+        }  catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+            return $this->redirect($this->generateUrl('editor_form_list'));
+        }
      
     }
 
@@ -334,6 +340,79 @@ class EditorFormController extends AbstractController
         }
     }
     
+    /**
+     * Form Field change position
+     * 
+     * @param int $formId
+     * @param int $formFIeldId
+     * @param int $position
+     * @Route("{formId}/field/{formFieldId}/move-to-position/{position}", name="editor_form_field_position")
+     * @return RedirectResponse
+     */
+    public function moveFieldTo(int $formId, int $formFieldId, int $position): RedirectResponse
+    {
+        try {
+            $formModel = $this->formVerificator($formId);
+            $formField = $this->formFieldVerificator($formFieldId);
+            $this->formFieldLinkVerificator($formModel, $formField);
+            
+            if ($position == 0 || $position > count($formModel->getFields())) {
+                $this->addFlash(
+                    'warning',
+                    'You can not move Field out !'
+                );
+                return $this->redirect($this->generateUrl('editor_form_edit', [
+                    'id' => $formId
+                ]));
+            }
+
+            $formFieldToSwitch = $this->formFieldRepo->findOneBy([
+                'formModel' => $formModel->getId(),
+                'position' => $position
+            ]);
+            $actualPosition = $formField->getPosition();
+            $formFieldToSwitch->setPosition($actualPosition);
+            $formField->setPosition($position);
+            
+            $this->formFieldRepo->flush();
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+        }
+        return $this->redirect($this->generateUrl('editor_form_edit', [
+            'id' => $formModel->getId()
+        ]));
+    }
+
+    /**
+     * Page Reorder Field on the Form
+     * 
+     * @param int $pageId
+     * @Route("/{formId}/fields/re-order", name="editor_form_fields_reorder")
+     * @return RedirectResponse
+     */
+    public function reOrderFieldsOnForm(int $formId): RedirectResponse
+    {
+        try {
+            $formModel =$this->formVerificator($formId);
+            $formModel = $this->formFactory->reOrderFormFields($formModel);
+            $this->addFlash(
+                'success',
+                'The Form Model Fields have been reordered'
+            );
+        } catch (\Exception $e) {
+            $this->addFlash(
+                'danger',
+                $e->getMessage()
+            );
+        }
+        return $this->redirect($this->generateUrl('editor_form_edit', [
+            'id' => $formId
+        ]));
+    }
+
     /**
      * Test if FormModel exists and return it, or redirect to FormModel list index with an error message
      * 

@@ -5,10 +5,7 @@ namespace App\Core\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use App\Core\Repository\FormModelRepository;
 use App\Core\Entity\FormModel;
 use App\Core\Services\MailerService;
@@ -34,47 +31,55 @@ class MailerController extends AbstractController
      * Public Mailer sender
      * 
      * @param Request $request
-     * @param MailerInterface $mailer
-     * @param int $id
-     * @Route("/send-email/{id}",name="send_email")
+     * @param int $formId
+     * @Route("/send-email/{formId}",name="app_send_email_handler")
      * @return RedirectResponse
      */
-    public function sendEmail(Request $request, MailerInterface $mailer, int $id): RedirectResponse
+    public function sendEmail(Request $request, int $formId): RedirectResponse
     {
         try {
             $mailData = [];
-            $formModel = $this->formVerificator($request, $id);
-            // Construct mailData
-            foreach ($formModel->getFields() as $field) {
-                $fieldName = $field->getName();
-                $mailData[$fieldName] = $request->request->get($fieldName);
+            $formModel = $this->formVerificator($request, $formId);
+            if ($formModel instanceof FormModel) {
+                // Construct mailData
+                $mailData = $this->mailerService->constructMail($request, $formModel, $mailData);
+                // Send EMmail
+                $mailData = $this->mailerService->sendMail($formModel, $mailData);
+                if ($mailData instanceof \Exception) {
+                    $this->addFlash(
+                        'danger',
+                        $mailData->getMessage()
+                    );
+                    $this->addFlash(
+                        'warning',
+                        'mail.status.error'
+                    );
+                } else {
+                    $this->addFlash(
+                        'success',
+                        'mail.status.sended'
+                    );
+                }
             }
-            // Prepare Mail
-            $mailData = $this->mailerService->constructMail($mailData);
-            
-            $email = (new TemplatedEmail())
-            ->from($mailData['email'])
-            ->to($mailData['receiver'])
-            ->replyTo($mailData['email'])
-            ->subject($mailData['receiver'])
-            ->htmlTemplate($mailData['mailTemplate'])
-            ->context($mailData);
-
-            $mailer->send($email);
-            $this->addFlash(
-                'success',
-                'info.message.sended'
-            );
             $referer = $request->headers->get('referer');
-            return new RedirectResponse($referer);
-
+            if (null != $referer) {
+                return new RedirectResponse($referer);
+            }
+            return $this->redirectToRoute('homepage');
         }  catch (\Exception $e) {
             $this->addFlash(
                 'danger',
                 $e->getMessage()
             );
+            $this->addFlash(
+                'warning',
+                'mail.status.error'
+            );
             $referer = $request->headers->get('referer');
-            return new RedirectResponse($referer);
+            if (null != $referer) {
+                return new RedirectResponse($referer);
+            }
+            return $this->redirectToRoute('homepage');
         } 
         
     }
@@ -85,7 +90,7 @@ class MailerController extends AbstractController
      * 
      * @param Request $request
      * @param int $formId
-     * @return FormIModel $formModel
+     * @return FormModel $formModel
      * @return RedirectResponse
      */
     public function formVerificator(Request $request, int $formId)
@@ -97,7 +102,10 @@ class MailerController extends AbstractController
                 'error.form_not_exist'
             );
             $referer = $request->headers->get('referer');
-            return new RedirectResponse($referer);
+            if (null != $referer) {
+                return new RedirectResponse($referer);
+            }
+            return $this->redirectToRoute('homepage');
         }
         return $formModel;
     }

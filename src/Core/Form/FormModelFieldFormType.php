@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Core\Entity\FormModelField;
 
@@ -17,10 +19,14 @@ class FormModelFieldFormType extends AbstractType
     {     
         $builder
             ->add('label', TextType::class)
+            ->add('position', NumberType::class)
             ->add('defaultValue', TextType::class, [
                 'required'   => false
             ])
             ->add('placeholder', TextType::class, [
+                'required'   => false
+            ])
+            ->add('required', CheckboxType::class, [
                 'required'   => false
             ])
             ->add('options', TextType::class, [
