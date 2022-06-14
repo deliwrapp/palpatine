@@ -19,6 +19,7 @@ use App\Core\Repository\FileRepository;
 use App\Core\Form\PageBlockFormType;
 use App\Core\Factory\PageFactory;
 use App\Core\Factory\TemplateFactory;
+use App\Core\Factory\BlockFactory;
 
 /**
  * Class EditorPageBlockController
@@ -45,6 +46,9 @@ class EditorPageBlockController extends AbstractController
 
     /** @var TemplateFactory */
     private $tplFactory;
+    
+    /** @var BlockFactory */
+    private $blockFactory;
 
     public function __construct(
         PageRepository $pageRepo,
@@ -52,7 +56,8 @@ class EditorPageBlockController extends AbstractController
         PageBlockRepository $pageBlockRepo,
         FileRepository $fileRepo,
         PageFactory $pageFactory,
-        TemplateFactory $tplFactory
+        TemplateFactory $tplFactory,
+        BlockFactory $blockFactory
     )
     {
         $this->pageRepo = $pageRepo;
@@ -61,6 +66,7 @@ class EditorPageBlockController extends AbstractController
         $this->fileRepo = $fileRepo;
         $this->pageFactory = $pageFactory;
         $this->tplFactory = $tplFactory;
+        $this->blockFactory = $blockFactory;
     }
 
     /**
@@ -278,6 +284,10 @@ class EditorPageBlockController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                $pageBlock = $form->getData();
+                $options = $form->get('options')->getData();
+                $options = $this->blockFactory->setOptionsData($options);
+                $pageBlock->setOptions($options);
                 $this->pageBlockRepo->flush();
                 $this->addFlash(
                     'info',
@@ -302,7 +312,7 @@ class EditorPageBlockController extends AbstractController
                 $e->getMessage()
             );
             return $this->redirect($this->generateUrl('editor_page_list'));
-        }
+        } 
         
     }
 

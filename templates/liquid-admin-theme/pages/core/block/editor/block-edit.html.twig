@@ -1,5 +1,113 @@
 {% extends 'liquid-admin-theme/layout-admin.html.twig' %}
 
+{% form_theme form _self %}
+{% block _block_form_option_lists_widget %}
+    <section class="-flex -w-f -wrap options">
+        {% if form.vars.errors  %}
+            <p class="-w-f -t-bld">{{ form.vars.errors }}</p>
+        {% endif %}
+        {% if form.vars.help  %}
+            <p class="-w-f -t-bld">{{ form.vars.help }}</p>
+        {% endif %}
+        {% for child in form.vars.value %}
+            <section class="-flex -wrap -w-f opt -mb5">
+                <div class="col -col-4 -md6 -sm12 -xs12">
+                    <label 
+                        class="-t-c -t-bld -color-dark required" 
+                        for="block_form_options_{{loop.index}}_name"
+                    >
+                        {{ "name"|trans }}
+                    </label>
+                    <div class="form-element has-icon-right">
+                        <input 
+                            type="text"
+                            id="block_form_options_{{loop.index}}_name" 
+                            name="block_form[options][{{loop.index}}][name]" 
+                            required="required"
+                            class="form-field -shad-12-h"
+                            value="{{child.name}}"
+                        >
+                        <i class="form-icon fa-solid fa-heading"></i>
+                    </div>
+                </div>
+                    
+                <div class="col -col-6 -md6 -sm12 -xs12">
+                    <label 
+                        class="-t-c -t-bld -color-dark required" 
+                        for="block_form_options_{{loop.index}}_value"
+                    >
+                        {{ "value"|trans }}
+                    </label>
+                
+                    <div class="form-element has-icon-right">
+                        <input 
+                            type="text"
+                            id="block_form_options_{{loop.index}}_value"
+                            name="block_form[options][{{loop.index}}][value]"
+                            required="required" 
+                            class="form-field -shad-12-h"
+                            value="{{child.value}}"
+                        >
+                        <i class="form-icon fa-solid fa-info"></i>
+                    </div>
+                </div>
+            </section>
+        {% endfor %}
+    </section>
+{% endblock %}
+{% block _block_form_option_lists_entry_name_row %}
+    <div class="col -col-4 -md6 -sm12 -xs12">
+        {% block _block_form_option_lists_entry_name_label %}
+            <label class="-t-c -t-bld -color-dark required" for="block_form_options___name___name">{{ "name"|trans }}</label>
+        {% endblock %}
+        {% block _block_form_option_lists_entry_name_help %}
+            <span>{{ form.vars.help }}</span>
+        {% endblock %}
+        {% block _block_form_option_lists_entry_name_errors %}
+            <span>{{ form.vars.errors }}</span>
+        {% endblock %}
+
+        {% block _block_form_option_lists_entry_name_widget %}
+            <div class="form-element has-icon-right">
+                <input 
+                    type="text"
+                    id="block_form_options___name___name" 
+                    name="block_form[options][__name__][name]" 
+                    required="required"
+                    class="form-field -shad-12-h"
+                    value
+                >
+                <i class="form-icon fa-solid fa-heading"></i>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+{% block _block_form_option_lists_entry_value_row %}
+    <div class="col -col-6 -md6 -sm12 -xs12">
+        {% block _block_form_option_lists_entry_value_label %}
+            <label class="-t-c -t-bld -color-dark required" for="block_form_options___name___value">{{ "value"|trans }}</label>
+        {% endblock %}
+        {% block _block_form_option_lists_entry_value_help %}
+            <span>{{ form.vars.help }}</span>
+        {% endblock %}
+        {% block _block_form_option_lists_entry_value_errors %}
+            <span>{{ form.vars.errors }}</span>
+        {% endblock %}
+        {% block _block_form_option_lists_entry_value_widget %}
+            <div class="form-element has-icon-right">
+                <input 
+                    type="text"
+                    id="block_form_options___name___value"
+                    name="block_form[options][__name__][value]"
+                    required="required" 
+                    class="form-field -shad-12-h"
+                >
+                <i class="form-icon fa-solid fa-info"></i>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
 {% block title %}ADMIN BLOCK EDIT{% endblock %}
 
 {% block mainContent %}
@@ -21,6 +129,7 @@
                 {% endif %}
             {% endif %}
         </div>
+        
         {{ form_start(form, {'attr': {'class': '-w-f'}}) }}
             <section class="-panel-body -flex -wrap">
                 <div class="col -col-4 -md6 -sm12 -xs12">
@@ -103,6 +212,24 @@
                         <i class="form-icon fa-solid fa-question"></i>
                     </div>
                 </div>
+                
+                <div class="col -col-12">
+                    {{ form_label(form.options, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                    <small>{{ form_help(form.options) }}</small>
+                    {{ form_errors(form.options) }}
+                    <button type="button" class="add_option" data-collection-holder-class="options">Add an options</button>
+                    <div 
+                        class="-flex -w-f -wrap options"
+                        data-prototype="{{ form_widget(form.options.vars.prototype, {'attr': {'class': 'form-field -shad-12-h -w-f -flex -wrap'}})|e('html_attr') }}"
+                        data-index="{{ form.options|length > 0 ? form.options|length + 1 : 0 }}"
+                    >
+                        {{ form_widget(form.options, {'attr': {'class': 'form-field -shad-12-h -w-f -flex -wrap'}}) }}
+                        <hr>
+                        <p class="-t-u -t-bld"> {{"form.new_field"|trans}}
+                    </div>
+                </div>
                 <section class="col -col-12"> 
                     {{ form_label(form.content, null, {
                         'label_attr': {'class': '-t-c -t-bld -color-dark'}
@@ -119,6 +246,7 @@
                 {{ form_widget(form.submit, {'attr': {'class': '-t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl'}}) }}
             </section>
         {{ form_end(form) }}
+        
     </div>
 </section>
 
@@ -234,24 +362,62 @@
 {% endblock %}
 
 {% block javascripts %}
-  {{ parent() }}
-  <script src="{{ asset('assets/ckeditor-classic/ckeditor.js') }}"></script>
-  <script>
-    ClassicEditor
-        .create( document.querySelector( '.editor' ), {
-            removePlugins: ['Title'],
-            title: {
-                placeholder: ' '
-            },           
-        } )
-        .then( editor => {
-            window.editor = editor;          
-        } )
-        .catch( error => {
-            console.error( 'Oops, something went wrong!' );
-            console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
-            console.warn( 'Build id: urcmyxwt760y-t7k3khokxct7' );
-            console.error( error );
-        } );
+    {{ parent() }}
+    <script src="{{ asset('assets/ckeditor-classic/ckeditor.js') }}"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '.editor' ), {
+                removePlugins: ['Title'],
+                title: {
+                    placeholder: ' '
+                },           
+            } )
+            .then( editor => {
+                window.editor = editor;          
+            } )
+            .catch( error => {
+                console.error( 'Oops, something went wrong!' );
+                console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+                console.warn( 'Build id: urcmyxwt760y-t7k3khokxct7' );
+                console.error( error );
+            } );
+    </script>
+    
+    <script>
+        const addOptionFormDeleteLink = (item) => {
+            const removeFormButton = document.createElement('button');
+            removeFormButton.innerText = 'Delete this option';
+            item.append(removeFormButton);
+            removeFormButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                item.remove();
+            });
+        }
+        const addFormToCollection = (e) => {
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+            const item = document.createElement('section');
+            item.classList.add("-flex", "-wrap", "-w-f", "-mb5");
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    collectionHolder.dataset.index
+                );
+
+            collectionHolder.appendChild(item);
+            collectionHolder.dataset.index++;
+            addOptionFormDeleteLink(item);
+        };
+        document
+            .querySelectorAll('.add_option')
+            .forEach(btn => {
+                btn.addEventListener("click", addFormToCollection)
+            });
+        document
+            .querySelectorAll('.options .opt')
+            .forEach((opt) => {
+                addOptionFormDeleteLink(opt);
+            });
     </script>
 {% endblock %}

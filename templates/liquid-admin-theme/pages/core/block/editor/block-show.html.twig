@@ -12,7 +12,6 @@
 {% block title %}BLOCK SHOW{% endblock %}
 
 {% block mainContent %}
-
     {% if blockContainer is defined %}
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
             <section class="-shad-12 col -col-12 -row -fixed -bottom -z100">
@@ -35,7 +34,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% if blockContainer is defined and blockContainer is not null %}
+    {% if blockContainer is defined and blockContainer is not null %}    
         {% if blockContainer.blockTemplate and blockContainer.blockTemplate.scriptLink is defined and blockContainer.blockTemplate.scriptLink is not null %}
             {{ encore_entry_script_tags(blockContainer.blockTemplate.scriptLink) }}
         {% endif %}

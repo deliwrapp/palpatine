@@ -77,7 +77,12 @@ class PageBlock
      * @ORM\Column(type="text", nullable=true)
      */
     private $content;
-    
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $options = [];
+
     private $data;
     
     public function getId(): ?int
@@ -89,11 +94,9 @@ class PageBlock
     {
         return $this->page;
     }
-
     public function setPage(Page $page): self
     {
         $this->page = $page;
-
         return $this;
     }
 
@@ -101,11 +104,9 @@ class PageBlock
     {
         return $this->name;
     }
-
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -113,11 +114,9 @@ class PageBlock
     {
         return $this->query;
     }
-
     public function setQuery(?string $query): self
     {
         $this->query = $query;
-
         return $this;
     }
 
@@ -128,7 +127,6 @@ class PageBlock
     public function setSingleResult(?bool $singleResult): self
     {
         $this->singleResult = $singleResult;
-
         return $this;
     }
 
@@ -136,11 +134,9 @@ class PageBlock
     {
         return $this->blockTemplate;
     }
-
     public function setBlockTemplate(?Template $blockTemplate): self
     {
         $this->blockTemplate = $blockTemplate;
-
         return $this;
     }
 
@@ -148,11 +144,9 @@ class PageBlock
     {
         return $this->media;
     }
-
     public function setMedia(?File $media): self
     {
         $this->media = $media;
-
         return $this;
     }
 
@@ -160,11 +154,9 @@ class PageBlock
     {
         return $this->formModel;
     }
-
     public function setFormModel(?FormModel $formModel): self
     {
         $this->formModel = $formModel;
-
         return $this;
     }
 
@@ -175,7 +167,6 @@ class PageBlock
     public function setIsPublished(?bool $isPublished): self
     {
         $this->isPublished = $isPublished;
-
         return $this;
     }
 
@@ -186,7 +177,6 @@ class PageBlock
     public function setPosition(int $position): self
     {
         $this->position = $position;
-
         return $this;
     }
 
@@ -194,14 +184,11 @@ class PageBlock
     {
         return $this->content;
     }
-
     public function setContent(?string $content): self
     {
         $this->content = $content;
-
         return $this;
     }
-
     public function setContentToNull(): self
     {
         $this->content = null;
@@ -209,15 +196,27 @@ class PageBlock
         return $this;
     }
 
+    public function getOptions(): array
+    {
+        $options = $this->options;
+        if (null == $options) {
+            $options = [];
+        }
+        return $options;
+    }
+    public function setOptions(array $options): self
+    {
+        $this->options = $options;
+        return $this;
+    }
+
     public function getData()
     {
         return $this->data;
     }
-
     public function setData($data): self
     {
         $this->data = $data;
-
         return $this;
     }
 
@@ -229,6 +228,7 @@ class PageBlock
         $pageBlock->setSingleResult($this->singleResult);
         $pageBlock->setBlockTemplate($this->blockTemplate);
         $pageBlock->setMedia($this->media);
+        $pageBlock->setOptions($this->options);
         if ($full) {
             $pageBlock->setPosition($this->position);
         }
@@ -244,6 +244,7 @@ class PageBlock
         $block->setLocale($this->page->getLocale());
         $block->setBlockTemplate($this->blockTemplate);
         $block->setMedia($this->media);
+        $block->setOptions($this->options);
         return $block;
     }
 

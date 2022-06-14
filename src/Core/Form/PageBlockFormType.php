@@ -10,11 +10,13 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityRepository;
 use App\Core\Entity\PageBlock;
 use App\Core\Entity\Template;
 use App\Core\Entity\FormModel;
+use App\Core\Form\Type\OptionType;
 
 class PageBlockFormType extends AbstractType
 {
@@ -57,6 +59,13 @@ class PageBlockFormType extends AbstractType
             ])
             ->add('isPublished', CheckboxType::class, [
                 'required'   => false
+            ])
+            ->add('options', CollectionType::class, [
+                'allow_add' => true,
+                'allow_delete' => true,
+                'entry_type' => OptionType::class,
+                'label' => 'Options',
+                'block_name' => 'option_lists',
             ]);
             
         if ($options) {

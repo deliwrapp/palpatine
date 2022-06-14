@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -16,6 +17,7 @@ use Doctrine\ORM\EntityRepository;
 use App\Core\Entity\Block;
 use App\Core\Entity\Template;
 use App\Core\Entity\FormModel;
+use App\Core\Form\Type\OptionType;
 
 class BlockFormType extends AbstractType
 {
@@ -70,6 +72,13 @@ class BlockFormType extends AbstractType
             ])
             ->add('locale', ChoiceType::class, [
                 'choices'  => array_flip($localesList)
+            ])
+            ->add('options', CollectionType::class, [
+                'allow_add' => true,
+                'allow_delete' => true,
+                'entry_type' => OptionType::class,
+                'label' => 'Options',
+                'block_name' => 'option_lists',
             ]);
             
         if ($options) {

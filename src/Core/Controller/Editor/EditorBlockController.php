@@ -13,6 +13,7 @@ use App\Core\Entity\File;
 use App\Core\Repository\BlockRepository;
 use App\Core\Form\BlockFormType;
 use App\Core\Repository\FileRepository;
+use App\Core\Factory\BlockFactory;
 
 /**
  * Class EditorBlockController
@@ -26,15 +27,20 @@ class EditorBlockController extends AbstractController
     /** @var BlockRepository */
     private $blockRepo;
 
+    /** @var BlockFactory */
+    private $blockFactory;
+
     /** @var FileRepository */
     private $fileRepo;
 
     public function __construct(
         BlockRepository $blockRepo,
+        BlockFactory $blockFactory,
         FileRepository $fileRepo
     )
     {
         $this->blockRepo = $blockRepo;
+        $this->blockFactory = $blockFactory;
         $this->fileRepo = $fileRepo;
     }
 
@@ -141,7 +147,11 @@ class EditorBlockController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $block = $form->getData();
+                $options = $form->get('options')->getData();
+                $options = $this->blockFactory->setOptionsData($options);
+                $block->setOptions($options);
                 $this->blockRepo->flush();
+                /* dd($block->getOptions()); */
                 $this->addFlash(
                     'info',
                     'Block updated'
@@ -150,6 +160,7 @@ class EditorBlockController extends AbstractController
                     'id' => $block->getId()
                 ]));
             }
+            /* dd($form->createView()); */
             return $this->render(
                 '@core-admin/block/editor/block-edit.html.twig',
                 [
@@ -163,10 +174,9 @@ class EditorBlockController extends AbstractController
                 $e->getMessage()
             );
             return $this->redirect($this->generateUrl('editor_block_list'));
-        }  
+        }
     }
-
-    
+   
     /**
      * Block Add media to block
      * 

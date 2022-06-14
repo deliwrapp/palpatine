@@ -3,6 +3,7 @@
 namespace App\Core\Factory;
 
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Core\Repository\PageRepository;
 use App\Core\Repository\PageBlockRepository;
 use App\Core\Repository\BlockRepository;
@@ -27,12 +28,16 @@ class PageFactory
     /** @var ManagerRegistry */
     private $em;
 
+    /** @var SluggerInterface */
+    private $slugger;
+
     public function __construct(
         PageRepository $pageRepo,
         PageBlockRepository $pageBlockRepo, 
         BlockRepository $blockRepo, 
         PageVerificator $pageVerif,
-        ManagerRegistry $em
+        ManagerRegistry $em,
+        SluggerInterface $slugger
     )
     {
         $this->pageRepo = $pageRepo;
@@ -40,6 +45,7 @@ class PageFactory
         $this->blockRepo = $blockRepo;
         $this->pageVerif = $pageVerif;
         $this->em = $em->getManager();
+        $this->slugger = $slugger;
     }
 
     /**
@@ -56,7 +62,7 @@ class PageFactory
                 return 'ERROR :  - Duplicate Homepage with same Locale - ';
             }
         }
-        $page->setUrl($this->urlConverter($page->getname()));
+        $page->setUrl($this->slugger->slug($page->getname()));
         $page->setPageGroupId($this->pageGroupeInit());
         $page = $this->createFullPath($page);
         if ($record) {
@@ -88,7 +94,7 @@ class PageFactory
             $newPage = $page->duplicate($newPage);
             $newPage->setName($name);
             $newPage->setLocale($locale);
-            $newPage->setUrl($this->urlConverter($name));
+            $newPage->setUrl($this->slugger->slug($name));
             $newPage = $this->createFullPath($newPage);
             if ($page->getBlocks()) {
                 foreach ($page->getBlocks() as $pageBlock) {
