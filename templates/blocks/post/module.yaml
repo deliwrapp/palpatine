@@ -1,0 +1,4 @@
+name: 'post'
+type: 'block'
+description: 'A default post block'
+path: 'blocks/post'

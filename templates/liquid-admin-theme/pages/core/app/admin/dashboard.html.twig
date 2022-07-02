@@ -3,7 +3,7 @@
 {% block title %}ADMIN-{{'core.menu.admin_app_configuration'|trans}}{% endblock %}
 
 {% block mainContent %}
-<section class="col -col-12" id="post-list">
+<section class="col -col-12" id="dashboard-intro">
     <div class="-shad-12 -w-f">
         <h2 class="-text-center h4 -tertiary -pt2 -pb2">{{'core.menu.admin_app_configuration'|trans}}</h2>
         <section class="-flex -justify-space-around">
@@ -57,4 +57,211 @@
     </div>
 </section>
 
+<section class="col -col-6 -md4 -sm12 -xs12" id="user-manager">
+    <div class="tile -tile-compact -w-f -m0 -shad-12">
+        <div class="-tile-content">
+            <div class="-tile-title -t-bld">
+                {{'core.menu.module_upload'|trans}}
+            </div>
+            <div class="-tile-subtitle">
+                {{'core.menu.module_upload'|trans}}
+            </div>
+        </div>
+        <div class="-tile-action">
+            <a 
+                class="-modal-open btn -warning btn-link btn-block -btn-lg tooltip tooltip-left" 
+                href="#"
+                data-tooltip="{{'core.menu.module_upload'|trans}}"
+                data-modal-id="upload-module-modal",
+                data-modal-default="false",
+            >
+                <i class="fa-solid fa-plus fa-2x"></i> 
+            </a>
+        </div>
+    </div>
+</section>
+<hr>
+
+<section class="liquid-grid -w-f">
+    <div class="accordion -shad-12 -shad-16-h -w-f">
+        <input 
+            type="checkbox" 
+            id="accordion-field-form-core-module"
+            name="accordion-field-form-core-module"
+            hidden=""
+        >
+        <label class="-accordion-header" for="accordion-field-form-core-module">
+            <h2 class="-t-u h4 -text-center -danger -p2">{{'core.menu.core_modules_list'|trans}}</h2>
+        </label>
+        <div class="-accordion-body -flex -wrap -w-f">
+            {% if modulesInfo is defined %}
+                {% for module in modulesInfo.coreModules %}
+                    <section class="col -col-6 -md4 -sm12 -xs12">
+                        <div class="tile -tile-compact -w-f -m0 -shad-12">
+                            <div class="-tile-content">
+                                <div class="-tile-title -t-bld">
+                                    {{ module['name'] }} --  {{ module['type'] }}
+                                </div>
+                                <div class="-tile-subtitle">
+                                    {{ module['description'] }}
+                                </div>
+                            </div>
+                            <div class="-tile-action">
+                                <button 
+                                    class="btn -danger btn-link btn-block -btn-lg tooltip -tooltip-left"
+                                    data-tooltip="{{ module['name'] }}"
+                                >
+                                    <i class="fa-solid fa-lock fa-2x"></i> 
+                                </a>
+                            </button>
+                        </div>
+                    </section>  
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>    
+    
+    <div class="accordion -shad-12 -shad-16-h -w-f">
+        <input 
+            type="checkbox" 
+            id="accordion-field-form-extension-module"
+            name="accordion-field-form-extension-module"
+            hidden=""
+        >
+        <label class="-accordion-header" for="accordion-field-form-extension-module">
+            <h2 class="-t-u h4 -text-center -primary -p2">{{'core.menu.extensions_modules_list'|trans}}</h2>
+        </label>
+        <div class="-accordion-body -flex -wrap -w-f">
+            {% if modulesInfo is defined %}
+                {% for module in modulesInfo.extensionModules %}
+                    <section class="col -col-3 -md4 -sm12 -xs12">
+                        <div class="tile -tile-compact -w-f -m0 -shad-12">
+                            <div class="-tile-content">
+                                <div class="-tile-title -t-bld">
+                                    {{ module['name'] }} --  {{ module['type'] }}
+                                </div>
+                                <div class="-tile-subtitle">
+                                    {{ module['description'] }}
+                                </div>
+                            </div>
+                            <div class="-tile-action">
+                                <button 
+                                    class="btn -primary btn-link btn-block -btn-lg tooltip -tooltip-left"
+                                    data-tooltip="{{ module['name'] }}"
+                                >
+                                    <i class="fa-solid fa-cubes fa-2x"></i> 
+                                </a>
+                            </button>
+                        </div>
+                    </section>  
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>   
+
+    
+    <div class="accordion -shad-12 -shad-16-h -w-f">
+        <input 
+            type="checkbox" 
+            id="accordion-field-form-theme-module"
+            name="accordion-field-form-theme-module"
+            hidden=""
+        >
+        <label class="-accordion-header" for="accordion-field-form-theme-module">
+            <h2 class="-t-u h4 -text-center -secondary -p2">{{'core.menu.theme_modules_list'|trans}}</h2>
+        </label>
+        <div class="-accordion-body -flex -wrap -w-f">
+            {% if modulesInfo is defined %}
+                {% for module in modulesInfo.themeModules %}
+                    <section class="col -col-3 -md4 -sm12 -xs12">
+                        <div class="tile -tile-compact -w-f -m0 -shad-12">
+                            <div class="-tile-content">
+                                <div class="-tile-title -t-bld">
+                                    {{ module['name'] }} --  {{ module['type'] }}
+                                </div>
+                                <div class="-tile-subtitle">
+                                    {{ module['description'] }}
+                                </div>
+                            </div>
+                            <div class="-tile-action">
+                                <button 
+                                    class="btn -secondary btn-link btn-block -btn-lg tooltip -tooltip-left"
+                                    data-tooltip="{{ module['name'] }}"
+                                >
+                                    <i class="fa-solid fa-image fa-2x"></i> 
+                                </a>
+                            </button>
+                        </div>
+                    </section>  
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+            
+
+    <div class="accordion -shad-12 -shad-16-h -w-f">
+        <input 
+            type="checkbox" 
+            id="accordion-field-form-block-module"
+            name="accordion-field-form-block-module"
+            hidden=""
+        >
+        <label class="-accordion-header" for="accordion-field-form-block-module">
+            <h2 class="-t-u h4 -text-center -tertiary -p2">{{'core.menu.blocks_modules_list'|trans}}</h2>
+        </label>
+        <div class="-accordion-body -flex -wrap -w-f">
+            {% if modulesInfo is defined %}
+                {% for module in modulesInfo.blockModules %}
+                    <section class="col -col-3 -md4 -sm12 -xs12">
+                        <div class="tile -tile-compact -w-f -m0 -shad-12">
+                            <div class="-tile-content">
+                                <div class="-tile-title -t-bld">
+                                    {{ module['name'] }} --  {{ module['type'] }}
+                                </div>
+                                <div class="-tile-subtitle">
+                                    {{ module['description'] }}
+                                </div>
+                            </div>
+                            <div class="-tile-action">
+                                <button 
+                                    class="btn -tertiary btn-link btn-block -btn-lg tooltip -tooltip-left"
+                                    data-tooltip="{{ module['name'] }}"
+                                >
+                                    <i class="fa-solid fa-cube fa-2x"></i> 
+                                </a>
+                            </button>
+                        </div>
+                    </section>  
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="col -col-12 -top">
+    {% include 'liquid-ui/components/layout/modal/modal.html.twig' with {
+        'modalId': 'upload-module-modal',
+        'modalTitle': 'core.menu.module_upload',
+        'modalWidth': 'lg',
+        'modalHeight': 'sm',
+        'modalContent': 'liquid-admin-theme/pages/core/app/_module_upload_form.html.twig',
+        'modalContentData': {
+            'uploadModuleform': uploadModuleform
+        },
+        'modalCloseHandler': true
+    }
+    %} 
+</section>
+
+<section class="col -col-12 -top -z200">
+    {% include 'liquid-ui/components/layout/modal/modal.html.twig' with {
+        'modalId': 'install-process-info',
+        'modalWidth': 'fullwidth',
+        'modalHeight': 'fullheight',
+        'modalContent': 'liquid-admin-theme/pages/core/app/_install_process_info.html.twig',
+        'modalContentData': null,
+        'modalCloseHandler': false
+    }
+    %} 
+</section>
 {% endblock %}

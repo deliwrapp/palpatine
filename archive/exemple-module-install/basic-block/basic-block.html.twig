@@ -1,0 +1,152 @@
+{#
+// Variables
+- blockContainer : The Block Container -> overide all
+- title : Content -> default = null
+- content : Content -> default = null
+- data : Data -> default = null
+- media : Media to include -> default = null
+- options : Options
+- mediaDirection : Media Configuration -> default = 'left' | options: right/left/background
+- mediaContainerClass: The media Container Class
+- blockContentClass: The Block Content Class
+- titleShow: The Title Display -> default = true
+- titleColor: The Title Color
+- titleClass: The Title Class
+- ctaShow: The Call To Action Display -> default = true
+- ctaText: The Call To Action Text
+- ctaColor: The Call To Action Color
+- ctaBg: The Call To Action Background Color
+- ctaClass: The Call To Action Class
+- ctaLink: The Call To Action Link
+#}
+{% set mediaDirection = 'right' %}
+{% set titleShow = 'true' %}
+{% set titleColor = '-light' %}
+{% set titleClass = null %}
+{% set blockSizeClass = "col -col-12 -md12 -sm12 -xs12" %}
+{% set blockContentClass = null %}
+{% set ctaShow = false %}
+{% set ctaText = 'Click Me' %}
+{% set ctaColor = null %}
+{% set ctaBg = '-primary' %}
+{% set ctaClass = null %}
+{% set ctaLink = '#' %}
+
+{% if blockContainer is defined and blockContainer is not null %}
+    {% if blockContainer.name is defined and blockContainer.name is not null %}
+        {% set title = blockContainer.name %}
+    {% endif %}
+    {% if blockContainer.content is defined and blockContainer.content is not null %}
+        {% set content = blockContainer.content %}
+    {% endif %}
+    {% if blockContainer.data is defined and blockContainer.data is not null %}
+        {% set data = blockContainer.data %}
+    {% endif %}
+    {% if blockContainer.formModel is defined and blockContainer.formModel is not null %}
+        {% set formModel = blockContainer.data %}
+    {% endif %}
+    {% if blockContainer.options is defined and blockContainer.options is not null %}
+        {% set options = blockContainer.options %}
+    {% endif %}
+    {% if blockContainer.media is defined and blockContainer.media is not null %}
+        {% set media = blockContainer.media %}
+    {% endif %}
+{% endif %}
+{% if options is defined and options is not null %}
+    {% if options['media_direction'] is defined and options['media_direction'] is not null %}
+        {% set mediaDirection = options['media_direction']['value'] %}
+    {% endif %}
+    {% if options['title_show'] is defined and options['title_show'] is not null %}
+        {% set titleShow = options['title_show']['value'] %}
+    {% endif %}
+    {% if options['title_color'] is defined and options['title_color'] is not null %}
+        {% set titleColor = options['title_color']['value'] %}
+    {% endif %}
+    {% if options['title_class'] is defined and options['title_class'] is not null %}
+        {% set titleClass = options['title_class']['value'] %}
+    {% endif %}
+    {% if options['media_container_class'] is defined and options['media_container_class'] is not null %}
+        {% set mediaContainerClass = options['media_container_class']['value'] %}
+    {% endif %}
+    {% if options['block_content_class'] is defined and options['block_content_class'] is not null %}
+        {% set blockContentClass = options['block_content_class']['value'] %}
+    {% endif %}
+    {% if options['cta_show'] is defined and options['cta_show'] is not null %}
+        {% set ctaShow = options['cta_show']['value'] %}
+    {% endif %}
+    {% if options['cta_text'] is defined and options['cta_text'] is not null %}
+        {% set ctaText = options['cta_text']['value'] %}
+    {% endif %}
+    {% if options['cta_bg'] is defined and options['cta_bg'] is not null %}
+        {% set ctaBg = options['cta_bg']['value'] %}
+    {% endif %}
+    {% if options['cta_color'] is defined and options['cta_color'] is not null %}
+        {% set ctaColor = options['cta_color']['value'] %}
+    {% endif %}
+    {% if options['cta_class'] is defined and options['cta_class'] is not null %}
+        {% set ctaClass = options['cta_class']['value'] %}
+    {% endif %}
+    {% if options['cta_link'] is defined and options['cta_link'] is not null %}
+        {% set ctaLink = options['cta_link']['value'] %}
+    {% endif %}
+{% endif %}
+{% if mediaContainerClass is not defined %}
+    {% set mediaContainerClass =  mediaDirection == 'background' ? 
+        '-absolute -h-f -w-f  -bg-cover -bg-no-repeat -bg-center' : 
+        'col -col-6 -md12 -sm12 -xs12 -flex -justify-center -items-center'
+    %}
+{% endif %}
+
+<section 
+    class="liquid-grid {% if mediaDirection is defined and mediaDirection == "right" %}-row-reverse {% endif %}"
+>
+    {% if media is defined and media is not null %}
+        {% set mediaImgList = ['png', 'jpg', 'jpeg', 'gif', 'bmp'] %}
+        {% if media.ext in mediaImgList %}
+            {% set mediaPath = media.private ? path('serve_private_file', {'filename': media.originalFilename}) : asset(media.filePath) %}       
+            {% if mediaDirection is defined and mediaDirection == "background" %}
+                <section 
+                    class="-z1 {{mediaContainerClass}}" 
+                    style="background-image: url({{mediaPath}});"
+                >
+                </section>
+            {% endif %}
+            {% if mediaDirection is defined and mediaDirection == "left" or mediaDirection is defined and mediaDirection == "right" %}
+                {% set blockSizeClass = "col -col-6 -md12 -sm12 -xs12" %}
+                <section class="-z2 {{mediaContainerClass}}">
+                    {% set mediaImgList = ['png', 'jpg', 'jpeg', 'gif', 'bmp'] %}
+                    {% if media.ext in mediaImgList %}
+                        {% set mediaPath = media.private ? path('serve_private_file', {'filename': media.originalFilename}) : asset(media.filePath) %}
+                        <img class="img-responsive" src="{{mediaPath}}" alt="{{media.name}}"> 
+                    {% else %}
+                        <div class="file-icon file-icon-xl -m2" data-type="{{media.ext}}"></div>
+                    {% endif %}
+                </section>
+            {% endif %}  
+        {% endif %}        
+    {% endif %}
+    <section class="{{blockSizeClass}} -z2">
+        {% if title is defined and title is not null and titleShow == 'true' %}
+            <h2 class="-text-center {{titleColor}} {{titleClass}}">{{title}}</h2>
+        {% endif %}
+        
+        {% if content is defined and content is not null %}
+            {% if blockContentClass is defined and blockContentClass is not null %}
+                <section class="{{blockContentClass}}">
+            {% endif %}
+            {{content|raw}}
+            {% if blockContentClass is defined and blockContentClass is not null %}
+                </section>
+            {% endif %}
+        {% endif %}
+
+        {% if ctaShow == 'true' %}
+            <a 
+                class="btn {{ctaBg}} {{ctaColor}} {{ctaClass}}"
+                href="{{ctaLink}}"
+            >
+                {{ctaText}}
+            </a>
+        {% endif %}
+    </section>
+</section>

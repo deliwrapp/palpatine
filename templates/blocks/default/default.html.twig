@@ -1,52 +1,76 @@
 {#
-// Variables
-- content : Content
-- data : Data
-- formModel : FormModel
+    // Variables
+    - name : Name
+    - content : Content
+    - data : Data
+    - formModel : FormModel
 #}
 
+{% if blockContainer is defined and blockContainer is not null %}
+    {% if blockContainer.name is defined and blockContainer.name is not null %}
+        {% set name = blockContainer.name %}
+    {% endif %}
+    {% if blockContainer.content is defined and blockContainer.content is not null %}
+        {% set content = blockContainer.content %}
+    {% endif %}
+    {% if blockContainer.data is defined and blockContainer.data is not null %}
+        {% set data = blockContainer.data %}
+    {% endif %}
+    {% if blockContainer.formModel is defined and blockContainer.formModel is not null %}
+        {% set formModel = blockContainer.data %}
+    {% endif %}
+    {% if blockContainer.options is defined and blockContainer.options is not null %}
+        {% set options = blockContainer.options %}
+    {% endif %}
+    {% if blockContainer.media is defined and blockContainer.media is not null %}
+        {% set media = blockContainer.media %}
+    {% endif %}
+{% endif %}
+
 <section style="min-height: 3rem";>
+    {% if name is defined and name is not null %}
+        <h2>{{name}}</h2>
+    {% endif %}
     {% if content is defined and content is not null %}
         {{content|raw}}
     {% endif %}
     {% if data is defined and data is not null %}  
             <pre>
                 <code>
-                    {{dump(data)}}
+                    {{data|json_encode()|raw()}}
                 </code>
             </pre>
     {% endif %}
     {% if media is defined and media is not null %}
         <section class="-w-f">   
             <div class="card -shad-4 -shad-12-h">
-                {% set file = media %}
                 {% set mediaImgList = ['png', 'jpg', 'jpeg', 'gif', 'bmp'] %}
                 <div class="-card-image -flex -justify-space-evenly -items-center">
-                    {% if file.ext in mediaImgList %}
-                        {% set mediaPath = file.private ? path('serve_private_file', {'filename': file.originalFilename}) : asset(file.filePath) %}
-                        <img class="img-responsive" src="{{mediaPath}}" alt="{{file.name}}"> 
+                    {% if media.ext in mediaImgList %}
+                        {% set mediaPath = media.private ? path('serve_private_file', {'filename': media.originalFilename}) : asset(media.filePath) %}
+                        <img class="img-responsive" src="{{mediaPath}}" alt="{{media.name}}"> 
                     {% else %}
-                        <div class="file-icon file-icon-xl -m2" data-type="{{file.ext}}"></div>
+                        <div class="file-icon file-icon-xl -m2" data-type="{{media.ext}}"></div>
                     {% endif %}
-                    </div>
+                </div>
                 <div class="-card-header -pl3 -flex -flex-column -justify-space-evenly -items-center -wrap ">
                     <a
                         target="_blank"
-                        href="{{file.private ? path('serve_private_file', {'filename': file.originalFilename}) : asset(file.filePath)}}"
+                        href="{{media.private ? path('serve_private_file', {'filename': media.originalFilename}) : asset(media.filePath)}}"
                         class="-m0 -t-bld -t-tiny"
                     >
-                        {{ file.name ~ '.' ~ file.ext}}  
+                        {{ media.name ~ '.' ~ media.ext}}  
                     </a>
                     <div class="-subtitle text-gray -m0 -t-i -t-tiny">
-                        {{ file.private ? 'private':'public' }}
+                        {{ media.private ? 'private':'public' }}
                     </div>
                 </div>
                 <div class="-card-footer">
                     <div class="-flex -justify-space-evenly -items-center -wrap -shad-12 -pr2 -pl2 -w-f">
-                        {% if file.roleAccess is defined and file.roleAccess is not null %}
-                            {% if is_granted('ROLE_ADMIN') or is_granted(file.roleAccess) %}
+                        {% if media.roleAccess is defined and media.roleAccess is not null %}
+                            {% if is_granted('ROLE_ADMIN') or is_granted(media.roleAccess) %}
                                 {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
-                                    'path': file.private ? path('download_private_file', {'filename': file.originalFilename}) : asset(file.filePath),
+                                    'path': media.private ? path('download_private_file', {'filename': media.originalFilename}) : asset(media.filePath),
                                     'action': 'download',
                                     'tooltip': 'download file',
                                     'icon': 'fas fa-download'
@@ -54,7 +78,7 @@
                             {% endif %}
                         {% else %}
                             {% include 'liquid-ui/components/ui/buttons/btn-action.html.twig' with {
-                                'path': file.private ? path('download_private_file', {'filename': file.originalFilename}) : asset(file.filePath),
+                                'path': media.private ? path('download_private_file', {'filename': media.originalFilename}) : asset(media.filePath),
                                 'action': 'download',
                                 'tooltip': 'download file',
                                 'icon': 'fas fa-download'

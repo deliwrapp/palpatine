@@ -1,0 +1,61 @@
+name: 'basic-block'
+dir: 'basic-block'
+type: 'block'
+description: 'A basic block'
+template:
+    name: 'basic-block-2-tpl'
+    templatePath: 'blocks/basic-block/basic-block.html.twig'
+    cssLink: null
+    scriptLink: null
+    isPublished: true
+    type: 'block'
+block:
+    name: basic-block-2
+    query: null
+    singleResult: true
+    locale: fr
+    content: hello
+    options:
+        cta_bg:
+            name: cta bg
+            value: "-secondary"
+        cta_link:
+            name: cta link
+            value: "#"
+        cta_show:
+            name: cta show
+            value: 'true'
+        cta_text:
+            name: cta text
+            value: Click Me !!!
+        cta_class:
+            name: cta class
+            value: "-lg -m5"
+        cta_color:
+            name: cta color
+            value: "-white-color"
+        title_show:
+            name: title show
+            value: 'true'
+        title_class:
+            name: title class
+            value: "-t-u"
+        title_color:
+            name: title color
+            value: "-light"
+        media_direction:
+            name: media direction
+            value: left
+        block_content_class:
+            name: block content class
+            value: "-p10"
+scripts:
+    build: ['npm', 'run', build]
+afterCommands:
+    cache_clear_dev:
+        cmd: 'cache:clear'
+        env: 'dev'
+    cache_clear_prod:
+        cmd: 'cache:clear'
+        env: 'prod'
+        opts: null

@@ -1,0 +1,4 @@
+name: 'core'
+type: 'core'
+description: 'The Core Module of Bloogy'
+path: 'src/Core'

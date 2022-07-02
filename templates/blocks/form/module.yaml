@@ -1,0 +1,4 @@
+name: 'form'
+type: 'block'
+description: 'A default form block'
+path: 'blocks/form'

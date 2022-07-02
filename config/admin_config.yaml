@@ -55,6 +55,14 @@ secondary_menu:
                 icon: 'fas fa-dashboard'
                 transparent: true
             -
+                text: 'core.menu.app_manager'
+                path : null
+                icon: 'fas fa-cog'
+                transparent: true
+                subitems:
+                    - { text: 'core.menu.admin_app_configuration', path: 'admin_app_configuration_dashboard', icon: 'fas fa-cogs'}
+                    - { text: 'core.menu.system_access', path: 'admin_command_system_dashboard', icon: 'fas fa-terminal'}
+            -
                 text: 'core.menu.users'
                 path : null
                 icon: 'fas fa-users'
@@ -81,15 +89,7 @@ secondary_menu:
                     - { text: 'core.menu.data_manager', path: 'admin_data_manager', icon: 'fas fa-image'}
                     - { text: 'core.menu.files_list', path: 'admin_file_list', icon: 'fas fa-file'}
                     - { text: 'core.menu.folders_list', path: 'admin_folder_list', icon: 'fas fa-folder'}
-            -
-                text: 'core.menu.app_manager'
-                path : null
-                icon: 'fas fa-users'
-                transparent: true
-                subitems:
-                    - { text: 'core.menu.admin_app_configuration', path: 'admin_app_configuration_dashboard', icon: 'fas fa-cogs'}
-                    - { text: 'core.menu.system_access', path: 'admin_command_system_dashboard', icon: 'fas fa-terminal'}
-                           
+                        
     editor_menu:
         name: 'menu_secondary_editor'
         items:

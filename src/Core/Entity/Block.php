@@ -233,6 +233,28 @@ class Block implements ArrayAccess
         return $pageBlock;
     }
 
+    public function hydrate(Block $block, array $data): Block
+    {
+        $block->setName($data['name']);
+        $block->setLocale($data['locale']);
+        if (isset($data['query'])) {
+            $block->setQuery($data['query']);
+        }
+        if (isset($data['singleResult'])) {
+            $block->setSingleResult($data['singleResult']);
+        }
+        if (isset($data['blockTemplate'])) {
+            $block->setBlockTemplate($data['blockTemplate']);
+        }
+        if (isset($data['media'])) {
+            $block->setMedia($data['media']);
+        }
+        if (isset($data['options'])) {
+            $block->setOptions($data['options']);
+        }
+        return $block;
+    }
+
     public function offsetExists($offset) {
         $value = $this->{"get$offset"}();
         return $value !== null;

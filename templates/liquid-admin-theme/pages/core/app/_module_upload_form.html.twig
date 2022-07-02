@@ -1,0 +1,28 @@
+{% if uploadModuleform is defined and uploadModuleform is not null %}
+    {{ form_start(uploadModuleform, {'attr': {'class': '-w-f col'}}) }}
+        <section class="-flex -wrap -shad-2">
+            <div class="col -col-9 -md8 -sm12 -xs12">
+                <small>{{ form_help(uploadModuleform.upload_module) }}</small>
+                <small>{{ form_errors(uploadModuleform.upload_module) }}</small>
+                {{ form_label(uploadModuleform.upload_module, null, {
+                        'label_attr': {'class': '-t-c -t-bld -color-dark'}
+                    }) }}
+                <div class="form-element">
+                    <div class="form-file-field">
+                        <span class="file-btn">Choose file</span>
+                        <span class="file-msg">or drop files here</span>
+                        {{ form_widget(uploadModuleform.upload_module, {'attr': {'class': ' -shad-12'}}) }}
+                    </div>
+                </div>
+            </div>        
+            <div class="col -col-3 -md4 -sm12 -xs12 -m0">
+                {{ form_widget(uploadModuleform.submit, {'attr': {
+                    'class': '-modal-open -t-u -t-bld btn -primary -hover -block -shad-13 -shad-19-h -btn-bordered -b-rounded-xl',
+                    'data-modal-id':'install-process-info',
+                    'data-modal-default':'true',
+                    } }) 
+                }}
+            </div>
+        </section>
+    {{ form_end(uploadModuleform) }}
+{% endif %}

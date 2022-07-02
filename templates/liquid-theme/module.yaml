@@ -1,0 +1,4 @@
+name: 'liquid-theme'
+type: 'theme'
+description: 'Front Office Theme based on Liquid CSS'
+path: 'liquid-theme'

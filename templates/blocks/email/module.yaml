@@ -1,0 +1,4 @@
+name: 'email'
+type: 'block'
+description: 'A default email template'
+path: 'blocks/email'

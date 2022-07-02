@@ -1,0 +1,4 @@
+name: 'default'
+type: 'block'
+description: 'A default block'
+path: 'blocks/default'

@@ -12,13 +12,28 @@
 - post.img: Post Image
 #}
 
-{% if imgUrl is not defined %}  
-        {% set imgUrl = 'https://source.unsplash.com/f9C8ytxaItI/2000x1200' %}
+
+{% if blockContainer is defined and blockContainer is not null %}
+    {% if blockContainer.name is defined and blockContainer.name is not null %}
+        {% set name = blockContainer.name %}
+    {% endif %}
+    {% if blockContainer.content is defined and blockContainer.content is not null %}
+        {% set content = blockContainer.content %}
+    {% endif %}
+    {% if blockContainer.data is defined and blockContainer.data is not null %}
+        {% set post = blockContainer.data %}
+    {% endif %}
+    {% if blockContainer.formModel is defined and blockContainer.formModel is not null %}
+        {% set formModel = blockContainer.data %}
+    {% endif %}
+    {% if blockContainer.options is defined and blockContainer.options is not null %}
+        {% set options = blockContainer.options %}
+    {% endif %}
+    {% if blockContainer.media is defined and blockContainer.media is not null %}
+        {% set img = blockContainer.media %}
+    {% endif %}
 {% endif %}
 
-{% if data is defined and data is not null %}  
-        {% set post = data %}
-{% endif %}
 {% if color is not defined %}  
         {% set color = '-tertiary' %}
 {% endif %}
@@ -26,16 +41,18 @@
         {% set blockClass = '' %}
 {% endif %}
 
-{% if content is defined and content is not null %}
-    {{content|raw}}
-{% endif %}
-
 <section style="min-height: 3rem"; class="oldway-post {{blockClass}}">
     {% if post is defined %}
         <article class="post">
                 <div>
-                    {% if imgUrl is defined and imgUrl is not null %}  
-                        <div class="absolute-bg" style="background-image: url({{imgUrl}});"></div>
+                    {% if img is defined and img is not null %}
+                        {% set mediaImgList = ['png', 'jpg', 'jpeg', 'gif', 'bmp'] %}
+                        {% if img.ext in mediaImgList %}
+                            {% set mediaPath = img.private ? path('serve_private_file', {'filename': img.originalFilename}) : asset(img.filePath) %}
+                            <div class="absolute-bg" style="background-image: url({{mediaPath}});"></div>
+                        {% else %}
+                            <div class="absolute-bg file-icon file-icon-xl -m2" data-type="{{img.ext}}"></div>
+                        {% endif %}
                     {% endif %}
                 </div>
             <div class="post__container">

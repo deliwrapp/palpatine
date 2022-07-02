@@ -3,7 +3,7 @@
 {% block title %}BLOCKS LIST{% endblock %}
 
 {% block mainContent %}
-<section class="col -col-12  -mb10 -pb10" id="block-list">
+<section class="col -col-12 -mb10 -pb10" id="block-list">
     {% if blocks is defined and blocks is not empty %}
         {% include 'liquid-ui/components/layout/table/table.html.twig' with {
                 'tableHeadItems' : [

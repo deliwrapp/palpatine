@@ -1,0 +1,4 @@
+name: 'basic-block'
+type: 'block'
+description: 'A basic block based on Liquid CSS'
+path: 'blocks/basic-block'

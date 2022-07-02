@@ -26,6 +26,7 @@ class ConfigLoader
      *
      * @var string $path
      * @return Object|null $convertedYaml
+     * @return ParseException $e
      */
     public function getConfigFileConvertedInObject(string $path) {
         try {
@@ -33,7 +34,8 @@ class ConfigLoader
             return $convertedYaml;
         } catch (ParseException $e) {
             printf('Unable to parse the YAML string: %s', $e->getMessage());
-            return null;
+            throw $e;
+            /* return null; */
         }
         
     }

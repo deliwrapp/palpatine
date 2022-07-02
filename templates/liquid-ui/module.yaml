@@ -1,0 +1,4 @@
+name: 'liquid-ui'
+type: 'theme'
+description: 'Theme base for Liquid CSS'
+path: 'liquid-ui'

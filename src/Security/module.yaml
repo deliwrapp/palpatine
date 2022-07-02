@@ -1,0 +1,4 @@
+name: 'security'
+type: 'core'
+description: 'The Security Module of Bloogy'
+path: 'src/Security'

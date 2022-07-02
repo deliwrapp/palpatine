@@ -17,7 +17,7 @@
 
 .\-items-baseline  { align-items: baseline!important; }
 .\-items-center  { align-items: center!important; }
-.\--items-start  { align-items: flex-start!important; }
+.\-items-start  { align-items: flex-start!important; }
 .\-items-end  { align-items: flex-start!important; }
 .\-items-stretch  { align-items: stretch!important; }
 .\-items-unset  { align-items: unset!important; }

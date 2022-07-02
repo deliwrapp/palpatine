@@ -151,6 +151,20 @@ class Template implements ArrayAccess
         return $template;
     }
 
+    public function hydrate(Template $template, array $data): Template
+    {
+        $template->setName($data['name']);
+        $template->setTemplatePath($data['templatePath']);
+        $template->setType($data['type']);
+        if (isset($data['cssLink'])) {
+            $template->setCssLink($data['cssLink']);
+        }
+        if (isset($data['scriptLink'])) {
+            $template->setScriptLink($data['scriptLink']);
+        }
+        return $template;
+    }
+
     public function offsetExists($offset) {
         $value = $this->{"get$offset"}();
         return $value !== null;

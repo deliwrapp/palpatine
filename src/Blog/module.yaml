@@ -1,0 +1,4 @@
+name: 'blog'
+type: 'extension'
+description: 'The Blog Module for Bloogy'
+path: 'src/Blog'

@@ -13,11 +13,11 @@
                 {% for pageBlock in page.blocks|sort((a, b) => a.position <=> b.position) %}
                     <section  id="{{pageBlock.id}}" style="min-height: 3rem; {% if pageBlock.data is null and pageBlock.content is null  %} margin-bottom: -3rem;{% endif %}" class="-r">    
                         
-                        {% if pageBlock.blockTemplate is defined and pageBlock.blockTemplate is not null %}
-                            {% include pageBlock.blockTemplate.templatePath with {data: pageBlock.data, content: pageBlock.content, media: pageBlock.media, formModel: pageBlock.formModel} %}
+                        {% if pageBlock.blockTemplate is defined and pageBlock.blockTemplate is not null %} 
+                            {% include pageBlock.blockTemplate.templatePath with {blockContainer: pageBlock} %}
                         {% endif %}
                         
-                        <section class="-shad-12 -flex -justify-space-evenly -relative -bottom-3rm">
+                        <section class="-z5 -shad-12 -flex -justify-space-evenly -relative -bottom-3rm">
                             <a 
                                 class="btn tooltip -tooltip-top -danger btn btn-action s-circle -light -hover -shad-12 -shad-14-h" 
                                 data-tooltip="remove"

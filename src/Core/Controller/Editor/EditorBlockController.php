@@ -265,7 +265,7 @@ class EditorBlockController extends AbstractController
      */
     public function show(int $id): Response
     {
-        try {
+      /*   try { */
             $blockContainer = $this->blockVerificator($id);
             $data = $blockContainer->getQuery() ?
                 $this->blockRepo->getBlockData($blockContainer->getQuery(), $blockContainer->getSingleResult()) :
@@ -276,13 +276,13 @@ class EditorBlockController extends AbstractController
                 'blockContainer' => $blockContainer,
                 'data' => $data
             ]);
-        }  catch (\Exception $e) {
+     /*    }  catch (\Exception $e) {
             $this->addFlash(
                 'danger',
                 $e->getMessage()
             );
             return $this->redirect($this->generateUrl('editor_block_list'));
-        }  
+        }  */ 
     }
 
     /**

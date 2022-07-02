@@ -1,0 +1,4 @@
+name: 'liquid-admin-theme'
+type: 'theme'
+description: 'Admin Theme based on Liquid CSS'
+path: 'liquid-admin-theme'
